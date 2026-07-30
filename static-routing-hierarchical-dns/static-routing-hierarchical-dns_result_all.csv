@@ -1,0 +1,336 @@
+Test Description,Passed,Reason
+Check existence of `r1`,True,OK
+Check existence of `r2`,True,OK
+Check existence of `r3`,True,OK
+Check existence of `r4`,True,OK
+Check existence of `r5`,True,OK
+Check existence of `client`,True,OK
+Check existence of `dnsroot`,True,OK
+Check existence of `dnsorg`,True,OK
+Check existence of `dnslocal`,True,OK
+Check existence of `server`,True,OK
+Checking the collision domain attached to interface `eth0` of `r1`,True,OK
+Checking the collision domain attached to interface `eth1` of `r1`,True,OK
+Checking the collision domain attached to interface `eth2` of `r1`,True,OK
+Checking the collision domain attached to interface `eth3` of `r1`,True,OK
+Checking the collision domain attached to interface `eth0` of `r2`,True,OK
+Checking the collision domain attached to interface `eth1` of `r2`,True,OK
+Checking the collision domain attached to interface `eth2` of `r2`,True,OK
+Checking the collision domain attached to interface `eth0` of `r3`,True,OK
+Checking the collision domain attached to interface `eth1` of `r3`,True,OK
+Checking the collision domain attached to interface `eth2` of `r3`,True,OK
+Checking the collision domain attached to interface `eth0` of `r4`,True,OK
+Checking the collision domain attached to interface `eth1` of `r4`,True,OK
+Checking the collision domain attached to interface `eth2` of `r4`,True,OK
+Checking the collision domain attached to interface `eth0` of `r5`,True,OK
+Checking the collision domain attached to interface `eth1` of `r5`,True,OK
+Checking the collision domain attached to interface `eth2` of `r5`,True,OK
+Checking the collision domain attached to interface `eth3` of `r5`,True,OK
+Checking the collision domain attached to interface `eth0` of `client`,True,OK
+Checking the collision domain attached to interface `eth0` of `dnsroot`,True,OK
+Checking the collision domain attached to interface `eth0` of `dnsorg`,True,OK
+Checking the collision domain attached to interface `eth0` of `dnslocal`,True,OK
+Checking the collision domain attached to interface `eth0` of `server`,True,OK
+Check existence of `r1.startup` file,True,OK
+Check existence of `r2.startup` file,True,OK
+Check existence of `r3.startup` file,True,OK
+Check existence of `r4.startup` file,True,OK
+Check existence of `r5.startup` file,True,OK
+Check existence of `client.startup` file,True,OK
+Check existence of `dnsroot.startup` file,True,OK
+Check existence of `dnsorg.startup` file,True,OK
+Check existence of `dnslocal.startup` file,True,OK
+Check existence of `server.startup` file,True,OK
+Verifying the IP address (10.0.12.1/30) assigned to eth0 of r1,True,OK
+Verifying the IP address (10.0.13.1/30) assigned to eth1 of r1,True,OK
+Verifying the IP address (10.0.14.1/30) assigned to eth2 of r1,True,OK
+Verifying the IP address (10.10.1.1/24) assigned to eth3 of r1,True,OK
+Verifying the IP address (10.0.12.2/30) assigned to eth0 of r2,True,OK
+Verifying the IP address (10.0.25.1/30) assigned to eth1 of r2,True,OK
+Verifying the IP address (10.10.2.1/24) assigned to eth2 of r2,True,OK
+Verifying the IP address (10.0.13.2/30) assigned to eth0 of r3,True,OK
+Verifying the IP address (10.0.35.1/30) assigned to eth1 of r3,True,OK
+Verifying the IP address (10.10.3.1/24) assigned to eth2 of r3,True,OK
+Verifying the IP address (10.0.14.2/30) assigned to eth0 of r4,True,OK
+Verifying the IP address (10.0.45.1/30) assigned to eth1 of r4,True,OK
+Verifying the IP address (10.10.4.1/24) assigned to eth2 of r4,True,OK
+Verifying the IP address (10.0.25.2/30) assigned to eth0 of r5,True,OK
+Verifying the IP address (10.0.35.2/30) assigned to eth1 of r5,True,OK
+Verifying the IP address (10.0.45.2/30) assigned to eth2 of r5,True,OK
+Verifying the IP address (10.10.5.1/24) assigned to eth3 of r5,True,OK
+Verifying the IP address (10.10.1.10/24) assigned to eth0 of client,True,OK
+Verifying the IP address (10.10.2.10/24) assigned to eth0 of dnsroot,True,OK
+Verifying the IP address (10.10.3.10/24) assigned to eth0 of dnsorg,True,OK
+Verifying the IP address (10.10.4.10/24) assigned to eth0 of dnslocal,True,OK
+Verifying the IP address (10.10.5.10/24) assigned to eth0 of server,True,OK
+Verifying `10.0.12.1` reachable from device `r1`,True,OK
+Verifying `10.0.12.2` reachable from device `r1`,True,OK
+Verifying `10.0.13.1` reachable from device `r1`,True,OK
+Verifying `10.0.13.2` reachable from device `r1`,True,OK
+Verifying `10.0.14.1` reachable from device `r1`,True,OK
+Verifying `10.0.14.2` reachable from device `r1`,True,OK
+Verifying `10.0.25.1` reachable from device `r1`,True,OK
+Verifying `10.0.25.2` reachable from device `r1`,True,OK
+Verifying `10.0.35.1` reachable from device `r1`,True,OK
+Verifying `10.0.35.2` reachable from device `r1`,True,OK
+Verifying `10.0.45.1` reachable from device `r1`,True,OK
+Verifying `10.0.45.2` reachable from device `r1`,True,OK
+Verifying `10.10.1.1` reachable from device `r1`,True,OK
+Verifying `10.10.1.10` reachable from device `r1`,True,OK
+Verifying `10.10.2.1` reachable from device `r1`,True,OK
+Verifying `10.10.2.10` reachable from device `r1`,True,OK
+Verifying `10.10.3.1` reachable from device `r1`,True,OK
+Verifying `10.10.3.10` reachable from device `r1`,True,OK
+Verifying `10.10.4.1` reachable from device `r1`,True,OK
+Verifying `10.10.4.10` reachable from device `r1`,True,OK
+Verifying `10.10.5.1` reachable from device `r1`,True,OK
+Verifying `10.10.5.10` reachable from device `r1`,True,OK
+Verifying `10.0.12.1` reachable from device `r2`,True,OK
+Verifying `10.0.12.2` reachable from device `r2`,True,OK
+Verifying `10.0.13.1` reachable from device `r2`,True,OK
+Verifying `10.0.13.2` reachable from device `r2`,True,OK
+Verifying `10.0.14.1` reachable from device `r2`,True,OK
+Verifying `10.0.14.2` reachable from device `r2`,True,OK
+Verifying `10.0.25.1` reachable from device `r2`,True,OK
+Verifying `10.0.25.2` reachable from device `r2`,True,OK
+Verifying `10.0.35.1` reachable from device `r2`,True,OK
+Verifying `10.0.35.2` reachable from device `r2`,True,OK
+Verifying `10.0.45.1` reachable from device `r2`,True,OK
+Verifying `10.0.45.2` reachable from device `r2`,True,OK
+Verifying `10.10.1.1` reachable from device `r2`,True,OK
+Verifying `10.10.1.10` reachable from device `r2`,True,OK
+Verifying `10.10.2.1` reachable from device `r2`,True,OK
+Verifying `10.10.2.10` reachable from device `r2`,True,OK
+Verifying `10.10.3.1` reachable from device `r2`,True,OK
+Verifying `10.10.3.10` reachable from device `r2`,True,OK
+Verifying `10.10.4.1` reachable from device `r2`,True,OK
+Verifying `10.10.4.10` reachable from device `r2`,True,OK
+Verifying `10.10.5.1` reachable from device `r2`,True,OK
+Verifying `10.10.5.10` reachable from device `r2`,True,OK
+Verifying `10.0.12.1` reachable from device `r3`,True,OK
+Verifying `10.0.12.2` reachable from device `r3`,True,OK
+Verifying `10.0.13.1` reachable from device `r3`,True,OK
+Verifying `10.0.13.2` reachable from device `r3`,True,OK
+Verifying `10.0.14.1` reachable from device `r3`,True,OK
+Verifying `10.0.14.2` reachable from device `r3`,True,OK
+Verifying `10.0.25.1` reachable from device `r3`,True,OK
+Verifying `10.0.25.2` reachable from device `r3`,True,OK
+Verifying `10.0.35.1` reachable from device `r3`,True,OK
+Verifying `10.0.35.2` reachable from device `r3`,True,OK
+Verifying `10.0.45.1` reachable from device `r3`,True,OK
+Verifying `10.0.45.2` reachable from device `r3`,True,OK
+Verifying `10.10.1.1` reachable from device `r3`,True,OK
+Verifying `10.10.1.10` reachable from device `r3`,True,OK
+Verifying `10.10.2.1` reachable from device `r3`,True,OK
+Verifying `10.10.2.10` reachable from device `r3`,True,OK
+Verifying `10.10.3.1` reachable from device `r3`,True,OK
+Verifying `10.10.3.10` reachable from device `r3`,True,OK
+Verifying `10.10.4.1` reachable from device `r3`,True,OK
+Verifying `10.10.4.10` reachable from device `r3`,True,OK
+Verifying `10.10.5.1` reachable from device `r3`,True,OK
+Verifying `10.10.5.10` reachable from device `r3`,True,OK
+Verifying `10.0.12.1` reachable from device `r4`,True,OK
+Verifying `10.0.12.2` reachable from device `r4`,True,OK
+Verifying `10.0.13.1` reachable from device `r4`,True,OK
+Verifying `10.0.13.2` reachable from device `r4`,True,OK
+Verifying `10.0.14.1` reachable from device `r4`,True,OK
+Verifying `10.0.14.2` reachable from device `r4`,True,OK
+Verifying `10.0.25.1` reachable from device `r4`,True,OK
+Verifying `10.0.25.2` reachable from device `r4`,True,OK
+Verifying `10.0.35.1` reachable from device `r4`,True,OK
+Verifying `10.0.35.2` reachable from device `r4`,True,OK
+Verifying `10.0.45.1` reachable from device `r4`,True,OK
+Verifying `10.0.45.2` reachable from device `r4`,True,OK
+Verifying `10.10.1.1` reachable from device `r4`,True,OK
+Verifying `10.10.1.10` reachable from device `r4`,True,OK
+Verifying `10.10.2.1` reachable from device `r4`,True,OK
+Verifying `10.10.2.10` reachable from device `r4`,True,OK
+Verifying `10.10.3.1` reachable from device `r4`,True,OK
+Verifying `10.10.3.10` reachable from device `r4`,True,OK
+Verifying `10.10.4.1` reachable from device `r4`,True,OK
+Verifying `10.10.4.10` reachable from device `r4`,True,OK
+Verifying `10.10.5.1` reachable from device `r4`,True,OK
+Verifying `10.10.5.10` reachable from device `r4`,True,OK
+Verifying `10.0.12.1` reachable from device `r5`,True,OK
+Verifying `10.0.12.2` reachable from device `r5`,True,OK
+Verifying `10.0.13.1` reachable from device `r5`,True,OK
+Verifying `10.0.13.2` reachable from device `r5`,True,OK
+Verifying `10.0.14.1` reachable from device `r5`,True,OK
+Verifying `10.0.14.2` reachable from device `r5`,True,OK
+Verifying `10.0.25.1` reachable from device `r5`,True,OK
+Verifying `10.0.25.2` reachable from device `r5`,True,OK
+Verifying `10.0.35.1` reachable from device `r5`,True,OK
+Verifying `10.0.35.2` reachable from device `r5`,True,OK
+Verifying `10.0.45.1` reachable from device `r5`,True,OK
+Verifying `10.0.45.2` reachable from device `r5`,True,OK
+Verifying `10.10.1.1` reachable from device `r5`,True,OK
+Verifying `10.10.1.10` reachable from device `r5`,True,OK
+Verifying `10.10.2.1` reachable from device `r5`,True,OK
+Verifying `10.10.2.10` reachable from device `r5`,True,OK
+Verifying `10.10.3.1` reachable from device `r5`,True,OK
+Verifying `10.10.3.10` reachable from device `r5`,True,OK
+Verifying `10.10.4.1` reachable from device `r5`,True,OK
+Verifying `10.10.4.10` reachable from device `r5`,True,OK
+Verifying `10.10.5.1` reachable from device `r5`,True,OK
+Verifying `10.10.5.10` reachable from device `r5`,True,OK
+Verifying `10.0.12.1` reachable from device `client`,True,OK
+Verifying `10.0.12.2` reachable from device `client`,True,OK
+Verifying `10.0.13.1` reachable from device `client`,True,OK
+Verifying `10.0.13.2` reachable from device `client`,True,OK
+Verifying `10.0.14.1` reachable from device `client`,True,OK
+Verifying `10.0.14.2` reachable from device `client`,True,OK
+Verifying `10.0.25.1` reachable from device `client`,True,OK
+Verifying `10.0.25.2` reachable from device `client`,True,OK
+Verifying `10.0.35.1` reachable from device `client`,True,OK
+Verifying `10.0.35.2` reachable from device `client`,True,OK
+Verifying `10.0.45.1` reachable from device `client`,True,OK
+Verifying `10.0.45.2` reachable from device `client`,True,OK
+Verifying `10.10.1.1` reachable from device `client`,True,OK
+Verifying `10.10.1.10` reachable from device `client`,True,OK
+Verifying `10.10.2.1` reachable from device `client`,True,OK
+Verifying `10.10.2.10` reachable from device `client`,True,OK
+Verifying `10.10.3.1` reachable from device `client`,True,OK
+Verifying `10.10.3.10` reachable from device `client`,True,OK
+Verifying `10.10.4.1` reachable from device `client`,True,OK
+Verifying `10.10.4.10` reachable from device `client`,True,OK
+Verifying `10.10.5.1` reachable from device `client`,True,OK
+Verifying `10.10.5.10` reachable from device `client`,True,OK
+Verifying `kathara.org` reachable from device `client`,True,OK
+Verifying `10.0.12.1` reachable from device `dnsroot`,True,OK
+Verifying `10.0.12.2` reachable from device `dnsroot`,True,OK
+Verifying `10.0.13.1` reachable from device `dnsroot`,True,OK
+Verifying `10.0.13.2` reachable from device `dnsroot`,True,OK
+Verifying `10.0.14.1` reachable from device `dnsroot`,True,OK
+Verifying `10.0.14.2` reachable from device `dnsroot`,True,OK
+Verifying `10.0.25.1` reachable from device `dnsroot`,True,OK
+Verifying `10.0.25.2` reachable from device `dnsroot`,True,OK
+Verifying `10.0.35.1` reachable from device `dnsroot`,True,OK
+Verifying `10.0.35.2` reachable from device `dnsroot`,True,OK
+Verifying `10.0.45.1` reachable from device `dnsroot`,True,OK
+Verifying `10.0.45.2` reachable from device `dnsroot`,True,OK
+Verifying `10.10.1.1` reachable from device `dnsroot`,True,OK
+Verifying `10.10.1.10` reachable from device `dnsroot`,True,OK
+Verifying `10.10.2.1` reachable from device `dnsroot`,True,OK
+Verifying `10.10.2.10` reachable from device `dnsroot`,True,OK
+Verifying `10.10.3.1` reachable from device `dnsroot`,True,OK
+Verifying `10.10.3.10` reachable from device `dnsroot`,True,OK
+Verifying `10.10.4.1` reachable from device `dnsroot`,True,OK
+Verifying `10.10.4.10` reachable from device `dnsroot`,True,OK
+Verifying `10.10.5.1` reachable from device `dnsroot`,True,OK
+Verifying `10.10.5.10` reachable from device `dnsroot`,True,OK
+Verifying `10.0.12.1` reachable from device `dnsorg`,True,OK
+Verifying `10.0.12.2` reachable from device `dnsorg`,True,OK
+Verifying `10.0.13.1` reachable from device `dnsorg`,True,OK
+Verifying `10.0.13.2` reachable from device `dnsorg`,True,OK
+Verifying `10.0.14.1` reachable from device `dnsorg`,True,OK
+Verifying `10.0.14.2` reachable from device `dnsorg`,True,OK
+Verifying `10.0.25.1` reachable from device `dnsorg`,True,OK
+Verifying `10.0.25.2` reachable from device `dnsorg`,True,OK
+Verifying `10.0.35.1` reachable from device `dnsorg`,True,OK
+Verifying `10.0.35.2` reachable from device `dnsorg`,True,OK
+Verifying `10.0.45.1` reachable from device `dnsorg`,True,OK
+Verifying `10.0.45.2` reachable from device `dnsorg`,True,OK
+Verifying `10.10.1.1` reachable from device `dnsorg`,True,OK
+Verifying `10.10.1.10` reachable from device `dnsorg`,True,OK
+Verifying `10.10.2.1` reachable from device `dnsorg`,True,OK
+Verifying `10.10.2.10` reachable from device `dnsorg`,True,OK
+Verifying `10.10.3.1` reachable from device `dnsorg`,True,OK
+Verifying `10.10.3.10` reachable from device `dnsorg`,True,OK
+Verifying `10.10.4.1` reachable from device `dnsorg`,True,OK
+Verifying `10.10.4.10` reachable from device `dnsorg`,True,OK
+Verifying `10.10.5.1` reachable from device `dnsorg`,True,OK
+Verifying `10.10.5.10` reachable from device `dnsorg`,True,OK
+Verifying `10.0.12.1` reachable from device `dnslocal`,True,OK
+Verifying `10.0.12.2` reachable from device `dnslocal`,True,OK
+Verifying `10.0.13.1` reachable from device `dnslocal`,True,OK
+Verifying `10.0.13.2` reachable from device `dnslocal`,True,OK
+Verifying `10.0.14.1` reachable from device `dnslocal`,True,OK
+Verifying `10.0.14.2` reachable from device `dnslocal`,True,OK
+Verifying `10.0.25.1` reachable from device `dnslocal`,True,OK
+Verifying `10.0.25.2` reachable from device `dnslocal`,True,OK
+Verifying `10.0.35.1` reachable from device `dnslocal`,True,OK
+Verifying `10.0.35.2` reachable from device `dnslocal`,True,OK
+Verifying `10.0.45.1` reachable from device `dnslocal`,True,OK
+Verifying `10.0.45.2` reachable from device `dnslocal`,True,OK
+Verifying `10.10.1.1` reachable from device `dnslocal`,True,OK
+Verifying `10.10.1.10` reachable from device `dnslocal`,True,OK
+Verifying `10.10.2.1` reachable from device `dnslocal`,True,OK
+Verifying `10.10.2.10` reachable from device `dnslocal`,True,OK
+Verifying `10.10.3.1` reachable from device `dnslocal`,True,OK
+Verifying `10.10.3.10` reachable from device `dnslocal`,True,OK
+Verifying `10.10.4.1` reachable from device `dnslocal`,True,OK
+Verifying `10.10.4.10` reachable from device `dnslocal`,True,OK
+Verifying `10.10.5.1` reachable from device `dnslocal`,True,OK
+Verifying `10.10.5.10` reachable from device `dnslocal`,True,OK
+Verifying `10.0.12.1` reachable from device `server`,True,OK
+Verifying `10.0.12.2` reachable from device `server`,True,OK
+Verifying `10.0.13.1` reachable from device `server`,True,OK
+Verifying `10.0.13.2` reachable from device `server`,True,OK
+Verifying `10.0.14.1` reachable from device `server`,True,OK
+Verifying `10.0.14.2` reachable from device `server`,True,OK
+Verifying `10.0.25.1` reachable from device `server`,True,OK
+Verifying `10.0.25.2` reachable from device `server`,True,OK
+Verifying `10.0.35.1` reachable from device `server`,True,OK
+Verifying `10.0.35.2` reachable from device `server`,True,OK
+Verifying `10.0.45.1` reachable from device `server`,True,OK
+Verifying `10.0.45.2` reachable from device `server`,True,OK
+Verifying `10.10.1.1` reachable from device `server`,True,OK
+Verifying `10.10.1.10` reachable from device `server`,True,OK
+Verifying `10.10.2.1` reachable from device `server`,True,OK
+Verifying `10.10.2.10` reachable from device `server`,True,OK
+Verifying `10.10.3.1` reachable from device `server`,True,OK
+Verifying `10.10.3.10` reachable from device `server`,True,OK
+Verifying `10.10.4.1` reachable from device `server`,True,OK
+Verifying `10.10.4.10` reachable from device `server`,True,OK
+Verifying `10.10.5.1` reachable from device `server`,True,OK
+Verifying `10.10.5.10` reachable from device `server`,True,OK
+Checking that bgpd is not running on device `r1`,True,OK
+Checking that ripd is not running on device `r1`,True,OK
+Checking that ospfd is not running on device `r1`,True,OK
+Checking that bgpd is not running on device `r2`,True,OK
+Checking that ripd is not running on device `r2`,True,OK
+Checking that ospfd is not running on device `r2`,True,OK
+Checking that bgpd is not running on device `r3`,True,OK
+Checking that ripd is not running on device `r3`,True,OK
+Checking that ospfd is not running on device `r3`,True,OK
+Checking that bgpd is not running on device `r4`,True,OK
+Checking that ripd is not running on device `r4`,True,OK
+Checking that ospfd is not running on device `r4`,True,OK
+Checking that bgpd is not running on device `r5`,True,OK
+Checking that ripd is not running on device `r5`,True,OK
+Checking that ospfd is not running on device `r5`,True,OK
+Checking that named is not running on device `client`,True,OK
+Checking that named is running on device `dnsroot`,True,OK
+Checking that named is running on device `dnsorg`,True,OK
+Checking that named is running on device `dnslocal`,True,OK
+Checking that apache2 is running on device `server`,True,OK
+Checking the routing table of r1,True,OK
+Checking the routing table of r2,True,OK
+Checking the routing table of r3,True,OK
+Checking the routing table of r4,True,OK
+Checking the routing table of r5,True,OK
+Checking the routing table of client,True,OK
+Checking the routing table of dnsroot,True,OK
+Checking the routing table of dnsorg,True,OK
+Checking the routing table of dnslocal,True,OK
+Checking the routing table of server,True,OK
+Checking on `dnsroot` that `10.10.2.10` is the authority for domain `.`,True,OK
+Checking on `dnsroot` that `10.10.2.10` is the authority for domain `.`,True,OK
+Checking on `dnsroot` that `10.10.2.10` is the authority for domain `.`,True,OK
+Checking on `dnsorg` that `10.10.3.10` is the authority for domain `org`,True,OK
+Checking on `dnslocal` that `10.10.4.10` is the authority for domain `kathara.org`,True,OK
+Checking that `10.10.2.10` is the local name server for device `client`,True,OK
+Checking correctness of DNS records,True,OK
+Checking correctness of DNS records,True,OK
+Checking correctness of DNS records,True,OK
+Checking correctness of DNS records,True,OK
+Checking correctness of DNS records,True,OK
+Checking correctness of DNS records,True,OK
+Checking correctness of DNS records,True,OK
+HTTP check 'http://kathara.org/' on client status,True,HTTP 200 == 200
+HTTP check 'http://kathara.org/' on client body substring 'Static routing and hierarchical DNS are working.',True,OK
+Checking the output of the command 'sysctl net.ipv4.ip_forward' on 'r1',True,OK
+Checking the output of the command 'sysctl net.ipv4.ip_forward' on 'r2',True,OK
+Checking the output of the command 'sysctl net.ipv4.ip_forward' on 'r3',True,OK
+Checking the output of the command 'sysctl net.ipv4.ip_forward' on 'r4',True,OK
+Checking the output of the command 'sysctl net.ipv4.ip_forward' on 'r5',True,OK
