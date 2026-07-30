@@ -1,0 +1,324 @@
+Test Description,Passed,Reason
+Check existence of `r1`,True,OK
+Check existence of `r2`,True,OK
+Check existence of `r3`,True,OK
+Check existence of `pc1_1`,True,OK
+Check existence of `pc1_2`,True,OK
+Check existence of `pc1_3`,True,OK
+Check existence of `pc1_4`,True,OK
+Check existence of `pc1_5`,True,OK
+Check existence of `pc2_1`,True,OK
+Check existence of `pc2_2`,True,OK
+Check existence of `pc2_3`,True,OK
+Check existence of `pc2_4`,True,OK
+Check existence of `pc2_5`,True,OK
+Check existence of `pc3_1`,True,OK
+Check existence of `pc3_2`,True,OK
+Check existence of `pc3_3`,True,OK
+Check existence of `pc3_4`,True,OK
+Check existence of `pc3_5`,True,OK
+Checking the collision domain attached to interface `eth0` of `r1`,True,OK
+Checking the collision domain attached to interface `eth1` of `r1`,True,OK
+Checking the collision domain attached to interface `eth0` of `r2`,True,OK
+Checking the collision domain attached to interface `eth1` of `r2`,True,OK
+Checking the collision domain attached to interface `eth2` of `r2`,True,OK
+Checking the collision domain attached to interface `eth0` of `r3`,True,OK
+Checking the collision domain attached to interface `eth1` of `r3`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc1_1`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc1_2`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc1_3`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc1_4`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc1_5`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc2_1`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc2_2`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc2_3`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc2_4`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc2_5`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc3_1`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc3_2`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc3_3`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc3_4`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc3_5`,True,OK
+Check existence of `r1.startup` file,True,OK
+Check existence of `r2.startup` file,True,OK
+Check existence of `r3.startup` file,True,OK
+Check existence of `pc1_1.startup` file,True,OK
+Check existence of `pc1_2.startup` file,True,OK
+Check existence of `pc1_3.startup` file,True,OK
+Check existence of `pc1_4.startup` file,True,OK
+Check existence of `pc1_5.startup` file,True,OK
+Check existence of `pc2_1.startup` file,True,OK
+Check existence of `pc2_2.startup` file,True,OK
+Check existence of `pc2_3.startup` file,True,OK
+Check existence of `pc2_4.startup` file,True,OK
+Check existence of `pc2_5.startup` file,True,OK
+Check existence of `pc3_1.startup` file,True,OK
+Check existence of `pc3_2.startup` file,True,OK
+Check existence of `pc3_3.startup` file,True,OK
+Check existence of `pc3_4.startup` file,True,OK
+Check existence of `pc3_5.startup` file,True,OK
+Verifying the IP address (10.1.1.1/24) assigned to eth0 of r1,True,OK
+Verifying the IP address (10.0.12.1/30) assigned to eth1 of r1,True,OK
+Verifying the IP address (10.2.2.1/24) assigned to eth0 of r2,True,OK
+Verifying the IP address (10.0.12.2/30) assigned to eth1 of r2,True,OK
+Verifying the IP address (10.0.23.1/30) assigned to eth2 of r2,True,OK
+Verifying the IP address (10.3.3.1/24) assigned to eth0 of r3,True,OK
+Verifying the IP address (10.0.23.2/30) assigned to eth1 of r3,True,OK
+Verifying the IP address (10.1.1.11/24) assigned to eth0 of pc1_1,True,OK
+Verifying the IP address (10.1.1.12/24) assigned to eth0 of pc1_2,True,OK
+Verifying the IP address (10.1.1.13/24) assigned to eth0 of pc1_3,True,OK
+Verifying the IP address (10.1.1.14/24) assigned to eth0 of pc1_4,True,OK
+Verifying the IP address (10.1.1.15/24) assigned to eth0 of pc1_5,True,OK
+Verifying the IP address (10.2.2.11/24) assigned to eth0 of pc2_1,True,OK
+Verifying the IP address (10.2.2.12/24) assigned to eth0 of pc2_2,True,OK
+Verifying the IP address (10.2.2.13/24) assigned to eth0 of pc2_3,True,OK
+Verifying the IP address (10.2.2.14/24) assigned to eth0 of pc2_4,True,OK
+Verifying the IP address (10.2.2.15/24) assigned to eth0 of pc2_5,True,OK
+Verifying the IP address (10.3.3.11/24) assigned to eth0 of pc3_1,True,OK
+Verifying the IP address (10.3.3.12/24) assigned to eth0 of pc3_2,True,OK
+Verifying the IP address (10.3.3.13/24) assigned to eth0 of pc3_3,True,OK
+Verifying the IP address (10.3.3.14/24) assigned to eth0 of pc3_4,True,OK
+Verifying the IP address (10.3.3.15/24) assigned to eth0 of pc3_5,True,OK
+Verifying `10.1.1.12` reachable from device `pc1_1`,True,OK
+Verifying `10.1.1.13` reachable from device `pc1_1`,True,OK
+Verifying `10.1.1.14` reachable from device `pc1_1`,True,OK
+Verifying `10.1.1.15` reachable from device `pc1_1`,True,OK
+Verifying `10.2.2.11` reachable from device `pc1_1`,True,OK
+Verifying `10.2.2.12` reachable from device `pc1_1`,True,OK
+Verifying `10.2.2.13` reachable from device `pc1_1`,True,OK
+Verifying `10.2.2.14` reachable from device `pc1_1`,True,OK
+Verifying `10.2.2.15` reachable from device `pc1_1`,True,OK
+Verifying `10.3.3.11` reachable from device `pc1_1`,True,OK
+Verifying `10.3.3.12` reachable from device `pc1_1`,True,OK
+Verifying `10.3.3.13` reachable from device `pc1_1`,True,OK
+Verifying `10.3.3.14` reachable from device `pc1_1`,True,OK
+Verifying `10.3.3.15` reachable from device `pc1_1`,True,OK
+Verifying `10.1.1.11` reachable from device `pc1_2`,True,OK
+Verifying `10.1.1.13` reachable from device `pc1_2`,True,OK
+Verifying `10.1.1.14` reachable from device `pc1_2`,True,OK
+Verifying `10.1.1.15` reachable from device `pc1_2`,True,OK
+Verifying `10.2.2.11` reachable from device `pc1_2`,True,OK
+Verifying `10.2.2.12` reachable from device `pc1_2`,True,OK
+Verifying `10.2.2.13` reachable from device `pc1_2`,True,OK
+Verifying `10.2.2.14` reachable from device `pc1_2`,True,OK
+Verifying `10.2.2.15` reachable from device `pc1_2`,True,OK
+Verifying `10.3.3.11` reachable from device `pc1_2`,True,OK
+Verifying `10.3.3.12` reachable from device `pc1_2`,True,OK
+Verifying `10.3.3.13` reachable from device `pc1_2`,True,OK
+Verifying `10.3.3.14` reachable from device `pc1_2`,True,OK
+Verifying `10.3.3.15` reachable from device `pc1_2`,True,OK
+Verifying `10.1.1.11` reachable from device `pc1_3`,True,OK
+Verifying `10.1.1.12` reachable from device `pc1_3`,True,OK
+Verifying `10.1.1.14` reachable from device `pc1_3`,True,OK
+Verifying `10.1.1.15` reachable from device `pc1_3`,True,OK
+Verifying `10.2.2.11` reachable from device `pc1_3`,True,OK
+Verifying `10.2.2.12` reachable from device `pc1_3`,True,OK
+Verifying `10.2.2.13` reachable from device `pc1_3`,True,OK
+Verifying `10.2.2.14` reachable from device `pc1_3`,True,OK
+Verifying `10.2.2.15` reachable from device `pc1_3`,True,OK
+Verifying `10.3.3.11` reachable from device `pc1_3`,True,OK
+Verifying `10.3.3.12` reachable from device `pc1_3`,True,OK
+Verifying `10.3.3.13` reachable from device `pc1_3`,True,OK
+Verifying `10.3.3.14` reachable from device `pc1_3`,True,OK
+Verifying `10.3.3.15` reachable from device `pc1_3`,True,OK
+Verifying `10.1.1.11` reachable from device `pc1_4`,True,OK
+Verifying `10.1.1.12` reachable from device `pc1_4`,True,OK
+Verifying `10.1.1.13` reachable from device `pc1_4`,True,OK
+Verifying `10.1.1.15` reachable from device `pc1_4`,True,OK
+Verifying `10.2.2.11` reachable from device `pc1_4`,True,OK
+Verifying `10.2.2.12` reachable from device `pc1_4`,True,OK
+Verifying `10.2.2.13` reachable from device `pc1_4`,True,OK
+Verifying `10.2.2.14` reachable from device `pc1_4`,True,OK
+Verifying `10.2.2.15` reachable from device `pc1_4`,True,OK
+Verifying `10.3.3.11` reachable from device `pc1_4`,True,OK
+Verifying `10.3.3.12` reachable from device `pc1_4`,True,OK
+Verifying `10.3.3.13` reachable from device `pc1_4`,True,OK
+Verifying `10.3.3.14` reachable from device `pc1_4`,True,OK
+Verifying `10.3.3.15` reachable from device `pc1_4`,True,OK
+Verifying `10.1.1.11` reachable from device `pc1_5`,True,OK
+Verifying `10.1.1.12` reachable from device `pc1_5`,True,OK
+Verifying `10.1.1.13` reachable from device `pc1_5`,True,OK
+Verifying `10.1.1.14` reachable from device `pc1_5`,True,OK
+Verifying `10.2.2.11` reachable from device `pc1_5`,True,OK
+Verifying `10.2.2.12` reachable from device `pc1_5`,True,OK
+Verifying `10.2.2.13` reachable from device `pc1_5`,True,OK
+Verifying `10.2.2.14` reachable from device `pc1_5`,True,OK
+Verifying `10.2.2.15` reachable from device `pc1_5`,True,OK
+Verifying `10.3.3.11` reachable from device `pc1_5`,True,OK
+Verifying `10.3.3.12` reachable from device `pc1_5`,True,OK
+Verifying `10.3.3.13` reachable from device `pc1_5`,True,OK
+Verifying `10.3.3.14` reachable from device `pc1_5`,True,OK
+Verifying `10.3.3.15` reachable from device `pc1_5`,True,OK
+Verifying `10.1.1.11` reachable from device `pc2_1`,True,OK
+Verifying `10.1.1.12` reachable from device `pc2_1`,True,OK
+Verifying `10.1.1.13` reachable from device `pc2_1`,True,OK
+Verifying `10.1.1.14` reachable from device `pc2_1`,True,OK
+Verifying `10.1.1.15` reachable from device `pc2_1`,True,OK
+Verifying `10.2.2.12` reachable from device `pc2_1`,True,OK
+Verifying `10.2.2.13` reachable from device `pc2_1`,True,OK
+Verifying `10.2.2.14` reachable from device `pc2_1`,True,OK
+Verifying `10.2.2.15` reachable from device `pc2_1`,True,OK
+Verifying `10.3.3.11` reachable from device `pc2_1`,True,OK
+Verifying `10.3.3.12` reachable from device `pc2_1`,True,OK
+Verifying `10.3.3.13` reachable from device `pc2_1`,True,OK
+Verifying `10.3.3.14` reachable from device `pc2_1`,True,OK
+Verifying `10.3.3.15` reachable from device `pc2_1`,True,OK
+Verifying `10.1.1.11` reachable from device `pc2_2`,True,OK
+Verifying `10.1.1.12` reachable from device `pc2_2`,True,OK
+Verifying `10.1.1.13` reachable from device `pc2_2`,True,OK
+Verifying `10.1.1.14` reachable from device `pc2_2`,True,OK
+Verifying `10.1.1.15` reachable from device `pc2_2`,True,OK
+Verifying `10.2.2.11` reachable from device `pc2_2`,True,OK
+Verifying `10.2.2.13` reachable from device `pc2_2`,True,OK
+Verifying `10.2.2.14` reachable from device `pc2_2`,True,OK
+Verifying `10.2.2.15` reachable from device `pc2_2`,True,OK
+Verifying `10.3.3.11` reachable from device `pc2_2`,True,OK
+Verifying `10.3.3.12` reachable from device `pc2_2`,True,OK
+Verifying `10.3.3.13` reachable from device `pc2_2`,True,OK
+Verifying `10.3.3.14` reachable from device `pc2_2`,True,OK
+Verifying `10.3.3.15` reachable from device `pc2_2`,True,OK
+Verifying `10.1.1.11` reachable from device `pc2_3`,True,OK
+Verifying `10.1.1.12` reachable from device `pc2_3`,True,OK
+Verifying `10.1.1.13` reachable from device `pc2_3`,True,OK
+Verifying `10.1.1.14` reachable from device `pc2_3`,True,OK
+Verifying `10.1.1.15` reachable from device `pc2_3`,True,OK
+Verifying `10.2.2.11` reachable from device `pc2_3`,True,OK
+Verifying `10.2.2.12` reachable from device `pc2_3`,True,OK
+Verifying `10.2.2.14` reachable from device `pc2_3`,True,OK
+Verifying `10.2.2.15` reachable from device `pc2_3`,True,OK
+Verifying `10.3.3.11` reachable from device `pc2_3`,True,OK
+Verifying `10.3.3.12` reachable from device `pc2_3`,True,OK
+Verifying `10.3.3.13` reachable from device `pc2_3`,True,OK
+Verifying `10.3.3.14` reachable from device `pc2_3`,True,OK
+Verifying `10.3.3.15` reachable from device `pc2_3`,True,OK
+Verifying `10.1.1.11` reachable from device `pc2_4`,True,OK
+Verifying `10.1.1.12` reachable from device `pc2_4`,True,OK
+Verifying `10.1.1.13` reachable from device `pc2_4`,True,OK
+Verifying `10.1.1.14` reachable from device `pc2_4`,True,OK
+Verifying `10.1.1.15` reachable from device `pc2_4`,True,OK
+Verifying `10.2.2.11` reachable from device `pc2_4`,True,OK
+Verifying `10.2.2.12` reachable from device `pc2_4`,True,OK
+Verifying `10.2.2.13` reachable from device `pc2_4`,True,OK
+Verifying `10.2.2.15` reachable from device `pc2_4`,True,OK
+Verifying `10.3.3.11` reachable from device `pc2_4`,True,OK
+Verifying `10.3.3.12` reachable from device `pc2_4`,True,OK
+Verifying `10.3.3.13` reachable from device `pc2_4`,True,OK
+Verifying `10.3.3.14` reachable from device `pc2_4`,True,OK
+Verifying `10.3.3.15` reachable from device `pc2_4`,True,OK
+Verifying `10.1.1.11` reachable from device `pc2_5`,True,OK
+Verifying `10.1.1.12` reachable from device `pc2_5`,True,OK
+Verifying `10.1.1.13` reachable from device `pc2_5`,True,OK
+Verifying `10.1.1.14` reachable from device `pc2_5`,True,OK
+Verifying `10.1.1.15` reachable from device `pc2_5`,True,OK
+Verifying `10.2.2.11` reachable from device `pc2_5`,True,OK
+Verifying `10.2.2.12` reachable from device `pc2_5`,True,OK
+Verifying `10.2.2.13` reachable from device `pc2_5`,True,OK
+Verifying `10.2.2.14` reachable from device `pc2_5`,True,OK
+Verifying `10.3.3.11` reachable from device `pc2_5`,True,OK
+Verifying `10.3.3.12` reachable from device `pc2_5`,True,OK
+Verifying `10.3.3.13` reachable from device `pc2_5`,True,OK
+Verifying `10.3.3.14` reachable from device `pc2_5`,True,OK
+Verifying `10.3.3.15` reachable from device `pc2_5`,True,OK
+Verifying `10.1.1.11` reachable from device `pc3_1`,True,OK
+Verifying `10.1.1.12` reachable from device `pc3_1`,True,OK
+Verifying `10.1.1.13` reachable from device `pc3_1`,True,OK
+Verifying `10.1.1.14` reachable from device `pc3_1`,True,OK
+Verifying `10.1.1.15` reachable from device `pc3_1`,True,OK
+Verifying `10.2.2.11` reachable from device `pc3_1`,True,OK
+Verifying `10.2.2.12` reachable from device `pc3_1`,True,OK
+Verifying `10.2.2.13` reachable from device `pc3_1`,True,OK
+Verifying `10.2.2.14` reachable from device `pc3_1`,True,OK
+Verifying `10.2.2.15` reachable from device `pc3_1`,True,OK
+Verifying `10.3.3.12` reachable from device `pc3_1`,True,OK
+Verifying `10.3.3.13` reachable from device `pc3_1`,True,OK
+Verifying `10.3.3.14` reachable from device `pc3_1`,True,OK
+Verifying `10.3.3.15` reachable from device `pc3_1`,True,OK
+Verifying `10.1.1.11` reachable from device `pc3_2`,True,OK
+Verifying `10.1.1.12` reachable from device `pc3_2`,True,OK
+Verifying `10.1.1.13` reachable from device `pc3_2`,True,OK
+Verifying `10.1.1.14` reachable from device `pc3_2`,True,OK
+Verifying `10.1.1.15` reachable from device `pc3_2`,True,OK
+Verifying `10.2.2.11` reachable from device `pc3_2`,True,OK
+Verifying `10.2.2.12` reachable from device `pc3_2`,True,OK
+Verifying `10.2.2.13` reachable from device `pc3_2`,True,OK
+Verifying `10.2.2.14` reachable from device `pc3_2`,True,OK
+Verifying `10.2.2.15` reachable from device `pc3_2`,True,OK
+Verifying `10.3.3.11` reachable from device `pc3_2`,True,OK
+Verifying `10.3.3.13` reachable from device `pc3_2`,True,OK
+Verifying `10.3.3.14` reachable from device `pc3_2`,True,OK
+Verifying `10.3.3.15` reachable from device `pc3_2`,True,OK
+Verifying `10.1.1.11` reachable from device `pc3_3`,True,OK
+Verifying `10.1.1.12` reachable from device `pc3_3`,True,OK
+Verifying `10.1.1.13` reachable from device `pc3_3`,True,OK
+Verifying `10.1.1.14` reachable from device `pc3_3`,True,OK
+Verifying `10.1.1.15` reachable from device `pc3_3`,True,OK
+Verifying `10.2.2.11` reachable from device `pc3_3`,True,OK
+Verifying `10.2.2.12` reachable from device `pc3_3`,True,OK
+Verifying `10.2.2.13` reachable from device `pc3_3`,True,OK
+Verifying `10.2.2.14` reachable from device `pc3_3`,True,OK
+Verifying `10.2.2.15` reachable from device `pc3_3`,True,OK
+Verifying `10.3.3.11` reachable from device `pc3_3`,True,OK
+Verifying `10.3.3.12` reachable from device `pc3_3`,True,OK
+Verifying `10.3.3.14` reachable from device `pc3_3`,True,OK
+Verifying `10.3.3.15` reachable from device `pc3_3`,True,OK
+Verifying `10.1.1.11` reachable from device `pc3_4`,True,OK
+Verifying `10.1.1.12` reachable from device `pc3_4`,True,OK
+Verifying `10.1.1.13` reachable from device `pc3_4`,True,OK
+Verifying `10.1.1.14` reachable from device `pc3_4`,True,OK
+Verifying `10.1.1.15` reachable from device `pc3_4`,True,OK
+Verifying `10.2.2.11` reachable from device `pc3_4`,True,OK
+Verifying `10.2.2.12` reachable from device `pc3_4`,True,OK
+Verifying `10.2.2.13` reachable from device `pc3_4`,True,OK
+Verifying `10.2.2.14` reachable from device `pc3_4`,True,OK
+Verifying `10.2.2.15` reachable from device `pc3_4`,True,OK
+Verifying `10.3.3.11` reachable from device `pc3_4`,True,OK
+Verifying `10.3.3.12` reachable from device `pc3_4`,True,OK
+Verifying `10.3.3.13` reachable from device `pc3_4`,True,OK
+Verifying `10.3.3.15` reachable from device `pc3_4`,True,OK
+Verifying `10.1.1.11` reachable from device `pc3_5`,True,OK
+Verifying `10.1.1.12` reachable from device `pc3_5`,True,OK
+Verifying `10.1.1.13` reachable from device `pc3_5`,True,OK
+Verifying `10.1.1.14` reachable from device `pc3_5`,True,OK
+Verifying `10.1.1.15` reachable from device `pc3_5`,True,OK
+Verifying `10.2.2.11` reachable from device `pc3_5`,True,OK
+Verifying `10.2.2.12` reachable from device `pc3_5`,True,OK
+Verifying `10.2.2.13` reachable from device `pc3_5`,True,OK
+Verifying `10.2.2.14` reachable from device `pc3_5`,True,OK
+Verifying `10.2.2.15` reachable from device `pc3_5`,True,OK
+Verifying `10.3.3.11` reachable from device `pc3_5`,True,OK
+Verifying `10.3.3.12` reachable from device `pc3_5`,True,OK
+Verifying `10.3.3.13` reachable from device `pc3_5`,True,OK
+Verifying `10.3.3.14` reachable from device `pc3_5`,True,OK
+Checking that ripd is not running on device `r1`,True,OK
+Checking that ospfd is not running on device `r1`,True,OK
+Checking that isisd is not running on device `r1`,True,OK
+Checking that bgpd is not running on device `r1`,True,OK
+Checking that ripd is not running on device `r2`,True,OK
+Checking that ospfd is not running on device `r2`,True,OK
+Checking that isisd is not running on device `r2`,True,OK
+Checking that bgpd is not running on device `r2`,True,OK
+Checking that ripd is not running on device `r3`,True,OK
+Checking that ospfd is not running on device `r3`,True,OK
+Checking that isisd is not running on device `r3`,True,OK
+Checking that bgpd is not running on device `r3`,True,OK
+Checking the routing table of r1,True,OK
+Checking the routing table of r2,True,OK
+Checking the routing table of r3,True,OK
+Checking the routing table of pc1_1,True,OK
+Checking the routing table of pc1_2,True,OK
+Checking the routing table of pc1_3,True,OK
+Checking the routing table of pc1_4,True,OK
+Checking the routing table of pc1_5,True,OK
+Checking the routing table of pc2_1,True,OK
+Checking the routing table of pc2_2,True,OK
+Checking the routing table of pc2_3,True,OK
+Checking the routing table of pc2_4,True,OK
+Checking the routing table of pc2_5,True,OK
+Checking the routing table of pc3_1,True,OK
+Checking the routing table of pc3_2,True,OK
+Checking the routing table of pc3_3,True,OK
+Checking the routing table of pc3_4,True,OK
+Checking the routing table of pc3_5,True,OK
+Checking the output of the command 'sysctl net.ipv4.ip_forward' on 'r1',True,OK
+Checking the output of the command 'sysctl net.ipv4.ip_forward' on 'r2',True,OK
+Checking the output of the command 'sysctl net.ipv4.ip_forward' on 'r3',True,OK
