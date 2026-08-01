@@ -1,7 +1,0 @@
-#!/bin/sh
-set -eu
-
-ip -4 address replace 10.10.0.3/24 dev eth0
-
-test -r /var/www/html/index.html
-systemctl restart apache2

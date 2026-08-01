@@ -1,0 +1,276 @@
+# Checker configuration regenerated from the current lab files.
+# The lab uses only static routes, so no routing-protocol convergence is needed.
+
+lab_inline: |
+  r1[0]="R1R2"
+  r1[1]="R1R3"
+  r1[2]="R1R4"
+  r1[3]="CLIENT_LAN"
+  r2[0]="R1R2"
+  r2[1]="R2R5"
+  r2[2]="ROOT_LAN"
+  r3[0]="R1R3"
+  r3[1]="R3R5"
+  r3[2]="ORG_LAN"
+  r4[0]="R1R4"
+  r4[1]="R4R5"
+  r4[2]="LOCAL_LAN"
+  r5[0]="R2R5"
+  r5[1]="R3R5"
+  r5[2]="R4R5"
+  r5[3]="SERVER_LAN"
+  client[0]="CLIENT_LAN"
+  dnsroot[0]="ROOT_LAN"
+  dnsorg[0]="ORG_LAN"
+  dnslocal[0]="LOCAL_LAN"
+  server[0]="SERVER_LAN"
+
+convergence_time: 10
+default_image: kathara/base
+
+test:
+  requiring_startup:
+    - r1
+    - r2
+    - r3
+    - r4
+    - r5
+    - client
+    - dnsroot
+    - dnsorg
+    - dnslocal
+    - server
+
+  ip_mapping:
+    r1:
+      "0": 10.0.12.1/30
+      "1": 10.0.13.1/30
+      "2": 10.0.14.1/30
+      "3": 10.10.1.1/24
+    r2:
+      "0": 10.0.12.2/30
+      "1": 10.0.25.1/30
+      "2": 10.10.2.1/24
+    r3:
+      "0": 10.0.13.2/30
+      "1": 10.0.35.1/30
+      "2": 10.10.3.1/24
+    r4:
+      "0": 10.0.14.2/30
+      "1": 10.0.45.1/30
+      "2": 10.10.4.1/24
+    r5:
+      "0": 10.0.25.2/30
+      "1": 10.0.35.2/30
+      "2": 10.0.45.2/30
+      "3": 10.10.5.1/24
+    client:
+      "0": 10.10.1.10/24
+    dnsroot:
+      "0": 10.10.2.10/24
+    dnsorg:
+      "0": 10.10.3.10/24
+    dnslocal:
+      "0": 10.10.4.10/24
+    server:
+      "0": 10.10.5.10/24
+
+  daemons:
+    r1:
+      - "!bgpd"
+      - "!ripd"
+      - "!ospfd"
+    r2:
+      - "!bgpd"
+      - "!ripd"
+      - "!ospfd"
+    r3:
+      - "!bgpd"
+      - "!ripd"
+      - "!ospfd"
+    r4:
+      - "!bgpd"
+      - "!ripd"
+      - "!ospfd"
+    r5:
+      - "!bgpd"
+      - "!ripd"
+      - "!ospfd"
+    client:
+      - "!named"
+    dnsroot:
+      - named
+    dnsorg:
+      - named
+    dnslocal:
+      - named
+    server:
+      - apache2
+
+  # Directly connected networks are deliberately omitted. The checker counts
+  # only the routes installed explicitly by the startup files.
+  kernel_routes:
+    r1:
+      - ["10.0.25.0/30", ["10.0.12.2"]]
+      - ["10.0.35.0/30", ["10.0.13.2"]]
+      - ["10.0.45.0/30", ["10.0.14.2"]]
+      - ["10.10.2.0/24", ["10.0.12.2"]]
+      - ["10.10.3.0/24", ["10.0.13.2"]]
+      - ["10.10.4.0/24", ["10.0.14.2"]]
+      - ["10.10.5.0/24", ["10.0.12.2"]]
+    r2:
+      - ["10.0.13.0/30", ["10.0.12.1"]]
+      - ["10.0.14.0/30", ["10.0.12.1"]]
+      - ["10.0.35.0/30", ["10.0.25.2"]]
+      - ["10.0.45.0/30", ["10.0.25.2"]]
+      - ["10.10.1.0/24", ["10.0.12.1"]]
+      - ["10.10.3.0/24", ["10.0.12.1"]]
+      - ["10.10.4.0/24", ["10.0.12.1"]]
+      - ["10.10.5.0/24", ["10.0.25.2"]]
+    r3:
+      - ["10.0.12.0/30", ["10.0.13.1"]]
+      - ["10.0.14.0/30", ["10.0.13.1"]]
+      - ["10.0.25.0/30", ["10.0.35.2"]]
+      - ["10.0.45.0/30", ["10.0.35.2"]]
+      - ["10.10.1.0/24", ["10.0.13.1"]]
+      - ["10.10.2.0/24", ["10.0.13.1"]]
+      - ["10.10.4.0/24", ["10.0.13.1"]]
+      - ["10.10.5.0/24", ["10.0.35.2"]]
+    r4:
+      - ["10.0.12.0/30", ["10.0.14.1"]]
+      - ["10.0.13.0/30", ["10.0.14.1"]]
+      - ["10.0.25.0/30", ["10.0.45.2"]]
+      - ["10.0.35.0/30", ["10.0.45.2"]]
+      - ["10.10.1.0/24", ["10.0.14.1"]]
+      - ["10.10.2.0/24", ["10.0.14.1"]]
+      - ["10.10.3.0/24", ["10.0.14.1"]]
+      - ["10.10.5.0/24", ["10.0.45.2"]]
+    r5:
+      - ["10.0.12.0/30", ["10.0.25.1"]]
+      - ["10.0.13.0/30", ["10.0.35.1"]]
+      - ["10.0.14.0/30", ["10.0.45.1"]]
+      - ["10.10.1.0/24", ["10.0.25.1"]]
+      - ["10.10.2.0/24", ["10.0.25.1"]]
+      - ["10.10.3.0/24", ["10.0.35.1"]]
+      - ["10.10.4.0/24", ["10.0.45.1"]]
+    client:
+      - ["0.0.0.0/0", ["10.10.1.1"]]
+    dnsroot:
+      - ["0.0.0.0/0", ["10.10.2.1"]]
+    dnsorg:
+      - ["0.0.0.0/0", ["10.10.3.1"]]
+    dnslocal:
+      - ["0.0.0.0/0", ["10.10.4.1"]]
+    server:
+      - ["0.0.0.0/0", ["10.10.5.1"]]
+
+  applications:
+    dns:
+      authoritative:
+        ".":
+          - 10.10.2.10
+        org:
+          - 10.10.3.10
+        kathara.org:
+          - 10.10.4.10
+      local_ns:
+        10.10.2.10:
+          - client
+      records:
+        A:
+          a.root.lab:
+            - 10.10.2.10
+          ns.org:
+            - 10.10.3.10
+          ns.kathara.org:
+            - 10.10.4.10
+          kathara.org:
+            - 10.10.5.10
+          www.kathara.org:
+            - 10.10.5.10
+        NS:
+          org:
+            - ns.org.
+          kathara.org:
+            - ns.kathara.org.
+    http:
+      client:
+        - url: http://kathara.org/
+          status_code: 200
+          body_contains: "Static routing and hierarchical DNS are working."
+
+  # The routed topology is intended to be fully connected. The YAML anchor
+  # avoids repeating the same complete IPv4 reachability matrix ten times.
+  reachability:
+    r1: &all_ipv4
+      - 10.0.12.1
+      - 10.0.12.2
+      - 10.0.13.1
+      - 10.0.13.2
+      - 10.0.14.1
+      - 10.0.14.2
+      - 10.0.25.1
+      - 10.0.25.2
+      - 10.0.35.1
+      - 10.0.35.2
+      - 10.0.45.1
+      - 10.0.45.2
+      - 10.10.1.1
+      - 10.10.1.10
+      - 10.10.2.1
+      - 10.10.2.10
+      - 10.10.3.1
+      - 10.10.3.10
+      - 10.10.4.1
+      - 10.10.4.10
+      - 10.10.5.1
+      - 10.10.5.10
+    r2: *all_ipv4
+    r3: *all_ipv4
+    r4: *all_ipv4
+    r5: *all_ipv4
+    client:
+      - 10.0.12.1
+      - 10.0.12.2
+      - 10.0.13.1
+      - 10.0.13.2
+      - 10.0.14.1
+      - 10.0.14.2
+      - 10.0.25.1
+      - 10.0.25.2
+      - 10.0.35.1
+      - 10.0.35.2
+      - 10.0.45.1
+      - 10.0.45.2
+      - 10.10.1.1
+      - 10.10.1.10
+      - 10.10.2.1
+      - 10.10.2.10
+      - 10.10.3.1
+      - 10.10.3.10
+      - 10.10.4.1
+      - 10.10.4.10
+      - 10.10.5.1
+      - 10.10.5.10
+      - kathara.org
+    dnsroot: *all_ipv4
+    dnsorg: *all_ipv4
+    dnslocal: *all_ipv4
+    server: *all_ipv4
+
+  custom_commands:
+    r1:
+      - command: sysctl net.ipv4.ip_forward
+        regex_match: "net\\.ipv4\\.ip_forward = 1"
+    r2:
+      - command: sysctl net.ipv4.ip_forward
+        regex_match: "net\\.ipv4\\.ip_forward = 1"
+    r3:
+      - command: sysctl net.ipv4.ip_forward
+        regex_match: "net\\.ipv4\\.ip_forward = 1"
+    r4:
+      - command: sysctl net.ipv4.ip_forward
+        regex_match: "net\\.ipv4\\.ip_forward = 1"
+    r5:
+      - command: sysctl net.ipv4.ip_forward
+        regex_match: "net\\.ipv4\\.ip_forward = 1"

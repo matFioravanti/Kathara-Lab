@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+
+ip -4 address replace 10.10.0.2/24 dev eth0

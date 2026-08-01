@@ -1,7 +1,0 @@
-# An IPv4 address is assigned to the server
-ip address add 10.10.5.10/24 dev eth0
-
-# A default router is selected
-ip route add default via 10.10.5.1 dev eth0
-
-systemctl start apache2
