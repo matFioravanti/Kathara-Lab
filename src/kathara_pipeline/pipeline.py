@@ -401,7 +401,8 @@ class Pipeline:
         manifest = self._initial_manifest(prompt, resources, started_at)
         handler: logging.Handler | None = None
         lab_generated = False
-        lab_tested = False
+        checker_attempted = False
+        checker_completed = False
         active_process_field: str | None = None
 
         try:
@@ -545,10 +546,11 @@ class Pipeline:
                 "checker_execution_started",
                 checker_process=checker_process,
             )
-            lab_tested = True
+            checker_attempted = True
             active_process_field = "checker_process"
             checker_result = self.checker_runner.run(paths, prepared=True)
             active_process_field = None
+            checker_completed = True
             checker_process.update(
                 {
                     "return_code": checker_result.return_code,
@@ -593,7 +595,8 @@ class Pipeline:
                 pass_percentage=metrics.pass_percentage,
                 duration_seconds=elapsed,
                 lab_generated=True,
-                lab_tested=True,
+                checker_attempted=True,
+                checker_completed=True,
             )
         except Exception as exc:
             LOGGER.exception("Errore durante il job %s", prompt.name)
@@ -676,7 +679,8 @@ class Pipeline:
                 duration_seconds=elapsed,
                 error_message=message,
                 lab_generated=lab_generated,
-                lab_tested=lab_tested,
+                checker_attempted=checker_attempted,
+                checker_completed=checker_completed,
             )
         finally:
             try:
@@ -704,7 +708,7 @@ class Pipeline:
             duration_seconds=_duration(started_monotonic),
             prompts_found=prompts_found,
             labs_generated=sum(job.lab_generated for job in jobs),
-            labs_tested=sum(job.lab_tested for job in jobs),
+            labs_tested=sum(job.checker_completed for job in jobs),
             counts=counts,
             jobs=jobs,
         )

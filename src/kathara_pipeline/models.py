@@ -122,7 +122,8 @@ class JobSummary:
     error_message: str | None = None
     skip_reason: str | None = None
     lab_generated: bool = False
-    lab_tested: bool = False
+    checker_attempted: bool = False
+    checker_completed: bool = False
 
     def to_dict(self) -> dict[str, Any]:
         result = asdict(self)

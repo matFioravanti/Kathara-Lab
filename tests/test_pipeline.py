@@ -291,7 +291,7 @@ def test_failed_job_never_stops_next_prompt(
     def process(prompt: PromptRecord, _resources: ResourceFiles, *, force: bool) -> JobSummary:
         seen.append(prompt.name)
         status = JobStatus.FAILED if len(seen) == 1 else JobStatus.PASSED
-        return JobSummary(prompt.lab_id, prompt.name, status, lab_generated=True, lab_tested=True)
+        return JobSummary(prompt.lab_id, prompt.name, status, lab_generated=True, checker_attempted=True, checker_completed=True)
 
     monkeypatch.setattr(pipeline, "process_single_prompt", process)
 
@@ -639,3 +639,199 @@ def test_decode_error_job_persists_terminal_error_manifest(tmp_path: Path) -> No
     )
     assert manifest["status"] == "error"
     assert "decodifica" in manifest["errors"][0]
+
+
+# ---------------------------------------------------------------------------
+# Nuovi test specifici per checker_attempted / checker_completed
+# ---------------------------------------------------------------------------
+
+
+class _LabGenOk:
+    """Stub che genera sempre un laboratorio valido."""
+
+    @staticmethod
+    def _instruction() -> str:
+        return "generate lab"
+
+    def generate(self, _prompt: PromptRecord, paths) -> Any:
+        paths.source.mkdir(parents=True)
+        (paths.source / "lab.conf").write_text('r1[0]="lan"\n', encoding="utf-8")
+        (paths.source / "r1.startup").write_text("ip link set lo up\n", encoding="utf-8")
+        from kathara_pipeline.models import CommandResult
+
+        return CommandResult(("codex", "exec"), 0, "", "", 0.1)
+
+
+class _CorrectionGenOk:
+    """Stub che genera sempre una correction valida."""
+
+    @staticmethod
+    def _instruction(**_kwargs: Any) -> str:
+        return "generate correction"
+
+    def generate(self, _prompt: PromptRecord, paths, _resources: ResourceFiles) -> Any:
+        paths.correction.write_text("test: {}\n", encoding="utf-8")
+        from kathara_pipeline.models import CommandResult
+
+        return CommandResult(("codex", "exec"), 0, "", "", 0.1)
+
+
+class _YamlValidatorOk:
+    def __init__(self, _schema: Path, _skill: Path | None = None) -> None:
+        pass
+
+    def validate(self, _correction: Path, _lab: Path, _job: Path) -> ValidationResult:
+        return ValidationResult(True, mode="documented-structural", data={"test": {}})
+
+
+class _LabValidatorFail:
+    """Stub che rifiuta sempre il laboratorio con un errore di validazione."""
+
+    def validate(self, _source: Path, _prompt_text: str) -> ValidationResult:
+        return ValidationResult(False, errors=("lab.conf mancante",))
+
+
+@pytest.mark.parametrize(
+    ("scenario", "expected_attempted", "expected_completed", "expected_status"),
+    [
+        ("validation_failed", False, False, JobStatus.ERROR),
+        ("checker_timeout", True, False, JobStatus.ERROR),
+        ("checker_os_error", True, False, JobStatus.ERROR),
+        ("checker_tests_failed", True, True, JobStatus.FAILED),
+        ("checker_tests_passed", True, True, JobStatus.PASSED),
+    ],
+)
+def test_checker_attempted_and_completed_state(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    scenario: str,
+    expected_attempted: bool,
+    expected_completed: bool,
+    expected_status: JobStatus,
+) -> None:
+    """Verifica che checker_attempted/checker_completed riflettano lo stato reale."""
+    import subprocess
+
+    config = _config(tmp_path)
+    resources = _resources(tmp_path)
+    prompt = _prompt(tmp_path)
+    pipeline = Pipeline(config, emit=lambda _message: None)
+
+    _process_metadata = {
+        "command": ["checker"],
+        "return_code": None,
+        "duration_seconds": 2.0,
+        "timed_out": scenario == "checker_timeout",
+        "cwd": "/work",
+        "stdout_log": "/work/checker.stdout.log",
+        "stderr_log": "/work/checker.stderr.log",
+    }
+
+    class _CheckerStub:
+        def prepare_candidate(self, paths) -> dict[str, str]:
+            paths.candidate.mkdir(parents=True)
+            return {"lab.conf": "hash"}
+
+        def build_command(self, **_kwargs: Any) -> list[str]:
+            return ["checker"]
+
+        def run(self, _paths, *, prepared: bool = False) -> CheckerRunResult:
+            if scenario == "checker_timeout":
+                raise CheckerExecutionError(
+                    "timed out",
+                    process_metadata=_process_metadata,
+                )
+            if scenario == "checker_os_error":
+                raise CheckerExecutionError(
+                    "os error",
+                    process_metadata={**_process_metadata, "timed_out": False},
+                )
+            return CheckerRunResult(("checker",), 0, 0.01, "", "")
+
+    class _ParserStub:
+        def parse_and_store(self, paths, _result) -> Metrics:
+            (paths.reports / "candidate_result_all.csv").write_text(
+                "Test Description,Passed,Reason\nexists,True,OK\n", encoding="utf-8"
+            )
+            if scenario == "checker_tests_failed":
+                return Metrics(2, 1, 1, 50.0, {"missing": 1}, 0, "completed", ("all.csv",), ())
+            return Metrics(1, 1, 0, 100.0, {}, 0, "completed", ("all.csv",), ())
+
+    pipeline.lab_generator = _LabGenOk()  # type: ignore[assignment]
+    pipeline.correction_generator = _CorrectionGenOk()  # type: ignore[assignment]
+    pipeline.checker_runner = _CheckerStub()  # type: ignore[assignment]
+    pipeline.result_parser = _ParserStub()  # type: ignore[assignment]
+    monkeypatch.setattr("kathara_pipeline.pipeline.YamlValidator", _YamlValidatorOk)
+
+    if scenario == "validation_failed":
+        monkeypatch.setattr(
+            "kathara_pipeline.pipeline.LabValidator",
+            lambda: _LabValidatorFail(),
+        )
+        pipeline.lab_validator = _LabValidatorFail()  # type: ignore[assignment]
+
+    outcome = pipeline.process_single_prompt(prompt, resources, force=False)
+
+    assert outcome.checker_attempted is expected_attempted, (
+        f"scenario={scenario!r}: checker_attempted atteso {expected_attempted}, ottenuto {outcome.checker_attempted}"
+    )
+    assert outcome.checker_completed is expected_completed, (
+        f"scenario={scenario!r}: checker_completed atteso {expected_completed}, ottenuto {outcome.checker_completed}"
+    )
+    assert outcome.status is expected_status, (
+        f"scenario={scenario!r}: status atteso {expected_status}, ottenuto {outcome.status}"
+    )
+
+
+def test_labs_tested_summary_counts_only_checker_completed(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Il contatore labs_tested nel riepilogo considera solo checker_completed=True."""
+    config = _config(tmp_path)
+    resources = _resources(tmp_path)
+    config.paths.generated_labs.mkdir()
+    pipeline = Pipeline(config, emit=lambda _message: None)
+    monkeypatch.setattr(pipeline, "discover", lambda: [])
+    monkeypatch.setattr(
+        pipeline,
+        "preflight",
+        lambda _prompts, dry_run=False: PreflightReport(resources, (), ()),
+    )
+
+    jobs = [
+        # checker completato con successo
+        JobSummary("lab-1", "lab-1.md", JobStatus.PASSED, checker_attempted=True, checker_completed=True),
+        # checker avviato ma andato in timeout
+        JobSummary("lab-2", "lab-2.md", JobStatus.ERROR, checker_attempted=True, checker_completed=False),
+        # validazione fallita, checker mai avviato
+        JobSummary("lab-3", "lab-3.md", JobStatus.ERROR, checker_attempted=False, checker_completed=False),
+    ]
+    monkeypatch.setattr(
+        pipeline,
+        "process_single_prompt",
+        lambda prompt, _res, force: next(
+            j for j in jobs if j.lab_id == prompt.lab_id
+        ),
+    )
+    # Aggiungiamo prompt fittizi perché la pipeline li cerca
+    from kathara_pipeline.state_store import sha256_text
+
+    prompts = [
+        PromptRecord(
+            tmp_path / f"{lab_id}.md",
+            f"{lab_id}.md",
+            lab_id,
+            "Build a router.",
+            sha256_text("Build a router."),
+        )
+        for lab_id in ("lab-1", "lab-2", "lab-3")
+    ]
+    for p in prompts:
+        p.path.write_text(p.content or "", encoding="utf-8")
+    monkeypatch.setattr(pipeline, "discover", lambda: prompts)
+
+    summary = pipeline.run()
+
+    assert summary is not None
+    # Solo lab-1 ha checker_completed=True
+    assert summary.labs_tested == 1
