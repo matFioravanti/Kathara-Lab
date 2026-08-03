@@ -1,0 +1,20 @@
+paths:
+  prompts: prompts_generates
+  checker_resources: kathara-lab-checker
+  generated_labs: kathara-lab-generates
+
+codex:
+  command: codex
+  sandbox: workspace-write
+  timeout_seconds: 1800
+
+checker:
+  report_type: csv
+  no_cache: true
+  timeout_seconds: 1800
+
+processing:
+  continue_on_error: true
+  force: false
+  skip_completed: true
+
