@@ -11,6 +11,7 @@ from kathara_pipeline.config import load_config
 from kathara_pipeline.exceptions import (
     CheckerExecutionError,
     CodexExecutionError,
+    PipelineJobError,
     PreflightError,
 )
 from kathara_pipeline.models import (
@@ -182,7 +183,7 @@ def test_process_error_metadata_is_persisted_for_the_active_phase(
     monkeypatch: pytest.MonkeyPatch,
     failing_phase: str,
     manifest_field: str,
-    error_type: type[Exception],
+    error_type: type[PipelineJobError],
 ) -> None:
     config = _config(tmp_path)
     resources = _resources(tmp_path)

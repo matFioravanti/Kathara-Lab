@@ -30,13 +30,12 @@ def _write_fixture(tmp_path: Path) -> tuple[Path, Path, Path]:
         encoding="utf-8",
     )
     schema = tmp_path / "config-schema.md"
-    repository_schema = (
-        Path(__file__).resolve().parents[1]
-        / "kathara-lab-checker"
-        / "references"
-        / "config-schema.md"
-    )
-    schema.write_text(repository_schema.read_text(encoding="utf-8"), encoding="utf-8")
+    fixture_schema = Path(__file__).resolve().parent / "fixtures" / "config-schema.md"
+    if not fixture_schema.is_file():
+        raise FileNotFoundError(
+            f"Fixture dello schema non trovata: {fixture_schema}"
+        )
+    schema.write_text(fixture_schema.read_text(encoding="utf-8"), encoding="utf-8")
     correction = tmp_path / "correction.yaml"
     return lab, schema, correction
 
