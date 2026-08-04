@@ -339,6 +339,9 @@ class Pipeline:
             "status": JobStatus.DISCOVERED.value,
             "test_result": None,
             "correction_sha256": None,
+            "checker_attempted": False,
+            "checker_completed": False,
+            "lab_tested": False,
             "phases": [{"name": "discovered", "at": started_at}],
             "errors": [],
         }
@@ -540,24 +543,35 @@ class Pipeline:
                 "command": checker_command,
                 "working_directory": str(paths.checker_run),
             }
+            checker_attempted = True
+            active_process_field = "checker_process"
             self._phase(
                 store,
                 manifest,
                 "checker_execution_started",
                 checker_process=checker_process,
+                checker_attempted=True,
+                checker_completed=False,
+                lab_tested=False,
             )
-            checker_attempted = True
-            active_process_field = "checker_process"
             checker_result = self.checker_runner.run(paths, prepared=True)
-            active_process_field = None
             checker_completed = True
+            active_process_field = None
             checker_process.update(
                 {
                     "return_code": checker_result.return_code,
                     "duration_seconds": checker_result.duration_seconds,
                 }
             )
-            self._phase(store, manifest, "checker_executed", checker_process=checker_process)
+            self._phase(
+                store,
+                manifest,
+                "checker_executed",
+                checker_process=checker_process,
+                checker_attempted=True,
+                checker_completed=True,
+                lab_tested=True,
+            )
 
             metrics = self.result_parser.parse_and_store(paths, checker_result)
             self._phase(store, manifest, "reports_parsed")
@@ -580,6 +594,9 @@ class Pipeline:
                     "finished_at": finished_at,
                     "duration_seconds": elapsed,
                     "checker_process": checker_process,
+                    "checker_attempted": checker_attempted,
+                    "checker_completed": checker_completed,
+                    "lab_tested": checker_completed,
                 }
             )
             self._phase(store, manifest, "result_saved")
@@ -664,6 +681,9 @@ class Pipeline:
                     "finished_at": _utc_now(),
                     "duration_seconds": elapsed,
                     "errors": [message],
+                    "checker_attempted": checker_attempted,
+                    "checker_completed": checker_completed,
+                    "lab_tested": checker_completed,
                 }
             )
             try:
@@ -708,7 +728,8 @@ class Pipeline:
             duration_seconds=_duration(started_monotonic),
             prompts_found=prompts_found,
             labs_generated=sum(job.lab_generated for job in jobs),
-            labs_tested=sum(job.checker_completed for job in jobs),
+            checker_attempted=sum(job.checker_attempted for job in jobs),
+            checker_completed=sum(job.checker_completed for job in jobs),
             counts=counts,
             jobs=jobs,
         )

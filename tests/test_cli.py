@@ -30,7 +30,8 @@ def _summary(*, failed: int = 0, error: int = 0) -> PipelineSummary:
         duration_seconds=1.0,
         prompts_found=1,
         labs_generated=1,
-        labs_tested=1,
+        checker_attempted=1,
+        checker_completed=1,
         counts={"passed": int(not failed and not error), "failed": failed, "error": error, "skipped": 0},
     )
 

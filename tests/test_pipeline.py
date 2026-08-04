@@ -700,6 +700,7 @@ class _LabValidatorFail:
         ("checker_os_error", True, False, JobStatus.ERROR),
         ("checker_tests_failed", True, True, JobStatus.FAILED),
         ("checker_tests_passed", True, True, JobStatus.PASSED),
+        ("parser_error", True, True, JobStatus.ERROR),
     ],
 )
 def test_checker_attempted_and_completed_state(
@@ -751,6 +752,8 @@ def test_checker_attempted_and_completed_state(
 
     class _ParserStub:
         def parse_and_store(self, paths, _result) -> Metrics:
+            if scenario == "parser_error":
+                raise PipelineJobError("Parser failed")
             (paths.reports / "candidate_result_all.csv").write_text(
                 "Test Description,Passed,Reason\nexists,True,OK\n", encoding="utf-8"
             )
@@ -835,4 +838,56 @@ def test_labs_tested_summary_counts_only_checker_completed(
 
     assert summary is not None
     # Solo lab-1 ha checker_completed=True
+    assert summary.checker_attempted == 2
+    assert summary.checker_completed == 1
     assert summary.labs_tested == 1
+    
+def test_job_summary_serialization() -> None:
+    job = JobSummary(
+        lab_id="lab-1",
+        prompt_file="lab-1.md",
+        status=JobStatus.ERROR,
+        checker_attempted=True,
+        checker_completed=False,
+    )
+    payload = job.to_dict()
+    assert job.lab_tested is False
+    assert payload["checker_attempted"] is True
+    assert payload["checker_completed"] is False
+    assert payload["lab_tested"] is False
+
+    job_completed = JobSummary(
+        lab_id="lab-2",
+        prompt_file="lab-2.md",
+        status=JobStatus.PASSED,
+        checker_attempted=True,
+        checker_completed=True,
+    )
+    assert job_completed.lab_tested is True
+    payload_completed = job_completed.to_dict()
+    assert payload_completed["lab_tested"] is True
+
+def test_pipeline_summary_serialization() -> None:
+    from kathara_pipeline.models import PipelineSummary
+    summary = PipelineSummary(
+        pipeline_version="0.1.0",
+        started_at="2026-01-01T00:00:00Z",
+        finished_at="2026-01-01T00:00:01Z",
+        duration_seconds=1.0,
+        prompts_found=2,
+        labs_generated=2,
+        checker_attempted=2,
+        checker_completed=1,
+        counts={
+            "passed": 1,
+            "failed": 0,
+            "error": 1,
+            "skipped": 0,
+        },
+    )
+    payload = summary.to_dict()
+    assert summary.labs_tested == 1
+    assert payload["checker_attempted"] == 2
+    assert payload["checker_completed"] == 1
+    assert payload["labs_tested"] == 1
+

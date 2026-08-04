@@ -125,9 +125,14 @@ class JobSummary:
     checker_attempted: bool = False
     checker_completed: bool = False
 
+    @property
+    def lab_tested(self) -> bool:
+        return self.checker_completed
+
     def to_dict(self) -> dict[str, Any]:
         result = asdict(self)
         result["status"] = self.status.value
+        result["lab_tested"] = self.lab_tested
         return result
 
 
@@ -139,9 +144,14 @@ class PipelineSummary:
     duration_seconds: float
     prompts_found: int
     labs_generated: int
-    labs_tested: int
+    checker_attempted: int
+    checker_completed: int
     counts: dict[str, int]
     jobs: list[JobSummary] = field(default_factory=list)
+
+    @property
+    def labs_tested(self) -> int:
+        return self.checker_completed
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -151,6 +161,8 @@ class PipelineSummary:
             "duration_seconds": self.duration_seconds,
             "prompts_found": self.prompts_found,
             "labs_generated": self.labs_generated,
+            "checker_attempted": self.checker_attempted,
+            "checker_completed": self.checker_completed,
             "labs_tested": self.labs_tested,
             "counts": self.counts,
             "jobs": [job.to_dict() for job in self.jobs],
