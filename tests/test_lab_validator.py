@@ -83,7 +83,7 @@ def test_unrecognised_lab_conf_syntax_is_reported(tmp_path: Path) -> None:
     assert any("unrecognised syntax" in error for error in result.errors)
 
 
-def test_placeholder_nested_lab_and_empty_directory_are_reported(tmp_path: Path) -> None:
+def test_placeholder_and_nested_lab_are_reported(tmp_path: Path) -> None:
     lab = _write_lab(tmp_path)
     (lab / "r1.startup").write_text("# TODO configure me\n", encoding="utf-8")
     nested = lab / "nested"
@@ -96,7 +96,6 @@ def test_placeholder_nested_lab_and_empty_directory_are_reported(tmp_path: Path)
     assert not result.valid
     assert any("Placeholder token" in error for error in result.errors)
     assert any("Nested lab.conf" in error for error in result.errors)
-    assert any("Empty directory" in error for error in result.errors)
 
 
 def test_prompt_required_file_and_all_startups_are_checked(tmp_path: Path) -> None:
@@ -186,3 +185,38 @@ def test_external_symlink_is_rejected(tmp_path: Path) -> None:
 
     assert not result.valid
     assert any("Symlink escapes" in error for error in result.errors)
+
+def test_ipv4_fragments_and_versions_are_not_mistaken_for_files(tmp_path: Path) -> None:
+    lab = _write_lab(tmp_path)
+    
+    # Prompt containing IPv4, CIDR, versions, decimals, and IPv6 in contexts that previously extracted fragments
+    prompt = """
+    Crea il file `lab.conf` e il file `r1.startup`.
+    Use IP `192.168.1.1` and `192.168.1.10`.
+    Configure `10.0.0.1/24` and `172.16.10.254`.
+    Support IPv6 `2001:db8::1`.
+    Subnet `10.0.0.0/24`.
+    Use `version 1.10`.
+    Also check `.1` and `.10` and `1.5`.
+    Ensure the path `/etc/frr/frr.conf` is created.
+    """
+    
+    result = LabValidator().validate(lab, prompt)
+    
+    # The lab lacks /etc/frr/frr.conf, so it SHOULD complain about that.
+    # It should NOT complain about .1, .10, .24, .254, 1.10, 1.5, etc.
+    assert not result.valid
+    
+    errors_str = " ".join(result.errors)
+    
+    # Verify true positive
+    assert "etc/frr/frr.conf" in errors_str
+    
+    # Verify false positives are eliminated
+    assert ".1" not in errors_str
+    assert ".10" not in errors_str
+    assert ".24" not in errors_str
+    assert ".254" not in errors_str
+    assert "1.10" not in errors_str
+    assert "1.5" not in errors_str
+

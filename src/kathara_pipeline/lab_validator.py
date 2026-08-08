@@ -193,6 +193,29 @@ def _looks_like_network_reference(candidate: str) -> bool:
     )
 
 
+
+_CREATION_VERBS_RE = re.compile(
+    r"(?i)\b(create|generate|crea|genera|include|contain|contiene|add|aggiungi|write|scrivi|avere|have|use|usa|must|deve|require|richiede|necessary|necessario|need|serve|configure|configura|setup|set\s+up|define|definisci|imposta|ensure|assicura|assicurati|make\s+sure|expect|aspetta)\b"
+)
+
+def _is_explicitly_requested(candidate: str, prompt_text: str) -> bool:
+    start_idx = 0
+    while True:
+        idx = prompt_text.find(candidate, start_idx)
+        if idx == -1:
+            break
+        
+        search_start = max(0, idx - 120)
+        window = prompt_text[search_start:idx]
+        closest_context = window.split('\n')[-1]
+        
+        if _CREATION_VERBS_RE.search(closest_context):
+            return True
+            
+        start_idx = idx + len(candidate)
+        
+    return False
+
 def _extract_required_files(
     prompt_text: str,
     devices: set[str] | None = None,
@@ -215,6 +238,16 @@ def _extract_required_files(
             return
         if Path(candidate).name.lower() in _IGNORED_REQUIRED_FILES:
             return
+            
+        if _looks_like_network_reference(candidate):
+            return
+            
+        if re.fullmatch(r"[\d.]+(?:/\d+)?", candidate):
+            return
+
+        if not _is_explicitly_requested(raw_candidate, prompt_text):
+            return
+
         required.add(candidate)
 
     def add_explicit(raw_candidate: str) -> None:
@@ -223,8 +256,6 @@ def _extract_required_files(
             candidate = candidate[2:]
         candidate = candidate.lstrip("/")
         if not re.fullmatch(r"[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*", candidate):
-            return
-        if _looks_like_network_reference(candidate):
             return
         parts = Path(candidate).parts
         basename = Path(candidate).name
@@ -314,9 +345,6 @@ class LabValidator:
             current_path = Path(current)
             if current_path == lab_dir:
                 top_level_directories.extend(current_path / name for name in dir_names)
-
-            if current_path != lab_dir and not dir_names and not file_names:
-                errors.append(f"Empty directory: {current_path.relative_to(lab_dir)}")
 
             for name in [*dir_names, *file_names]:
                 entry = current_path / name

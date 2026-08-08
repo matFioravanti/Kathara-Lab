@@ -30,6 +30,10 @@ def test_build_command_uses_confirmed_exec_local_flags(tmp_path: Path) -> None:
     assert command == [
         "codex-custom",
         "exec",
+        "--model",
+        "gpt-5.6-terra",
+        "-c",
+        'model_reasoning_effort="low"',
         "-c",
         'approval_policy="never"',
         "--sandbox",
