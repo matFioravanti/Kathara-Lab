@@ -14,6 +14,7 @@ from .paths import ensure_generated_root_managed, paths_overlap
 class PathSettings:
     project_root: Path
     prompts: Path
+    prompts_used: Path
     checker_resources: Path
     generated_labs: Path
 
@@ -49,7 +50,7 @@ class PipelineConfig:
 
 
 _SECTIONS: dict[str, set[str]] = {
-    "paths": {"prompts", "checker_resources", "generated_labs"},
+    "paths": {"prompts", "prompts_used", "checker_resources", "generated_labs"},
     "codex": {"command", "sandbox", "timeout_seconds"},
     "checker": {"report_type", "no_cache", "timeout_seconds"},
     "processing": {"continue_on_error", "force", "skip_completed"},
@@ -124,7 +125,8 @@ def load_config(path: Path | str = Path("pipeline.yaml")) -> PipelineConfig:
     path_data = sections["paths"]
     paths = PathSettings(
         project_root=project_root,
-        prompts=_resolve_project_path(project_root, path_data.get("prompts", "prompts_generates"), "paths.prompts"),
+        prompts=_resolve_project_path(project_root, path_data.get("prompts", "prompt_still_to_be_generated"), "paths.prompts"),
+        prompts_used=_resolve_project_path(project_root, path_data.get("prompts_used", "prompts_used"), "paths.prompts_used"),
         checker_resources=_resolve_project_path(
             project_root,
             path_data.get("checker_resources", "kathara-lab-checker"),

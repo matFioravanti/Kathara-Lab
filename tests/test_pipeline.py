@@ -31,7 +31,7 @@ from kathara_pipeline.state_store import sha256_file, sha256_text, write_json_at
 
 
 def _config(tmp_path: Path, *, continue_on_error: bool = True):
-    (tmp_path / "prompts_generates").mkdir()
+    (tmp_path / "prompt_still_to_be_generated").mkdir()
     checker = tmp_path / "kathara-lab-checker"
     checker.mkdir()
     (checker / "SKILL.md").write_text("skill", encoding="utf-8")
@@ -61,7 +61,7 @@ def _resources(tmp_path: Path) -> ResourceFiles:
 
 
 def _prompt(tmp_path: Path, name: str = "lab-1.md") -> PromptRecord:
-    path = tmp_path / "prompts_generates" / name
+    path = tmp_path / "prompt_still_to_be_generated" / name
     content = "Build one router."
     path.write_text(content, encoding="utf-8")
     return PromptRecord(path, name, Path(name).stem, content, sha256_text(content))
@@ -564,7 +564,7 @@ def test_job_setup_failure_becomes_terminal_error_outcome(
 def test_empty_prompt_creates_skipped_manifest_with_explicit_reason(tmp_path: Path) -> None:
     config = _config(tmp_path)
     resources = _resources(tmp_path)
-    path = tmp_path / "prompts_generates" / "empty.md"
+    path = tmp_path / "prompt_still_to_be_generated" / "empty.md"
     path.write_text("  \n", encoding="utf-8")
     prompt = PromptRecord(path, "empty.md", "empty", "  \n", sha256_text("  \n"))
     pipeline = Pipeline(config, emit=lambda _message: None)
@@ -585,7 +585,7 @@ def test_decode_error_continues_even_when_continue_on_error_is_disabled(
 ) -> None:
     config = _config(tmp_path, continue_on_error=False)
     resources = _resources(tmp_path)
-    broken_path = tmp_path / "prompts_generates" / "lab-1.md"
+    broken_path = tmp_path / "prompt_still_to_be_generated" / "lab-1.md"
     broken = PromptRecord(
         broken_path,
         "lab-1.md",
@@ -621,7 +621,7 @@ def test_decode_error_continues_even_when_continue_on_error_is_disabled(
 def test_decode_error_job_persists_terminal_error_manifest(tmp_path: Path) -> None:
     config = _config(tmp_path)
     resources = _resources(tmp_path)
-    path = tmp_path / "prompts_generates" / "broken.md"
+    path = tmp_path / "prompt_still_to_be_generated" / "broken.md"
     prompt = PromptRecord(
         path,
         "broken.md",

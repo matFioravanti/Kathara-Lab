@@ -122,6 +122,10 @@ class CodexRunner:
         return [
             self.command,
             "exec",
+            "--model",
+            "gpt-5.6-terra",
+            "-c",
+            'model_reasoning_effort="low"',
             "-c",
             f'approval_policy="{self.approval_policy}"',
             "--sandbox",

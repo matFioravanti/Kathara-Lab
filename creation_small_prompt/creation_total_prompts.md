@@ -11,12 +11,12 @@ For each mini-prompt:
 3. Follow all instructions already included in the mini-prompt, including:
    - `Do not inspect other directories in this workspace.`
    - `Use the Skill.md in the kathara-lab-creation folder.`
-4. Save the generated files in a separate folder inside the `prompts_generates` directory.
+4. Save the generated files in a separate folder inside the `prompt_still_to_be_generated` directory.
 5. Use the folder name generated for that lab, then append the scenario number and version to it.
 
 Required folder naming format:
 
-`prompts_generates/<generated-folder-name>_<scenario-number>_version_<version>`
+`prompt_still_to_be_generated/<generated-folder-name>_<scenario-number>_version_<version>`
 
 Examples:
 

@@ -1,5 +1,5 @@
 paths:
-  prompts: prompts_generates
+  prompts: prompt_still_to_be_generated
   checker_resources: kathara-lab-checker
   generated_labs: kathara-lab-generates
 

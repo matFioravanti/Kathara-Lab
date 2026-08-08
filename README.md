@@ -1,7 +1,7 @@
 # Pipeline Kathara con Codex
 
 Pipeline Python 3.11+ che, per ogni prompt Markdown o testo in
-`prompts_generates/`, genera un laboratorio Kathara tramite Codex CLI, crea una
+`prompt_still_to_be_generated/`, genera un laboratorio Kathara tramite Codex CLI, crea una
 `correction.yaml`, esegue una sola volta `kathara-lab-checker` e conserva gli
 esiti. I prompt sono sempre elaborati in ordine naturale e rigorosamente uno
 alla volta.
@@ -62,7 +62,7 @@ preflight/esecuzione normale, mentre il dry-run non la crea.
 
 ```yaml
 paths:
-  prompts: prompts_generates
+  prompts: prompt_still_to_be_generated
   checker_resources: kathara-lab-checker
   generated_labs: kathara-lab-generates
 codex:

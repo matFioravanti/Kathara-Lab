@@ -16,7 +16,7 @@ def test_load_config_resolves_defaults_from_config_parent(tmp_path: Path) -> Non
     config = load_config(config_path)
 
     assert config.paths.project_root == tmp_path.resolve()
-    assert config.paths.prompts == (tmp_path / "prompts_generates").resolve()
+    assert config.paths.prompts == (tmp_path / "prompt_still_to_be_generated").resolve()
     assert config.codex.timeout_seconds == 1800
     assert config.processing.continue_on_error is True
 
@@ -62,12 +62,12 @@ def test_nested_config_resolves_paths_from_nearest_project_root(tmp_path: Path) 
     config = load_config(config_path)
 
     assert config.paths.project_root == tmp_path.resolve()
-    assert config.paths.prompts == (tmp_path / "prompts_generates").resolve()
+    assert config.paths.prompts == (tmp_path / "prompt_still_to_be_generated").resolve()
 
 
 @pytest.mark.parametrize(
     "generated_labs",
-    ["prompts_generates", "prompts_generates/output", "kathara-lab-checker"],
+    ["prompt_still_to_be_generated", "prompt_still_to_be_generated/output", "kathara-lab-checker"],
 )
 def test_load_config_rejects_output_overlapping_inputs(
     tmp_path: Path, generated_labs: str

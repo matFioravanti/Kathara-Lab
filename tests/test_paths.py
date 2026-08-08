@@ -35,7 +35,7 @@ def _record(path: Path, lab_id: str) -> PromptRecord:
 
 
 def test_lab_id_is_derived_from_filename_stem() -> None:
-    assert lab_id_from_prompt(Path("prompts_generates/lab-001-v1.md")) == "lab-001-v1"
+    assert lab_id_from_prompt(Path("prompt_still_to_be_generated/lab-001-v1.md")) == "lab-001-v1"
 
 
 def test_lab_id_sanitizes_portable_non_path_characters() -> None:
@@ -85,9 +85,9 @@ def test_collision_detection_is_case_insensitive_for_portable_output_paths(
 def test_overlap_detects_case_alias_for_not_yet_created_child(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    inputs = tmp_path / "prompts_generates"
+    inputs = tmp_path / "prompt_still_to_be_generated"
     inputs.mkdir()
-    output = tmp_path / "PROMPTS_GENERATES" / "generated"
+    output = tmp_path / "PROMPT_STILL_TO_BE_GENERATED" / "generated"
 
     monkeypatch.setattr(
         "kathara_pipeline.paths._filesystem_is_case_insensitive", lambda _path: True

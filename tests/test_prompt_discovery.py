@@ -21,7 +21,7 @@ def test_natural_sort_key_has_numeric_order_and_lexical_tiebreak() -> None:
 
 
 def test_discovery_is_nonrecursive_filtered_and_naturally_sorted(tmp_path: Path) -> None:
-    prompts_dir = tmp_path / "prompts_generates"
+    prompts_dir = tmp_path / "prompt_still_to_be_generated"
     prompts_dir.mkdir()
     (prompts_dir / "lab-010-v1.md").write_text("ten", encoding="utf-8")
     (prompts_dir / "lab-002-v1.txt").write_text("two", encoding="utf-8")
@@ -44,7 +44,7 @@ def test_discovery_is_nonrecursive_filtered_and_naturally_sorted(tmp_path: Path)
 
 
 def test_empty_and_whitespace_prompts_are_preserved(tmp_path: Path) -> None:
-    prompts_dir = tmp_path / "prompts_generates"
+    prompts_dir = tmp_path / "prompt_still_to_be_generated"
     prompts_dir.mkdir()
     (prompts_dir / "empty.md").write_bytes(b"")
     (prompts_dir / "whitespace.txt").write_text(" \n\t", encoding="utf-8")
@@ -58,7 +58,7 @@ def test_empty_and_whitespace_prompts_are_preserved(tmp_path: Path) -> None:
 
 
 def test_utf8_error_is_a_record_and_does_not_block_later_prompt(tmp_path: Path) -> None:
-    prompts_dir = tmp_path / "prompts_generates"
+    prompts_dir = tmp_path / "prompt_still_to_be_generated"
     prompts_dir.mkdir()
     invalid_bytes = b"valid prefix\xffinvalid"
     (prompts_dir / "lab-1.md").write_bytes(invalid_bytes)
@@ -75,7 +75,7 @@ def test_utf8_error_is_a_record_and_does_not_block_later_prompt(tmp_path: Path) 
 
 
 def test_sanitization_collision_aborts_discovery(tmp_path: Path) -> None:
-    prompts_dir = tmp_path / "prompts_generates"
+    prompts_dir = tmp_path / "prompt_still_to_be_generated"
     prompts_dir.mkdir()
     (prompts_dir / "lab a.md").write_text("first", encoding="utf-8")
     (prompts_dir / "lab@a.txt").write_text("second", encoding="utf-8")
@@ -90,14 +90,14 @@ def test_missing_prompt_directory_is_an_error(tmp_path: Path) -> None:
 
 
 def test_empty_directory_returns_empty_discovery(tmp_path: Path) -> None:
-    prompts_dir = tmp_path / "prompts_generates"
+    prompts_dir = tmp_path / "prompt_still_to_be_generated"
     prompts_dir.mkdir()
 
     assert discover_prompts(prompts_dir) == []
 
 
 def test_prompt_symlink_is_rejected_instead_of_reading_external_content(tmp_path: Path) -> None:
-    prompts_dir = tmp_path / "prompts_generates"
+    prompts_dir = tmp_path / "prompt_still_to_be_generated"
     prompts_dir.mkdir()
     external = tmp_path / "external-secret.md"
     external.write_text("must not be read", encoding="utf-8")

@@ -14,7 +14,7 @@ from kathara_pipeline.prompt_discovery import discover_prompts
 
 
 def _project(tmp_path: Path) -> Path:
-    (tmp_path / "prompts_generates").mkdir()
+    (tmp_path / "prompt_still_to_be_generated").mkdir()
     checker = tmp_path / "kathara-lab-checker"
     (checker / "references").mkdir(parents=True)
     (checker / "SKILL.md").write_text(

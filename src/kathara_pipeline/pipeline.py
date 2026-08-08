@@ -4,6 +4,7 @@ import csv
 import json
 import logging
 import os
+import shutil
 import time
 from collections.abc import Callable
 from datetime import UTC, datetime
@@ -801,6 +802,10 @@ class Pipeline:
         LOGGER.setLevel(logging.INFO)
         LOGGER.addHandler(file_handler)
         jobs: list[JobSummary] = []
+        
+        prompts_used_dir = self.config.paths.prompts_used
+        prompts_used_dir.mkdir(parents=True, exist_ok=True)
+        
         try:
             LOGGER.info("Avvio pipeline con %d prompt selezionati", len(selected))
             for index, prompt in enumerate(selected):
@@ -822,6 +827,14 @@ class Pipeline:
                 jobs.append(job)
                 self.emit(f"  {prompt.lab_id}: {job.status.value}")
                 LOGGER.info("Job %s terminato con stato %s", prompt.lab_id, job.status.value)
+                
+                try:
+                    if prompt.path.is_file():
+                        destination = prompts_used_dir / prompt.path.name
+                        shutil.move(str(prompt.path), str(destination))
+                        LOGGER.info("Prompt %s spostato in %s", prompt.name, destination)
+                except Exception as exc:
+                    LOGGER.exception("Impossibile spostare il prompt %s in %s", prompt.name, prompts_used_dir)
                 if (
                     job.status == JobStatus.ERROR
                     and not self.config.processing.continue_on_error
