@@ -1,0 +1,5 @@
+experiment_id,prompt_file,outcome,reason,with_skill_pass_percentage,without_skill_pass_percentage,delta_pass_percentage_points,correction_sha256
+All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,,,,
+Authoritative_DNS_for_Multiple_Domains_IPv4,"Authoritative DNS for Multiple Domains, IPv4.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,,,,0a4f0bf5b343519ee5e6511e2777ac6560e372661437814ed1e974ad4b96abd7
+Central_Web_Server_IPv4_Three_Routers,"Central Web Server, IPv4, Three Routers.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,,,,
+Client_Reaches_Web_Server_by_Name_IPv4_Simple_DNS,"Client Reaches Web Server by Name, IPv4, Simple DNS.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,,,,86e014081221e159aba668fe93517dd292270b1d3ccd3fd21370a0f02b6d7e80

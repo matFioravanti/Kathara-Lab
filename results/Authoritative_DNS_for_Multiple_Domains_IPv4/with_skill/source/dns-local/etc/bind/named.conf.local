@@ -1,0 +1,11 @@
+zone "university.edu" {
+    type forward;
+    forward only;
+    forwarders { 192.168.20.53; };
+};
+
+zone "company.test" {
+    type forward;
+    forward only;
+    forwarders { 192.168.30.53; };
+};

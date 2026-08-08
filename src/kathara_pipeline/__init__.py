@@ -1,4 +1,3 @@
-"""Kathara lab generation and verification pipeline."""
+"""Kathara paired-generation experiment framework."""
 
-__version__ = "0.1.0"
-
+__version__ = "0.4.1"

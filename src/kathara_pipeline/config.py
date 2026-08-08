@@ -1,27 +1,27 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any
 
 import yaml
 
-from .exceptions import ConfigurationError, UnsafePathError
-from .paths import ensure_generated_root_managed, paths_overlap
+from .exceptions import ConfigurationError
 
 
 @dataclass(frozen=True, slots=True)
 class PathSettings:
     project_root: Path
-    prompts: Path
-    prompts_used: Path
-    checker_resources: Path
-    generated_labs: Path
+    resources: Path
+    output: Path
 
 
 @dataclass(frozen=True, slots=True)
-class CodexSettings:
+class GenerationSettings:
+    provider: str = "codex"
     command: str = "codex"
+    model: str | None = "gpt-5.6-terra"
+    reasoning_effort: str | None = "low"
     sandbox: str = "workspace-write"
     timeout_seconds: int = 1800
 
@@ -38,22 +38,35 @@ class ProcessingSettings:
     continue_on_error: bool = True
     force: bool = False
     skip_completed: bool = True
+    keep_workspaces: bool = False
 
 
 @dataclass(frozen=True, slots=True)
 class PipelineConfig:
     paths: PathSettings
-    codex: CodexSettings
+    generation: GenerationSettings
     checker: CheckerSettings
     processing: ProcessingSettings
     config_path: Path
 
+    def with_overrides(
+        self,
+        *,
+        output_dir: Path | None = None,
+        force: bool | None = None,
+    ) -> "PipelineConfig":
+        paths = self.paths if output_dir is None else replace(self.paths, output=output_dir.resolve())
+        processing = self.processing if force is None else replace(self.processing, force=force)
+        return replace(self, paths=paths, processing=processing)
 
-_SECTIONS: dict[str, set[str]] = {
-    "paths": {"prompts", "prompts_used", "checker_resources", "generated_labs"},
-    "codex": {"command", "sandbox", "timeout_seconds"},
+
+_SECTIONS = {
+    "paths": {"resources", "output"},
+    "generation": {
+        "provider", "command", "model", "reasoning_effort", "sandbox", "timeout_seconds"
+    },
     "checker": {"report_type", "no_cache", "timeout_seconds"},
-    "processing": {"continue_on_error", "force", "skip_completed"},
+    "processing": {"continue_on_error", "force", "skip_completed", "keep_workspaces"},
 }
 
 
@@ -77,123 +90,100 @@ def _boolean(value: Any, label: str) -> bool:
     return value
 
 
-def _resolve_project_path(root: Path, value: Any, label: str) -> Path:
+def _string(value: Any, label: str, *, optional: bool = False) -> str | None:
+    if optional and value is None:
+        return None
     if not isinstance(value, str) or not value.strip():
-        raise ConfigurationError(f"'{label}' deve essere un path non vuoto.")
-    raw = Path(value)
-    resolved = (raw if raw.is_absolute() else root / raw).resolve()
-    try:
-        resolved.relative_to(root)
-    except ValueError as exc:
-        raise ConfigurationError(f"'{label}' deve restare dentro la root del progetto: {resolved}") from exc
-    return resolved
+        raise ConfigurationError(f"'{label}' deve essere una stringa non vuota.")
+    return value.strip()
 
 
 def _find_project_root(config_path: Path) -> Path:
-    """Use the nearest package root, falling back to the config directory."""
-
     for candidate in (config_path.parent, *config_path.parents):
         if (candidate / "pyproject.toml").is_file():
             return candidate.resolve()
     return config_path.parent.resolve()
 
 
+def _project_path(root: Path, value: Any, label: str) -> Path:
+    text = _string(value, label)
+    assert text is not None
+    raw = Path(text).expanduser()
+    return (raw if raw.is_absolute() else root / raw).resolve(strict=False)
+
+
 def load_config(path: Path | str = Path("pipeline.yaml")) -> PipelineConfig:
-    config_path = Path(path).resolve()
+    config_path = Path(path).expanduser().resolve(strict=False)
     if not config_path.is_file():
         raise ConfigurationError(f"File di configurazione non trovato: {config_path}")
     try:
         loaded = yaml.safe_load(config_path.read_text(encoding="utf-8"))
     except (OSError, UnicodeError, yaml.YAMLError) as exc:
         raise ConfigurationError(f"Impossibile leggere {config_path}: {exc}") from exc
-    root_data = _mapping(loaded, "root")
-    unknown_sections = set(root_data) - set(_SECTIONS)
+    root = _mapping(loaded, "root")
+    unknown_sections = set(root) - set(_SECTIONS)
     if unknown_sections:
-        raise ConfigurationError(f"Sezioni sconosciute: {', '.join(sorted(unknown_sections))}")
-
+        raise ConfigurationError("Sezioni sconosciute: " + ", ".join(sorted(unknown_sections)))
     sections: dict[str, dict[str, Any]] = {}
     for name, allowed in _SECTIONS.items():
-        section = _mapping(root_data.get(name), name)
+        section = _mapping(root.get(name), name)
         unknown = set(section) - allowed
         if unknown:
-            raise ConfigurationError(
-                f"Chiavi sconosciute in '{name}': {', '.join(sorted(unknown))}"
-            )
+            raise ConfigurationError(f"Chiavi sconosciute in '{name}': {', '.join(sorted(unknown))}")
         sections[name] = section
 
     project_root = _find_project_root(config_path)
-    path_data = sections["paths"]
+    paths_data = sections["paths"]
     paths = PathSettings(
         project_root=project_root,
-        prompts=_resolve_project_path(project_root, path_data.get("prompts", "prompt_still_to_be_generated"), "paths.prompts"),
-        prompts_used=_resolve_project_path(project_root, path_data.get("prompts_used", "prompts_used"), "paths.prompts_used"),
-        checker_resources=_resolve_project_path(
-            project_root,
-            path_data.get("checker_resources", "kathara-lab-checker"),
-            "paths.checker_resources",
-        ),
-        generated_labs=_resolve_project_path(
-            project_root,
-            path_data.get("generated_labs", "kathara-lab-generates"),
-            "paths.generated_labs",
-        ),
+        resources=_project_path(project_root, paths_data.get("resources", "resources"), "paths.resources"),
+        output=_project_path(project_root, paths_data.get("output", "results"), "paths.output"),
     )
-    for input_label, input_path in (
-        ("paths.prompts", paths.prompts),
-        ("paths.checker_resources", paths.checker_resources),
-    ):
-        if paths_overlap(paths.generated_labs, input_path):
-            raise ConfigurationError(
-                "'paths.generated_labs' non può sovrapporsi a "
-                f"'{input_label}': {paths.generated_labs} <-> {input_path}"
-            )
-    try:
-        # Loading configuration must never create the marker, but it rejects a
-        # populated root that has not demonstrably been created by this tool.
-        ensure_generated_root_managed(paths.generated_labs, initialize=False)
-    except UnsafePathError as exc:
-        raise ConfigurationError(str(exc)) from exc
 
-    codex_data = sections["codex"]
-    command = codex_data.get("command", "codex")
-    sandbox = codex_data.get("sandbox", "workspace-write")
-    if not isinstance(command, str) or not command.strip() or any(ch.isspace() for ch in command):
-        raise ConfigurationError("'codex.command' deve essere un singolo eseguibile.")
-    if sandbox != "workspace-write":
-        raise ConfigurationError(
-            "'codex.sandbox' deve essere 'workspace-write' perché Codex genera file nel workspace."
-        )
-    codex = CodexSettings(
+    generation_data = sections["generation"]
+    provider = str(generation_data.get("provider", "codex")).strip().casefold()
+    if provider not in {"codex", "gemini", "claude"}:
+        raise ConfigurationError("generation.provider deve essere codex, gemini oppure claude.")
+    default_commands = {"codex": "codex", "gemini": "gemini", "claude": "claude"}
+    command = _string(generation_data.get("command", default_commands[provider]), "generation.command")
+    assert command is not None
+    if any(char.isspace() for char in command):
+        raise ConfigurationError("generation.command deve essere un singolo eseguibile.")
+    model = generation_data.get("model", "gpt-5.6-terra" if provider == "codex" else None)
+    if model is not None:
+        model = _string(model, "generation.model", optional=True)
+    reasoning = generation_data.get("reasoning_effort", "low" if provider == "codex" else None)
+    if reasoning is not None:
+        reasoning = _string(reasoning, "generation.reasoning_effort", optional=True)
+    sandbox = _string(generation_data.get("sandbox", "workspace-write"), "generation.sandbox")
+    assert sandbox is not None
+    generation = GenerationSettings(
+        provider=provider,
         command=command,
+        model=model,
+        reasoning_effort=reasoning,
         sandbox=sandbox,
-        timeout_seconds=_positive_int(codex_data.get("timeout_seconds", 1800), "codex.timeout_seconds"),
+        timeout_seconds=_positive_int(generation_data.get("timeout_seconds", 1800), "generation.timeout_seconds"),
     )
 
     checker_data = sections["checker"]
-    report_type = checker_data.get("report_type", "csv")
+    report_type = str(checker_data.get("report_type", "csv")).strip().casefold()
     if report_type != "csv":
-        raise ConfigurationError("Questa pipeline richiede checker.report_type: csv.")
+        raise ConfigurationError("Il framework richiede checker.report_type: csv.")
     no_cache = _boolean(checker_data.get("no_cache", True), "checker.no_cache")
     if not no_cache:
-        raise ConfigurationError(
-            "'checker.no_cache' deve essere true: ogni laboratorio deve essere testato una sola volta senza report in cache."
-        )
+        raise ConfigurationError("checker.no_cache deve essere true per esperimenti indipendenti.")
     checker = CheckerSettings(
         report_type=report_type,
-        no_cache=no_cache,
-        timeout_seconds=_positive_int(
-            checker_data.get("timeout_seconds", 1800), "checker.timeout_seconds"
-        ),
+        no_cache=True,
+        timeout_seconds=_positive_int(checker_data.get("timeout_seconds", 1800), "checker.timeout_seconds"),
     )
 
     processing_data = sections["processing"]
     processing = ProcessingSettings(
-        continue_on_error=_boolean(
-            processing_data.get("continue_on_error", True), "processing.continue_on_error"
-        ),
+        continue_on_error=_boolean(processing_data.get("continue_on_error", True), "processing.continue_on_error"),
         force=_boolean(processing_data.get("force", False), "processing.force"),
-        skip_completed=_boolean(
-            processing_data.get("skip_completed", True), "processing.skip_completed"
-        ),
+        skip_completed=_boolean(processing_data.get("skip_completed", True), "processing.skip_completed"),
+        keep_workspaces=_boolean(processing_data.get("keep_workspaces", False), "processing.keep_workspaces"),
     )
-    return PipelineConfig(paths, codex, checker, processing, config_path)
+    return PipelineConfig(paths, generation, checker, processing, config_path)

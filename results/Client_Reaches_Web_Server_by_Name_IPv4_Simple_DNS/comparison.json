@@ -1,0 +1,50 @@
+{
+  "canonical_correction_sha256": "86e014081221e159aba668fe93517dd292270b1d3ccd3fd21370a0f02b6d7e80",
+  "delta": {
+    "checker_duration_seconds": null,
+    "failed_tests": null,
+    "generation_duration_seconds": -2.470933,
+    "pass_percentage_points": null,
+    "passed_tests": null
+  },
+  "experiment_id": "Client_Reaches_Web_Server_by_Name_IPv4_Simple_DNS",
+  "outcome": "INCOMPARABLE",
+  "prompt_file": "Client Reaches Web Server by Name, IPv4, Simple DNS.md",
+  "reason": "Both checker runs must complete successfully for a paired quality comparison.",
+  "with_skill": {
+    "checker_attempted": false,
+    "checker_completed": false,
+    "checker_duration_seconds": null,
+    "error_message": "Static lab validation failed: File explicitly required by prompt is missing: for",
+    "experiment_id": "Client_Reaches_Web_Server_by_Name_IPv4_Simple_DNS",
+    "failed_tests": null,
+    "generation_duration_seconds": 72.36798491700029,
+    "lab_generated": true,
+    "pass_percentage": null,
+    "passed_tests": null,
+    "prompt_file": "Client Reaches Web Server by Name, IPv4, Simple DNS.md",
+    "skip_reason": null,
+    "static_validation_passed": false,
+    "status": "error",
+    "total_tests": null,
+    "variant": "with_skill"
+  },
+  "without_skill": {
+    "checker_attempted": false,
+    "checker_completed": false,
+    "checker_duration_seconds": null,
+    "error_message": "Static lab validation failed: File explicitly required by prompt is missing: for",
+    "experiment_id": "Client_Reaches_Web_Server_by_Name_IPv4_Simple_DNS",
+    "failed_tests": null,
+    "generation_duration_seconds": 74.83891816699906,
+    "lab_generated": true,
+    "pass_percentage": null,
+    "passed_tests": null,
+    "prompt_file": "Client Reaches Web Server by Name, IPv4, Simple DNS.md",
+    "skip_reason": null,
+    "static_validation_passed": false,
+    "status": "error",
+    "total_tests": null,
+    "variant": "without_skill"
+  }
+}

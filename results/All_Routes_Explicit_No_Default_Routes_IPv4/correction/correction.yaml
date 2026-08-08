@@ -1,0 +1,18 @@
+convergence_time: 10
+test:
+  custom_commands:
+    R1:
+      - command: 'sh -c ''routes=$(ip -4 route show default) && test -z "$routes"'''
+        exit_code: 0
+    R2:
+      - command: 'sh -c ''routes=$(ip -4 route show default) && test -z "$routes"'''
+        exit_code: 0
+    R3:
+      - command: 'sh -c ''routes=$(ip -4 route show default) && test -z "$routes"'''
+        exit_code: 0
+    R4:
+      - command: 'sh -c ''routes=$(ip -4 route show default) && test -z "$routes"'''
+        exit_code: 0
+    R5:
+      - command: 'sh -c ''routes=$(ip -4 route show default) && test -z "$routes"'''
+        exit_code: 0

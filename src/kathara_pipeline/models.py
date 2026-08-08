@@ -15,19 +15,26 @@ class JobStatus(str, Enum):
 
     @property
     def terminal(self) -> bool:
-        return self in {
-            JobStatus.PASSED,
-            JobStatus.FAILED,
-            JobStatus.ERROR,
-            JobStatus.SKIPPED,
-        }
+        return self in {self.PASSED, self.FAILED, self.ERROR, self.SKIPPED}
+
+
+class Variant(str, Enum):
+    WITH_SKILL = "with_skill"
+    WITHOUT_SKILL = "without_skill"
+
+
+class ComparisonOutcome(str, Enum):
+    WITH_SKILL_BETTER = "WITH_SKILL_BETTER"
+    WITHOUT_SKILL_BETTER = "WITHOUT_SKILL_BETTER"
+    EQUAL = "EQUAL"
+    INCOMPARABLE = "INCOMPARABLE"
 
 
 @dataclass(frozen=True, slots=True)
 class PromptRecord:
     path: Path
     name: str
-    lab_id: str
+    experiment_id: str
     content: str | None
     prompt_hash: str | None
     decode_error: str | None = None
@@ -40,29 +47,12 @@ class PromptRecord:
 @dataclass(frozen=True, slots=True)
 class ResourceFiles:
     root: Path
-    skill_path: Path
-    schema_path: Path
-    examples_path: Path | None
-    skill_hash: str
-    schema_hash: str
-    schema_mode: str
-
-
-@dataclass(frozen=True, slots=True)
-class JobPaths:
-    root: Path
-    prompt: Path
-    source: Path
-    correction_dir: Path
-    correction: Path
-    checker_run: Path
-    labs_dir: Path
-    candidate: Path
-    reports: Path
-    logs: Path
-    manifest: Path
-    lab_workspace: Path
-    correction_workspace: Path
+    creation_skill: Path
+    checker_skill: Path
+    checker_schema: Path
+    creation_skill_hash: str
+    checker_skill_hash: str
+    checker_schema_hash: str
 
 
 @dataclass(frozen=True, slots=True)
@@ -73,24 +63,13 @@ class CommandResult:
     stderr: str
     duration_seconds: float
     timed_out: bool = False
-    malformed_json_lines: tuple[int, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
 class ValidationResult:
     valid: bool
     errors: tuple[str, ...] = ()
-    mode: str | None = None
     data: dict[str, Any] | None = None
-
-
-@dataclass(frozen=True, slots=True)
-class CheckerRunResult:
-    command: tuple[str, ...]
-    return_code: int
-    duration_seconds: float
-    stdout: str
-    stderr: str
 
 
 @dataclass(frozen=True, slots=True)
@@ -99,41 +78,89 @@ class TestMetrics:
     passed_tests: int
     failed_tests: int
     pass_percentage: float
-    failure_categories: dict[str, int]
-    checker_process_return_code: int
-    checker_execution_status: str
-    reports_found: tuple[str, ...]
-    reports_missing: tuple[str, ...]
+    failure_categories: dict[str, int] = field(default_factory=dict)
+    reports_found: tuple[str, ...] = ()
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
 
+@dataclass(frozen=True, slots=True)
+class VariantPaths:
+    root: Path
+    source: Path
+    checker_run: Path
+    labs_dir: Path
+    candidate: Path
+    reports: Path
+    logs: Path
+    manifest: Path
+    workspace: Path
+
+
+@dataclass(frozen=True, slots=True)
+class ExperimentPaths:
+    root: Path
+    prompt: Path
+    correction_dir: Path
+    correction: Path
+    correction_logs: Path
+    correction_workspace: Path
+    comparison: Path
+    comparison_csv: Path
+    experiment_manifest: Path
+    with_skill: VariantPaths
+    without_skill: VariantPaths
+
+
 @dataclass(slots=True)
-class JobSummary:
-    lab_id: str
+class VariantSummary:
+    experiment_id: str
     prompt_file: str
+    variant: Variant
     status: JobStatus
+    lab_generated: bool = False
+    static_validation_passed: bool = False
+    checker_attempted: bool = False
+    checker_completed: bool = False
     total_tests: int | None = None
     passed_tests: int | None = None
     failed_tests: int | None = None
     pass_percentage: float | None = None
-    duration_seconds: float = 0.0
+    generation_duration_seconds: float | None = None
+    checker_duration_seconds: float | None = None
     error_message: str | None = None
     skip_reason: str | None = None
-    lab_generated: bool = False
-    checker_attempted: bool = False
-    checker_completed: bool = False
-
-    @property
-    def lab_tested(self) -> bool:
-        return self.checker_completed
 
     def to_dict(self) -> dict[str, Any]:
-        result = asdict(self)
-        result["status"] = self.status.value
-        result["lab_tested"] = self.lab_tested
-        return result
+        data = asdict(self)
+        data["variant"] = self.variant.value
+        data["status"] = self.status.value
+        return data
+
+
+@dataclass(slots=True)
+class ExperimentSummary:
+    experiment_id: str
+    prompt_file: str
+    correction_generated: bool
+    correction_hash: str | None
+    with_skill: VariantSummary
+    without_skill: VariantSummary
+    comparison: ComparisonOutcome
+    comparison_reason: str | None = None
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "experiment_id": self.experiment_id,
+            "prompt_file": self.prompt_file,
+            "correction_generated": self.correction_generated,
+            "correction_hash": self.correction_hash,
+            "with_skill": self.with_skill.to_dict(),
+            "without_skill": self.without_skill.to_dict(),
+            "comparison": self.comparison.value,
+            "comparison_reason": self.comparison_reason,
+        }
 
 
 @dataclass(slots=True)
@@ -143,15 +170,10 @@ class PipelineSummary:
     finished_at: str
     duration_seconds: float
     prompts_found: int
-    labs_generated: int
-    checker_attempted: int
-    checker_completed: int
-    counts: dict[str, int]
-    jobs: list[JobSummary] = field(default_factory=list)
-
-    @property
-    def labs_tested(self) -> int:
-        return self.checker_completed
+    experiments_completed: int
+    variant_counts: dict[str, dict[str, int]]
+    comparisons: dict[str, int]
+    experiments: list[ExperimentSummary] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -160,11 +182,8 @@ class PipelineSummary:
             "finished_at": self.finished_at,
             "duration_seconds": self.duration_seconds,
             "prompts_found": self.prompts_found,
-            "labs_generated": self.labs_generated,
-            "checker_attempted": self.checker_attempted,
-            "checker_completed": self.checker_completed,
-            "labs_tested": self.labs_tested,
-            "counts": self.counts,
-            "jobs": [job.to_dict() for job in self.jobs],
+            "experiments_completed": self.experiments_completed,
+            "variant_counts": self.variant_counts,
+            "comparisons": self.comparisons,
+            "experiments": [item.to_dict() for item in self.experiments],
         }
-

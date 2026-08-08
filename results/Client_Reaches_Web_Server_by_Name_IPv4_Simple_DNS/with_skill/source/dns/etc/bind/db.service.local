@@ -1,0 +1,12 @@
+$TTL 86400
+@       IN      SOA     ns.service.local. admin.service.local. (
+                        2026080801 ; serial
+                        3600       ; refresh
+                        1800       ; retry
+                        604800     ; expire
+                        86400      ; negative cache TTL
+                        )
+        IN      NS      ns.service.local.
+ns      IN      A       192.168.10.53
+@       IN      A       192.168.20.10
+www     IN      A       192.168.20.10

@@ -1,0 +1,6 @@
+#!/bin/sh
+# Client 1: configuration is deliberately persistent in this startup file.
+ip addr flush dev eth0
+ip addr add 192.168.10.11/24 dev eth0
+ip link set eth0 up
+ip route replace default via 192.168.10.1 dev eth0

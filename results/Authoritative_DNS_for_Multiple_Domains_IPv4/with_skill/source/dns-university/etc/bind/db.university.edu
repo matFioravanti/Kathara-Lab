@@ -1,0 +1,7 @@
+$TTL 86400
+@   IN  SOA ns1.university.edu. admin.university.edu. (
+        2026080801 3600 900 604800 86400 )
+    IN  NS  ns1.university.edu.
+ns1 IN  A   192.168.20.53
+www IN  A   192.168.20.80
+@   IN  A   192.168.20.80

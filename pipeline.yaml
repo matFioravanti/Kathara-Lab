@@ -1,10 +1,12 @@
 paths:
-  prompts: prompt_still_to_be_generated
-  checker_resources: kathara-lab-checker
-  generated_labs: kathara-lab-generates
+  resources: resources
+  output: results
 
-codex:
+generation:
+  provider: codex
   command: codex
+  model: gpt-5.6-terra
+  reasoning_effort: low
   sandbox: workspace-write
   timeout_seconds: 1800
 
@@ -17,4 +19,4 @@ processing:
   continue_on_error: true
   force: false
   skip_completed: true
-
+  keep_workspaces: false

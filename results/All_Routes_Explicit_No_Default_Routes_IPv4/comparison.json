@@ -1,0 +1,50 @@
+{
+  "canonical_correction_sha256": null,
+  "delta": {
+    "checker_duration_seconds": null,
+    "failed_tests": null,
+    "generation_duration_seconds": 20.391292,
+    "pass_percentage_points": null,
+    "passed_tests": null
+  },
+  "experiment_id": "All_Routes_Explicit_No_Default_Routes_IPv4",
+  "outcome": "INCOMPARABLE",
+  "prompt_file": "All Routes Explicit, No Default Routes, IPv4.md",
+  "reason": "Both checker runs must complete successfully for a paired quality comparison.",
+  "with_skill": {
+    "checker_attempted": false,
+    "checker_completed": false,
+    "checker_duration_seconds": null,
+    "error_message": "Static lab validation failed: File explicitly required by prompt is missing: for",
+    "experiment_id": "All_Routes_Explicit_No_Default_Routes_IPv4",
+    "failed_tests": null,
+    "generation_duration_seconds": 114.6719058330018,
+    "lab_generated": true,
+    "pass_percentage": null,
+    "passed_tests": null,
+    "prompt_file": "All Routes Explicit, No Default Routes, IPv4.md",
+    "skip_reason": null,
+    "static_validation_passed": false,
+    "status": "error",
+    "total_tests": null,
+    "variant": "with_skill"
+  },
+  "without_skill": {
+    "checker_attempted": false,
+    "checker_completed": false,
+    "checker_duration_seconds": null,
+    "error_message": "Static lab validation failed: File explicitly required by prompt is missing: for",
+    "experiment_id": "All_Routes_Explicit_No_Default_Routes_IPv4",
+    "failed_tests": null,
+    "generation_duration_seconds": 94.28061387500202,
+    "lab_generated": true,
+    "pass_percentage": null,
+    "passed_tests": null,
+    "prompt_file": "All Routes Explicit, No Default Routes, IPv4.md",
+    "skip_reason": null,
+    "static_validation_passed": false,
+    "status": "error",
+    "total_tests": null,
+    "variant": "without_skill"
+  }
+}

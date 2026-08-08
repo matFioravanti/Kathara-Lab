@@ -1,0 +1,12 @@
+#!/bin/sh
+# Transit router: it has no end-user LAN.
+ip addr flush dev eth0
+ip addr flush dev eth1
+ip addr add 10.0.12.2/30 dev eth0
+ip addr add 10.0.23.1/30 dev eth1
+ip link set eth0 up
+ip link set eth1 up
+sysctl -w net.ipv4.ip_forward=1
+# Explicit static routes to both edge LANs.
+ip route replace 192.168.10.0/24 via 10.0.12.1 dev eth0
+ip route replace 192.168.30.0/24 via 10.0.23.2 dev eth1

@@ -3,14 +3,13 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "kathara-pipeline"
-version = "0.1.0"
-description = "Sequential Codex-based generation and verification pipeline for Kathara labs"
+name = "kathara-experiment-framework"
+version = "0.4.1"
+description = "Automated paired LLM framework for Kathara lab generation with and without a creation skill"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
   "PyYAML>=6.0",
-  "jsonschema>=4.18",
   "kathara-lab-checker==0.1.14",
 ]
 
@@ -18,7 +17,7 @@ dependencies = [
 test = ["pytest>=8.0"]
 
 [project.scripts]
-kathara-pipeline = "kathara_pipeline.cli:main"
+kathara-experiment = "kathara_pipeline.cli:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

@@ -1,0 +1,2 @@
+experiment_id,prompt_file,outcome,reason,correction_sha256,with_skill_status,without_skill_status,with_skill_pass_percentage,without_skill_pass_percentage,delta_pass_percentage_points,with_skill_failed_tests,without_skill_failed_tests
+Authoritative_DNS_for_Multiple_Domains_IPv4,"Authoritative DNS for Multiple Domains, IPv4.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,0a4f0bf5b343519ee5e6511e2777ac6560e372661437814ed1e974ad4b96abd7,error,error,,,,,

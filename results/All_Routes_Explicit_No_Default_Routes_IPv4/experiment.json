@@ -1,0 +1,27 @@
+{
+  "canonical_correction_sha256": null,
+  "comparison": "INCOMPARABLE",
+  "comparison_reason": "Both checker runs must complete successfully for a paired quality comparison.",
+  "complete": true,
+  "correction_error": "Canonical correction validation failed: canonical correction must define lab_inline",
+  "experiment_id": "All_Routes_Explicit_No_Default_Routes_IPv4",
+  "finished_at": "2026-08-08T18:48:24.202289Z",
+  "identity": {
+    "checker_report_type": "csv",
+    "checker_runtime": "kathara-lab-checker==0.1.14",
+    "checker_schema_sha256": "b512685ee58afa7316dcab62493fa09560c13c7a30c8d78f0a779522be0a3b88",
+    "checker_skill_sha256": "cf396c571be91a3e268f0417246590d4434f71d25fb4c07f4b79fe02cc24daa5",
+    "command": "codex",
+    "creation_skill_sha256": "d5ac746c64cbd55f00774b649b85115aeaef4aa08d7acd3386ab687dc2ce150a",
+    "model": "gpt-5.6-terra",
+    "pipeline_version": "0.4.1",
+    "prompt_sha256": "e582f25a35c94ccf914c22072842dc98a4887e31ede17250f0e2c148d8752e5b",
+    "provider": "codex",
+    "reasoning_effort": "low",
+    "sandbox": "workspace-write"
+  },
+  "pipeline_version": "0.4.1",
+  "prompt_file": "All Routes Explicit, No Default Routes, IPv4.md",
+  "prompt_sha256": "e582f25a35c94ccf914c22072842dc98a4887e31ede17250f0e2c148d8752e5b",
+  "started_at": "2026-08-08T18:43:53.392465Z"
+}

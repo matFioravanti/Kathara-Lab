@@ -2,25 +2,16 @@ from __future__ import annotations
 
 import argparse
 import sys
-from collections.abc import Sequence
 from pathlib import Path
-from typing import Any, TextIO
 
-from .config import PipelineConfig, load_config
-from .exceptions import (
-    ConfigurationError,
-    PipelineError,
-    PipelineJobError,
-    PreflightError,
-    PromptDiscoveryError,
-    UnsafePathError,
-)
+from .config import load_config
+from .correction_validator import CorrectionValidator
+from .exceptions import KatharaFrameworkError
 from .lab_validator import LabValidator
-from .models import JobStatus, PromptRecord, ValidationResult
-from .pipeline import Pipeline, exit_code_for_summary
+from .models import ComparisonOutcome, ExperimentSummary, JobStatus, Variant, VariantSummary
+from .pipeline import PIPELINE_VERSION, Pipeline
+from .report_aggregator import write_aggregate
 from .state_store import read_json
-from .yaml_validator import YamlValidator
-
 
 EXIT_SUCCESS = 0
 EXIT_FAILED = 1
@@ -28,275 +19,231 @@ EXIT_ERROR = 2
 EXIT_PREFLIGHT = 3
 
 
-def _add_config_argument(parser: argparse.ArgumentParser, *, default: bool) -> None:
-    parser.add_argument(
-        "--config",
-        type=Path,
-        default=Path("pipeline.yaml") if default else argparse.SUPPRESS,
-        metavar="PATH",
-        help="file di configurazione (default: pipeline.yaml)",
-    )
-
-
-def build_parser() -> argparse.ArgumentParser:
+def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="kathara-pipeline",
-        description="Genera e verifica sequenzialmente laboratori Kathara.",
+        prog="kathara-experiment",
+        description="Paired LLM experiment framework for Kathara labs: with creation Skill vs without Skill.",
     )
-    _add_config_argument(parser, default=True)
-    commands = parser.add_subparsers(dest="command", required=True)
+    parser.add_argument("--config", default="pipeline.yaml", help="Path to pipeline.yaml")
+    sub = parser.add_subparsers(dest="command", required=True)
 
-    run_parser = commands.add_parser("run", help="esegue la pipeline")
-    _add_config_argument(run_parser, default=False)
-    selection = run_parser.add_mutually_exclusive_group(required=True)
-    selection.add_argument(
-        "--all",
-        dest="all_prompts",
-        action="store_true",
-        help="elabora tutti i prompt scoperti",
-    )
-    selection.add_argument(
-        "--prompt",
-        metavar="FILENAME",
-        help="elabora un solo prompt, selezionato per nome file",
-    )
-    run_parser.add_argument("--force", action="store_true", help="ignora gli skip idempotenti")
-    run_parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="mostra il piano senza creare file o avviare processi esterni",
-    )
+    run = sub.add_parser("run", help="Run paired experiments for prompts in an external directory")
+    run.add_argument("--prompts-dir", required=True, type=Path)
+    run.add_argument("--output-dir", type=Path)
+    run.add_argument("--prompt", help="Process only this prompt filename")
+    run.add_argument("--all", action="store_true", help="Compatibility flag; all prompts are the default")
+    run.add_argument("--dry-run", action="store_true")
+    run.add_argument("--verbose", action="store_true")
+    run.add_argument("--force", action="store_true")
 
-    for name, help_text in (
-        ("status", "legge riepilogo e manifest esistenti"),
-        ("validate", "valida localmente configurazione e artefatti esistenti"),
-        ("preflight", "verifica tutti i prerequisiti, inclusi gli strumenti esterni"),
-    ):
-        command_parser = commands.add_parser(name, help=help_text)
-        _add_config_argument(command_parser, default=False)
+    pre = sub.add_parser("preflight", help="Validate inputs/resources/tool availability")
+    pre.add_argument("--prompts-dir", required=True, type=Path)
+    pre.add_argument("--output-dir", type=Path)
+    pre.add_argument("--dry-run", action="store_true", help="Report missing external tools as warnings")
+
+    status = sub.add_parser("status", help="Read persisted experiment state")
+    status.add_argument("--output-dir", type=Path)
+
+    compare = sub.add_parser("compare", help="Rebuild aggregate reports from persisted pair results")
+    compare.add_argument("--output-dir", type=Path)
+
+    validate = sub.add_parser("validate", help="Statically validate persisted artifacts without running agents/checker")
+    validate.add_argument("--output-dir", type=Path)
 
     return parser
 
 
-def _job_directories(generated_root: Path) -> tuple[Path, ...]:
-    if not generated_root.is_dir():
-        return ()
-    try:
-        directories = (
-            path
-            for path in generated_root.iterdir()
-            if path.is_dir() and not path.is_symlink() and not path.name.startswith(".")
-        )
-        return tuple(sorted(directories, key=lambda path: (path.name.casefold(), path.name)))
-    except OSError as exc:
-        raise PipelineJobError(
-            f"Impossibile elencare gli artefatti in {generated_root}",
-            details=(str(exc),),
-        ) from exc
+def _select(prompts, filename: str | None):
+    if filename is None:
+        return prompts
+    selected = [item for item in prompts if item.name == filename]
+    if not selected:
+        raise KatharaFrameworkError(f"Prompt non trovato nella directory indicata: {filename}")
+    return selected
 
 
-def _integer(value: Any) -> str:
-    return str(value) if isinstance(value, int) and not isinstance(value, bool) else "?"
-
-
-def _status_command(config: PipelineConfig, *, output: TextIO) -> int:
-    """Render persisted state without discovering prompts or running preflight."""
-
-    generated_root = config.paths.generated_labs
-    found = False
-    exit_code = EXIT_SUCCESS
-    summary_path = generated_root / "pipeline-summary.json"
-    summary = read_json(summary_path)
-    if summary is not None:
-        found = True
-        counts = summary.get("counts")
-        counts = counts if isinstance(counts, dict) else {}
-        print("Riepilogo pipeline:", file=output)
-        print(f"  Prompt trovati: {_integer(summary.get('prompts_found'))}", file=output)
-        print(f"  Laboratori generati: {_integer(summary.get('labs_generated'))}", file=output)
-        print(f"  Laboratori testati: {_integer(summary.get('labs_tested'))}", file=output)
-        for status in ("passed", "failed", "error", "skipped"):
-            print(f"  {status}: {_integer(counts.get(status))}", file=output)
-        if isinstance(counts.get("error"), int) and counts["error"] > 0:
-            exit_code = EXIT_ERROR
-        elif isinstance(counts.get("failed"), int) and counts["failed"] > 0:
-            exit_code = EXIT_FAILED
-
-    manifests: list[dict[str, Any]] = []
-    for job_dir in _job_directories(generated_root):
-        manifest = read_json(job_dir / "manifest.json")
-        if manifest is not None:
-            manifests.append(manifest)
-    if manifests:
-        found = True
-        print("Job:", file=output)
-        for manifest in manifests:
-            lab_id = manifest.get("lab_id")
-            status = manifest.get("status")
-            print(
-                f"  {lab_id if isinstance(lab_id, str) else '?'}: "
-                f"{status if isinstance(status, str) else 'unknown'}",
-                file=output,
-            )
-            if status == JobStatus.ERROR.value:
-                exit_code = EXIT_ERROR
-            elif status == JobStatus.FAILED.value and exit_code == EXIT_SUCCESS:
-                exit_code = EXIT_FAILED
-
-    if not found:
-        print("Nessuna esecuzione registrata.", file=output)
-    return exit_code
-
-
-def _prompt_text(job_dir: Path, prompts: dict[str, PromptRecord]) -> tuple[str, str | None]:
-    copied_prompt = job_dir / "prompt.md"
-    if copied_prompt.is_file():
-        try:
-            return copied_prompt.read_text(encoding="utf-8"), None
-        except (OSError, UnicodeError) as exc:
-            return "", f"{job_dir.name}: prompt.md non leggibile: {exc}"
-    prompt = prompts.get(job_dir.name)
-    if prompt is not None and prompt.content is not None:
-        return prompt.content, None
-    return "", None
-
-
-def _print_validation(
-    label: str,
-    result: ValidationResult,
-    *,
-    output: TextIO,
-) -> bool:
-    if result.valid:
-        print(f"  OK {label}", file=output)
-        return True
-    print(f"  ERRORE {label}", file=output)
-    for error in result.errors:
-        print(f"    - {error}", file=output)
-    return False
-
-
-def _validate_command(
-    config: PipelineConfig,
-    pipeline: Pipeline,
-    *,
-    output: TextIO,
-) -> int:
-    """Run only dry/local preflight and static validation of existing artifacts."""
-
-    discovered = pipeline.discover()
-    report = pipeline.preflight(discovered, dry_run=True)
-    prompts_by_lab_id = {prompt.lab_id: prompt for prompt in discovered}
-    lab_validator: LabValidator | None = None
-    yaml_validator: YamlValidator | None = None
-    valid = True
-    artifact_count = 0
-
-    for job_dir in _job_directories(config.paths.generated_labs):
-        source = job_dir / "source"
-        correction = job_dir / "correction" / "correction.yaml"
-        if not source.exists() and not correction.exists():
-            continue
-
-        print(f"Validazione {job_dir.name}:", file=output)
-        prompt_text, prompt_error = _prompt_text(job_dir, prompts_by_lab_id)
-        if prompt_error:
-            artifact_count += 1
-            valid = False
-            print(f"  ERRORE prompt: {prompt_error}", file=output)
-
-        if source.exists():
-            artifact_count += 1
-            if lab_validator is None:
-                lab_validator = LabValidator()
-            valid = _print_validation(
-                "source/",
-                lab_validator.validate(source, prompt_text),
-                output=output,
-            ) and valid
-
-        if correction.exists():
-            artifact_count += 1
-            if not source.is_dir():
-                valid = False
-                print("  ERRORE correction.yaml: source/ mancante o non valida", file=output)
-            else:
-                if yaml_validator is None:
-                    yaml_validator = YamlValidator(
-                        report.resources.schema_path,
-                        report.resources.skill_path,
-                    )
-                valid = _print_validation(
-                    "correction/correction.yaml",
-                    yaml_validator.validate(correction, source, job_dir),
-                    output=output,
-                ) and valid
-
-    if artifact_count == 0:
-        print("Preflight locale completato; nessun artefatto esistente da validare.", file=output)
-    elif valid:
-        print(f"Validazione locale completata: {artifact_count} artefatti validi.", file=output)
-    else:
-        print("Validazione locale completata con errori.", file=output)
-    return EXIT_SUCCESS if valid else EXIT_ERROR
-
-
-def _preflight_command(
-    pipeline: Pipeline,
-    *,
-    output: TextIO,
-) -> int:
-    prompts = pipeline.discover()
-    pipeline.preflight(prompts, dry_run=False)
-    print("Preflight completato con successo.", file=output)
+def _exit_for_summary(summary) -> int:
+    if any(
+        item.status is JobStatus.ERROR
+        for exp in summary.experiments
+        for item in (exp.with_skill, exp.without_skill)
+    ):
+        return EXIT_ERROR
+    if any(
+        item.status is JobStatus.FAILED
+        for exp in summary.experiments
+        for item in (exp.with_skill, exp.without_skill)
+    ):
+        return EXIT_FAILED
     return EXIT_SUCCESS
 
 
-def _emit_exception(exc: BaseException, *, output: TextIO) -> None:
-    print(f"ERRORE: {exc}", file=output)
-    for detail in getattr(exc, "details", ()):
-        print(f"  - {detail}", file=output)
+def _print_summary(summary) -> None:
+    print("Riepilogo esperimento:")
+    print(f"  Prompt: {summary.prompts_found}")
+    for variant in ("with_skill", "without_skill"):
+        counts = summary.variant_counts.get(variant, {})
+        print(
+            f"  {variant}: passed={counts.get('passed', 0)} failed={counts.get('failed', 0)} "
+            f"error={counts.get('error', 0)} skipped={counts.get('skipped', 0)}"
+        )
+    print("  Confronti:")
+    for outcome, value in summary.comparisons.items():
+        print(f"    {outcome}: {value}")
+    print("Esperimenti:")
+    for exp in summary.experiments:
+        print(
+            f"  {exp.experiment_id}: with_skill={exp.with_skill.status.value}, "
+            f"without_skill={exp.without_skill.status.value}, comparison={exp.comparison.value}"
+        )
 
 
-def main(argv: Sequence[str] | None = None) -> int:
-    args = build_parser().parse_args(argv)
+def _variant_from_manifest(data: dict, variant: Variant) -> VariantSummary:
+    metrics = data.get("metrics") or {}
+    generation = data.get("generation") or {}
+    checker = data.get("checker") or {}
+    errors = data.get("errors") or []
+    return VariantSummary(
+        experiment_id=str(data.get("experiment_id", "unknown")),
+        prompt_file=str(data.get("prompt_file", "unknown")),
+        variant=variant,
+        status=JobStatus(str(data.get("status", "error"))) if str(data.get("status", "error")) in {s.value for s in JobStatus} else JobStatus.ERROR,
+        lab_generated=bool(data.get("lab_generated")),
+        static_validation_passed=bool(data.get("static_validation_passed")),
+        checker_attempted=bool(data.get("checker_attempted")),
+        checker_completed=bool(data.get("checker_completed")),
+        total_tests=metrics.get("total_tests"),
+        passed_tests=metrics.get("passed_tests"),
+        failed_tests=metrics.get("failed_tests"),
+        pass_percentage=metrics.get("pass_percentage"),
+        generation_duration_seconds=generation.get("duration_seconds"),
+        checker_duration_seconds=checker.get("duration_seconds"),
+        error_message=str(errors[-1]) if errors else None,
+    )
+
+
+def _load_experiments(output: Path) -> list[ExperimentSummary]:
+    result: list[ExperimentSummary] = []
+    if not output.is_dir():
+        return result
+    for root in sorted(output.iterdir(), key=lambda p: p.name.casefold()):
+        if not root.is_dir() or root.name.startswith(".") or root.name == "summary":
+            continue
+        exp = read_json(root / "experiment.json")
+        comp = read_json(root / "comparison.json")
+        a = read_json(root / "with_skill" / "manifest.json")
+        b = read_json(root / "without_skill" / "manifest.json")
+        if not exp or not comp or not a or not b:
+            continue
+        try:
+            outcome = ComparisonOutcome(str(comp.get("outcome")))
+        except ValueError:
+            outcome = ComparisonOutcome.INCOMPARABLE
+        result.append(
+            ExperimentSummary(
+                experiment_id=str(exp.get("experiment_id", root.name)),
+                prompt_file=str(exp.get("prompt_file", "prompt.md")),
+                correction_generated=bool(exp.get("canonical_correction_sha256")),
+                correction_hash=exp.get("canonical_correction_sha256"),
+                with_skill=_variant_from_manifest(a, Variant.WITH_SKILL),
+                without_skill=_variant_from_manifest(b, Variant.WITHOUT_SKILL),
+                comparison=outcome,
+                comparison_reason=comp.get("reason"),
+            )
+        )
+    return result
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = _parser().parse_args(argv)
     try:
         config = load_config(args.config)
+        output_override = getattr(args, "output_dir", None)
+        force = True if getattr(args, "force", False) else None
+        config = config.with_overrides(output_dir=output_override, force=force)
+
+        if args.command in {"run", "preflight"}:
+            pipeline = Pipeline(config)
+            prompts = _select(pipeline.discover(args.prompts_dir), getattr(args, "prompt", None))
+            dry = bool(getattr(args, "dry_run", False))
+            preflight = pipeline.preflight(args.prompts_dir, prompts, dry_run=dry)
+            for warning in preflight.warnings:
+                print(f"AVVISO: {warning}")
+            if args.command == "preflight":
+                print(f"Preflight completato: {len(prompts)} prompt, risorse valide.")
+                return EXIT_SUCCESS
+            if dry:
+                pipeline.dry_run(prompts, args.prompts_dir, preflight.resources, verbose=args.verbose)
+                return EXIT_SUCCESS
+            summary = pipeline.run(prompts, preflight.resources)
+            _print_summary(summary)
+            return _exit_for_summary(summary)
+
+        output = config.paths.output
         if args.command == "status":
-            return _status_command(config, output=sys.stdout)
+            persisted = read_json(output / "pipeline-summary.json")
+            experiments = _load_experiments(output)
+            if not persisted and not experiments:
+                print("Nessuna esecuzione registrata.")
+                return EXIT_SUCCESS
+            if persisted:
+                print(f"Pipeline version: {persisted.get('pipeline_version', '?')}")
+                print(f"Prompt: {persisted.get('prompts_found', len(experiments))}")
+            for exp in experiments:
+                print(
+                    f"{exp.experiment_id}: with_skill={exp.with_skill.status.value}, "
+                    f"without_skill={exp.without_skill.status.value}, comparison={exp.comparison.value}"
+                )
+            if any(v.status is JobStatus.ERROR for e in experiments for v in (e.with_skill, e.without_skill)):
+                return EXIT_ERROR
+            if any(v.status is JobStatus.FAILED for e in experiments for v in (e.with_skill, e.without_skill)):
+                return EXIT_FAILED
+            return EXIT_SUCCESS
 
-        pipeline = Pipeline(config)
-        if args.command == "run":
-            summary = pipeline.run(
-                prompt_name=args.prompt,
-                force=args.force,
-                dry_run=args.dry_run,
-            )
-            return exit_code_for_summary(summary)
+        if args.command == "compare":
+            experiments = _load_experiments(output)
+            if not experiments:
+                raise KatharaFrameworkError(f"Nessuna coppia persistita trovata in {output}")
+            write_aggregate(output, experiments)
+            print(f"Report aggregati rigenerati per {len(experiments)} coppie in {output / 'summary'}")
+            return EXIT_SUCCESS
+
         if args.command == "validate":
-            return _validate_command(config, pipeline, output=sys.stdout)
-        if args.command == "preflight":
-            return _preflight_command(pipeline, output=sys.stdout)
-        raise AssertionError(f"Comando non gestito: {args.command}")
-    except (ConfigurationError, PreflightError, PromptDiscoveryError, UnsafePathError) as exc:
-        _emit_exception(exc, output=sys.stderr)
-        return EXIT_PREFLIGHT
-    except PipelineJobError as exc:
-        _emit_exception(exc, output=sys.stderr)
-        return EXIT_ERROR
-    except PipelineError as exc:
-        _emit_exception(exc, output=sys.stderr)
-        return EXIT_PREFLIGHT
-    except (OSError, UnicodeError, ValueError) as exc:
-        _emit_exception(exc, output=sys.stderr)
+            lab_validator = LabValidator()
+            correction_validator = CorrectionValidator(config.paths.resources / "checker" / "config-schema.md")
+            invalid = 0
+            checked = 0
+            for root in sorted(output.iterdir()) if output.is_dir() else []:
+                if not root.is_dir() or root.name.startswith(".") or root.name == "summary":
+                    continue
+                prompt = root / "prompt.md"
+                text = prompt.read_text(encoding="utf-8") if prompt.is_file() else ""
+                correction = root / "correction" / "correction.yaml"
+                if correction.is_file():
+                    checked += 1
+                    result = correction_validator.validate(correction)
+                    if not result.valid:
+                        invalid += 1
+                        print(f"{root.name}/correction: ERROR: {'; '.join(result.errors)}")
+                for name in ("with_skill", "without_skill"):
+                    source = root / name / "source"
+                    if source.is_dir():
+                        checked += 1
+                        result = lab_validator.validate(source, text)
+                        if not result.valid:
+                            invalid += 1
+                            print(f"{root.name}/{name}: ERROR: {'; '.join(result.errors)}")
+            print(f"Artefatti controllati: {checked}; invalidi: {invalid}")
+            return EXIT_ERROR if invalid else EXIT_SUCCESS
+
+        raise KatharaFrameworkError("Comando non gestito")
+    except KatharaFrameworkError as exc:
+        print(f"ERRORE: {exc}", file=sys.stderr)
+        return EXIT_PREFLIGHT if args.command in {"run", "preflight"} else EXIT_ERROR
+    except Exception as exc:
+        print(f"ERRORE: {exc}", file=sys.stderr)
         return EXIT_ERROR
 
 
-__all__ = [
-    "EXIT_ERROR",
-    "EXIT_FAILED",
-    "EXIT_PREFLIGHT",
-    "EXIT_SUCCESS",
-    "build_parser",
-    "main",
-]
+if __name__ == "__main__":
+    raise SystemExit(main())

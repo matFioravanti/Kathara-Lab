@@ -1,186 +1,307 @@
-# Pipeline Kathara con Codex
+# Kathara LLM Paired Experiment Framework
 
-Pipeline Python 3.11+ che, per ogni prompt Markdown o testo in
-`prompt_still_to_be_generated/`, genera un laboratorio Kathara tramite Codex CLI, crea una
-`correction.yaml`, esegue una sola volta `kathara-lab-checker` e conserva gli
-esiti. I prompt sono sempre elaborati in ordine naturale e rigorosamente uno
-alla volta.
+Framework Python 3.11+ per generare e valutare automaticamente laboratori Kathara con un esperimento paired controllato:
 
-La pipeline non corregge né rigenera automaticamente un laboratorio o una
-configurazione in base ai risultati. I report del checker sono esiti finali,
-conservati senza usarli per modificare gli input.
+- **with_skill**: lo stesso prompt viene risolto con accesso alla Kathara Creation Skill;
+- **without_skill**: lo stesso prompt viene risolto senza accesso alla Creation Skill.
 
-## Prerequisiti e installazione
+Le due generazioni usano lo stesso provider, modello, reasoning, timeout e policy operative. Sono eseguite **in sequenza, mai in parallelo**. Per ogni prompt viene poi generata una sola `correction.yaml` canonica, derivata esclusivamente dal prompt + Checker Skill + schema, e lo stesso identico file viene eseguito con `kathara-lab-checker==0.1.14` su entrambi i candidati.
 
-Servono Python 3.11 o successivo, Codex CLI autenticato, Kathara, un motore di
-container operativo e il pacchetto Python `kathara-lab-checker`.
+## Obiettivo sperimentale
+
+La variabile indipendente è soltanto la disponibilità della Creation Skill. La correction non vede i candidati, quindi il criterio di valutazione non viene adattato a una delle due soluzioni. Il confronto finale usa esclusivamente dati deterministici prodotti dal checker e dai manifest, non un LLM giudice.
+
+## Input dei prompt
+
+Il framework non possiede né consuma i prompt. Non esistono più cartelle operative come `prompt_still_to_be_generated/` o `prompts_used/`.
+
+La directory viene passata dall'esterno:
+
+```bash
+python3 main.py run --prompts-dir /path/to/prompts
+```
+
+Sono letti i file `.md` e `.txt` direttamente presenti nella directory, in ordine naturale. I prompt originali non vengono spostati, rinominati o modificati.
+
+Per un solo prompt:
+
+```bash
+python3 main.py run \
+  --prompts-dir /path/to/prompts \
+  --prompt lab_001.md
+```
+
+## Installazione
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e '.[test]'
-codex login
-kathara check
 ```
 
-Il preflight usa `codex login status`, controlla i flag della versione locale
-di `codex exec`, verifica l'import del checker nell'interprete corrente e usa
-`kathara check` per accertare anche la disponibilità del motore di container.
-Non legge né registra credenziali.
+Prerequisiti runtime:
 
-## Comandi
-
-```bash
-python3 main.py preflight
-python3 main.py validate
-python3 main.py run --all --dry-run
-python3 main.py run --all
-python3 main.py run --prompt lab-001-v1.md
-python3 main.py run --all --force
-python3 main.py status
-```
-
-`--dry-run` non crea, cancella o modifica file e non avvia strumenti esterni:
-mostra l'ordine dei prompt, gli output previsti, i comandi e gli eventuali
-skip; avvisa inoltre quando un job esistente verrebbe eliminato e ricreato. Un
-target job che sia un file, un symlink o un path non sostituibile blocca il
-dry-run come errore di preflight (exit code 3).
-`--force` ignora solamente lo skip di un risultato precedente valido;
-nella singola esecuzione ciascuna fase resta unica.
+- Python 3.11+;
+- Kathara funzionante con il relativo backend container;
+- `kathara-lab-checker==0.1.14`;
+- una CLI LLM autenticata fra Codex, Gemini CLI o Claude Code CLI.
 
 ## Configurazione
 
-I path relativi in `pipeline.yaml` sono risolti rispetto alla root del progetto,
-individuata dal `pyproject.toml` più vicino; se non esiste, si usa la directory
-del file di configurazione. Devono restare dentro tale root e la directory di
-output non può sovrapporsi alle directory dei prompt o delle risorse checker.
-I confronti risolvono gli alias del filesystem (inclusi i volumi macOS
-case-insensitive). Per evitare cancellazioni accidentali, una root di output
-già popolata deve contenere il marker regolare `.kathara-pipeline-root` con
-contenuto valido: una root assente o vuota viene inizializzata dal
-preflight/esecuzione normale, mentre il dry-run non la crea.
+`pipeline.yaml` di default:
 
 ```yaml
 paths:
-  prompts: prompt_still_to_be_generated
-  checker_resources: kathara-lab-checker
-  generated_labs: kathara-lab-generates
-codex:
+  resources: resources
+  output: results
+
+generation:
+  provider: codex
   command: codex
+  model: gpt-5.6-terra
+  reasoning_effort: low
   sandbox: workspace-write
   timeout_seconds: 1800
+
 checker:
   report_type: csv
   no_cache: true
   timeout_seconds: 1800
+
 processing:
   continue_on_error: true
   force: false
   skip_completed: true
+  keep_workspaces: false
 ```
 
-La modalità CSV è obbligatoria perché lo stato dei test viene calcolato dai
-report, non dal solo exit code del checker. Anche `checker.no_cache` deve
-restare `true`: la pipeline non può riutilizzare esiti di esecuzioni precedenti.
+Provider supportati: `codex`, `gemini`, `claude`. Non viene eseguito fallback automatico fra provider: un esperimento deve rimanere attribuibile a una configurazione precisa.
 
-## Flusso e architettura
-
-Il pacchetto in `src/kathara_pipeline/` separa scoperta e path, subprocess
-Codex, generazione, validazione statica, validazione YAML, subprocess checker,
-parsing dei CSV, manifest e orchestrazione. Ogni job segue questo ordine:
-
-1. copia del prompt e manifest iniziale;
-2. singola generazione del laboratorio in un workspace Codex isolato;
-3. validazione statica di `source/`;
-4. singola generazione di `correction.yaml` in un secondo workspace isolato;
-5. validazione sintattica, strutturale e semantica del YAML;
-6. copia immutabile di `source/` nell'area del checker;
-7. singola esecuzione del checker e parsing dei CSV;
-8. salvataggio di report, manifest e riepilogo.
-
-Un job raggiunge uno stato terminale prima dell'inizio del successivo. Un
-risultato `failed` non interrompe mai la sequenza. Un `error` la interrompe solo
-quando `processing.continue_on_error` è `false`; altrimenti si prosegue fino
-all'ultimo prompt scoperto.
-
-## Artefatti
-
-Per un prompt `lab-001-v1.md` viene usata la directory
-`kathara-lab-generates/lab-001-v1/`:
+## Risorse del framework
 
 ```text
-prompt.md
-source/                         laboratorio originale generato
-correction/correction.yaml      input validato del checker
-checker-run/labs/candidate/     sola copia eseguita
-reports/result-summary.json     metriche o diagnostica tecnica + copie dei CSV
-logs/                           stdout, stderr e JSONL
-manifest.json                   stato e hash, scritto atomicamente
+resources/
+├── skills/
+│   ├── creation/
+│   │   └── SKILL.md
+│   └── checker/
+│       └── SKILL.md
+└── checker/
+    └── config-schema.md
 ```
 
-Il riepilogo complessivo è
-`kathara-lab-generates/pipeline-summary.json` (e CSV). I workspace Codex
-temporanei vengono eliminati con controlli centralizzati sui path; nessuna
-cancellazione può indirizzare la root generata, la root del progetto, la home,
-`/` o un percorso risolto all'esterno dell'area autorizzata.
+La Creation Skill viene materializzata **solo** nel workspace `with_skill`. Il workspace `without_skill` non contiene la Skill. La Checker Skill è stata adattata alla modalità automatica: include automaticamente i check standard espliciti/unambigui del prompt e usa `custom_commands` soltanto come fallback deterministico quando nessun check standard rappresenta il requisito.
 
-## Stati, idempotenza ed exit code
+## Flusso per ogni prompt
 
-- `passed`: checker concluso, report leggibili, zero test falliti.
-- `failed`: checker concluso e almeno un test fallito; è un risultato valido.
-- `error`: errore tecnico di generazione, validazione, processo o report.
-- `skipped`: prompt vuoto oppure risultato precedente completo e invariato.
+```text
+prompt
+  │
+  ├─ 1. WITH_SKILL generation
+  │      prompt + Creation Skill -> Lab A
+  │
+  ├─ 2. WITHOUT_SKILL generation
+  │      prompt only -> Lab B
+  │
+  ├─ 3. canonical correction generation
+  │      prompt + Checker Skill + schema -> correction.yaml
+  │      (nessun candidato è disponibile a questa fase)
+  │
+  ├─ 4. LabValidator + checker su Lab A
+  │
+  ├─ 5. LabValidator + stesso checker/stessa correction su Lab B
+  │
+  └─ 6. confronto paired + report aggregato
+```
 
-Con `processing.skip_completed: true`, un job `passed` o `failed` viene saltato
-solo se coincidono hash di prompt, Skill e schema, versione della pipeline e
-report completi. Un job lasciato a metà viene ricreato da zero. `--force`
-disabilita lo skip per la sola esecuzione corrente.
+La fase 2 parte solo dopo la conclusione della fase 1. Anche i checker vengono eseguiti sequenzialmente.
 
-Gli exit code sono: `3` per configurazione/preflight bloccante, `2` se almeno
-un job è `error`, `1` se almeno un job è `failed`, `0` se tutti i job sono
-`passed` o `skipped`. Anche `status` riflette l'esito peggiore persistito.
+## Canonical correction
 
-## Assunzioni e limitazioni note
+La correction viene generata una volta sola per prompt e non può leggere:
 
-Nel workspace reale non esiste `config-schema.json`: la Skill indica
-esplicitamente `kathara-lab-checker/references/config-schema.md`. La pipeline
-segue quel riferimento, lo classifica come schema documentale e applica la
-validazione strutturale diretta prevista per uno schema non JSON Schema. Le
-whitelist sono derivate dai blocchi YAML e dagli identificatori realmente
-presenti nel Markdown, integrati con i concetti espliciti della Skill (come le
-redistribuzioni `injections`), con i soli adattamenti incompatibili del runtime
-0.1.14 elencati sotto. Un nuovo concetto documentato ma non ancora validabile blocca
-esplicitamente il preflight, invece di essere scartato o accettato senza controlli.
-Se in futuro viene fornito un vero JSON Schema convenzionale, usa `jsonschema`.
+- `with_skill/source/`;
+- `without_skill/source/`;
+- manifest;
+- log;
+- report del checker.
 
-La compatibilità è verificata contro la CLI installata
-`kathara-lab-checker` 0.1.14. Il checker può scrivere nei laboratori e non usa
-l'exit code per distinguere test positivi e negativi: per questo viene avviato
-solo sulla copia `candidate/` e i CSV vengono sempre analizzati e
-controverificati.
+Può leggere soltanto il prompt, la Checker Skill e lo schema. Il suo SHA-256 viene registrato in entrambi i manifest delle varianti; entrambi i checker ricevono lo stesso path/file.
 
-Il riferimento Markdown locale contiene alcuni esempi incompatibili con il
-runtime 0.1.14. In accordo con la priorità data al comportamento realmente
-installato, la pipeline usa `status_code` per HTTP; per OSPF usa
-`router_id`/`state`, oggetti `route` e mapping di interfacce `ethN`; per EVPN
-usa `protocols.bgpd.evpn_sessions` e `vtep_devices`; i controlli delle route
-kernel, BGP e OSPF sono limitati a IPv4 perché il runtime installato interroga
-le relative tabelle IPv4. Queste note sono incluse
-anche nell'istruzione del workspace Codex. I controlli presenti nel runtime ma
-non documentati dalla Skill/schema (`ipv6_enabled`, `sysctls`, `bridges` e
-SCION) vengono invece rifiutati. Se viene scoperto un vero JSON Schema, è lo
-schema a governare chiavi e requisiti, mentre restano attivi i controlli
-semantici applicabili ai campi noti.
+Regole principali della Checker Skill automatica:
 
-Una normale esecuzione richiede Docker (o il backend scelto da Kathara) già
-attivo e connettività disponibile per Codex; il dry-run non ha questi
-requisiti.
+- topology -> `lab_inline`;
+- startup richiesti -> `requiring_startup`;
+- IP espliciti -> `ip_mapping`;
+- daemon/protocolli espliciti -> `daemons` / `protocols`;
+- route attese -> `kernel_routes`;
+- DNS/HTTP -> `applications`;
+- connettività -> `reachability`;
+- `custom_commands` solo se il requisito è esplicito, deterministico, non rappresentabile con un check standard e non impone un dettaglio implementativo lasciato libero.
+
+Sono incluse le compatibilità verificate per `kathara-lab-checker==0.1.14`, fra cui HTTP `status_code`, forme OSPF compatibili, EVPN sotto `protocols.bgpd` e vincoli sulle one-path kernel route.
+
+## LabValidator
+
+`LabValidator` è un sanity check statico intermedio, non il giudice della correttezza di rete. Controlla, fra l'altro:
+
+- esistenza/leggibilità di `lab.conf`;
+- parsing e coerenza delle dichiarazioni;
+- device e startup;
+- directory device;
+- symlink non sicuri;
+- file irregolari/illeggibili;
+- `lab.conf` annidati;
+- placeholder come `TODO`, `CHANGE_ME`, `INSERT_HERE`.
+
+Il controllo conservativo dei file esplicitamente richiesti dal prompt resta, ma risorse del framework come `Skill.md`, `config-schema.md` e `correction.yaml` sono escluse. Token di rete/versione come `.1`, `.10`, IPv4, IPv6 e CIDR non vengono trattati come filename.
+
+Uno scenario strutturalmente valido ma semanticamente sbagliato deve arrivare al checker e risultare `failed`; un problema tecnico che impedisce la valutazione risulta `error`.
+
+## Layout output
+
+Per `lab_001.md`:
+
+```text
+results/lab_001/
+├── prompt.md
+├── correction/
+│   ├── correction.yaml
+│   └── logs/
+├── with_skill/
+│   ├── source/
+│   ├── checker-run/
+│   │   └── labs/candidate/
+│   ├── reports/
+│   │   └── result-summary.json
+│   ├── logs/
+│   └── manifest.json
+├── without_skill/
+│   ├── source/
+│   ├── checker-run/
+│   │   └── labs/candidate/
+│   ├── reports/
+│   │   └── result-summary.json
+│   ├── logs/
+│   └── manifest.json
+├── comparison.json
+├── comparison.csv
+└── experiment.json
+```
+
+I workspace temporanei sono isolati sotto `.workspaces/` e vengono eliminati a fine coppia salvo `processing.keep_workspaces: true`.
+
+## Confronto
+
+Una coppia è confrontabile solo se entrambi i checker terminano correttamente e riportano lo stesso numero di test. La classificazione è:
+
+- `WITH_SKILL_BETTER`;
+- `WITHOUT_SKILL_BETTER`;
+- `EQUAL`;
+- `INCOMPARABLE`.
+
+A parità di correction, viene preferita la variante con meno test falliti. Gli errori tecnici non vengono confusi con i failure del laboratorio.
+
+## Report globali
+
+Dopo il run vengono prodotti:
+
+```text
+results/summary/
+├── experiments.csv
+├── pair-comparisons.csv
+├── aggregate.json
+└── aggregate.csv
+```
+
+Le statistiche separano:
+
+- qualità (`passed`, `failed`, percentuale checker, delta paired);
+- affidabilità tecnica (`error`, checker completion rate);
+- tempo (generation/checker duration).
+
+## Comandi
+
+Dry-run compatto:
+
+```bash
+python3 main.py run --prompts-dir /path/to/prompts --dry-run
+```
+
+Dry-run tecnico:
+
+```bash
+python3 main.py run --prompts-dir /path/to/prompts --dry-run --verbose
+```
+
+Run reale:
+
+```bash
+python3 main.py run --prompts-dir /path/to/prompts
+```
+
+Forzare la rigenerazione:
+
+```bash
+python3 main.py run --prompts-dir /path/to/prompts --force
+```
+
+Preflight:
+
+```bash
+python3 main.py preflight --prompts-dir /path/to/prompts
+```
+
+Stato persistito:
+
+```bash
+python3 main.py status
+```
+
+Ricalcolo report aggregati senza LLM/checker:
+
+```bash
+python3 main.py compare
+```
+
+Validazione statica degli artefatti persistiti:
+
+```bash
+python3 main.py validate
+```
+
+Output alternativo:
+
+```bash
+python3 main.py run \
+  --prompts-dir /path/to/prompts \
+  --output-dir /path/to/results
+```
+
+## Idempotenza e riproducibilità
+
+L'identità dell'esperimento include:
+
+- hash del prompt;
+- hash Creation Skill;
+- hash Checker Skill;
+- hash schema;
+- provider;
+- comando;
+- modello;
+- reasoning;
+- versione del framework.
+
+Una coppia completata e invariata può essere riutilizzata quando `skip_completed: true`. `--force` la ricrea completamente.
 
 ## Test
 
-La suite usa directory temporanee e mock di `subprocess.run`; non avvia Codex,
-Kathara, Docker o il checker.
-
 ```bash
-python -m pytest
+PYTHONPATH=src python3 -m pytest
 ```
+
+I test unitari non avviano realmente LLM, Kathara, Docker o il checker. Il test di orchestrazione usa runner/checker fittizi e verifica anche che le due varianti ricevano la stessa identica correction.
+
+## Nota sperimentale
+
+Per un confronto causale più pulito, non cambiare provider/modello/reasoning fra `with_skill` e `without_skill`. Se si vuole confrontare più modelli, eseguire dataset separati e conservare i rispettivi output/manifest.
