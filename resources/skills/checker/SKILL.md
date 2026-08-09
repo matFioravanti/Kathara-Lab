@@ -14,12 +14,11 @@ This Skill is used by an automated paired experiment. There is no interactive us
 In framework mode you may use only:
 
 1. `input/prompt.md` — the scenario specification;
-2. `resources/checker/SKILL.md` — this policy;
+2. `resources/skills/checker/SKILL.md` — this policy;
 3. `resources/checker/config-schema.md` — supported configuration syntax.
 
 Candidate laboratories are intentionally unavailable. Never derive checks from a generated lab, its
-`lab.conf`, `.startup` files, logs, manifests, reports, or another correction. The same correction must be
-fair for both `with_skill` and `without_skill` candidates.
+`lab.conf`, `.startup` files, logs, manifests, reports, or another correction. The same correction must be fair for both `with_skill` and `without_skill` candidates.
 
 ## Core rule
 
@@ -55,6 +54,18 @@ Do not force a specific routing protocol, service implementation, file layout, o
 allows multiple valid solutions.
 
 ## Derivation rules
+
+### `default_image`
+
+`default_image` is mandatory and must always be included in `correction.yaml`.
+
+If the scenario explicitly specifies a Kathara image, use that image.
+If the scenario does not specify an image, use the fallback defined by
+`resources/checker/config-schema.md`.
+
+The fallback image is a technical checker requirement and must not be
+interpreted as an additional scenario requirement.
+
 
 ### `lab_inline`
 
@@ -124,6 +135,7 @@ Safe examples when explicitly required by the prompt include:
 - IPv6 forwarding -> `sysctl net.ipv6.conf.all.forwarding`;
 - content of a specifically mandated file -> a read-only `grep`/`cat` assertion;
 - success of a specifically mandated diagnostic command -> an `exit_code` assertion.
+- Always include the mandatory `default_image` field. If the prompt does not specify a Kathara image, use the fallback `default_image` defined in the supplied schema.
 
 Do not use destructive commands, package installation, network reconfiguration, process killing, file
 modification, or commands requiring shell side effects. If a safe deterministic assertion cannot be derived,
