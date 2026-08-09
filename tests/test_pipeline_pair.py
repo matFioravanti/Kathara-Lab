@@ -70,7 +70,10 @@ class FakeRunner:
 
     def run(self, *, instruction, workspace, output_last_message, stdout_log, stderr_log, timeout_seconds):
         self.calls.append((instruction, workspace))
-        if "canonical" in instruction or "mandatory" in instruction or "CRITICAL" in instruction:
+        if "evaluation-spec.md" in instruction and "SKILL.md" in instruction and not "canonical" in instruction:
+            out = workspace / "output" / "evaluation-spec.md"
+            out.write_text("Dummy evaluation spec", encoding="utf-8")
+        elif "canonical" in instruction or "mandatory" in instruction or "CRITICAL" in instruction:
             out = workspace / "output" / "correction.yaml"
             out.write_text(self.correction_yaml, encoding="utf-8")
         else:
@@ -90,7 +93,10 @@ class FakeRunnerRetryFix(FakeRunner):
 
     def run(self, *, instruction, workspace, output_last_message, stdout_log, stderr_log, timeout_seconds):
         self.calls.append((instruction, workspace))
-        if "canonical" in instruction or "mandatory" in instruction or "CRITICAL" in instruction:
+        if "evaluation-spec.md" in instruction and "SKILL.md" in instruction and not "canonical" in instruction:
+            out = workspace / "output" / "evaluation-spec.md"
+            out.write_text("Dummy evaluation spec", encoding="utf-8")
+        elif "canonical" in instruction or "mandatory" in instruction or "CRITICAL" in instruction:
             self._correction_attempts += 1
             content = _VALID_CORRECTION if self._correction_attempts > 1 else _INVALID_CORRECTION_NO_LAB_INLINE
             out = workspace / "output" / "correction.yaml"
@@ -139,18 +145,23 @@ def test_pipeline_runs_variants_sequentially_and_reuses_exact_correction(tmp_pat
     fake_runner = FakeRunner()
     pipeline.runner = fake_runner
     pipeline.lab_generator.runner = fake_runner
+    pipeline.evaluation_spec_generator.runner = fake_runner
     pipeline.correction_generator.runner = fake_runner
     fake_checker = FakeChecker()
     pipeline.checker = fake_checker
     resources = discover_resources(project / "resources")
     summary = pipeline.run(discover_prompts(prompts), resources)
-    assert len(fake_runner.calls) == 3
-    assert "resources/creation/SKILL.md" in fake_runner.calls[0][0]
-    assert "Read only input/prompt.md" in fake_runner.calls[1][0]
-    assert "canonical" in fake_runner.calls[2][0]
+    assert len(fake_runner.calls) == 4 # with, without, eval, corr
+    assert "resources/creation/SKILL.md" in fake_runner.calls[0][0] # with_skill
+    assert "Read only input/prompt.md" in fake_runner.calls[1][0] # without_skill
+    assert "evaluation-spec.md" in fake_runner.calls[2][0] # eval spec
+    assert "canonical" in fake_runner.calls[3][0] # correction
+    assert "input/evaluation-spec.md" in fake_runner.calls[3][0] # correction must receive eval spec
+    
     assert fake_checker.order == ["with_skill", "without_skill"]
     assert len(fake_checker.corrections) == 2 and fake_checker.corrections[0] == fake_checker.corrections[1]
     exp = summary.experiments[0]
+    assert exp.evaluation_spec_generated
     assert exp.with_skill.status.value == "passed"
     assert exp.without_skill.status.value == "passed"
     assert exp.comparison.value == "EQUAL"
@@ -169,6 +180,7 @@ def test_checker_is_not_called_when_correction_is_invalid(tmp_path: Path):
     fake_runner = FakeRunner(correction_yaml=_INVALID_CORRECTION_NO_LAB_INLINE)
     pipeline.runner = fake_runner
     pipeline.lab_generator.runner = fake_runner
+    pipeline.evaluation_spec_generator.runner = fake_runner
     pipeline.correction_generator.runner = fake_runner
     fake_checker = FakeChecker()
     pipeline.checker = fake_checker
@@ -197,13 +209,14 @@ def test_retry_fixes_correction_missing_lab_inline(tmp_path: Path):
     fake_runner = FakeRunnerRetryFix()
     pipeline.runner = fake_runner
     pipeline.lab_generator.runner = fake_runner
+    pipeline.evaluation_spec_generator.runner = fake_runner
     pipeline.correction_generator.runner = fake_runner
     fake_checker = FakeChecker()
     pipeline.checker = fake_checker
     resources = discover_resources(project / "resources")
     summary = pipeline.run(discover_prompts(prompts), resources)
     # The correction generator must have been called twice for the correction.
-    correction_calls = [c for c, _ in fake_runner.calls if "canonical" in c or "CRITICAL" in c]
+    correction_calls = [c for c, _ in fake_runner.calls if "canonical" in c or "regenerate" in c]
     assert len(correction_calls) == 2, f"Expected 2 correction attempts, got: {correction_calls}"
     # Checker ran for both variants using the same (repaired) correction.
     assert fake_checker.order == ["with_skill", "without_skill"]
@@ -228,6 +241,7 @@ def test_both_variants_use_same_canonical_correction(tmp_path: Path):
     fake_runner = FakeRunner()
     pipeline.runner = fake_runner
     pipeline.lab_generator.runner = fake_runner
+    pipeline.evaluation_spec_generator.runner = fake_runner
     pipeline.correction_generator.runner = fake_runner
     fake_checker = FakeChecker()
     pipeline.checker = fake_checker
@@ -237,3 +251,46 @@ def test_both_variants_use_same_canonical_correction(tmp_path: Path):
     assert fake_checker.corrections[0] == fake_checker.corrections[1], (
         "with_skill and without_skill must receive the exact same canonical correction"
     )
+
+# ---------------------------------------------------------------------------
+# New regression: evaluation-spec fails, checker NOT called
+# ---------------------------------------------------------------------------
+
+class FakeRunnerEvalSpecFails(FakeRunner):
+    def run(self, *, instruction, workspace, output_last_message, stdout_log, stderr_log, timeout_seconds):
+        self.calls.append((instruction, workspace))
+        if "evaluation-spec.md" in instruction and "SKILL.md" in instruction and not "canonical" in instruction:
+            stdout_log.parent.mkdir(parents=True, exist_ok=True)
+            stdout_log.write_text("{}\n", encoding="utf-8")
+            stderr_log.write_text("Error", encoding="utf-8")
+            return CommandResult(("fake",), 1, "", "Error", 1.0, False)
+        elif "canonical" in instruction or "mandatory" in instruction or "CRITICAL" in instruction:
+            out = workspace / "output" / "correction.yaml"
+            out.write_text(self.correction_yaml, encoding="utf-8")
+        else:
+            _write_lab(workspace)
+        stdout_log.parent.mkdir(parents=True, exist_ok=True)
+        stdout_log.write_text("{}\n", encoding="utf-8")
+        stderr_log.write_text("", encoding="utf-8")
+        return CommandResult(("fake",), 0, "", "", 1.0, False)
+
+def test_checker_is_not_called_when_eval_spec_fails(tmp_path: Path):
+    project, prompts = _make_project(tmp_path)
+    config = load_config(project / "pipeline.yaml")
+    pipeline = Pipeline(config)
+    fake_runner = FakeRunnerEvalSpecFails()
+    pipeline.runner = fake_runner
+    pipeline.lab_generator.runner = fake_runner
+    pipeline.evaluation_spec_generator.runner = fake_runner
+    pipeline.correction_generator.runner = fake_runner
+    fake_checker = FakeChecker()
+    pipeline.checker = fake_checker
+    resources = discover_resources(project / "resources")
+    summary = pipeline.run(discover_prompts(prompts), resources)
+    
+    assert fake_checker.corrections == []
+    exp = summary.experiments[0]
+    assert not exp.evaluation_spec_generated
+    assert not exp.correction_generated
+    assert exp.with_skill.status.value == "error"
+    assert "Evaluation spec generation failed" in exp.with_skill.error_message

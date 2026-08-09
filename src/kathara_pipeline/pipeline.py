@@ -11,6 +11,7 @@ from .comparator import compare_variants, write_comparison
 from .config import PipelineConfig
 from .correction_generator import CorrectionGenerator
 from .correction_validator import CorrectionValidator
+from .evaluation_spec_generator import EvaluationSpecGenerator
 from .exceptions import KatharaFrameworkError, ReportParsingError
 from .lab_generator import LabGenerator
 from .lab_validator import LabValidator
@@ -54,6 +55,7 @@ class Pipeline:
         self.config = config
         self.runner = build_runner(config.generation)
         self.lab_generator = LabGenerator(self.runner, config.generation.timeout_seconds)
+        self.evaluation_spec_generator = EvaluationSpecGenerator(self.runner, config.generation.timeout_seconds)
         self.correction_generator = CorrectionGenerator(self.runner, config.generation.timeout_seconds)
         self.lab_validator = LabValidator()
         self.correction_validator = CorrectionValidator()
@@ -124,6 +126,7 @@ class Pipeline:
         return ExperimentSummary(
             paths.root.name,
             saved.get("prompt_file", paths.prompt.name),
+            saved.get("evaluation_spec_generated", False),
             paths.correction.is_file(),
             saved.get("canonical_correction_sha256"),
             restore(a, Variant.WITH_SKILL),
@@ -265,6 +268,7 @@ class Pipeline:
             "prompt_file": prompt.name,
             "prompt_sha256": prompt.prompt_hash,
             "identity": identity,
+            "evaluation_spec_generated": False,
             "canonical_correction_sha256": None,
             "complete": False,
             "started_at": _utc_now(),
@@ -275,21 +279,37 @@ class Pipeline:
         with_summary, with_manifest = self._generate_variant(prompt, Variant.WITH_SKILL, paths.with_skill, resources)
         without_summary, without_manifest = self._generate_variant(prompt, Variant.WITHOUT_SKILL, paths.without_skill, resources)
 
-        correction_hash: str | None = None
-        correction_error: str | None = None
+        evaluation_spec_generated = False
+        evaluation_spec_error: str | None = None
         try:
-            result = self.correction_generator.generate_with_retry(
+            eval_result = self.evaluation_spec_generator.generate(
                 paths=paths,
                 prompt_text=prompt.content or "",
                 resources=resources,
-                validator=CorrectionValidator(resources.checker_schema),
             )
-            correction_hash = sha256_file(paths.correction)
-            experiment_manifest["canonical_correction_sha256"] = correction_hash
-            experiment_manifest["correction_generation"] = _metadata(result)
+            evaluation_spec_generated = True
+            experiment_manifest["evaluation_spec_generated"] = True
+            experiment_manifest["evaluation_spec_generation"] = _metadata(eval_result)
         except Exception as exc:
-            correction_error = str(exc)
-            experiment_manifest["correction_error"] = correction_error
+            evaluation_spec_error = str(exc)
+            experiment_manifest["evaluation_spec_error"] = evaluation_spec_error
+
+        correction_hash: str | None = None
+        correction_error: str | None = None
+        if evaluation_spec_generated:
+            try:
+                result = self.correction_generator.generate_with_retry(
+                    paths=paths,
+                    prompt_text=prompt.content or "",
+                    resources=resources,
+                    validator=CorrectionValidator(resources.checker_schema),
+                )
+                correction_hash = sha256_file(paths.correction)
+                experiment_manifest["canonical_correction_sha256"] = correction_hash
+                experiment_manifest["correction_generation"] = _metadata(result)
+            except Exception as exc:
+                correction_error = str(exc)
+                experiment_manifest["correction_error"] = correction_error
 
         if correction_hash is not None:
             with_summary = self._evaluate_variant(prompt, paths.with_skill, with_summary, with_manifest, correction_hash)
@@ -301,7 +321,10 @@ class Pipeline:
             ):
                 if summary.static_validation_passed:
                     summary.status = JobStatus.ERROR
-                    summary.error_message = f"Canonical correction unavailable: {correction_error}"
+                    if not evaluation_spec_generated:
+                        summary.error_message = f"Evaluation spec generation failed: {evaluation_spec_error}"
+                    else:
+                        summary.error_message = f"Canonical correction unavailable: {correction_error}"
                     manifest["errors"].append(summary.error_message)
                     manifest["status"] = JobStatus.ERROR.value
                     self._phase(manifest, "error")
@@ -311,6 +334,7 @@ class Pipeline:
         experiment = ExperimentSummary(
             prompt.experiment_id,
             prompt.name,
+            evaluation_spec_generated,
             correction_hash is not None,
             correction_hash,
             with_summary,

@@ -1,14 +1,30 @@
 {
-  "canonical_correction_sha256": null,
-  "checker": null,
-  "checker_attempted": false,
+  "canonical_correction_sha256": "11f1643af25923472fab6cc42958506b2d9e5d459d9b695749ef4d66f2f4ce27",
+  "checker": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
+      "-m",
+      "kathara_lab_checker",
+      "--config",
+      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/correction/correction.yaml",
+      "--labs",
+      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/without_skill/checker-run/labs",
+      "--no-cache",
+      "--report-type",
+      "csv"
+    ],
+    "duration_seconds": 0.3233932089999598,
+    "return_code": 1,
+    "timed_out": false
+  },
+  "checker_attempted": true,
   "checker_completed": false,
   "checker_schema_sha256": "b512685ee58afa7316dcab62493fa09560c13c7a30c8d78f0a779522be0a3b88",
   "checker_skill_sha256": "cf396c571be91a3e268f0417246590d4434f71d25fb4c07f4b79fe02cc24daa5",
   "creation_skill_enabled": false,
   "creation_skill_sha256": null,
   "errors": [
-    "Static lab validation failed: File explicitly required by prompt is missing: for"
+    "kathara-lab-checker exited with technical return code 1"
   ],
   "experiment_id": "All_Routes_Explicit_No_Default_Routes_IPv4",
   "generation": {
@@ -31,7 +47,7 @@
       "--ephemeral",
       "Read only input/prompt.md. Generate exactly one complete Kathara laboratory inside output/lab/. Do not read files outside this workspace. No creation Skill or external implementation guide is available. Do not modify input/prompt.md. Do not generate correction.yaml and do not run Kathara or kathara_lab_checker. The laboratory must be complete, persistent, contain no placeholders, and be internally consistent."
     ],
-    "duration_seconds": 94.28061387500202,
+    "duration_seconds": 108.50068737499987,
     "return_code": 0,
     "timed_out": false
   },
@@ -43,26 +59,34 @@
   "metrics": null,
   "phases": [
     {
-      "at": "2026-08-08T18:45:48.085067Z",
+      "at": "2026-08-09T08:07:06.073408Z",
       "name": "discovered"
     },
     {
-      "at": "2026-08-08T18:45:48.085365Z",
+      "at": "2026-08-09T08:07:06.073709Z",
       "name": "lab_generation_started"
     },
     {
-      "at": "2026-08-08T18:47:22.384710Z",
+      "at": "2026-08-09T08:08:54.582752Z",
       "name": "lab_generated"
     },
     {
-      "at": "2026-08-08T18:47:22.389125Z",
+      "at": "2026-08-09T08:08:54.585172Z",
+      "name": "static_validation_passed"
+    },
+    {
+      "at": "2026-08-09T08:11:36.406558Z",
+      "name": "checker_started"
+    },
+    {
+      "at": "2026-08-09T08:11:36.730571Z",
       "name": "error"
     }
   ],
   "pipeline_version": "0.4.1",
   "prompt_file": "All Routes Explicit, No Default Routes, IPv4.md",
   "prompt_sha256": "e582f25a35c94ccf914c22072842dc98a4887e31ede17250f0e2c148d8752e5b",
-  "static_validation_passed": false,
+  "static_validation_passed": true,
   "status": "error",
   "variant": "without_skill"
 }

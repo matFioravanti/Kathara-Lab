@@ -1,4 +1,0 @@
-ip addr add 192.168.10.10/24 dev eth0
-ip link set eth0 up
-ip route add default via 192.168.10.1
-printf 'nameserver 192.168.10.53\n' > /etc/resolv.conf

@@ -1,13 +1,13 @@
 {
   "comparable_pairs": 0,
-  "incomparable_pairs": 4,
+  "incomparable_pairs": 1,
   "quality": {
     "paired": {
       "mean_delta_pass_percentage_points": null,
       "median_delta_pass_percentage_points": null,
       "outcomes": {
         "EQUAL": 0,
-        "INCOMPARABLE": 4,
+        "INCOMPARABLE": 1,
         "WITHOUT_SKILL_BETTER": 0,
         "WITH_SKILL_BETTER": 0
       }
@@ -16,7 +16,7 @@
       "mean_pass_percentage": null,
       "median_pass_percentage": null,
       "status_counts": {
-        "error": 4,
+        "error": 1,
         "failed": 0,
         "passed": 0,
         "skipped": 0
@@ -26,7 +26,7 @@
       "mean_pass_percentage": null,
       "median_pass_percentage": null,
       "status_counts": {
-        "error": 4,
+        "error": 1,
         "failed": 0,
         "passed": 0,
         "skipped": 0
@@ -35,15 +35,15 @@
   },
   "technical_reliability": {
     "with_skill_checker_completion_rate": 0.0,
-    "with_skill_errors": 4,
+    "with_skill_errors": 1,
     "without_skill_checker_completion_rate": 0.0,
-    "without_skill_errors": 4
+    "without_skill_errors": 1
   },
   "time": {
-    "with_skill_mean_checker_seconds": null,
-    "with_skill_mean_generation_seconds": 87.080136,
-    "without_skill_mean_checker_seconds": null,
-    "without_skill_mean_generation_seconds": 89.357293
+    "with_skill_mean_checker_seconds": 0.703517,
+    "with_skill_mean_generation_seconds": 197.671013,
+    "without_skill_mean_checker_seconds": 0.323393,
+    "without_skill_mean_generation_seconds": 108.500687
   },
-  "total_prompts": 4
+  "total_prompts": 1
 }

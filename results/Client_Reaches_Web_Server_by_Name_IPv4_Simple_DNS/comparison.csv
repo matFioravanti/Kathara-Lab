@@ -1,2 +1,0 @@
-experiment_id,prompt_file,outcome,reason,correction_sha256,with_skill_status,without_skill_status,with_skill_pass_percentage,without_skill_pass_percentage,delta_pass_percentage_points,with_skill_failed_tests,without_skill_failed_tests
-Client_Reaches_Web_Server_by_Name_IPv4_Simple_DNS,"Client Reaches Web Server by Name, IPv4, Simple DNS.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,86e014081221e159aba668fe93517dd292270b1d3ccd3fd21370a0f02b6d7e80,error,error,,,,,

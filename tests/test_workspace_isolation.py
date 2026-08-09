@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from kathara_pipeline.evaluation_spec_generator import EvaluationSpecGenerator
 from kathara_pipeline.lab_generator import LabGenerator
 from kathara_pipeline.models import ResourceFiles, Variant
 from kathara_pipeline.paths import build_experiment_paths
@@ -22,3 +23,33 @@ def test_creation_skill_exists_only_in_with_skill_workspace(tmp_path: Path):
     generator.prepare_workspace(paths=paths.without_skill, prompt_text="p", variant=Variant.WITHOUT_SKILL, resources=resources)
     assert (paths.with_skill.workspace / "resources" / "creation" / "SKILL.md").is_file()
     assert not (paths.without_skill.workspace / "resources").exists()
+
+def test_evaluation_spec_workspace_isolation(tmp_path: Path):
+    creation = tmp_path / "creation.md"; creation.write_text("skill", encoding="utf-8")
+    checker = tmp_path / "checker.md"; checker.write_text("checker", encoding="utf-8")
+    schema = tmp_path / "schema.md"; schema.write_text("schema", encoding="utf-8")
+    resources = ResourceFiles(tmp_path, creation, checker, schema, "a", "b", "c")
+    paths = build_experiment_paths(tmp_path / "out", "exp")
+    
+    # ensure candidates are created (simulate pipeline)
+    paths.with_skill.workspace.mkdir(parents=True)
+    paths.without_skill.workspace.mkdir(parents=True)
+    (paths.with_skill.workspace / "candidate.txt").write_text("with", encoding="utf-8")
+    (paths.without_skill.workspace / "candidate.txt").write_text("without", encoding="utf-8")
+
+    generator = EvaluationSpecGenerator(DummyRunner(), 10)
+    generator.prepare_workspace(paths=paths, prompt_text="p", resources=resources)
+
+    # Check that evaluation_spec_workspace has only input and output and resources
+    workspace = paths.evaluation_spec_workspace
+    assert (workspace / "input" / "prompt.md").is_file()
+    assert (workspace / "resources" / "creation" / "SKILL.md").is_file()
+    assert (workspace / "output").is_dir()
+    
+    # Must NOT have candidates or other things
+    assert not (workspace / "with_skill").exists()
+    assert not (workspace / "without_skill").exists()
+    
+    # Check that only these 3 things exist in workspace
+    entries = {e.name for e in workspace.iterdir()}
+    assert entries == {"input", "resources", "output"}

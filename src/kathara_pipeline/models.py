@@ -102,6 +102,9 @@ class VariantPaths:
 class ExperimentPaths:
     root: Path
     prompt: Path
+    evaluation_spec: Path
+    evaluation_spec_logs: Path
+    evaluation_spec_workspace: Path
     correction_dir: Path
     correction: Path
     correction_logs: Path
@@ -143,6 +146,7 @@ class VariantSummary:
 class ExperimentSummary:
     experiment_id: str
     prompt_file: str
+    evaluation_spec_generated: bool
     correction_generated: bool
     correction_hash: str | None
     with_skill: VariantSummary
@@ -154,6 +158,7 @@ class ExperimentSummary:
         return {
             "experiment_id": self.experiment_id,
             "prompt_file": self.prompt_file,
+            "evaluation_spec_generated": self.evaluation_spec_generated,
             "correction_generated": self.correction_generated,
             "correction_hash": self.correction_hash,
             "with_skill": self.with_skill.to_dict(),

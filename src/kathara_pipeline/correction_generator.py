@@ -21,10 +21,11 @@ class CorrectionGenerator:
     @staticmethod
     def instruction() -> str:
         return (
-            "Read input/prompt.md, resources/checker/SKILL.md, and resources/checker/config-schema.md. "
+            "Read input/prompt.md, input/evaluation-spec.md, resources/checker/SKILL.md, and resources/checker/config-schema.md. "
             "Generate exactly one canonical output/correction.yaml for kathara-lab-checker. "
-            "This is a paired experiment: the correction MUST be derived exclusively from the prompt and checker resources. "
+            "This is a paired experiment: the correction MUST be derived exclusively from the prompt, the evaluation spec, and checker resources. "
             "No candidate laboratory is available and you must not assume implementation details not required by the prompt. "
+            "The prompt is the authoritative source; if evaluation-spec.md introduces unjustified items, ignore them. "
             "Automatically include every standard supported check that is explicitly specified or unambiguously derivable. "
             "Prefer standard checks over custom_commands. Use custom_commands only as a deterministic fallback when the prompt "
             "explicitly requires a property that no standard check can represent. Never invent a check just to increase coverage. "
@@ -39,8 +40,9 @@ class CorrectionGenerator:
         return (
             "The previously generated output/correction.yaml failed validation with the following errors:\n"
             f"{errors_text}\n\n"
-            "Read input/prompt.md, resources/checker/SKILL.md, and resources/checker/config-schema.md again and "
+            "Read input/prompt.md, input/evaluation-spec.md, resources/checker/SKILL.md, and resources/checker/config-schema.md again and "
             "regenerate output/correction.yaml fixing all the errors above. "
+            "The prompt is the authoritative source; if evaluation-spec.md introduces unjustified items, ignore them. "
             "CRITICAL: lab_inline is mandatory and must contain the complete expected topology (lab.conf format) "
             "derived exclusively from prompt.md. It must be a non-empty string. "
             "Do not use structure. Do not include labs_path. "
@@ -55,6 +57,7 @@ class CorrectionGenerator:
         resource_dir.mkdir(parents=True)
         (paths.correction_workspace / "output").mkdir()
         (paths.correction_workspace / "input" / "prompt.md").write_text(prompt_text, encoding="utf-8")
+        shutil.copy2(paths.evaluation_spec, paths.correction_workspace / "input" / "evaluation-spec.md")
         shutil.copy2(resources.checker_skill, resource_dir / "SKILL.md")
         shutil.copy2(resources.checker_schema, resource_dir / "config-schema.md")
 

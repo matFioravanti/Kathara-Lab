@@ -1,4 +1,0 @@
-zone "service.local" {
-        type master;
-        file "/etc/bind/db.service.local";
-};

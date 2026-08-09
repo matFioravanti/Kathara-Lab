@@ -110,6 +110,9 @@ def build_experiment_paths(output_root: Path, experiment_id: str) -> ExperimentP
     return ExperimentPaths(
         root=root,
         prompt=root / "prompt.md",
+        evaluation_spec=root / "evaluation-spec.md",
+        evaluation_spec_logs=root / "logs" / "evaluation-spec",
+        evaluation_spec_workspace=root / ".workspaces" / "evaluation-spec",
         correction_dir=correction_dir,
         correction=correction_dir / "correction.yaml",
         correction_logs=correction_dir / "logs",

@@ -1,4 +1,0 @@
-ip addr add 192.168.10.53/24 dev eth0
-ip link set eth0 up
-ip route add default via 192.168.10.1
-python3 /root/dns_forwarder.py 10.20.0.53 10.30.0.53 &
