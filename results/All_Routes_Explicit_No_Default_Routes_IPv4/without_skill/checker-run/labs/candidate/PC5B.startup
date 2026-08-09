@@ -1,6 +1,0 @@
-#!/bin/sh
-ip addr add 10.5.5.12/24 dev eth0
-ip route add 10.1.1.0/24 via 10.5.5.1
-ip route add 10.2.2.0/24 via 10.5.5.1
-ip route add 10.3.3.0/24 via 10.5.5.1
-ip route add 10.4.4.0/24 via 10.5.5.1

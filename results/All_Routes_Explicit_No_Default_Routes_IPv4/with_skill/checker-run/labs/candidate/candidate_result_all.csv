@@ -1,0 +1,196 @@
+Test Description,Passed,Reason
+Check existence of `r1`,True,OK
+Check existence of `r2`,True,OK
+Check existence of `r3`,True,OK
+Check existence of `r4`,True,OK
+Check existence of `r5`,True,OK
+Check existence of `pc1a`,True,OK
+Check existence of `pc1b`,True,OK
+Check existence of `pc2a`,True,OK
+Check existence of `pc2b`,True,OK
+Check existence of `pc3a`,True,OK
+Check existence of `pc3b`,True,OK
+Check existence of `pc4a`,True,OK
+Check existence of `pc4b`,True,OK
+Check existence of `pc5a`,True,OK
+Check existence of `pc5b`,True,OK
+Checking the collision domain attached to interface `eth0` of `r1`,True,OK
+Checking the collision domain attached to interface `eth1` of `r1`,True,OK
+Checking the collision domain attached to interface `eth2` of `r1`,True,OK
+Checking the collision domain attached to interface `eth0` of `r2`,True,OK
+Checking the collision domain attached to interface `eth1` of `r2`,True,OK
+Checking the collision domain attached to interface `eth2` of `r2`,True,OK
+Checking the collision domain attached to interface `eth0` of `r3`,True,OK
+Checking the collision domain attached to interface `eth1` of `r3`,True,OK
+Checking the collision domain attached to interface `eth2` of `r3`,True,OK
+Checking the collision domain attached to interface `eth0` of `r4`,True,OK
+Checking the collision domain attached to interface `eth1` of `r4`,True,OK
+Checking the collision domain attached to interface `eth2` of `r4`,True,OK
+Checking the collision domain attached to interface `eth3` of `r4`,True,OK
+Checking the collision domain attached to interface `eth0` of `r5`,True,OK
+Checking the collision domain attached to interface `eth1` of `r5`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc1a`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc1b`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc2a`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc2b`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc3a`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc3b`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc4a`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc4b`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc5a`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc5b`,True,OK
+Verifying the IP address (10.1.1.1/24) assigned to eth0 of r1,True,OK
+Verifying the IP address (10.255.12.1/30) assigned to eth1 of r1,True,OK
+Verifying the IP address (10.255.13.1/30) assigned to eth2 of r1,True,OK
+Verifying the IP address (10.2.2.1/24) assigned to eth0 of r2,True,OK
+Verifying the IP address (10.255.12.2/30) assigned to eth1 of r2,True,OK
+Verifying the IP address (10.255.24.1/30) assigned to eth2 of r2,True,OK
+Verifying the IP address (10.3.3.1/24) assigned to eth0 of r3,True,OK
+Verifying the IP address (10.255.13.2/30) assigned to eth1 of r3,True,OK
+Verifying the IP address (10.255.34.1/30) assigned to eth2 of r3,True,OK
+Verifying the IP address (10.4.4.1/24) assigned to eth0 of r4,True,OK
+Verifying the IP address (10.255.24.2/30) assigned to eth1 of r4,True,OK
+Verifying the IP address (10.255.34.2/30) assigned to eth2 of r4,True,OK
+Verifying the IP address (10.255.45.1/30) assigned to eth3 of r4,True,OK
+Verifying the IP address (10.5.5.1/24) assigned to eth0 of r5,True,OK
+Verifying the IP address (10.255.45.2/30) assigned to eth1 of r5,True,OK
+Verifying the IP address (10.1.1.10/24) assigned to eth0 of pc1a,True,OK
+Verifying the IP address (10.1.1.11/24) assigned to eth0 of pc1b,True,OK
+Verifying the IP address (10.2.2.10/24) assigned to eth0 of pc2a,True,OK
+Verifying the IP address (10.2.2.11/24) assigned to eth0 of pc2b,True,OK
+Verifying the IP address (10.3.3.10/24) assigned to eth0 of pc3a,True,OK
+Verifying the IP address (10.3.3.11/24) assigned to eth0 of pc3b,True,OK
+Verifying the IP address (10.4.4.10/24) assigned to eth0 of pc4a,True,OK
+Verifying the IP address (10.4.4.11/24) assigned to eth0 of pc4b,True,OK
+Verifying the IP address (10.5.5.10/24) assigned to eth0 of pc5a,True,OK
+Verifying the IP address (10.5.5.11/24) assigned to eth0 of pc5b,True,OK
+Verifying `10.1.1.11` reachable from device `pc1a`,True,OK
+Verifying `10.2.2.10` reachable from device `pc1a`,True,OK
+Verifying `10.2.2.11` reachable from device `pc1a`,True,OK
+Verifying `10.3.3.10` reachable from device `pc1a`,True,OK
+Verifying `10.3.3.11` reachable from device `pc1a`,True,OK
+Verifying `10.4.4.10` reachable from device `pc1a`,True,OK
+Verifying `10.4.4.11` reachable from device `pc1a`,True,OK
+Verifying `10.5.5.10` reachable from device `pc1a`,True,OK
+Verifying `10.5.5.11` reachable from device `pc1a`,True,OK
+Verifying `10.1.1.10` reachable from device `pc1b`,True,OK
+Verifying `10.2.2.10` reachable from device `pc1b`,True,OK
+Verifying `10.2.2.11` reachable from device `pc1b`,True,OK
+Verifying `10.3.3.10` reachable from device `pc1b`,True,OK
+Verifying `10.3.3.11` reachable from device `pc1b`,True,OK
+Verifying `10.4.4.10` reachable from device `pc1b`,True,OK
+Verifying `10.4.4.11` reachable from device `pc1b`,True,OK
+Verifying `10.5.5.10` reachable from device `pc1b`,True,OK
+Verifying `10.5.5.11` reachable from device `pc1b`,True,OK
+Verifying `10.1.1.10` reachable from device `pc2a`,True,OK
+Verifying `10.1.1.11` reachable from device `pc2a`,True,OK
+Verifying `10.2.2.11` reachable from device `pc2a`,True,OK
+Verifying `10.3.3.10` reachable from device `pc2a`,True,OK
+Verifying `10.3.3.11` reachable from device `pc2a`,True,OK
+Verifying `10.4.4.10` reachable from device `pc2a`,True,OK
+Verifying `10.4.4.11` reachable from device `pc2a`,True,OK
+Verifying `10.5.5.10` reachable from device `pc2a`,True,OK
+Verifying `10.5.5.11` reachable from device `pc2a`,True,OK
+Verifying `10.1.1.10` reachable from device `pc2b`,True,OK
+Verifying `10.1.1.11` reachable from device `pc2b`,True,OK
+Verifying `10.2.2.10` reachable from device `pc2b`,True,OK
+Verifying `10.3.3.10` reachable from device `pc2b`,True,OK
+Verifying `10.3.3.11` reachable from device `pc2b`,True,OK
+Verifying `10.4.4.10` reachable from device `pc2b`,True,OK
+Verifying `10.4.4.11` reachable from device `pc2b`,True,OK
+Verifying `10.5.5.10` reachable from device `pc2b`,True,OK
+Verifying `10.5.5.11` reachable from device `pc2b`,True,OK
+Verifying `10.1.1.10` reachable from device `pc3a`,True,OK
+Verifying `10.1.1.11` reachable from device `pc3a`,True,OK
+Verifying `10.2.2.10` reachable from device `pc3a`,True,OK
+Verifying `10.2.2.11` reachable from device `pc3a`,True,OK
+Verifying `10.3.3.11` reachable from device `pc3a`,True,OK
+Verifying `10.4.4.10` reachable from device `pc3a`,True,OK
+Verifying `10.4.4.11` reachable from device `pc3a`,True,OK
+Verifying `10.5.5.10` reachable from device `pc3a`,True,OK
+Verifying `10.5.5.11` reachable from device `pc3a`,True,OK
+Verifying `10.1.1.10` reachable from device `pc3b`,True,OK
+Verifying `10.1.1.11` reachable from device `pc3b`,True,OK
+Verifying `10.2.2.10` reachable from device `pc3b`,True,OK
+Verifying `10.2.2.11` reachable from device `pc3b`,True,OK
+Verifying `10.3.3.10` reachable from device `pc3b`,True,OK
+Verifying `10.4.4.10` reachable from device `pc3b`,True,OK
+Verifying `10.4.4.11` reachable from device `pc3b`,True,OK
+Verifying `10.5.5.10` reachable from device `pc3b`,True,OK
+Verifying `10.5.5.11` reachable from device `pc3b`,True,OK
+Verifying `10.1.1.10` reachable from device `pc4a`,True,OK
+Verifying `10.1.1.11` reachable from device `pc4a`,True,OK
+Verifying `10.2.2.10` reachable from device `pc4a`,True,OK
+Verifying `10.2.2.11` reachable from device `pc4a`,True,OK
+Verifying `10.3.3.10` reachable from device `pc4a`,True,OK
+Verifying `10.3.3.11` reachable from device `pc4a`,True,OK
+Verifying `10.4.4.11` reachable from device `pc4a`,True,OK
+Verifying `10.5.5.10` reachable from device `pc4a`,True,OK
+Verifying `10.5.5.11` reachable from device `pc4a`,True,OK
+Verifying `10.1.1.10` reachable from device `pc4b`,True,OK
+Verifying `10.1.1.11` reachable from device `pc4b`,True,OK
+Verifying `10.2.2.10` reachable from device `pc4b`,True,OK
+Verifying `10.2.2.11` reachable from device `pc4b`,True,OK
+Verifying `10.3.3.10` reachable from device `pc4b`,True,OK
+Verifying `10.3.3.11` reachable from device `pc4b`,True,OK
+Verifying `10.4.4.10` reachable from device `pc4b`,True,OK
+Verifying `10.5.5.10` reachable from device `pc4b`,True,OK
+Verifying `10.5.5.11` reachable from device `pc4b`,True,OK
+Verifying `10.1.1.10` reachable from device `pc5a`,True,OK
+Verifying `10.1.1.11` reachable from device `pc5a`,True,OK
+Verifying `10.2.2.10` reachable from device `pc5a`,True,OK
+Verifying `10.2.2.11` reachable from device `pc5a`,True,OK
+Verifying `10.3.3.10` reachable from device `pc5a`,True,OK
+Verifying `10.3.3.11` reachable from device `pc5a`,True,OK
+Verifying `10.4.4.10` reachable from device `pc5a`,True,OK
+Verifying `10.4.4.11` reachable from device `pc5a`,True,OK
+Verifying `10.5.5.11` reachable from device `pc5a`,True,OK
+Verifying `10.1.1.10` reachable from device `pc5b`,True,OK
+Verifying `10.1.1.11` reachable from device `pc5b`,True,OK
+Verifying `10.2.2.10` reachable from device `pc5b`,True,OK
+Verifying `10.2.2.11` reachable from device `pc5b`,True,OK
+Verifying `10.3.3.10` reachable from device `pc5b`,True,OK
+Verifying `10.3.3.11` reachable from device `pc5b`,True,OK
+Verifying `10.4.4.10` reachable from device `pc5b`,True,OK
+Verifying `10.4.4.11` reachable from device `pc5b`,True,OK
+Verifying `10.5.5.10` reachable from device `pc5b`,True,OK
+Checking the routing table of r1,False,"The routing table of r1 about route 10.2.2.0/24 have the wrong number of next-hops: 1, expected: 5"
+Checking the routing table of r1,False,"The routing table of r1 about route 10.3.3.0/24 have the wrong number of next-hops: 1, expected: 6"
+Checking the routing table of r1,False,"The routing table of r1 about route 10.4.4.0/24 have the wrong number of next-hops: 1, expected: 5"
+Checking the routing table of r1,False,"The routing table of r1 about route 10.5.5.0/24 have the wrong number of next-hops: 1, expected: 5"
+Checking the routing table of r1,False,"The routing table of r1 about route 10.255.24.0/30 have the wrong number of next-hops: 1, expected: 5"
+Checking the routing table of r1,False,"The routing table of r1 about route 10.255.34.0/30 have the wrong number of next-hops: 1, expected: 5"
+Checking the routing table of r1,False,"The routing table of r1 about route 10.255.45.0/30 have the wrong number of next-hops: 1, expected: 5"
+Checking the routing table of r2,False,"The routing table of r2 about route 10.1.1.0/24 have the wrong number of next-hops: 1, expected: 5"
+Checking the routing table of r2,False,"The routing table of r2 about route 10.3.3.0/24 have the wrong number of next-hops: 1, expected: 5"
+Checking the routing table of r2,False,"The routing table of r2 about route 10.4.4.0/24 have the wrong number of next-hops: 1, expected: 6"
+Checking the routing table of r2,False,"The routing table of r2 about route 10.5.5.0/24 have the wrong number of next-hops: 1, expected: 6"
+Checking the routing table of r2,False,"The routing table of r2 about route 10.255.13.0/30 have the wrong number of next-hops: 1, expected: 5"
+Checking the routing table of r2,False,"The routing table of r2 about route 10.255.34.0/30 have the wrong number of next-hops: 1, expected: 6"
+Checking the routing table of r2,False,"The routing table of r2 about route 10.255.45.0/30 have the wrong number of next-hops: 1, expected: 6"
+Checking the routing table of r3,False,"The routing table of r3 about route 10.1.1.0/24 have the wrong number of next-hops: 1, expected: 6"
+Checking the routing table of r3,False,"The routing table of r3 about route 10.2.2.0/24 have the wrong number of next-hops: 1, expected: 6"
+Checking the routing table of r3,False,"The routing table of r3 about route 10.4.4.0/24 have the wrong number of next-hops: 1, expected: 7"
+Checking the routing table of r3,False,"The routing table of r3 about route 10.5.5.0/24 have the wrong number of next-hops: 1, expected: 7"
+Checking the routing table of r3,False,"The routing table of r3 about route 10.255.12.0/30 have the wrong number of next-hops: 1, expected: 6"
+Checking the routing table of r3,False,"The routing table of r3 about route 10.255.24.0/30 have the wrong number of next-hops: 1, expected: 7"
+Checking the routing table of r3,False,"The routing table of r3 about route 10.255.45.0/30 have the wrong number of next-hops: 1, expected: 7"
+Checking the routing table of r4,False,"The routing table of r4 about route 10.1.1.0/24 have the wrong number of next-hops: 1, expected: 6"
+Checking the routing table of r4,False,"The routing table of r4 about route 10.2.2.0/24 have the wrong number of next-hops: 1, expected: 6"
+Checking the routing table of r4,False,"The routing table of r4 about route 10.3.3.0/24 have the wrong number of next-hops: 1, expected: 7"
+Checking the routing table of r4,False,"The routing table of r4 about route 10.5.5.0/24 have the wrong number of next-hops: 1, expected: 6"
+Checking the routing table of r4,False,"The routing table of r4 about route 10.255.12.0/30 have the wrong number of next-hops: 1, expected: 6"
+Checking the routing table of r4,False,"The routing table of r4 about route 10.255.13.0/30 have the wrong number of next-hops: 1, expected: 7"
+Checking the routing table of r5,False,"The routing table of r5 about route 10.1.1.0/24 have the wrong number of next-hops: 1, expected: 6"
+Checking the routing table of r5,False,"The routing table of r5 about route 10.2.2.0/24 have the wrong number of next-hops: 1, expected: 6"
+Checking the routing table of r5,False,"The routing table of r5 about route 10.3.3.0/24 have the wrong number of next-hops: 1, expected: 6"
+Checking the routing table of r5,False,"The routing table of r5 about route 10.4.4.0/24 have the wrong number of next-hops: 1, expected: 6"
+Checking the routing table of r5,False,"The routing table of r5 about route 10.255.12.0/30 have the wrong number of next-hops: 1, expected: 6"
+Checking the routing table of r5,False,"The routing table of r5 about route 10.255.13.0/30 have the wrong number of next-hops: 1, expected: 6"
+Checking the routing table of r5,False,"The routing table of r5 about route 10.255.24.0/30 have the wrong number of next-hops: 1, expected: 6"
+Checking the routing table of r5,False,"The routing table of r5 about route 10.255.34.0/30 have the wrong number of next-hops: 1, expected: 6"
+Checking the output of the command 'ip -4 route show default' on 'r1',True,OK
+Checking the output of the command 'ip -4 route show default' on 'r2',True,OK
+Checking the output of the command 'ip -4 route show default' on 'r3',True,OK
+Checking the output of the command 'ip -4 route show default' on 'r4',True,OK
+Checking the output of the command 'ip -4 route show default' on 'r5',True,OK

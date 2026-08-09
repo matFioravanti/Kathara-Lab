@@ -39,6 +39,7 @@ class ProcessingSettings:
     force: bool = False
     skip_completed: bool = True
     keep_workspaces: bool = False
+    resume_from: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -54,9 +55,20 @@ class PipelineConfig:
         *,
         output_dir: Path | None = None,
         force: bool | None = None,
+        resume_from: str | None = None,
     ) -> "PipelineConfig":
         paths = self.paths if output_dir is None else replace(self.paths, output=output_dir.resolve())
-        processing = self.processing if force is None else replace(self.processing, force=force)
+        processing_kwargs = {}
+        if force is not None:
+            processing_kwargs["force"] = force
+        if resume_from is not None:
+            processing_kwargs["resume_from"] = resume_from
+        
+        if processing_kwargs:
+            processing = replace(self.processing, **processing_kwargs)
+        else:
+            processing = self.processing
+            
         return replace(self, paths=paths, processing=processing)
 
 

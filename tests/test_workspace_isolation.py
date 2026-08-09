@@ -53,3 +53,30 @@ def test_evaluation_spec_workspace_isolation(tmp_path: Path):
     # Check that only these 3 things exist in workspace
     entries = {e.name for e in workspace.iterdir()}
     assert entries == {"input", "resources", "output"}
+
+def test_correction_workspace_isolation(tmp_path: Path):
+    from kathara_pipeline.correction_generator import CorrectionGenerator
+    creation = tmp_path / "creation.md"; creation.write_text("skill", encoding="utf-8")
+    checker = tmp_path / "checker.md"; checker.write_text("checker", encoding="utf-8")
+    schema = tmp_path / "schema.md"; schema.write_text("schema", encoding="utf-8")
+    resources = ResourceFiles(tmp_path, creation, checker, schema, "a", "b", "c")
+    paths = build_experiment_paths(tmp_path / "out", "exp")
+    
+    paths.evaluation_spec.parent.mkdir(parents=True, exist_ok=True)
+    paths.evaluation_spec.write_text("eval spec", encoding="utf-8")
+    
+    paths.with_skill.source.mkdir(parents=True)
+    (paths.with_skill.source / "lab.conf").write_text("lab", encoding="utf-8")
+
+    generator = CorrectionGenerator(DummyRunner(), 10)
+    generator.prepare_workspace(experiment_paths=paths, variant_paths=paths.with_skill, prompt_text="p", resources=resources)
+
+    workspace = paths.with_skill.correction_workspace
+    assert (workspace / "input" / "prompt.md").is_file()
+    assert (workspace / "input" / "evaluation-spec.md").is_file()
+    assert (workspace / "resources" / "checker" / "SKILL.md").is_file()
+    assert (workspace / "candidate" / "lab.conf").is_file()
+    assert (workspace / "output").is_dir()
+    
+    entries = {e.name for e in workspace.iterdir()}
+    assert entries == {"input", "resources", "candidate", "output"}

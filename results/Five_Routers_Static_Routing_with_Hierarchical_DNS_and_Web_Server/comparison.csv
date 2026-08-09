@@ -1,0 +1,2 @@
+experiment_id,prompt_file,outcome,reason,evaluation_spec_sha256,with_skill_status,without_skill_status,with_skill_pass_percentage,without_skill_pass_percentage,delta_pass_percentage_points,with_skill_failed_tests,without_skill_failed_tests
+Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server,Five Routers Static Routing with Hierarchical DNS and Web Server.md,INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,732b2327a36e31319790df14d3ea7f2d3448ca9f4be0df89886a5afd1ffa2625,failed,error,93.939394,,,4,

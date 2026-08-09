@@ -70,10 +70,10 @@ class FakeRunner:
 
     def run(self, *, instruction, workspace, output_last_message, stdout_log, stderr_log, timeout_seconds):
         self.calls.append((instruction, workspace))
-        if "evaluation-spec.md" in instruction and "SKILL.md" in instruction and not "canonical" in instruction:
+        if "evaluation-spec.md" in instruction and "SKILL.md" in instruction and not "per-variant" in instruction and not "regenerate" in instruction:
             out = workspace / "output" / "evaluation-spec.md"
             out.write_text("Dummy evaluation spec", encoding="utf-8")
-        elif "canonical" in instruction or "mandatory" in instruction or "CRITICAL" in instruction:
+        elif "per-variant" in instruction or "mandatory" in instruction or "CRITICAL" in instruction or "regenerate" in instruction:
             out = workspace / "output" / "correction.yaml"
             out.write_text(self.correction_yaml, encoding="utf-8")
         else:
@@ -93,10 +93,10 @@ class FakeRunnerRetryFix(FakeRunner):
 
     def run(self, *, instruction, workspace, output_last_message, stdout_log, stderr_log, timeout_seconds):
         self.calls.append((instruction, workspace))
-        if "evaluation-spec.md" in instruction and "SKILL.md" in instruction and not "canonical" in instruction:
+        if "evaluation-spec.md" in instruction and "SKILL.md" in instruction and not "per-variant" in instruction and not "regenerate" in instruction:
             out = workspace / "output" / "evaluation-spec.md"
             out.write_text("Dummy evaluation spec", encoding="utf-8")
-        elif "canonical" in instruction or "mandatory" in instruction or "CRITICAL" in instruction:
+        elif "per-variant" in instruction or "mandatory" in instruction or "CRITICAL" in instruction or "regenerate" in instruction:
             self._correction_attempts += 1
             content = _VALID_CORRECTION if self._correction_attempts > 1 else _INVALID_CORRECTION_NO_LAB_INLINE
             out = workspace / "output" / "correction.yaml"
@@ -138,7 +138,7 @@ class FakeChecker:
 # Original test – variants sequential, exact correction reuse
 # ---------------------------------------------------------------------------
 
-def test_pipeline_runs_variants_sequentially_and_reuses_exact_correction(tmp_path: Path):
+def test_pipeline_runs_variants_in_new_order_and_shares_checker_skill(tmp_path: Path):
     project, prompts = _make_project(tmp_path)
     config = load_config(project / "pipeline.yaml")
     pipeline = Pipeline(config)
@@ -151,17 +151,41 @@ def test_pipeline_runs_variants_sequentially_and_reuses_exact_correction(tmp_pat
     pipeline.checker = fake_checker
     resources = discover_resources(project / "resources")
     summary = pipeline.run(discover_prompts(prompts), resources)
-    assert len(fake_runner.calls) == 4 # with, without, eval, corr
-    assert "resources/creation/SKILL.md" in fake_runner.calls[0][0] # with_skill
-    assert "Read only input/prompt.md" in fake_runner.calls[1][0] # without_skill
-    assert "evaluation-spec.md" in fake_runner.calls[2][0] # eval spec
-    assert "canonical" in fake_runner.calls[3][0] # correction
-    assert "input/evaluation-spec.md" in fake_runner.calls[3][0] # correction must receive eval spec
+    
+    # Verify exact call order: 
+    # 0: eval spec
+    # 1: with_skill lab
+    # 2: with_skill correction
+    # 3: without_skill lab
+    # 4: without_skill correction
+    assert len(fake_runner.calls) == 5
+    assert "evaluation-spec.md" in fake_runner.calls[0][0]
+    
+    # Verify ONLY Creation Skill difference occurs during lab generation
+    assert "resources/creation/SKILL.md" in fake_runner.calls[1][0] # with_skill lab
+    assert "Read only input/prompt.md" in fake_runner.calls[3][0] # without_skill lab
+    
+    # Verify BOTH correction generations receive the EXACT SAME Checker Skill and config-schema
+    with_corr_call = fake_runner.calls[2][0]
+    without_corr_call = fake_runner.calls[4][0]
+    
+    assert "per-variant" in with_corr_call
+    assert "resources/checker/SKILL.md" in with_corr_call
+    assert "resources/checker/config-schema.md" in with_corr_call
+    
+    assert "per-variant" in without_corr_call
+    assert "resources/checker/SKILL.md" in without_corr_call
+    assert "resources/checker/config-schema.md" in without_corr_call
+    
+    # Verify they use identical instructions, modulo maybe workspace path if that's printed (it isn't in instruction)
+    assert with_corr_call == without_corr_call, "Correction generation contains variant-specific branches!"
     
     assert fake_checker.order == ["with_skill", "without_skill"]
-    assert len(fake_checker.corrections) == 2 and fake_checker.corrections[0] == fake_checker.corrections[1]
+    assert len(fake_checker.corrections) == 2
     exp = summary.experiments[0]
     assert exp.evaluation_spec_generated
+    assert exp.with_skill.correction_generated
+    assert exp.without_skill.correction_generated
     assert exp.with_skill.status.value == "passed"
     assert exp.without_skill.status.value == "passed"
     assert exp.comparison.value == "EQUAL"
@@ -191,7 +215,8 @@ def test_checker_is_not_called_when_correction_is_invalid(tmp_path: Path):
     assert fake_checker.order == []
     # Experiment must report a correction failure.
     exp = summary.experiments[0]
-    assert not exp.correction_generated
+    assert not exp.with_skill.correction_generated
+    assert not exp.without_skill.correction_generated
     assert exp.with_skill.status.value == "error"
     assert exp.without_skill.status.value == "error"
 
@@ -215,42 +240,18 @@ def test_retry_fixes_correction_missing_lab_inline(tmp_path: Path):
     pipeline.checker = fake_checker
     resources = discover_resources(project / "resources")
     summary = pipeline.run(discover_prompts(prompts), resources)
-    # The correction generator must have been called twice for the correction.
-    correction_calls = [c for c, _ in fake_runner.calls if "canonical" in c or "regenerate" in c]
-    assert len(correction_calls) == 2, f"Expected 2 correction attempts, got: {correction_calls}"
-    # Checker ran for both variants using the same (repaired) correction.
+    # The correction generator must have been called three times for the correction (2 for with_skill, 1 for without_skill).
+    correction_calls = [c for c, _ in fake_runner.calls if "per-variant" in c or "regenerate" in c]
+    assert len(correction_calls) == 3, f"Expected 3 correction attempts, got: {correction_calls}"
+    # Checker ran for both variants using the repaired correction.
     assert fake_checker.order == ["with_skill", "without_skill"]
     assert len(fake_checker.corrections) == 2
-    assert fake_checker.corrections[0] == fake_checker.corrections[1]
     exp = summary.experiments[0]
-    assert exp.correction_generated
+    assert exp.with_skill.correction_generated
+    assert exp.without_skill.correction_generated
     assert exp.with_skill.status.value == "passed"
     assert exp.without_skill.status.value == "passed"
 
-
-# ---------------------------------------------------------------------------
-# New regression: both variants always use the exact same canonical correction
-# ---------------------------------------------------------------------------
-
-def test_both_variants_use_same_canonical_correction(tmp_path: Path):
-    """Regardless of how many correction attempts were needed, both variants
-    must receive the identical canonical correction bytes."""
-    project, prompts = _make_project(tmp_path)
-    config = load_config(project / "pipeline.yaml")
-    pipeline = Pipeline(config)
-    fake_runner = FakeRunner()
-    pipeline.runner = fake_runner
-    pipeline.lab_generator.runner = fake_runner
-    pipeline.evaluation_spec_generator.runner = fake_runner
-    pipeline.correction_generator.runner = fake_runner
-    fake_checker = FakeChecker()
-    pipeline.checker = fake_checker
-    resources = discover_resources(project / "resources")
-    pipeline.run(discover_prompts(prompts), resources)
-    assert len(fake_checker.corrections) == 2
-    assert fake_checker.corrections[0] == fake_checker.corrections[1], (
-        "with_skill and without_skill must receive the exact same canonical correction"
-    )
 
 # ---------------------------------------------------------------------------
 # New regression: evaluation-spec fails, checker NOT called
@@ -259,12 +260,12 @@ def test_both_variants_use_same_canonical_correction(tmp_path: Path):
 class FakeRunnerEvalSpecFails(FakeRunner):
     def run(self, *, instruction, workspace, output_last_message, stdout_log, stderr_log, timeout_seconds):
         self.calls.append((instruction, workspace))
-        if "evaluation-spec.md" in instruction and "SKILL.md" in instruction and not "canonical" in instruction:
+        if "evaluation-spec.md" in instruction and "SKILL.md" in instruction and not "per-variant" in instruction and not "regenerate" in instruction:
             stdout_log.parent.mkdir(parents=True, exist_ok=True)
             stdout_log.write_text("{}\n", encoding="utf-8")
             stderr_log.write_text("Error", encoding="utf-8")
             return CommandResult(("fake",), 1, "", "Error", 1.0, False)
-        elif "canonical" in instruction or "mandatory" in instruction or "CRITICAL" in instruction:
+        elif "per-variant" in instruction or "mandatory" in instruction or "CRITICAL" in instruction or "regenerate" in instruction:
             out = workspace / "output" / "correction.yaml"
             out.write_text(self.correction_yaml, encoding="utf-8")
         else:
@@ -291,6 +292,53 @@ def test_checker_is_not_called_when_eval_spec_fails(tmp_path: Path):
     assert fake_checker.corrections == []
     exp = summary.experiments[0]
     assert not exp.evaluation_spec_generated
-    assert not exp.correction_generated
+    assert not exp.with_skill.correction_generated
+    assert not exp.without_skill.correction_generated
     assert exp.with_skill.status.value == "error"
     assert "Evaluation spec generation failed" in exp.with_skill.error_message
+
+def test_resume_from_correction(tmp_path: Path):
+    project, prompts = _make_project(tmp_path)
+    config = load_config(project / "pipeline.yaml")
+    pipeline = Pipeline(config)
+    fake_runner = FakeRunner()
+    pipeline.runner = fake_runner
+    pipeline.lab_generator.runner = fake_runner
+    pipeline.evaluation_spec_generator.runner = fake_runner
+    pipeline.correction_generator.runner = fake_runner
+    fake_checker = FakeChecker()
+    pipeline.checker = fake_checker
+    resources = discover_resources(project / "resources")
+    
+    # Run full pipeline first
+    summary = pipeline.run(discover_prompts(prompts), resources)
+    assert summary.experiments[0].with_skill.status.value == "passed"
+    
+    # Now run resume
+    fake_runner.calls.clear()
+    fake_checker.corrections.clear()
+    fake_checker.order.clear()
+    
+    config_resume = config.with_overrides(resume_from="correction")
+    pipeline_resume = Pipeline(config_resume)
+    pipeline_resume.runner = fake_runner
+    pipeline_resume.lab_generator.runner = fake_runner
+    pipeline_resume.evaluation_spec_generator.runner = fake_runner
+    pipeline_resume.correction_generator.runner = fake_runner
+    pipeline_resume.checker = fake_checker
+    
+    summary2 = pipeline_resume.run(discover_prompts(prompts), resources)
+    
+    # Verify it ONLY called runner for correction (2 calls total)
+    assert len(fake_runner.calls) == 2
+    assert "per-variant" in fake_runner.calls[0][0]
+    assert "per-variant" in fake_runner.calls[1][0]
+    
+    # Verify checker ran for both
+    assert fake_checker.order == ["with_skill", "without_skill"]
+    assert len(fake_checker.corrections) == 2
+    
+    # Verify summary is complete
+    assert summary2.experiments[0].with_skill.status.value == "passed"
+    assert summary2.experiments[0].without_skill.status.value == "passed"
+    

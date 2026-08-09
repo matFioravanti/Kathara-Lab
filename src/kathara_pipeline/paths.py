@@ -90,6 +90,7 @@ def _variant_paths(root: Path, variant: Variant) -> VariantPaths:
     variant_root = root / variant.value
     checker_run = variant_root / "checker-run"
     labs_dir = checker_run / "labs"
+    correction_dir = variant_root / "correction"
     return VariantPaths(
         root=variant_root,
         source=variant_root / "source",
@@ -100,23 +101,22 @@ def _variant_paths(root: Path, variant: Variant) -> VariantPaths:
         logs=variant_root / "logs",
         manifest=variant_root / "manifest.json",
         workspace=root / ".workspaces" / variant.value,
+        correction_dir=correction_dir,
+        correction=correction_dir / "correction.yaml",
+        correction_logs=correction_dir / "logs",
+        correction_workspace=root / ".workspaces" / f"correction_{variant.value}",
     )
 
 
 def build_experiment_paths(output_root: Path, experiment_id: str) -> ExperimentPaths:
     safe_id = sanitize_experiment_id(experiment_id)
     root = output_root.expanduser().resolve(strict=False) / safe_id
-    correction_dir = root / "correction"
     return ExperimentPaths(
         root=root,
         prompt=root / "prompt.md",
         evaluation_spec=root / "evaluation-spec.md",
         evaluation_spec_logs=root / "logs" / "evaluation-spec",
         evaluation_spec_workspace=root / ".workspaces" / "evaluation-spec",
-        correction_dir=correction_dir,
-        correction=correction_dir / "correction.yaml",
-        correction_logs=correction_dir / "logs",
-        correction_workspace=root / ".workspaces" / "correction",
         comparison=root / "comparison.json",
         comparison_csv=root / "comparison.csv",
         experiment_manifest=root / "experiment.json",

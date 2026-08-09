@@ -1,0 +1,1 @@
+Generate a detailed prompt file for this request: generate a lab composed of 5 routers with a maximum degree of 3. The network is routed through static routing. The network has three DNS servers. The root one, the org one and the local name server. There is a server (kathara.org) and a client that should be able to reach the server using its name.

@@ -1,2 +1,2 @@
-experiment_id,prompt_file,outcome,reason,with_skill_pass_percentage,without_skill_pass_percentage,delta_pass_percentage_points,correction_sha256
-All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,,,,11f1643af25923472fab6cc42958506b2d9e5d459d9b695749ef4d66f2f4ce27
+experiment_id,prompt_file,outcome,reason,with_skill_pass_percentage,without_skill_pass_percentage,delta_pass_percentage_points,evaluation_spec_sha256
+Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server,Five Routers Static Routing with Hierarchical DNS and Web Server.md,INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,93.939394,,,732b2327a36e31319790df14d3ea7f2d3448ca9f4be0df89886a5afd1ffa2625

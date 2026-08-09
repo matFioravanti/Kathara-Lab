@@ -14,14 +14,14 @@ def compare_variants(with_skill: VariantSummary, without_skill: VariantSummary) 
     if with_skill.total_tests is None or without_skill.total_tests is None:
         return ComparisonOutcome.INCOMPARABLE, "Missing checker metrics."
     if with_skill.total_tests != without_skill.total_tests:
-        return ComparisonOutcome.INCOMPARABLE, "The same canonical correction produced different test counts; pair excluded from quality comparison."
+        return ComparisonOutcome.INCOMPARABLE, "Per-variant corrections produced different test counts; pair excluded from quality comparison."
     if with_skill.failed_tests is None or without_skill.failed_tests is None:
         return ComparisonOutcome.INCOMPARABLE, "Missing failed-test counts."
     if with_skill.failed_tests < without_skill.failed_tests:
-        return ComparisonOutcome.WITH_SKILL_BETTER, "With-skill candidate failed fewer checks under the same correction."
+        return ComparisonOutcome.WITH_SKILL_BETTER, "With-skill candidate failed fewer checks."
     if without_skill.failed_tests < with_skill.failed_tests:
-        return ComparisonOutcome.WITHOUT_SKILL_BETTER, "Without-skill candidate failed fewer checks under the same correction."
-    return ComparisonOutcome.EQUAL, "Both candidates produced the same checker result under the same correction."
+        return ComparisonOutcome.WITHOUT_SKILL_BETTER, "Without-skill candidate failed fewer checks."
+    return ComparisonOutcome.EQUAL, "Both candidates produced the same checker result."
 
 
 def comparison_payload(summary: ExperimentSummary) -> dict[str, Any]:
@@ -30,7 +30,7 @@ def comparison_payload(summary: ExperimentSummary) -> dict[str, Any]:
     return {
         "experiment_id": summary.experiment_id,
         "prompt_file": summary.prompt_file,
-        "canonical_correction_sha256": summary.correction_hash,
+        "evaluation_spec_sha256": a.evaluation_spec_hash or b.evaluation_spec_hash,
         "outcome": summary.comparison.value,
         "reason": summary.comparison_reason,
         "with_skill": a.to_dict(),
@@ -54,7 +54,7 @@ def write_comparison(summary: ExperimentSummary, json_path: Path, csv_path: Path
         "prompt_file": summary.prompt_file,
         "outcome": summary.comparison.value,
         "reason": summary.comparison_reason or "",
-        "correction_sha256": summary.correction_hash or "",
+        "evaluation_spec_sha256": summary.with_skill.evaluation_spec_hash or summary.without_skill.evaluation_spec_hash or "",
         "with_skill_status": summary.with_skill.status.value,
         "without_skill_status": summary.without_skill.status.value,
         "with_skill_pass_percentage": summary.with_skill.pass_percentage if summary.with_skill.pass_percentage is not None else "",

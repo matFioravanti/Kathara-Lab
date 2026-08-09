@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 
 from .config import load_config
+from .console import PipelineConsole
 from .correction_validator import CorrectionValidator
 from .exceptions import KatharaFrameworkError
 from .lab_validator import LabValidator
@@ -35,6 +36,7 @@ def _parser() -> argparse.ArgumentParser:
     run.add_argument("--dry-run", action="store_true")
     run.add_argument("--verbose", action="store_true")
     run.add_argument("--force", action="store_true")
+    run.add_argument("--resume-from", choices=["correction"], help="Resume pipeline from a specific phase")
 
     pre = sub.add_parser("preflight", help="Validate inputs/resources/tool availability")
     pre.add_argument("--prompts-dir", required=True, type=Path)
@@ -108,6 +110,9 @@ def _variant_from_manifest(data: dict, variant: Variant) -> VariantSummary:
         prompt_file=str(data.get("prompt_file", "unknown")),
         variant=variant,
         status=JobStatus(str(data.get("status", "error"))) if str(data.get("status", "error")) in {s.value for s in JobStatus} else JobStatus.ERROR,
+        evaluation_spec_hash=data.get("evaluation_spec_hash"),
+        correction_generated=bool(data.get("correction_generated")),
+        correction_hash=data.get("correction_hash"),
         lab_generated=bool(data.get("lab_generated")),
         static_validation_passed=bool(data.get("static_validation_passed")),
         checker_attempted=bool(data.get("checker_attempted")),
@@ -143,8 +148,7 @@ def _load_experiments(output: Path) -> list[ExperimentSummary]:
             ExperimentSummary(
                 experiment_id=str(exp.get("experiment_id", root.name)),
                 prompt_file=str(exp.get("prompt_file", "prompt.md")),
-                correction_generated=bool(exp.get("canonical_correction_sha256")),
-                correction_hash=exp.get("canonical_correction_sha256"),
+                evaluation_spec_generated=bool(exp.get("evaluation_spec_generated")),
                 with_skill=_variant_from_manifest(a, Variant.WITH_SKILL),
                 without_skill=_variant_from_manifest(b, Variant.WITHOUT_SKILL),
                 comparison=outcome,
@@ -158,12 +162,15 @@ def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     try:
         config = load_config(args.config)
-        output_override = getattr(args, "output_dir", None)
-        force = True if getattr(args, "force", False) else None
-        config = config.with_overrides(output_dir=output_override, force=force)
+        config = config.with_overrides(
+            output_dir=getattr(args, "output_dir", None),
+            force=getattr(args, "force", None),
+            resume_from=getattr(args, "resume_from", None)
+        )
 
         if args.command in {"run", "preflight"}:
-            pipeline = Pipeline(config)
+            console = PipelineConsole()
+            pipeline = Pipeline(config, console=console)
             prompts = _select(pipeline.discover(args.prompts_dir), getattr(args, "prompt", None))
             dry = bool(getattr(args, "dry_run", False))
             preflight = pipeline.preflight(args.prompts_dir, prompts, dry_run=dry)
@@ -175,8 +182,15 @@ def main(argv: list[str] | None = None) -> int:
             if dry:
                 pipeline.dry_run(prompts, args.prompts_dir, preflight.resources, verbose=args.verbose)
                 return EXIT_SUCCESS
+                
+            if args.command == "run":
+                console.pipeline_started(
+                    provider=config.generation.provider,
+                    model=config.generation.model,
+                    reasoning=config.generation.reasoning_effort,
+                    prompts_count=len(prompts)
+                )
             summary = pipeline.run(prompts, preflight.resources)
-            _print_summary(summary)
             return _exit_for_summary(summary)
 
         output = config.paths.output
@@ -218,14 +232,14 @@ def main(argv: list[str] | None = None) -> int:
                     continue
                 prompt = root / "prompt.md"
                 text = prompt.read_text(encoding="utf-8") if prompt.is_file() else ""
-                correction = root / "correction" / "correction.yaml"
-                if correction.is_file():
-                    checked += 1
-                    result = correction_validator.validate(correction)
-                    if not result.valid:
-                        invalid += 1
-                        print(f"{root.name}/correction: ERROR: {'; '.join(result.errors)}")
                 for name in ("with_skill", "without_skill"):
+                    correction = root / name / "correction" / "correction.yaml"
+                    if correction.is_file():
+                        checked += 1
+                        result = correction_validator.validate(correction)
+                        if not result.valid:
+                            invalid += 1
+                            print(f"{root.name}/{name}/correction: ERROR: {'; '.join(result.errors)}")
                     source = root / name / "source"
                     if source.is_dir():
                         checked += 1

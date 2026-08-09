@@ -476,5 +476,16 @@ conflict. The canonical correction generator must apply these verified rules:
 - EVPN checks are represented under `protocols.bgpd.evpn_sessions` and `protocols.bgpd.vtep_devices`.
 - A one-path `kernel_routes` entry identifies either a gateway or an `ethN` interface, not both.
 
-The framework generates one candidate-independent correction from the prompt and executes that exact same
-file against both paired candidates.
+WITH_SKILL / WITHOUT_SKILL differ only during lab generation.
+
+For correction generation, both variants always use:
+- the same Checker SKILL.md
+- the same config-schema.md
+- the same evaluation-spec.md
+- the same original prompt.md
+
+Each correction may additionally inspect its respective candidate lab only to
+extract concrete implementation values required to instantiate the frozen
+evaluation requirements.
+
+The candidate lab must never change which requirements are evaluated.

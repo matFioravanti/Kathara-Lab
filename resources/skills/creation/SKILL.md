@@ -137,6 +137,8 @@ All images are based on Debian 12 and compiled for `amd64` and `arm64`.
 - Add optional metadata when relevant:
   - `LAB_DESCRIPTION`, `LAB_VERSION`, `LAB_AUTHOR`, `LAB_EMAIL`, `LAB_WEB`
 - Declare each device interfaces with collision domains and optional MACs.
+- Device identifiers MUST match `[a-z0-9_]{1,30}`.
+- Collision-domain identifiers MUST contain letters, digits and underscores only. No hyphens or spaces are allowed, but underscores are valid.
 - Set image and feature flags (for example `ipv6=false`) explicitly when needed.
 - Keep interface numbering contiguous from `0`.
 

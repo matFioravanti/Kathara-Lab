@@ -38,3 +38,26 @@ def test_missing_lab_conf_is_error(tmp_path: Path):
     lab = tmp_path / "lab"
     lab.mkdir()
     assert not LabValidator().validate(lab).valid
+
+def test_valid_collision_domain(tmp_path: Path):
+    lab = tmp_path / "lab"
+    lab.mkdir()
+    (lab / "lab.conf").write_text('r1[0]="r1_r2"\nr2[0]="r1_r2"\n', encoding="utf-8")
+    result = LabValidator().validate(lab)
+    assert result.valid
+
+def test_invalid_collision_domain_with_hyphen(tmp_path: Path):
+    lab = tmp_path / "lab"
+    lab.mkdir()
+    (lab / "lab.conf").write_text('r1[0]="r1-r2"\nr2[0]="r1-r2"\n', encoding="utf-8")
+    result = LabValidator().validate(lab)
+    assert not result.valid
+    assert any("LabParser validation failed" in e for e in result.errors)
+
+def test_invalid_device_identifier(tmp_path: Path):
+    lab = tmp_path / "lab"
+    lab.mkdir()
+    (lab / "lab.conf").write_text('r1-x[0]="A"\n', encoding="utf-8")
+    result = LabValidator().validate(lab)
+    assert not result.valid
+    assert any("LabParser validation failed" in e for e in result.errors)

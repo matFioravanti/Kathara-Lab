@@ -8,12 +8,6 @@ from pathlib import Path
 
 from .models import ValidationResult
 
-_DEVICE_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
-_ASSIGNMENT_RE = re.compile(
-    r'^\s*([A-Za-z0-9][A-Za-z0-9_.-]*)\s*\[\s*([^\]]+)\s*\]\s*=\s*'
-    r'(?:(?:"([^"]*)")|(?:\'([^\']*)\')|([^\s#]+))\s*(?:#.*)?$'
-)
-_ASSIGNMENT_PREFIX_RE = re.compile(r"^\s*[A-Za-z0-9][A-Za-z0-9_.-]*\s*\[")
 _PLACEHOLDER_RE = re.compile(rb"(?i)(?<![A-Z0-9_])(TODO|CHANGE_ME|INSERT_HERE)(?![A-Z0-9_])")
 _RESERVED_TOP_LEVEL_DIRS = {"shared", "images"}
 
@@ -37,51 +31,6 @@ def _contains_placeholder(path: Path) -> bool:
         return bool(_PLACEHOLDER_RE.search(path.read_bytes()))
     except OSError:
         return False
-
-
-
-def _parse_topology_text(text: str) -> tuple[dict[str, dict[str, str]], list[str]]:
-    topology: dict[str, dict[str, str]] = {}
-    errors: list[str] = []
-    seen: set[tuple[str, str]] = set()
-    for lineno, line in enumerate(text.splitlines(), 1):
-        stripped = line.strip()
-        if not stripped or stripped.startswith("#"):
-            continue
-        match = _ASSIGNMENT_RE.match(line)
-        if not match:
-            if _ASSIGNMENT_PREFIX_RE.match(line):
-                errors.append(f"Malformed lab.conf assignment at line {lineno}: {stripped}")
-            continue
-        device, key = match.group(1), match.group(2).strip()
-        value = next((part for part in match.groups()[2:] if part is not None), "")
-        if not _DEVICE_RE.fullmatch(device):
-            errors.append(f"Invalid device name at line {lineno}: {device}")
-            continue
-        signature = (device.casefold(), key.casefold())
-        if signature in seen:
-            errors.append(f"Duplicate lab.conf declaration at line {lineno}: {device}[{key}]")
-            continue
-        seen.add(signature)
-        if key.isdigit():
-            if not value.strip():
-                errors.append(f"Empty collision domain at line {lineno}: {device}[{key}]")
-            topology.setdefault(device, {})[key] = value
-        else:
-            topology.setdefault(device, {})
-    if not topology:
-        errors.append("lab.conf does not declare any device")
-    if topology and not any(interfaces for interfaces in topology.values()):
-        errors.append("lab.conf does not declare any numeric interface mapping")
-    return topology, errors
-
-
-def parse_lab_topology(lab_conf: Path) -> dict[str, dict[str, str]]:
-    text = Path(lab_conf).read_text(encoding="utf-8")
-    topology, errors = _parse_topology_text(text)
-    if errors:
-        raise ValueError("; ".join(errors))
-    return topology
 
 
 class LabValidator:
@@ -143,9 +92,24 @@ class LabValidator:
             errors.append(f"Nested lab.conf is not allowed: {path.relative_to(lab_dir)}")
 
         topology: dict[str, dict[str, str]] = {}
-        if text.strip():
-            topology, parse_errors = _parse_topology_text(text)
-            errors.extend(parse_errors)
+        if not errors and text.strip():
+            try:
+                from Kathara.parser.netkit.LabParser import LabParser
+                lab = LabParser().parse(str(lab_dir))
+                if not lab.machines:
+                    errors.append("lab.conf does not declare any device")
+                else:
+                    has_numeric = False
+                    for machine_name, machine in lab.machines.items():
+                        topology[machine_name] = {}
+                        for iface_num, iface in machine.interfaces.items():
+                            topology[machine_name][str(iface_num)] = iface.link if iface.link else ""
+                            has_numeric = True
+                    if not has_numeric:
+                        errors.append("lab.conf does not declare any numeric interface mapping")
+            except Exception as exc:
+                errors.append(f"Kathara LabParser validation failed: {exc}")
+                
         devices = set(topology)
 
         startup_seen: set[str] = set()

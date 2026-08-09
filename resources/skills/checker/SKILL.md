@@ -69,8 +69,28 @@ interpreted as an additional scenario requirement.
 
 ### `lab_inline`
 
-Use topology-only `device[index]="collision-domain"` mappings. Do not include image declarations. Prefer
-`lab_inline`; do not emit `structure` and do not emit `labs_path`.
+Use topology-only `device[index]="collision-domain"` mappings.
+Do not include image declarations. Prefer `lab_inline`; do not emit
+`structure` and do not emit `labs_path`.
+
+Kathara identifier constraints:
+
+- Device identifiers must match `[a-z0-9_]{1,30}`.
+- Device identifiers may contain lowercase letters, digits, and underscores.
+- Device identifiers must not contain uppercase letters, hyphens, spaces, or other special characters.
+- Collision-domain identifiers may contain letters, digits, and underscores.
+- Collision-domain identifiers must not contain hyphens, spaces, or other special characters.
+
+Examples:
+
+- Valid device identifiers: `r1`, `pc11`, `router_1`
+- Invalid device identifiers: `R1`, `PC11`, `router-1`
+- Valid collision domains: `net12`, `net_12`, `r1_r2`
+- Invalid collision domains: `r1-r2`, `client lan`
+
+When constructing `lab_inline` from a candidate lab, preserve the actual
+candidate topology while ensuring the emitted identifiers are valid for the
+Kathara parser.
 
 ### `requiring_startup`
 
@@ -160,3 +180,4 @@ Write exactly one file: `output/correction.yaml`.
 - No comments are required; keep the document machine-oriented.
 - Include only checker features supported by the supplied schema and the checker 0.1.14 compatibility rules above.
 - Never read candidate labs.
+

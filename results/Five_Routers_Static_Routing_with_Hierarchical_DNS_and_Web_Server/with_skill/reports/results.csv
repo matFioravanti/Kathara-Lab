@@ -1,0 +1,8 @@
+Student Name,Tests Passed,Tests Failed,Tests Total Number,Problems
+candidate,62,4,66,"1: Verifying `kathara.org` reachable from device `client`: ping: kathara.org: Temporary failure in name resolution
+2: Checking that named is running on device `localdns`: Daemon named is not running on device `localdns`
+3: Checking on `localdns` that `10.0.30.2` is the authority for domain `.`: named not started in `localdns`.startup`
+4: Checking correctness of DNS records: client resolve A kathara.org with IP ;; communications error to 10.0.10.2#53: connection refused
+;; communications error to 10.0.10.2#53: connection refused
+;; communications error to 10.0.10.2#53: connection refused
+;; no servers could be reached instead of ['10.0.50.2']"

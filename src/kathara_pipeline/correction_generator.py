@@ -6,7 +6,7 @@ from pathlib import Path
 from .agent_runner import AgentRunner
 from .correction_validator import CorrectionValidator
 from .exceptions import AgentExecutionError
-from .models import CommandResult, ExperimentPaths, ResourceFiles
+from .models import CommandResult, ExperimentPaths, VariantPaths, ResourceFiles
 
 MAX_CORRECTION_ATTEMPTS = 2
 
@@ -21,15 +21,20 @@ class CorrectionGenerator:
     @staticmethod
     def instruction() -> str:
         return (
-            "Read input/prompt.md, input/evaluation-spec.md, resources/checker/SKILL.md, and resources/checker/config-schema.md. "
+            "Read input/prompt.md, input/evaluation-spec.md, candidate/ (the generated lab implementation), "
+            "resources/checker/SKILL.md, and resources/checker/config-schema.md. "
             "Generate exactly one canonical output/correction.yaml for kathara-lab-checker. "
-            "This is a paired experiment: the correction MUST be derived exclusively from the prompt, the evaluation spec, and checker resources. "
-            "No candidate laboratory is available and you must not assume implementation details not required by the prompt. "
-            "The prompt is the authoritative source; if evaluation-spec.md introduces unjustified items, ignore them. "
-            "Automatically include every standard supported check that is explicitly specified or unambiguously derivable. "
-            "Prefer standard checks over custom_commands. Use custom_commands only as a deterministic fallback when the prompt "
-            "explicitly requires a property that no standard check can represent. Never invent a check just to increase coverage. "
-            "IMPORTANT: lab_inline is mandatory and must contain the complete expected topology derived exclusively from prompt.md. "
+            "This is a per-variant correction: the correction MUST evaluate only the requirements frozen in "
+            "input/evaluation-spec.md, using the concrete IP addresses, interfaces, device names, and "
+            "collision domains found in candidate/. "
+            "You MUST NOT invent new requirements or checks based on the lab implementation. The lab implementation "
+            "is only used to instantiate the frozen requirements with concrete values. "
+            "Automatically include every standard supported check that is explicitly specified or unambiguously derivable "
+            "from the evaluation-spec.md. "
+            "Prefer standard checks over custom_commands. Use custom_commands only as a deterministic fallback when "
+            "explicitly required. Never invent a check just to increase coverage. "
+            "IMPORTANT: lab_inline is mandatory and must contain the complete expected topology derived from the evaluation-spec "
+            "and candidate lab. default_image is a mandatory checker field. "
             "Use lab_inline rather than structure and omit labs_path. Follow the runtime 0.1.14 compatibility rules in the Skill. "
             "Write only YAML to output/correction.yaml, with no surrounding prose. Do not create any other output file."
         )
@@ -40,45 +45,48 @@ class CorrectionGenerator:
         return (
             "The previously generated output/correction.yaml failed validation with the following errors:\n"
             f"{errors_text}\n\n"
-            "Read input/prompt.md, input/evaluation-spec.md, resources/checker/SKILL.md, and resources/checker/config-schema.md again and "
+            "Read input/prompt.md, input/evaluation-spec.md, candidate/, resources/checker/SKILL.md, and resources/checker/config-schema.md again and "
             "regenerate output/correction.yaml fixing all the errors above. "
-            "The prompt is the authoritative source; if evaluation-spec.md introduces unjustified items, ignore them. "
-            "CRITICAL: lab_inline is mandatory and must contain the complete expected topology (lab.conf format) "
-            "derived exclusively from prompt.md. It must be a non-empty string. "
+            "Evaluate only the requirements frozen in input/evaluation-spec.md, using concrete values from candidate/. "
+            "CRITICAL: lab_inline is mandatory and must contain the complete expected topology (lab.conf format). "
+            "It must be a non-empty string. "
             "Do not use structure. Do not include labs_path. "
             "Write only YAML to output/correction.yaml, with no surrounding prose. Do not create any other output file."
         )
 
-    def prepare_workspace(self, *, paths: ExperimentPaths, prompt_text: str, resources: ResourceFiles) -> None:
-        if paths.correction_workspace.exists():
-            shutil.rmtree(paths.correction_workspace)
-        (paths.correction_workspace / "input").mkdir(parents=True)
-        resource_dir = paths.correction_workspace / "resources" / "checker"
+    def prepare_workspace(self, *, experiment_paths: ExperimentPaths, variant_paths: VariantPaths, prompt_text: str, resources: ResourceFiles) -> None:
+        if variant_paths.correction_workspace.exists():
+            shutil.rmtree(variant_paths.correction_workspace)
+        (variant_paths.correction_workspace / "input").mkdir(parents=True)
+        resource_dir = variant_paths.correction_workspace / "resources" / "checker"
         resource_dir.mkdir(parents=True)
-        (paths.correction_workspace / "output").mkdir()
-        (paths.correction_workspace / "input" / "prompt.md").write_text(prompt_text, encoding="utf-8")
-        shutil.copy2(paths.evaluation_spec, paths.correction_workspace / "input" / "evaluation-spec.md")
+        (variant_paths.correction_workspace / "output").mkdir()
+        (variant_paths.correction_workspace / "input" / "prompt.md").write_text(prompt_text, encoding="utf-8")
+        shutil.copy2(experiment_paths.evaluation_spec, variant_paths.correction_workspace / "input" / "evaluation-spec.md")
+        
+        shutil.copytree(variant_paths.source, variant_paths.correction_workspace / "candidate")
+
         shutil.copy2(resources.checker_skill, resource_dir / "SKILL.md")
         shutil.copy2(resources.checker_schema, resource_dir / "config-schema.md")
 
     def _run_attempt(
         self,
         *,
-        paths: ExperimentPaths,
+        variant_paths: VariantPaths,
         instruction: str,
         attempt: int,
     ) -> CommandResult:
         """Run one agent call and raise AgentExecutionError on hard failure."""
         # Remove any previously generated correction to avoid stale files being reused.
-        generated = paths.correction_workspace / "output" / "correction.yaml"
+        generated = variant_paths.correction_workspace / "output" / "correction.yaml"
         if generated.exists():
             generated.unlink()
         result = self.runner.run(
             instruction=instruction,
-            workspace=paths.correction_workspace,
-            output_last_message=paths.correction_workspace / ".agent-last-message.txt",
-            stdout_log=paths.correction_logs / f"{self.runner.provider}-correction-attempt{attempt}.jsonl",
-            stderr_log=paths.correction_logs / f"{self.runner.provider}-correction-attempt{attempt}.stderr.log",
+            workspace=variant_paths.correction_workspace,
+            output_last_message=variant_paths.correction_workspace / ".agent-last-message.txt",
+            stdout_log=variant_paths.correction_logs / f"{self.runner.provider}-correction-attempt{attempt}.jsonl",
+            stderr_log=variant_paths.correction_logs / f"{self.runner.provider}-correction-attempt{attempt}.stderr.log",
             timeout_seconds=self.timeout_seconds,
         )
         if result.return_code != 0 or result.timed_out:
@@ -91,19 +99,20 @@ class CorrectionGenerator:
             )
         return result
 
-    def generate(self, *, paths: ExperimentPaths, prompt_text: str, resources: ResourceFiles) -> CommandResult:
+    def generate(self, *, experiment_paths: ExperimentPaths, variant_paths: VariantPaths, prompt_text: str, resources: ResourceFiles) -> CommandResult:
         """Single-attempt generation (kept for backward compatibility)."""
-        self.prepare_workspace(paths=paths, prompt_text=prompt_text, resources=resources)
-        paths.correction_logs.mkdir(parents=True, exist_ok=True)
-        result = self._run_attempt(paths=paths, instruction=self.instruction(), attempt=1)
-        paths.correction_dir.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(paths.correction_workspace / "output" / "correction.yaml", paths.correction)
+        self.prepare_workspace(experiment_paths=experiment_paths, variant_paths=variant_paths, prompt_text=prompt_text, resources=resources)
+        variant_paths.correction_logs.mkdir(parents=True, exist_ok=True)
+        result = self._run_attempt(variant_paths=variant_paths, instruction=self.instruction(), attempt=1)
+        variant_paths.correction_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(variant_paths.correction_workspace / "output" / "correction.yaml", variant_paths.correction)
         return result
 
     def generate_with_retry(
         self,
         *,
-        paths: ExperimentPaths,
+        experiment_paths: ExperimentPaths,
+        variant_paths: VariantPaths,
         prompt_text: str,
         resources: ResourceFiles,
         validator: CorrectionValidator,
@@ -111,22 +120,22 @@ class CorrectionGenerator:
         """Generate correction.yaml with up to MAX_CORRECTION_ATTEMPTS total attempts.
 
         After each attempt the correction is validated; if invalid the agent is given the
-        exact validation errors and asked to regenerate (same workspace, same inputs, no
-        candidate lab source ever exposed). On final failure an AgentExecutionError is raised.
+        exact validation errors and asked to regenerate (same workspace, same inputs, candidate lab).
+        On final failure an AgentExecutionError is raised.
         """
-        self.prepare_workspace(paths=paths, prompt_text=prompt_text, resources=resources)
-        paths.correction_logs.mkdir(parents=True, exist_ok=True)
-        generated = paths.correction_workspace / "output" / "correction.yaml"
+        self.prepare_workspace(experiment_paths=experiment_paths, variant_paths=variant_paths, prompt_text=prompt_text, resources=resources)
+        variant_paths.correction_logs.mkdir(parents=True, exist_ok=True)
+        generated = variant_paths.correction_workspace / "output" / "correction.yaml"
         last_result: CommandResult | None = None
         last_errors: tuple[str, ...] = ()
 
         for attempt in range(1, MAX_CORRECTION_ATTEMPTS + 1):
             instruction = self.instruction() if attempt == 1 else self.retry_instruction(last_errors)
-            last_result = self._run_attempt(paths=paths, instruction=instruction, attempt=attempt)
+            last_result = self._run_attempt(variant_paths=variant_paths, instruction=instruction, attempt=attempt)
             # Copy so validate() can read the final path.
-            paths.correction_dir.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(generated, paths.correction)
-            validation = validator.validate(paths.correction)
+            variant_paths.correction_dir.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(generated, variant_paths.correction)
+            validation = validator.validate(variant_paths.correction)
             if validation.valid:
                 return last_result
             last_errors = validation.errors

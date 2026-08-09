@@ -93,6 +93,7 @@ def write_aggregate(output_root: Path, experiments: list[ExperimentSummary]) -> 
                 "pass_percentage": item.pass_percentage if item.pass_percentage is not None else "",
                 "generation_duration_seconds": item.generation_duration_seconds if item.generation_duration_seconds is not None else "",
                 "checker_duration_seconds": item.checker_duration_seconds if item.checker_duration_seconds is not None else "",
+                "correction_sha256": item.correction_hash or "",
                 "error": item.error_message or "",
             })
         a, b = experiment.with_skill, experiment.without_skill
@@ -104,7 +105,7 @@ def write_aggregate(output_root: Path, experiments: list[ExperimentSummary]) -> 
             "with_skill_pass_percentage": a.pass_percentage if a.pass_percentage is not None else "",
             "without_skill_pass_percentage": b.pass_percentage if b.pass_percentage is not None else "",
             "delta_pass_percentage_points": round(a.pass_percentage - b.pass_percentage, 6) if a.pass_percentage is not None and b.pass_percentage is not None else "",
-            "correction_sha256": experiment.correction_hash or "",
+            "evaluation_spec_sha256": a.evaluation_spec_hash or b.evaluation_spec_hash or "",
         })
 
     def write_csv(path: Path, data: list[dict[str, Any]]) -> None:

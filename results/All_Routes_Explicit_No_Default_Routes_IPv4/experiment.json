@@ -1,32 +1,7 @@
 {
-  "canonical_correction_sha256": "11f1643af25923472fab6cc42958506b2d9e5d459d9b695749ef4d66f2f4ce27",
   "comparison": "INCOMPARABLE",
   "comparison_reason": "Both checker runs must complete successfully for a paired quality comparison.",
   "complete": true,
-  "correction_generation": {
-    "command": [
-      "codex",
-      "exec",
-      "--model",
-      "gpt-5.6-terra",
-      "-c",
-      "model_reasoning_effort=\"low\"",
-      "-c",
-      "approval_policy=\"never\"",
-      "--sandbox",
-      "workspace-write",
-      "--cd",
-      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/correction",
-      "--json",
-      "--output-last-message",
-      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/correction/.agent-last-message.txt",
-      "--ephemeral",
-      "Read input/prompt.md, input/evaluation-spec.md, resources/checker/SKILL.md, and resources/checker/config-schema.md. Generate exactly one canonical output/correction.yaml for kathara-lab-checker. This is a paired experiment: the correction MUST be derived exclusively from the prompt, the evaluation spec, and checker resources. No candidate laboratory is available and you must not assume implementation details not required by the prompt. The prompt is the authoritative source; if evaluation-spec.md introduces unjustified items, ignore them. Automatically include every standard supported check that is explicitly specified or unambiguously derivable. Prefer standard checks over custom_commands. Use custom_commands only as a deterministic fallback when the prompt explicitly requires a property that no standard check can represent. Never invent a check just to increase coverage. IMPORTANT: lab_inline is mandatory and must contain the complete expected topology derived exclusively from prompt.md. Use lab_inline rather than structure and omit labs_path. Follow the runtime 0.1.14 compatibility rules in the Skill. Write only YAML to output/correction.yaml, with no surrounding prose. Do not create any other output file."
-    ],
-    "duration_seconds": 121.26280354099981,
-    "return_code": 0,
-    "timed_out": false
-  },
   "evaluation_spec_generated": true,
   "evaluation_spec_generation": {
     "command": [
@@ -48,19 +23,20 @@
       "--ephemeral",
       "Read input/prompt.md and resources/creation/SKILL.md. Generate exactly one file output/evaluation-spec.md. This file must structure the explicit requirements found in the prompt using the Skill as a guide. CRITICAL: Do NOT add reasonable defaults, and do NOT invent any IP addresses, routing protocols, services, topologies, or other requirements that are not explicitly present in the prompt. This file is strictly for evaluation purposes. Write only markdown content."
     ],
-    "duration_seconds": 39.82658637500003,
+    "duration_seconds": 40.55126416699932,
     "return_code": 0,
     "timed_out": false
   },
+  "evaluation_spec_hash": "0e5714a1dd8c01ac34b3552446c417fdfb92feaf33c6558ff250f1c7b9cc6adb",
   "experiment_id": "All_Routes_Explicit_No_Default_Routes_IPv4",
-  "finished_at": "2026-08-09T08:11:36.732232Z",
+  "finished_at": "2026-08-09T14:47:24.209366Z",
   "identity": {
     "checker_report_type": "csv",
     "checker_runtime": "kathara-lab-checker==0.1.14",
-    "checker_schema_sha256": "b512685ee58afa7316dcab62493fa09560c13c7a30c8d78f0a779522be0a3b88",
-    "checker_skill_sha256": "cf396c571be91a3e268f0417246590d4434f71d25fb4c07f4b79fe02cc24daa5",
+    "checker_schema_sha256": "2e6226fa74eb59ca212a7fa6e69bc47dcbadc30ec99f146837cea90af5a6e658",
+    "checker_skill_sha256": "e3bcf0d7cb818d553dcf3da1e83b0d06d5601db407c3f16349bd07c21cc52fdf",
     "command": "codex",
-    "creation_skill_sha256": "d5ac746c64cbd55f00774b649b85115aeaef4aa08d7acd3386ab687dc2ce150a",
+    "creation_skill_sha256": "bf4daac809c4088ad9106268c093cca9c41f79e95dba4113f108c0298d85b996",
     "model": "gpt-5.6-terra",
     "pipeline_version": "0.4.1",
     "prompt_sha256": "e582f25a35c94ccf914c22072842dc98a4887e31ede17250f0e2c148d8752e5b",
@@ -71,5 +47,5 @@
   "pipeline_version": "0.4.1",
   "prompt_file": "All Routes Explicit, No Default Routes, IPv4.md",
   "prompt_sha256": "e582f25a35c94ccf914c22072842dc98a4887e31ede17250f0e2c148d8752e5b",
-  "started_at": "2026-08-09T08:03:48.391175Z"
+  "started_at": "2026-08-09T14:39:14.964113Z"
 }

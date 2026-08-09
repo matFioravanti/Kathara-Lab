@@ -96,6 +96,10 @@ class VariantPaths:
     logs: Path
     manifest: Path
     workspace: Path
+    correction_dir: Path
+    correction: Path
+    correction_logs: Path
+    correction_workspace: Path
 
 
 @dataclass(frozen=True, slots=True)
@@ -105,10 +109,6 @@ class ExperimentPaths:
     evaluation_spec: Path
     evaluation_spec_logs: Path
     evaluation_spec_workspace: Path
-    correction_dir: Path
-    correction: Path
-    correction_logs: Path
-    correction_workspace: Path
     comparison: Path
     comparison_csv: Path
     experiment_manifest: Path
@@ -122,6 +122,9 @@ class VariantSummary:
     prompt_file: str
     variant: Variant
     status: JobStatus
+    evaluation_spec_hash: str | None = None
+    correction_generated: bool = False
+    correction_hash: str | None = None
     lab_generated: bool = False
     static_validation_passed: bool = False
     checker_attempted: bool = False
@@ -147,8 +150,6 @@ class ExperimentSummary:
     experiment_id: str
     prompt_file: str
     evaluation_spec_generated: bool
-    correction_generated: bool
-    correction_hash: str | None
     with_skill: VariantSummary
     without_skill: VariantSummary
     comparison: ComparisonOutcome
@@ -159,8 +160,6 @@ class ExperimentSummary:
             "experiment_id": self.experiment_id,
             "prompt_file": self.prompt_file,
             "evaluation_spec_generated": self.evaluation_spec_generated,
-            "correction_generated": self.correction_generated,
-            "correction_hash": self.correction_hash,
             "with_skill": self.with_skill.to_dict(),
             "without_skill": self.without_skill.to_dict(),
             "comparison": self.comparison.value,
