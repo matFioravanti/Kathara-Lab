@@ -153,6 +153,49 @@ def _validate_protocol_shape(test: dict[str, Any], errors: list[str]) -> None:
         errors.append("EVPN must be represented under protocols.bgpd for checker 0.1.14")
 
 
+def _validate_kernel_routes(test: dict[str, Any], errors: list[str]) -> None:
+    kernel_routes = test.get("kernel_routes")
+    if kernel_routes is None:
+        return
+    if not isinstance(kernel_routes, dict):
+        errors.append("test.kernel_routes must be a mapping")
+        return
+        
+    for device, routes in kernel_routes.items():
+        if not isinstance(routes, list):
+            errors.append(f"kernel_routes for {device} must be a list")
+            continue
+            
+        for route in routes:
+            if isinstance(route, str):
+                continue
+    
+            if isinstance(route, list):
+                if len(route) != 2:
+                    errors.append(
+                        f"kernel_routes entry for {device} must contain exactly 2 elements"
+                    )
+                    continue
+    
+                destination, constraints = route
+    
+                if not isinstance(destination, str):
+                    errors.append(
+                        f"kernel_routes destination for {device} must be a string"
+                    )
+    
+                if not isinstance(constraints, list):
+                    errors.append(
+                        f"kernel_routes constraints for {device} route {destination} must be a list"
+                    )
+    
+                continue
+    
+            errors.append(
+                f"invalid kernel_routes entry for {device}"
+            )
+
+
 class CorrectionValidator:
     """Validate canonical correction syntax without inspecting a candidate lab."""
 
@@ -203,4 +246,5 @@ class CorrectionValidator:
             _validate_http(test, errors)
             _validate_interface_keys(test, errors)
             _validate_protocol_shape(test, errors)
+            _validate_kernel_routes(test, errors)
         return ValidationResult(not errors, tuple(errors), data=data)
