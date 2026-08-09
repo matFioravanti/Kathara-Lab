@@ -94,6 +94,7 @@ def _variant_paths(root: Path, variant: Variant) -> VariantPaths:
     return VariantPaths(
         root=variant_root,
         source=variant_root / "source",
+        source_failed=variant_root / "source_failed",
         checker_run=checker_run,
         labs_dir=labs_dir,
         candidate=labs_dir / "candidate",
@@ -117,6 +118,9 @@ def build_experiment_paths(output_root: Path, experiment_id: str) -> ExperimentP
         evaluation_spec=root / "evaluation-spec.md",
         evaluation_spec_logs=root / "logs" / "evaluation-spec",
         evaluation_spec_workspace=root / ".workspaces" / "evaluation-spec",
+        check_plan=root / "check-plan.md",
+        check_plan_logs=root / "logs" / "check-plan",
+        check_plan_workspace=root / ".workspaces" / "check-plan",
         comparison=root / "comparison.json",
         comparison_csv=root / "comparison.csv",
         experiment_manifest=root / "experiment.json",

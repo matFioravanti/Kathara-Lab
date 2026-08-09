@@ -9,6 +9,7 @@ from typing import Any
 from .checker_runner import CheckerRunner
 from .comparator import compare_variants, write_comparison
 from .config import PipelineConfig
+from .check_plan_generator import CheckPlanGenerator
 from .console import PipelineConsole
 from .correction_generator import CorrectionGenerator
 from .correction_validator import CorrectionValidator
@@ -58,6 +59,7 @@ class Pipeline:
         self.runner = build_runner(config.generation)
         self.lab_generator = LabGenerator(self.runner, config.generation.timeout_seconds)
         self.evaluation_spec_generator = EvaluationSpecGenerator(self.runner, config.generation.timeout_seconds)
+        self.check_plan_generator = CheckPlanGenerator(self.runner, config.generation.timeout_seconds)
         self.correction_generator = CorrectionGenerator(self.runner, config.generation.timeout_seconds)
         self.lab_validator = LabValidator()
         self.correction_validator = CorrectionValidator()
@@ -122,6 +124,7 @@ class Pipeline:
             skip_reason="unchanged completed paired experiment",
             correction_generated=bool(data.get("correction_generated")),
             evaluation_spec_hash=data.get("evaluation_spec_hash"),
+            check_plan_hash=data.get("check_plan_hash"),
             correction_hash=data.get("correction_hash"),
         )
         try:
@@ -132,8 +135,7 @@ class Pipeline:
             paths.root.name,
             saved.get("prompt_file", paths.prompt.name),
             saved.get("evaluation_spec_generated", False),
-            paths.correction.is_file(),
-            saved.get("canonical_correction_sha256"),
+            saved.get("check_plan_generated", False),
             self._restore_summary(a, Variant.WITH_SKILL, paths.root.name, paths.prompt.name),
             self._restore_summary(b, Variant.WITHOUT_SKILL, paths.root.name, paths.prompt.name),
             outcome,
@@ -169,6 +171,7 @@ class Pipeline:
             "checker_skill_sha256": resources.checker_skill_hash,
             "checker_schema_sha256": resources.checker_schema_hash,
             "evaluation_spec_hash": None,
+            "check_plan_hash": None,
             "correction_generated": False,
             "correction_hash": None,
             "canonical_correction_sha256": None,  # Kept for backward compatibility
@@ -224,8 +227,20 @@ class Pipeline:
             manifest["status"] = "generated"
             summary.status = JobStatus.DISCOVERED
         except Exception as exc:
-            if current_phase > 0 and not summary.lab_generated:
-                self.console.phase_failure("Generazione laboratorio fallita", str(exc))
+            if paths.source_failed.exists():
+                manifest["lab_generated"] = True
+                manifest["static_validation_passed"] = False
+                summary.lab_generated = True
+                summary.static_validation_passed = False
+                manifest["source_failed_preserved"] = True
+                summary.source_failed_preserved = True
+                if current_phase > 0:
+                    self.console.phase_success("Laboratorio generato")
+                    self.console.phase_failure("Validazione statica fallita", str(exc))
+            else:
+                if current_phase > 0 and not summary.lab_generated:
+                    self.console.phase_failure("Generazione laboratorio fallita", str(exc))
+            
             manifest["errors"].append(str(exc))
             manifest["status"] = JobStatus.ERROR.value
             summary.status = JobStatus.ERROR
@@ -290,6 +305,10 @@ class Pipeline:
             summary.status = JobStatus.ERROR
             summary.error_message = str(exc)
             self._phase(manifest, "error")
+        finally:
+            if paths.checker_run.exists():
+                shutil.rmtree(paths.checker_run)
+                
         self._write_variant(paths.manifest, manifest)
         return summary
 
@@ -355,18 +374,19 @@ class Pipeline:
             return skipped
             
         is_resume_correction = self.config.processing.resume_from == "correction"
-        total_phases = 4 if is_resume_correction else 7
+        total_phases = 4 if is_resume_correction else 8
         
         self.console.experiment_started(prompt.name, current_index, total_prompts)
         
         if is_resume_correction:
-            if not paths.evaluation_spec.exists() or not (paths.with_skill.source / "lab.conf").exists() or not (paths.without_skill.source / "lab.conf").exists():
+            if not paths.evaluation_spec.exists() or not paths.check_plan.exists() or not (paths.with_skill.source / "lab.conf").exists() or not (paths.without_skill.source / "lab.conf").exists():
                 return ExperimentSummary(
                     prompt.experiment_id,
                     prompt.name,
                     False,
-                    VariantSummary(prompt.experiment_id, prompt.name, Variant.WITH_SKILL, JobStatus.ERROR, error_message="Cannot resume: missing evaluation-spec or generated labs"),
-                    VariantSummary(prompt.experiment_id, prompt.name, Variant.WITHOUT_SKILL, JobStatus.ERROR, error_message="Cannot resume: missing evaluation-spec or generated labs"),
+                    False,
+                    VariantSummary(prompt.experiment_id, prompt.name, Variant.WITH_SKILL, JobStatus.ERROR, error_message="Cannot resume: missing evaluation-spec, check-plan or generated labs"),
+                    VariantSummary(prompt.experiment_id, prompt.name, Variant.WITHOUT_SKILL, JobStatus.ERROR, error_message="Cannot resume: missing evaluation-spec, check-plan or generated labs"),
                     ComparisonOutcome.INCOMPARABLE,
                     "Missing prerequisites for resume",
                 )
@@ -420,6 +440,8 @@ class Pipeline:
                 "identity": identity,
                 "evaluation_spec_generated": False,
                 "evaluation_spec_hash": None,
+                "check_plan_generated": False,
+                "check_plan_hash": None,
                 "complete": False,
                 "started_at": _utc_now(),
             }
@@ -449,37 +471,69 @@ class Pipeline:
 
             write_json_atomic(paths.experiment_manifest, experiment_manifest)
 
-            # PHASE 2-4: WITH_SKILL pipeline
-            with_summary, with_manifest = self._generate_variant(prompt, Variant.WITH_SKILL, paths.with_skill, resources, current_phase=2, total_phases=total_phases)
+            # PHASE 2: Generazione check-plan.md
+            self.console.phase_started("Generazione check-plan.md", 2, total_phases)
+            check_plan_generated = False
+            check_plan_error: str | None = None
+            check_plan_hash: str | None = None
+            if evaluation_spec_generated:
+                try:
+                    check_result = self.check_plan_generator.generate(
+                        paths=paths,
+                        prompt_text=prompt.content or "",
+                        resources=resources,
+                    )
+                    check_plan_generated = True
+                    check_plan_hash = sha256_file(paths.check_plan)
+                    experiment_manifest["check_plan_generated"] = True
+                    experiment_manifest["check_plan_hash"] = check_plan_hash
+                    experiment_manifest["check_plan_generation"] = _metadata(check_result)
+                    self.console.phase_success("check-plan.md generato")
+                except Exception as exc:
+                    check_plan_error = str(exc)
+                    experiment_manifest["check_plan_error"] = check_plan_error
+                    self.console.phase_failure("Generazione check-plan.md fallita", check_plan_error)
+
+            write_json_atomic(paths.experiment_manifest, experiment_manifest)
+
+            # PHASE 3-5: WITH_SKILL pipeline
+            with_summary, with_manifest = self._generate_variant(prompt, Variant.WITH_SKILL, paths.with_skill, resources, current_phase=3, total_phases=total_phases)
             if evaluation_spec_generated and evaluation_spec_hash:
                 with_manifest["evaluation_spec_hash"] = evaluation_spec_hash
                 with_summary.evaluation_spec_hash = evaluation_spec_hash
-                self._write_variant(paths.with_skill.manifest, with_manifest)
+            if check_plan_generated and check_plan_hash:
+                with_manifest["check_plan_hash"] = check_plan_hash
+                with_summary.check_plan_hash = check_plan_hash
+            self._write_variant(paths.with_skill.manifest, with_manifest)
                 
-            self._generate_correction(prompt, paths, paths.with_skill, with_summary, with_manifest, resources, evaluation_spec_generated, current_phase=3, total_phases=total_phases)
-            self._handle_missing_correction(with_summary, with_manifest, paths.with_skill, evaluation_spec_generated, evaluation_spec_error)
+            self._generate_correction(prompt, paths, paths.with_skill, with_summary, with_manifest, resources, check_plan_generated, current_phase=4, total_phases=total_phases)
+            self._handle_missing_correction(with_summary, with_manifest, paths.with_skill, check_plan_generated, check_plan_error)
             
             if with_summary.correction_generated:
-                with_summary = self._evaluate_variant(prompt, paths.with_skill, with_summary, with_manifest, current_phase=4, total_phases=total_phases)
+                with_summary = self._evaluate_variant(prompt, paths.with_skill, with_summary, with_manifest, current_phase=5, total_phases=total_phases)
 
-            # PHASE 5-7: WITHOUT_SKILL pipeline
-            without_summary, without_manifest = self._generate_variant(prompt, Variant.WITHOUT_SKILL, paths.without_skill, resources, current_phase=5, total_phases=total_phases)
+            # PHASE 6-8: WITHOUT_SKILL pipeline
+            without_summary, without_manifest = self._generate_variant(prompt, Variant.WITHOUT_SKILL, paths.without_skill, resources, current_phase=6, total_phases=total_phases)
             if evaluation_spec_generated and evaluation_spec_hash:
                 without_manifest["evaluation_spec_hash"] = evaluation_spec_hash
                 without_summary.evaluation_spec_hash = evaluation_spec_hash
-                self._write_variant(paths.without_skill.manifest, without_manifest)
+            if check_plan_generated and check_plan_hash:
+                without_manifest["check_plan_hash"] = check_plan_hash
+                without_summary.check_plan_hash = check_plan_hash
+            self._write_variant(paths.without_skill.manifest, without_manifest)
                 
-            self._generate_correction(prompt, paths, paths.without_skill, without_summary, without_manifest, resources, evaluation_spec_generated, current_phase=6, total_phases=total_phases)
-            self._handle_missing_correction(without_summary, without_manifest, paths.without_skill, evaluation_spec_generated, evaluation_spec_error)
+            self._generate_correction(prompt, paths, paths.without_skill, without_summary, without_manifest, resources, check_plan_generated, current_phase=7, total_phases=total_phases)
+            self._handle_missing_correction(without_summary, without_manifest, paths.without_skill, check_plan_generated, check_plan_error)
             
             if without_summary.correction_generated:
-                without_summary = self._evaluate_variant(prompt, paths.without_skill, without_summary, without_manifest, current_phase=7, total_phases=total_phases)
+                without_summary = self._evaluate_variant(prompt, paths.without_skill, without_summary, without_manifest, current_phase=8, total_phases=total_phases)
 
         outcome, reason = compare_variants(with_summary, without_summary)
         experiment = ExperimentSummary(
             prompt.experiment_id,
             prompt.name,
             evaluation_spec_generated,
+            bool(experiment_manifest.get("check_plan_generated")),
             with_summary,
             without_summary,
             outcome,

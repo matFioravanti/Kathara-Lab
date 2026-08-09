@@ -64,6 +64,7 @@ def test_correction_workspace_isolation(tmp_path: Path):
     
     paths.evaluation_spec.parent.mkdir(parents=True, exist_ok=True)
     paths.evaluation_spec.write_text("eval spec", encoding="utf-8")
+    paths.check_plan.write_text("check plan", encoding="utf-8")
     
     paths.with_skill.source.mkdir(parents=True)
     (paths.with_skill.source / "lab.conf").write_text("lab", encoding="utf-8")
@@ -74,6 +75,7 @@ def test_correction_workspace_isolation(tmp_path: Path):
     workspace = paths.with_skill.correction_workspace
     assert (workspace / "input" / "prompt.md").is_file()
     assert (workspace / "input" / "evaluation-spec.md").is_file()
+    assert (workspace / "input" / "check-plan.md").is_file()
     assert (workspace / "resources" / "checker" / "SKILL.md").is_file()
     assert (workspace / "candidate" / "lab.conf").is_file()
     assert (workspace / "output").is_dir()

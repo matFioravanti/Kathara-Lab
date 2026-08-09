@@ -1,5 +1,5 @@
 {
-  "canonical_correction_sha256": "f73a6755c16120fa8c2d6128245d1b44965ac981a19ca4471c10677c3cb0386c",
+  "canonical_correction_sha256": "f2341494ca311e61e86d51507c3bddada237988f16cab9512727aafb95c74fcb",
   "checker": {
     "command": [
       "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
@@ -13,14 +13,14 @@
       "--report-type",
       "csv"
     ],
-    "duration_seconds": 18.804803875002108,
+    "duration_seconds": 20.669343832996674,
     "return_code": 0,
     "timed_out": false
   },
   "checker_attempted": true,
   "checker_completed": true,
   "checker_schema_sha256": "2e6226fa74eb59ca212a7fa6e69bc47dcbadc30ec99f146837cea90af5a6e658",
-  "checker_skill_sha256": "e3bcf0d7cb818d553dcf3da1e83b0d06d5601db407c3f16349bd07c21cc52fdf",
+  "checker_skill_sha256": "08fa430bb7bf38d1485d9568092a368c2434336d08d470cabf99f2fc72df7df2",
   "correction_generated": true,
   "correction_generation": {
     "command": [
@@ -40,17 +40,17 @@
       "--output-last-message",
       "/Users/matthew/Desktop/A-Tesi/results/Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server/.workspaces/correction_with_skill/.agent-last-message.txt",
       "--ephemeral",
-      "Read input/prompt.md, input/evaluation-spec.md, candidate/ (the generated lab implementation), resources/checker/SKILL.md, and resources/checker/config-schema.md. Generate exactly one canonical output/correction.yaml for kathara-lab-checker. This is a per-variant correction: the correction MUST evaluate only the requirements frozen in input/evaluation-spec.md, using the concrete IP addresses, interfaces, device names, and collision domains found in candidate/. You MUST NOT invent new requirements or checks based on the lab implementation. The lab implementation is only used to instantiate the frozen requirements with concrete values. Automatically include every standard supported check that is explicitly specified or unambiguously derivable from the evaluation-spec.md. Prefer standard checks over custom_commands. Use custom_commands only as a deterministic fallback when explicitly required. Never invent a check just to increase coverage. IMPORTANT: lab_inline is mandatory and must contain the complete expected topology derived from the evaluation-spec and candidate lab. default_image is a mandatory checker field. Use lab_inline rather than structure and omit labs_path. Follow the runtime 0.1.14 compatibility rules in the Skill. Write only YAML to output/correction.yaml, with no surrounding prose. Do not create any other output file."
+      "Read input/prompt.md, input/evaluation-spec.md, candidate/ (the generated lab implementation), resources/checker/SKILL.md, and resources/checker/config-schema.md. Generate exactly one canonical output/correction.yaml for kathara-lab-checker. This is a per-variant correction: the correction MUST evaluate exactly the requirements frozen in input/evaluation-spec.md. The candidate lab must ONLY provide the concrete values (device names, IP addresses, subnets, interfaces, next-hops, collision domains) needed to instantiate those requirements.\n\nCRITICAL REQUIREMENT-DRIVEN GENERATION:\nThe evaluation strategy (which requirements are checked, which checker categories are used, and the strictness of those checks) is already determined and frozen inside evaluation-spec.md. You MUST treat this strategy as mandatory. You must perform the exact same semantic checks and use the exact same checker categories as dictated by the evaluation-spec.md, just as you would for any other candidate fulfilling the same specification. Do not add a check only because one candidate exposes more implementation details. Do not omit or weaken a check in one variant because its candidate is different. Examples:\n- if static routing is required with exact next-hop validation, use it for both variants;\n- if DNS resolution is required, both corrections must contain equivalent DNS checks;\n- if end-to-end reachability is required, both corrections must contain equivalent reachability checks.\n\nAutomatically include every standard supported check that is explicitly specified or unambiguously derivable from the evaluation-spec.md. Prefer standard checks over custom_commands unless explicitly required. IMPORTANT: lab_inline is mandatory and must contain the complete expected topology derived from the evaluation-spec and candidate lab. default_image is a mandatory checker field. Use lab_inline rather than structure and omit labs_path. Follow the runtime 0.1.14 compatibility rules in the Skill. Write only YAML to output/correction.yaml, with no surrounding prose. Do not create any other output file."
     ],
-    "duration_seconds": 135.2601570839979,
+    "duration_seconds": 57.26198620800278,
     "return_code": 0,
     "timed_out": false
   },
-  "correction_hash": "f73a6755c16120fa8c2d6128245d1b44965ac981a19ca4471c10677c3cb0386c",
+  "correction_hash": "f2341494ca311e61e86d51507c3bddada237988f16cab9512727aafb95c74fcb",
   "creation_skill_enabled": true,
   "creation_skill_sha256": "bf4daac809c4088ad9106268c093cca9c41f79e95dba4113f108c0298d85b996",
   "errors": [],
-  "evaluation_spec_hash": "732b2327a36e31319790df14d3ea7f2d3448ca9f4be0df89886a5afd1ffa2625",
+  "evaluation_spec_hash": "af9891e96fdc03024953c4597d87d1ef19d269d9f191eb3c72290e84ac504838",
   "experiment_id": "Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server",
   "generation": {
     "command": [
@@ -72,7 +72,7 @@
       "--ephemeral",
       "Read input/prompt.md and resources/creation/SKILL.md. Use resources/creation/SKILL.md as the authoritative general implementation guide for Kathara, while the requested scenario itself is defined only by input/prompt.md. Generate exactly one complete Kathara laboratory inside output/lab/. Do not read files outside this workspace. Do not modify input/ or resources/. Do not generate correction.yaml and do not run Kathara or kathara_lab_checker. The laboratory must be complete, persistent, contain no placeholders, and be internally consistent."
     ],
-    "duration_seconds": 110.89592720899964,
+    "duration_seconds": 159.54273429199384,
     "return_code": 0,
     "timed_out": false
   },
@@ -82,47 +82,47 @@
   "generation_reasoning_effort": "low",
   "lab_generated": true,
   "metrics": {
-    "failed_tests": 4,
+    "failed_tests": 2,
     "failure_categories": {
-      "uncategorized": 4
+      "uncategorized": 2
     },
-    "pass_percentage": 93.939394,
-    "passed_tests": 62,
+    "pass_percentage": 95.121951,
+    "passed_tests": 39,
     "reports_found": [
       "results.csv",
       "candidate_result_all.csv",
       "candidate_result_failed.csv",
       "candidate_result_summary.csv"
     ],
-    "total_tests": 66
+    "total_tests": 41
   },
   "phases": [
     {
-      "at": "2026-08-09T14:50:06.402750Z",
+      "at": "2026-08-09T17:51:37.438433Z",
       "name": "discovered"
     },
     {
-      "at": "2026-08-09T14:50:06.403163Z",
+      "at": "2026-08-09T17:51:37.439002Z",
       "name": "lab_generation_started"
     },
     {
-      "at": "2026-08-09T14:51:57.430589Z",
+      "at": "2026-08-09T17:54:17.013479Z",
       "name": "lab_generated"
     },
     {
-      "at": "2026-08-09T14:51:57.430625Z",
+      "at": "2026-08-09T17:54:17.013586Z",
       "name": "static_validation_passed"
     },
     {
-      "at": "2026-08-09T14:54:12.730218Z",
+      "at": "2026-08-09T17:55:14.328884Z",
       "name": "checker_started"
     },
     {
-      "at": "2026-08-09T14:54:31.540241Z",
+      "at": "2026-08-09T17:55:35.002581Z",
       "name": "checker_completed"
     },
     {
-      "at": "2026-08-09T14:54:31.540257Z",
+      "at": "2026-08-09T17:55:35.002598Z",
       "name": "failed"
     }
   ],

@@ -114,6 +114,24 @@ List routes explicitly installed by static configuration or expected to be learn
 Do not list directly connected networks merely because an interface has an address. A one-path kernel route
 must identify either its gateway or its `ethN` interface, not both, for checker 0.1.14 compatibility.
 
+For `kernel_routes`, follow the structure defined in `config-schema.md` exactly.
+
+Allowed forms are:
+
+- simple route presence:
+  `- 10.2.2.0/24`
+
+- route with gateway/interface constraints:
+  `- ["10.2.2.0/24", ["10.255.12.2"]]`
+  `- ["10.2.2.0/24", ["eth1"]]`
+  `- ["10.2.2.0/24", ["10.255.12.2", "eth1"]]`
+
+If a `kernel_routes` entry is a two-element list, the second element MUST itself be a YAML list.
+
+Never generate:
+
+`- ["10.2.2.0/24", "10.255.12.2"]`
+
 ### Protocols
 
 Derive protocol values solely from the prompt. Runtime compatibility for checker 0.1.14 overrides older

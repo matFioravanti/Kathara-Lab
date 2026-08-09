@@ -1,6 +1,5 @@
-#!/bin/sh
-ip addr add 10.0.3.10/24 dev eth0
-ip route add default via 10.0.3.1
-cp /shared/named.conf /etc/bind/named.conf
-cp /shared/db.root /etc/bind/db.root
-named -c /etc/bind/named.conf
+#!/bin/bash
+ip link set eth0 up
+ip addr add 10.0.50.2/24 dev eth0
+ip route add default via 10.0.50.1
+named -c /etc/bind/named.conf -g &

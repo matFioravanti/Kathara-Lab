@@ -5,15 +5,15 @@ Check existence of `r3`,True,OK
 Check existence of `r4`,True,OK
 Check existence of `r5`,True,OK
 Check existence of `client`,True,OK
-Check existence of `localdns`,True,OK
 Check existence of `rootdns`,True,OK
 Check existence of `orgdns`,True,OK
+Check existence of `localdns`,True,OK
 Check existence of `web`,True,OK
 Checking the collision domain attached to interface `eth0` of `r1`,True,OK
 Checking the collision domain attached to interface `eth1` of `r1`,True,OK
-Checking the collision domain attached to interface `eth2` of `r1`,True,OK
 Checking the collision domain attached to interface `eth0` of `r2`,True,OK
 Checking the collision domain attached to interface `eth1` of `r2`,True,OK
+Checking the collision domain attached to interface `eth2` of `r2`,True,OK
 Checking the collision domain attached to interface `eth0` of `r3`,True,OK
 Checking the collision domain attached to interface `eth1` of `r3`,True,OK
 Checking the collision domain attached to interface `eth2` of `r3`,True,OK
@@ -23,48 +23,20 @@ Checking the collision domain attached to interface `eth2` of `r4`,True,OK
 Checking the collision domain attached to interface `eth0` of `r5`,True,OK
 Checking the collision domain attached to interface `eth1` of `r5`,True,OK
 Checking the collision domain attached to interface `eth0` of `client`,True,OK
-Checking the collision domain attached to interface `eth0` of `localdns`,True,OK
 Checking the collision domain attached to interface `eth0` of `rootdns`,True,OK
 Checking the collision domain attached to interface `eth0` of `orgdns`,True,OK
+Checking the collision domain attached to interface `eth0` of `localdns`,True,OK
 Checking the collision domain attached to interface `eth0` of `web`,True,OK
-Verifying the IP address (10.0.1.1/24) assigned to eth0 of r1,True,OK
-Verifying the IP address (10.0.12.1/30) assigned to eth1 of r1,True,OK
-Verifying the IP address (10.0.10.1/24) assigned to eth2 of r1,True,OK
-Verifying the IP address (10.0.12.2/30) assigned to eth0 of r2,True,OK
-Verifying the IP address (10.0.23.1/30) assigned to eth1 of r2,True,OK
-Verifying the IP address (10.0.23.2/30) assigned to eth0 of r3,True,OK
-Verifying the IP address (10.0.34.1/30) assigned to eth1 of r3,True,OK
-Verifying the IP address (10.0.30.1/24) assigned to eth2 of r3,True,OK
-Verifying the IP address (10.0.34.2/30) assigned to eth0 of r4,True,OK
-Verifying the IP address (10.0.45.1/30) assigned to eth1 of r4,True,OK
-Verifying the IP address (10.0.40.1/24) assigned to eth2 of r4,True,OK
-Verifying the IP address (10.0.45.2/30) assigned to eth0 of r5,True,OK
-Verifying the IP address (10.0.50.1/24) assigned to eth1 of r5,True,OK
-Verifying the IP address (10.0.1.2/24) assigned to eth0 of client,True,OK
-Verifying the IP address (10.0.10.2/24) assigned to eth0 of localdns,True,OK
-Verifying the IP address (10.0.30.2/24) assigned to eth0 of rootdns,True,OK
-Verifying the IP address (10.0.40.2/24) assigned to eth0 of orgdns,True,OK
-Verifying the IP address (10.0.50.2/24) assigned to eth0 of web,True,OK
 Verifying `kathara.org` reachable from device `client`,False,ping: kathara.org: Temporary failure in name resolution
-Checking that named is running on device `localdns`,False,Daemon named is not running on device `localdns`
-Checking that named is running on device `rootdns`,True,OK
-Checking that named is running on device `orgdns`,True,OK
 Checking the routing table of r1,True,OK
 Checking the routing table of r2,True,OK
 Checking the routing table of r3,True,OK
 Checking the routing table of r4,True,OK
 Checking the routing table of r5,True,OK
 Checking the routing table of client,True,OK
-Checking the routing table of localdns,True,OK
 Checking the routing table of rootdns,True,OK
 Checking the routing table of orgdns,True,OK
+Checking the routing table of localdns,True,OK
 Checking the routing table of web,True,OK
-Checking on `rootdns` that `10.0.30.2` is the authority for domain `.`,True,OK
-Checking on `rootdns` that `10.0.30.2` is the authority for domain `.`,True,OK
-Checking on `localdns` that `10.0.30.2` is the authority for domain `.`,False,named not started in `localdns`.startup`
-Checking on `orgdns` that `10.0.40.2` is the authority for domain `org`,True,OK
-Checking that `10.0.10.2` is the local name server for device `client`,True,OK
-Checking correctness of DNS records,False,"client resolve A kathara.org with IP ;; communications error to 10.0.10.2#53: connection refused
-;; communications error to 10.0.10.2#53: connection refused
-;; communications error to 10.0.10.2#53: connection refused
-;; no servers could be reached instead of ['10.0.50.2']"
+Checking that `10.10.50.2` is the local name server for device `client`,True,OK
+Checking correctness of DNS records,False,client resolve A kathara.org with IP  instead of ['10.10.40.2']

@@ -6,7 +6,7 @@ from pathlib import Path
 
 from kathara_pipeline.config import load_config
 from kathara_pipeline.models import CommandResult, Variant
-from kathara_pipeline.paths import ensure_output_root
+from kathara_pipeline.paths import build_experiment_paths, ensure_output_root
 from kathara_pipeline.pipeline import Pipeline
 from kathara_pipeline.prompt_discovery import discover_prompts
 from kathara_pipeline.resource_discovery import discover_resources
@@ -70,9 +70,12 @@ class FakeRunner:
 
     def run(self, *, instruction, workspace, output_last_message, stdout_log, stderr_log, timeout_seconds):
         self.calls.append((instruction, workspace))
-        if "evaluation-spec.md" in instruction and "SKILL.md" in instruction and not "per-variant" in instruction and not "regenerate" in instruction:
+        if "evaluation-spec.md" in instruction and "SKILL.md" in instruction and not "per-variant" in instruction and not "regenerate" in instruction and not "check-plan.md" in instruction:
             out = workspace / "output" / "evaluation-spec.md"
             out.write_text("Dummy evaluation spec", encoding="utf-8")
+        elif "output/check-plan.md" in instruction:
+            out = workspace / "output" / "check-plan.md"
+            out.write_text("Dummy check plan", encoding="utf-8")
         elif "per-variant" in instruction or "mandatory" in instruction or "CRITICAL" in instruction or "regenerate" in instruction:
             out = workspace / "output" / "correction.yaml"
             out.write_text(self.correction_yaml, encoding="utf-8")
@@ -93,9 +96,12 @@ class FakeRunnerRetryFix(FakeRunner):
 
     def run(self, *, instruction, workspace, output_last_message, stdout_log, stderr_log, timeout_seconds):
         self.calls.append((instruction, workspace))
-        if "evaluation-spec.md" in instruction and "SKILL.md" in instruction and not "per-variant" in instruction and not "regenerate" in instruction:
+        if "evaluation-spec.md" in instruction and "SKILL.md" in instruction and not "per-variant" in instruction and not "regenerate" in instruction and not "check-plan.md" in instruction:
             out = workspace / "output" / "evaluation-spec.md"
             out.write_text("Dummy evaluation spec", encoding="utf-8")
+        elif "output/check-plan.md" in instruction:
+            out = workspace / "output" / "check-plan.md"
+            out.write_text("Dummy check plan", encoding="utf-8")
         elif "per-variant" in instruction or "mandatory" in instruction or "CRITICAL" in instruction or "regenerate" in instruction:
             self._correction_attempts += 1
             content = _VALID_CORRECTION if self._correction_attempts > 1 else _INVALID_CORRECTION_NO_LAB_INLINE
@@ -110,9 +116,10 @@ class FakeRunnerRetryFix(FakeRunner):
 
 
 class FakeChecker:
-    def __init__(self):
-        self.corrections: list[bytes] = []
+    def __init__(self, produce_reports: bool = True):
         self.order: list[str] = []
+        self.corrections: list[Path] = []
+        self.produce_reports = produce_reports
 
     def prepare_candidate(self, source, paths):
         if paths.checker_run.exists():
@@ -121,14 +128,13 @@ class FakeChecker:
         shutil.copytree(source, paths.candidate)
 
     def run(self, *, correction, paths):
-        self.corrections.append(Path(correction).read_bytes())
+        paths.checker_run.mkdir(parents=True, exist_ok=True)
         self.order.append(paths.root.name)
-        report = paths.checker_run / "results_summary.csv"
-        report.write_text(
-            "total_tests,passed_tests,failed_tests,pass_percentage\n3,3,0,100\n",
-            encoding="utf-8",
-        )
-        return CommandResult(("checker",), 0, "", "", 2.0, False)
+        self.corrections.append(correction)
+        if self.produce_reports:
+            out = paths.checker_run / "results.csv"
+            out.write_text("tests,passed,failed\n1,1,0\n", encoding="utf-8")
+        return CommandResult(("fake-check",), 0, "", "", 1.0, False)
 
     def build_command(self, *, correction, paths):
         return ("checker", str(correction), str(paths.labs_dir))
@@ -146,6 +152,7 @@ def test_pipeline_runs_variants_in_new_order_and_shares_checker_skill(tmp_path: 
     pipeline.runner = fake_runner
     pipeline.lab_generator.runner = fake_runner
     pipeline.evaluation_spec_generator.runner = fake_runner
+    pipeline.check_plan_generator.runner = fake_runner
     pipeline.correction_generator.runner = fake_runner
     fake_checker = FakeChecker()
     pipeline.checker = fake_checker
@@ -154,20 +161,22 @@ def test_pipeline_runs_variants_in_new_order_and_shares_checker_skill(tmp_path: 
     
     # Verify exact call order: 
     # 0: eval spec
-    # 1: with_skill lab
-    # 2: with_skill correction
-    # 3: without_skill lab
-    # 4: without_skill correction
-    assert len(fake_runner.calls) == 5
+    # 1: check plan
+    # 2: with_skill lab
+    # 3: with_skill correction
+    # 4: without_skill lab
+    # 5: without_skill correction
+    assert len(fake_runner.calls) == 6
     assert "evaluation-spec.md" in fake_runner.calls[0][0]
+    assert "output/check-plan.md" in fake_runner.calls[1][0]
     
     # Verify ONLY Creation Skill difference occurs during lab generation
-    assert "resources/creation/SKILL.md" in fake_runner.calls[1][0] # with_skill lab
-    assert "Read only input/prompt.md" in fake_runner.calls[3][0] # without_skill lab
+    assert "resources/creation/SKILL.md" in fake_runner.calls[2][0] # with_skill lab
+    assert "Read only input/prompt.md" in fake_runner.calls[4][0] # without_skill lab
     
     # Verify BOTH correction generations receive the EXACT SAME Checker Skill and config-schema
-    with_corr_call = fake_runner.calls[2][0]
-    without_corr_call = fake_runner.calls[4][0]
+    with_corr_call = fake_runner.calls[3][0]
+    without_corr_call = fake_runner.calls[5][0]
     
     assert "per-variant" in with_corr_call
     assert "resources/checker/SKILL.md" in with_corr_call
@@ -184,11 +193,18 @@ def test_pipeline_runs_variants_in_new_order_and_shares_checker_skill(tmp_path: 
     assert len(fake_checker.corrections) == 2
     exp = summary.experiments[0]
     assert exp.evaluation_spec_generated
+    assert exp.check_plan_generated
     assert exp.with_skill.correction_generated
     assert exp.without_skill.correction_generated
     assert exp.with_skill.status.value == "passed"
     assert exp.without_skill.status.value == "passed"
     assert exp.comparison.value == "EQUAL"
+
+    # Verify checker_run cleanup on success
+    with_skill_paths = build_experiment_paths(project / "results", summary.experiments[0].experiment_id).with_skill
+    assert not with_skill_paths.checker_run.exists()
+    assert with_skill_paths.reports.exists()
+    assert (with_skill_paths.reports / "results.csv").exists()
 
 
 # ---------------------------------------------------------------------------
@@ -205,6 +221,7 @@ def test_checker_is_not_called_when_correction_is_invalid(tmp_path: Path):
     pipeline.runner = fake_runner
     pipeline.lab_generator.runner = fake_runner
     pipeline.evaluation_spec_generator.runner = fake_runner
+    pipeline.check_plan_generator.runner = fake_runner
     pipeline.correction_generator.runner = fake_runner
     fake_checker = FakeChecker()
     pipeline.checker = fake_checker
@@ -235,6 +252,7 @@ def test_retry_fixes_correction_missing_lab_inline(tmp_path: Path):
     pipeline.runner = fake_runner
     pipeline.lab_generator.runner = fake_runner
     pipeline.evaluation_spec_generator.runner = fake_runner
+    pipeline.check_plan_generator.runner = fake_runner
     pipeline.correction_generator.runner = fake_runner
     fake_checker = FakeChecker()
     pipeline.checker = fake_checker
@@ -248,9 +266,36 @@ def test_retry_fixes_correction_missing_lab_inline(tmp_path: Path):
     assert len(fake_checker.corrections) == 2
     exp = summary.experiments[0]
     assert exp.with_skill.correction_generated
-    assert exp.without_skill.correction_generated
-    assert exp.with_skill.status.value == "passed"
-    assert exp.without_skill.status.value == "passed"
+
+
+def test_checker_cleanup_on_technical_failure(tmp_path: Path):
+    """The checker fails with a technical error, but checker_run must still be cleaned up."""
+    project, prompts = _make_project(tmp_path)
+    config = load_config(project / "pipeline.yaml")
+    pipeline = Pipeline(config)
+    fake_runner = FakeRunner()
+    pipeline.runner = fake_runner
+    pipeline.lab_generator.runner = fake_runner
+    pipeline.evaluation_spec_generator.runner = fake_runner
+    pipeline.check_plan_generator.runner = fake_runner
+    pipeline.correction_generator.runner = fake_runner
+
+    class FakeFailingChecker(FakeChecker):
+        def run(self, *, correction, paths):
+            super().run(correction=correction, paths=paths)
+            return CommandResult(("fake-check",), 1, "", "", 1.0, False)
+
+    fake_checker = FakeFailingChecker(produce_reports=False)
+    pipeline.checker = fake_checker
+    resources = discover_resources(project / "resources")
+    summary = pipeline.run(discover_prompts(prompts), resources)
+
+    exp = summary.experiments[0]
+    assert exp.with_skill.status.value == "error"
+    assert "technical return code" in exp.with_skill.error_message
+
+    with_skill_paths = build_experiment_paths(project / "results", exp.experiment_id).with_skill
+    assert not with_skill_paths.checker_run.exists()
 
 
 # ---------------------------------------------------------------------------
@@ -260,11 +305,14 @@ def test_retry_fixes_correction_missing_lab_inline(tmp_path: Path):
 class FakeRunnerEvalSpecFails(FakeRunner):
     def run(self, *, instruction, workspace, output_last_message, stdout_log, stderr_log, timeout_seconds):
         self.calls.append((instruction, workspace))
-        if "evaluation-spec.md" in instruction and "SKILL.md" in instruction and not "per-variant" in instruction and not "regenerate" in instruction:
+        if "evaluation-spec.md" in instruction and "SKILL.md" in instruction and not "per-variant" in instruction and not "regenerate" in instruction and not "check-plan.md" in instruction:
             stdout_log.parent.mkdir(parents=True, exist_ok=True)
             stdout_log.write_text("{}\n", encoding="utf-8")
             stderr_log.write_text("Error", encoding="utf-8")
             return CommandResult(("fake",), 1, "", "Error", 1.0, False)
+        elif "output/check-plan.md" in instruction:
+            out = workspace / "output" / "check-plan.md"
+            out.write_text("Dummy check plan", encoding="utf-8")
         elif "per-variant" in instruction or "mandatory" in instruction or "CRITICAL" in instruction or "regenerate" in instruction:
             out = workspace / "output" / "correction.yaml"
             out.write_text(self.correction_yaml, encoding="utf-8")
@@ -283,6 +331,7 @@ def test_checker_is_not_called_when_eval_spec_fails(tmp_path: Path):
     pipeline.runner = fake_runner
     pipeline.lab_generator.runner = fake_runner
     pipeline.evaluation_spec_generator.runner = fake_runner
+    pipeline.check_plan_generator.runner = fake_runner
     pipeline.correction_generator.runner = fake_runner
     fake_checker = FakeChecker()
     pipeline.checker = fake_checker
@@ -292,6 +341,7 @@ def test_checker_is_not_called_when_eval_spec_fails(tmp_path: Path):
     assert fake_checker.corrections == []
     exp = summary.experiments[0]
     assert not exp.evaluation_spec_generated
+    assert not exp.check_plan_generated
     assert not exp.with_skill.correction_generated
     assert not exp.without_skill.correction_generated
     assert exp.with_skill.status.value == "error"
@@ -305,6 +355,7 @@ def test_resume_from_correction(tmp_path: Path):
     pipeline.runner = fake_runner
     pipeline.lab_generator.runner = fake_runner
     pipeline.evaluation_spec_generator.runner = fake_runner
+    pipeline.check_plan_generator.runner = fake_runner
     pipeline.correction_generator.runner = fake_runner
     fake_checker = FakeChecker()
     pipeline.checker = fake_checker
@@ -324,6 +375,7 @@ def test_resume_from_correction(tmp_path: Path):
     pipeline_resume.runner = fake_runner
     pipeline_resume.lab_generator.runner = fake_runner
     pipeline_resume.evaluation_spec_generator.runner = fake_runner
+    pipeline_resume.check_plan_generator.runner = fake_runner
     pipeline_resume.correction_generator.runner = fake_runner
     pipeline_resume.checker = fake_checker
     

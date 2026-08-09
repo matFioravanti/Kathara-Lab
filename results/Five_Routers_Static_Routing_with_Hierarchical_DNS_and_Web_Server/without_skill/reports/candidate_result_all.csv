@@ -1,0 +1,29 @@
+Test Description,Passed,Reason
+Check existence of `r1`,True,OK
+Check existence of `r2`,True,OK
+Check existence of `r3`,True,OK
+Check existence of `r4`,True,OK
+Check existence of `r5`,True,OK
+Check existence of `client`,True,OK
+Check existence of `rootdns`,True,OK
+Check existence of `orgdns`,True,OK
+Check existence of `localdns`,True,OK
+Check existence of `web`,True,OK
+Checking the collision domain attached to interface `eth0` of `r1`,True,OK
+Checking the collision domain attached to interface `eth1` of `r1`,True,OK
+Checking the collision domain attached to interface `eth2` of `r1`,True,OK
+Checking the collision domain attached to interface `eth0` of `r2`,True,OK
+Checking the collision domain attached to interface `eth1` of `r2`,True,OK
+Checking the collision domain attached to interface `eth0` of `r3`,True,OK
+Checking the collision domain attached to interface `eth1` of `r3`,True,OK
+Checking the collision domain attached to interface `eth0` of `r4`,True,OK
+Checking the collision domain attached to interface `eth1` of `r4`,True,OK
+Checking the collision domain attached to interface `eth2` of `r4`,True,OK
+Checking the collision domain attached to interface `eth0` of `r5`,True,OK
+Checking the collision domain attached to interface `eth1` of `r5`,True,OK
+Checking the collision domain attached to interface `eth2` of `r5`,True,OK
+Checking the collision domain attached to interface `eth0` of `client`,True,OK
+Checking the collision domain attached to interface `eth0` of `rootdns`,True,OK
+Checking the collision domain attached to interface `eth0` of `orgdns`,True,OK
+Checking the collision domain attached to interface `eth0` of `localdns`,True,OK
+Checking the collision domain attached to interface `eth0` of `web`,True,OK

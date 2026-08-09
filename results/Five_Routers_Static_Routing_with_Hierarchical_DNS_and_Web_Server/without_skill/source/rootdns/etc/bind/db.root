@@ -1,0 +1,6 @@
+$TTL 300
+@ IN SOA root.kathara. admin.kathara. (1 300 300 300 300)
+@ IN NS root.kathara.
+root.kathara. IN A 10.0.50.2
+org. IN NS ns.org.
+ns.org. IN A 10.0.50.3

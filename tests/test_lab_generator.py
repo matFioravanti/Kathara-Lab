@@ -44,6 +44,7 @@ def test_retry_after_lab_validator_failure(tmp_path: Path):
         labs_dir=tmp_path / "labs",
         workspace=tmp_path / "workspace",
         source=tmp_path / "source",
+        source_failed=tmp_path / "source_failed",
         candidate=tmp_path / "candidate",
         correction_workspace=tmp_path / "correction_workspace",
         correction_dir=tmp_path / "correction",
@@ -83,4 +84,74 @@ def test_retry_after_lab_validator_failure(tmp_path: Path):
     second_call_instruction = runner.run.call_args_list[1].kwargs["instruction"]
     assert "failed static validation with the following errors" in second_call_instruction
     assert "Kathara LabParser validation failed" in second_call_instruction
+
+
+def test_final_invalid_lab_is_preserved_in_source_failed(tmp_path: Path):
+    runner = Mock()
+    # Mock runner.run to simulate agent generating an invalid lab on ALL attempts
+    def side_effect(*args, **kwargs):
+        workspace = kwargs["workspace"]
+        generated = workspace / "output" / "lab"
+        generated.mkdir(parents=True, exist_ok=True)
+        (generated / "lab.conf").write_text('r1-invalid[0]="A"\n')
+
+        return CommandResult(
+            command=("agent",),
+            return_code=0,
+            duration_seconds=1.0,
+            timed_out=False,
+            stdout="",
+            stderr="",
+        )
+
+    runner.run.side_effect = side_effect
+
+    generator = LabGenerator(runner, timeout_seconds=10)
+    validator = LabValidator()
+    
+    paths = VariantPaths(
+        root=tmp_path / "root",
+        labs_dir=tmp_path / "labs",
+        workspace=tmp_path / "workspace",
+        source=tmp_path / "source",
+        source_failed=tmp_path / "source_failed",
+        candidate=tmp_path / "candidate",
+        correction_workspace=tmp_path / "correction_workspace",
+        correction_dir=tmp_path / "correction",
+        correction=tmp_path / "correction" / "correction.yaml",
+        checker_run=tmp_path / "checker_run",
+        reports=tmp_path / "reports",
+        manifest=tmp_path / "manifest.json",
+        logs=tmp_path / "logs",
+        correction_logs=tmp_path / "correction_logs",
+    )
+    
+    resources = ResourceFiles(
+        root=tmp_path / "resources",
+        creation_skill=tmp_path / "creation.md",
+        checker_skill=tmp_path / "checker.md",
+        checker_schema=tmp_path / "schema.md",
+        creation_skill_hash="a",
+        checker_skill_hash="b",
+        checker_schema_hash="c",
+    )
+    for p in (resources.creation_skill, resources.checker_skill, resources.checker_schema):
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text("test")
+        
+    with pytest.raises(AgentExecutionError, match="Generated lab still invalid"):
+        generator.generate_with_retry(
+            paths=paths,
+            prompt_text="test",
+            variant=Variant.WITH_SKILL,
+            resources=resources,
+            validator=validator,
+        )
+        
+    assert runner.run.call_count == 2
+    
+    assert paths.source_failed.exists()
+    assert (paths.source_failed / "lab.conf").read_text() == 'r1-invalid[0]="A"\n'
+    assert not paths.source.exists()
+
 

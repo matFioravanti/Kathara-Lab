@@ -1,8 +1,0 @@
-Test Description,Passed,Reason
-Verifying `kathara.org` reachable from device `client`,False,ping: kathara.org: Temporary failure in name resolution
-Checking that named is running on device `localdns`,False,Daemon named is not running on device `localdns`
-Checking on `localdns` that `10.0.30.2` is the authority for domain `.`,False,named not started in `localdns`.startup`
-Checking correctness of DNS records,False,"client resolve A kathara.org with IP ;; communications error to 10.0.10.2#53: connection refused
-;; communications error to 10.0.10.2#53: connection refused
-;; communications error to 10.0.10.2#53: connection refused
-;; no servers could be reached instead of ['10.0.50.2']"

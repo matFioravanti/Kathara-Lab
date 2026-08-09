@@ -1,6 +1,6 @@
 {
   "comparison": "INCOMPARABLE",
-  "comparison_reason": "Both checker runs must complete successfully for a paired quality comparison.",
+  "comparison_reason": "Per-variant corrections produced different test counts; pair excluded from quality comparison.",
   "complete": true,
   "evaluation_spec_generated": true,
   "evaluation_spec_generation": {
@@ -21,20 +21,20 @@
       "--output-last-message",
       "/Users/matthew/Desktop/A-Tesi/results/Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server/.workspaces/evaluation-spec/.agent-last-message.txt",
       "--ephemeral",
-      "Read input/prompt.md and resources/creation/SKILL.md. Generate exactly one file output/evaluation-spec.md. This file must structure the explicit requirements found in the prompt using the Skill as a guide. CRITICAL: Do NOT add reasonable defaults, and do NOT invent any IP addresses, routing protocols, services, topologies, or other requirements that are not explicitly present in the prompt. This file is strictly for evaluation purposes. Write only markdown content."
+      "Read input/prompt.md and resources/creation/SKILL.md. Also read resources/checker/SKILL.md and resources/checker/config-schema.md. Generate exactly one file output/evaluation-spec.md. This file must structure the explicit requirements found in the prompt using the Creation Skill as a guide. CRITICAL: For every requirement derived from the prompt, you MUST specify the corresponding checker strategy and category (e.g., 'Checker: kernel_routes', 'Validation: exact next-hop', or 'Checker: reachability') that will be used to evaluate it, determining this from the Checker Skill and config-schema.md. This evaluation strategy MUST be completely candidate-independent. Do NOT add reasonable defaults, and do NOT invent any IP addresses, routing protocols, services, topologies, or other requirements that are not explicitly present in the prompt. This file is strictly for evaluation purposes and freezes both WHAT must be evaluated and HOW. Write only markdown content."
     ],
-    "duration_seconds": 28.156361375000415,
+    "duration_seconds": 62.84517170899926,
     "return_code": 0,
     "timed_out": false
   },
-  "evaluation_spec_hash": "732b2327a36e31319790df14d3ea7f2d3448ca9f4be0df89886a5afd1ffa2625",
+  "evaluation_spec_hash": "af9891e96fdc03024953c4597d87d1ef19d269d9f191eb3c72290e84ac504838",
   "experiment_id": "Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server",
-  "finished_at": "2026-08-09T14:58:02.638638Z",
+  "finished_at": "2026-08-09T18:01:10.572443Z",
   "identity": {
     "checker_report_type": "csv",
     "checker_runtime": "kathara-lab-checker==0.1.14",
     "checker_schema_sha256": "2e6226fa74eb59ca212a7fa6e69bc47dcbadc30ec99f146837cea90af5a6e658",
-    "checker_skill_sha256": "e3bcf0d7cb818d553dcf3da1e83b0d06d5601db407c3f16349bd07c21cc52fdf",
+    "checker_skill_sha256": "08fa430bb7bf38d1485d9568092a368c2434336d08d470cabf99f2fc72df7df2",
     "command": "codex",
     "creation_skill_sha256": "bf4daac809c4088ad9106268c093cca9c41f79e95dba4113f108c0298d85b996",
     "model": "gpt-5.6-terra",
@@ -47,5 +47,5 @@
   "pipeline_version": "0.4.1",
   "prompt_file": "Five Routers Static Routing with Hierarchical DNS and Web Server.md",
   "prompt_sha256": "94149ce85274093ca78c473eff59dc4bd763fd61568e7d566fefd6209c1714c0",
-  "started_at": "2026-08-09T14:49:38.241269Z"
+  "started_at": "2026-08-09T17:50:34.587112Z"
 }

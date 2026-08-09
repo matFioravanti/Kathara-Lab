@@ -1,12 +1,5 @@
-# Five routers, static routing, and hierarchical DNS
+# Five routers, static routing, hierarchical DNS, and web server
 
-The router graph is `r1--r2--r3--r4--r5`; no router has more than three interfaces. All router forwarding paths are configured with explicit static routes.
+Start the lab with `kathara lstart`. The client uses the local recursive resolver at `10.0.50.4`; that resolver follows the root service (`10.0.50.2`) to the authoritative `.org` service (`10.0.50.3`) to resolve `kathara.org` as `10.0.60.10`.
 
-DNS resolution is hierarchical: the client asks `lns` (`10.0.2.10`), which forwards to the authoritative root server (`rootdns`, `10.0.3.10`). The root zone delegates `org` to `orgdns` (`10.0.4.10`), and `orgdns` is authoritative for `kathara.org`, whose address is `10.0.5.10`.
-
-After starting the lab, validate from the client:
-
-```sh
-getent hosts kathara.org
-curl http://kathara.org/
-```
+From the client, verify the service with `getent hosts kathara.org` and `curl http://kathara.org`.

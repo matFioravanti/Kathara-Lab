@@ -1,0 +1,136 @@
+Test Description,Passed,Reason
+Check existence of `r1`,True,OK
+Check existence of `r2`,True,OK
+Check existence of `r3`,True,OK
+Check existence of `r4`,True,OK
+Check existence of `r5`,True,OK
+Check existence of `pc1a`,True,OK
+Check existence of `pc1b`,True,OK
+Check existence of `pc2a`,True,OK
+Check existence of `pc2b`,True,OK
+Check existence of `pc3a`,True,OK
+Check existence of `pc3b`,True,OK
+Check existence of `pc4a`,True,OK
+Check existence of `pc4b`,True,OK
+Check existence of `pc5a`,True,OK
+Check existence of `pc5b`,True,OK
+Checking the collision domain attached to interface `eth0` of `r1`,True,OK
+Checking the collision domain attached to interface `eth1` of `r1`,True,OK
+Checking the collision domain attached to interface `eth2` of `r1`,True,OK
+Checking the collision domain attached to interface `eth0` of `r2`,True,OK
+Checking the collision domain attached to interface `eth1` of `r2`,True,OK
+Checking the collision domain attached to interface `eth2` of `r2`,True,OK
+Checking the collision domain attached to interface `eth0` of `r3`,True,OK
+Checking the collision domain attached to interface `eth1` of `r3`,True,OK
+Checking the collision domain attached to interface `eth2` of `r3`,True,OK
+Checking the collision domain attached to interface `eth0` of `r4`,True,OK
+Checking the collision domain attached to interface `eth1` of `r4`,True,OK
+Checking the collision domain attached to interface `eth2` of `r4`,True,OK
+Checking the collision domain attached to interface `eth3` of `r4`,True,OK
+Checking the collision domain attached to interface `eth0` of `r5`,True,OK
+Checking the collision domain attached to interface `eth1` of `r5`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc1a`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc1b`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc2a`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc2b`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc3a`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc3b`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc4a`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc4b`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc5a`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc5b`,True,OK
+Verifying `10.1.0.11` reachable from device `pc1a`,True,OK
+Verifying `10.2.0.10` reachable from device `pc1a`,True,OK
+Verifying `10.2.0.11` reachable from device `pc1a`,True,OK
+Verifying `10.3.0.10` reachable from device `pc1a`,True,OK
+Verifying `10.3.0.11` reachable from device `pc1a`,True,OK
+Verifying `10.4.0.10` reachable from device `pc1a`,True,OK
+Verifying `10.4.0.11` reachable from device `pc1a`,True,OK
+Verifying `10.5.0.10` reachable from device `pc1a`,True,OK
+Verifying `10.5.0.11` reachable from device `pc1a`,True,OK
+Verifying `10.1.0.10` reachable from device `pc1b`,True,OK
+Verifying `10.2.0.10` reachable from device `pc1b`,True,OK
+Verifying `10.2.0.11` reachable from device `pc1b`,True,OK
+Verifying `10.3.0.10` reachable from device `pc1b`,True,OK
+Verifying `10.3.0.11` reachable from device `pc1b`,True,OK
+Verifying `10.4.0.10` reachable from device `pc1b`,True,OK
+Verifying `10.4.0.11` reachable from device `pc1b`,True,OK
+Verifying `10.5.0.10` reachable from device `pc1b`,True,OK
+Verifying `10.5.0.11` reachable from device `pc1b`,True,OK
+Verifying `10.1.0.10` reachable from device `pc2a`,True,OK
+Verifying `10.1.0.11` reachable from device `pc2a`,True,OK
+Verifying `10.2.0.11` reachable from device `pc2a`,True,OK
+Verifying `10.3.0.10` reachable from device `pc2a`,True,OK
+Verifying `10.3.0.11` reachable from device `pc2a`,True,OK
+Verifying `10.4.0.10` reachable from device `pc2a`,True,OK
+Verifying `10.4.0.11` reachable from device `pc2a`,True,OK
+Verifying `10.5.0.10` reachable from device `pc2a`,True,OK
+Verifying `10.5.0.11` reachable from device `pc2a`,True,OK
+Verifying `10.1.0.10` reachable from device `pc2b`,True,OK
+Verifying `10.1.0.11` reachable from device `pc2b`,True,OK
+Verifying `10.2.0.10` reachable from device `pc2b`,True,OK
+Verifying `10.3.0.10` reachable from device `pc2b`,True,OK
+Verifying `10.3.0.11` reachable from device `pc2b`,True,OK
+Verifying `10.4.0.10` reachable from device `pc2b`,True,OK
+Verifying `10.4.0.11` reachable from device `pc2b`,True,OK
+Verifying `10.5.0.10` reachable from device `pc2b`,True,OK
+Verifying `10.5.0.11` reachable from device `pc2b`,True,OK
+Verifying `10.1.0.10` reachable from device `pc3a`,True,OK
+Verifying `10.1.0.11` reachable from device `pc3a`,True,OK
+Verifying `10.2.0.10` reachable from device `pc3a`,True,OK
+Verifying `10.2.0.11` reachable from device `pc3a`,True,OK
+Verifying `10.3.0.11` reachable from device `pc3a`,True,OK
+Verifying `10.4.0.10` reachable from device `pc3a`,True,OK
+Verifying `10.4.0.11` reachable from device `pc3a`,True,OK
+Verifying `10.5.0.10` reachable from device `pc3a`,True,OK
+Verifying `10.5.0.11` reachable from device `pc3a`,True,OK
+Verifying `10.1.0.10` reachable from device `pc3b`,True,OK
+Verifying `10.1.0.11` reachable from device `pc3b`,True,OK
+Verifying `10.2.0.10` reachable from device `pc3b`,True,OK
+Verifying `10.2.0.11` reachable from device `pc3b`,True,OK
+Verifying `10.3.0.10` reachable from device `pc3b`,True,OK
+Verifying `10.4.0.10` reachable from device `pc3b`,True,OK
+Verifying `10.4.0.11` reachable from device `pc3b`,True,OK
+Verifying `10.5.0.10` reachable from device `pc3b`,True,OK
+Verifying `10.5.0.11` reachable from device `pc3b`,True,OK
+Verifying `10.1.0.10` reachable from device `pc4a`,True,OK
+Verifying `10.1.0.11` reachable from device `pc4a`,True,OK
+Verifying `10.2.0.10` reachable from device `pc4a`,True,OK
+Verifying `10.2.0.11` reachable from device `pc4a`,True,OK
+Verifying `10.3.0.10` reachable from device `pc4a`,True,OK
+Verifying `10.3.0.11` reachable from device `pc4a`,True,OK
+Verifying `10.4.0.11` reachable from device `pc4a`,True,OK
+Verifying `10.5.0.10` reachable from device `pc4a`,True,OK
+Verifying `10.5.0.11` reachable from device `pc4a`,True,OK
+Verifying `10.1.0.10` reachable from device `pc4b`,True,OK
+Verifying `10.1.0.11` reachable from device `pc4b`,True,OK
+Verifying `10.2.0.10` reachable from device `pc4b`,True,OK
+Verifying `10.2.0.11` reachable from device `pc4b`,True,OK
+Verifying `10.3.0.10` reachable from device `pc4b`,True,OK
+Verifying `10.3.0.11` reachable from device `pc4b`,True,OK
+Verifying `10.4.0.10` reachable from device `pc4b`,True,OK
+Verifying `10.5.0.10` reachable from device `pc4b`,True,OK
+Verifying `10.5.0.11` reachable from device `pc4b`,True,OK
+Verifying `10.1.0.10` reachable from device `pc5a`,True,OK
+Verifying `10.1.0.11` reachable from device `pc5a`,True,OK
+Verifying `10.2.0.10` reachable from device `pc5a`,True,OK
+Verifying `10.2.0.11` reachable from device `pc5a`,True,OK
+Verifying `10.3.0.10` reachable from device `pc5a`,True,OK
+Verifying `10.3.0.11` reachable from device `pc5a`,True,OK
+Verifying `10.4.0.10` reachable from device `pc5a`,True,OK
+Verifying `10.4.0.11` reachable from device `pc5a`,True,OK
+Verifying `10.5.0.11` reachable from device `pc5a`,True,OK
+Verifying `10.1.0.10` reachable from device `pc5b`,True,OK
+Verifying `10.1.0.11` reachable from device `pc5b`,True,OK
+Verifying `10.2.0.10` reachable from device `pc5b`,True,OK
+Verifying `10.2.0.11` reachable from device `pc5b`,True,OK
+Verifying `10.3.0.10` reachable from device `pc5b`,True,OK
+Verifying `10.3.0.11` reachable from device `pc5b`,True,OK
+Verifying `10.4.0.10` reachable from device `pc5b`,True,OK
+Verifying `10.4.0.11` reachable from device `pc5b`,True,OK
+Verifying `10.5.0.10` reachable from device `pc5b`,True,OK
+Checking the routing table of r1,True,OK
+Checking the routing table of r2,True,OK
+Checking the routing table of r3,True,OK
+Checking the routing table of r4,True,OK
+Checking the routing table of r5,True,OK

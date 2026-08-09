@@ -1,6 +1,6 @@
 {
-  "comparison": "INCOMPARABLE",
-  "comparison_reason": "Both checker runs must complete successfully for a paired quality comparison.",
+  "comparison": "EQUAL",
+  "comparison_reason": "Both candidates produced the same checker result.",
   "complete": true,
   "evaluation_spec_generated": true,
   "evaluation_spec_generation": {
@@ -21,20 +21,20 @@
       "--output-last-message",
       "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/evaluation-spec/.agent-last-message.txt",
       "--ephemeral",
-      "Read input/prompt.md and resources/creation/SKILL.md. Generate exactly one file output/evaluation-spec.md. This file must structure the explicit requirements found in the prompt using the Skill as a guide. CRITICAL: Do NOT add reasonable defaults, and do NOT invent any IP addresses, routing protocols, services, topologies, or other requirements that are not explicitly present in the prompt. This file is strictly for evaluation purposes. Write only markdown content."
+      "Read input/prompt.md and resources/creation/SKILL.md. Also read resources/checker/SKILL.md and resources/checker/config-schema.md. Generate exactly one file output/evaluation-spec.md. This file must structure the explicit requirements found in the prompt using the Creation Skill as a guide. CRITICAL: For every requirement derived from the prompt, you MUST specify the corresponding checker strategy and category (e.g., 'Checker: kernel_routes', 'Validation: exact next-hop', or 'Checker: reachability') that will be used to evaluate it, determining this from the Checker Skill and config-schema.md. This evaluation strategy MUST be completely candidate-independent. Do NOT add reasonable defaults, and do NOT invent any IP addresses, routing protocols, services, topologies, or other requirements that are not explicitly present in the prompt. This file is strictly for evaluation purposes and freezes both WHAT must be evaluated and HOW. Write only markdown content."
     ],
-    "duration_seconds": 40.55126416699932,
+    "duration_seconds": 84.2822778750051,
     "return_code": 0,
     "timed_out": false
   },
-  "evaluation_spec_hash": "0e5714a1dd8c01ac34b3552446c417fdfb92feaf33c6558ff250f1c7b9cc6adb",
+  "evaluation_spec_hash": "97c73bf4df105b1df4484ffe65c414d287d9a36449bcc6c9a9fbd0b49abb9309",
   "experiment_id": "All_Routes_Explicit_No_Default_Routes_IPv4",
-  "finished_at": "2026-08-09T14:47:24.209366Z",
+  "finished_at": "2026-08-09T17:50:34.564016Z",
   "identity": {
     "checker_report_type": "csv",
     "checker_runtime": "kathara-lab-checker==0.1.14",
     "checker_schema_sha256": "2e6226fa74eb59ca212a7fa6e69bc47dcbadc30ec99f146837cea90af5a6e658",
-    "checker_skill_sha256": "e3bcf0d7cb818d553dcf3da1e83b0d06d5601db407c3f16349bd07c21cc52fdf",
+    "checker_skill_sha256": "08fa430bb7bf38d1485d9568092a368c2434336d08d470cabf99f2fc72df7df2",
     "command": "codex",
     "creation_skill_sha256": "bf4daac809c4088ad9106268c093cca9c41f79e95dba4113f108c0298d85b996",
     "model": "gpt-5.6-terra",
@@ -47,5 +47,5 @@
   "pipeline_version": "0.4.1",
   "prompt_file": "All Routes Explicit, No Default Routes, IPv4.md",
   "prompt_sha256": "e582f25a35c94ccf914c22072842dc98a4887e31ede17250f0e2c148d8752e5b",
-  "started_at": "2026-08-09T14:39:14.964113Z"
+  "started_at": "2026-08-09T17:39:58.987225Z"
 }

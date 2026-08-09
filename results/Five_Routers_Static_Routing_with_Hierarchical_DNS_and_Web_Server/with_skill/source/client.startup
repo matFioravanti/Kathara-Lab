@@ -1,4 +1,4 @@
 #!/bin/sh
-ip addr add 10.0.1.2/24 dev eth0
-ip route add default via 10.0.1.1
-printf 'nameserver 10.0.10.2\nsearch kathara.org\n' > /etc/resolv.conf
+ip addr add 10.10.10.10/24 dev eth0
+ip route add default via 10.10.10.1
+printf 'nameserver 10.10.50.2\n' > /etc/resolv.conf

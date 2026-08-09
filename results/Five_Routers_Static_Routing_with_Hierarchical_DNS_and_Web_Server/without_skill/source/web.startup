@@ -1,6 +1,5 @@
-#!/bin/sh
-ip addr add 10.0.5.10/24 dev eth0
-ip route add default via 10.0.5.1
-mkdir -p /var/www/kathara.org
-cp /shared/index.html /var/www/kathara.org/index.html
-python3 -m http.server 80 --directory /var/www/kathara.org >/var/log/kathara-web.log 2>&1 &
+#!/bin/bash
+ip link set eth0 up
+ip addr add 10.0.60.10/24 dev eth0
+ip route add default via 10.0.60.1
+nginx -g 'daemon off;' &

@@ -19,10 +19,16 @@ class EvaluationSpecGenerator:
         return (
             "Read input/prompt.md and resources/creation/SKILL.md. "
             "Generate exactly one file output/evaluation-spec.md. "
-            "This file must structure the explicit requirements found in the prompt using the Skill as a guide. "
-            "CRITICAL: Do NOT add reasonable defaults, and do NOT invent any IP addresses, routing protocols, "
+            "This file must structure the explicit requirements found in the prompt using the Creation Skill as a guide. "
+            "CRITICAL: The evaluation-spec.md must describe ONLY WHAT the scenario requires. "
+            "It must contain ONLY candidate-independent scenario requirements. "
+            "It must NOT mention checker blocks (such as kernel_routes, reachability, etc.), strategies, or validation strictness. "
+            "It must NOT contain any candidate-specific values (e.g. concrete IPs, device names, prefixes, interfaces) if they are missing from the prompt. "
+            "Do NOT decide whether a checker assertion is omitted or not checkable. "
+            "Do NOT add reasonable defaults, and do NOT invent any IP addresses, routing protocols, "
             "services, topologies, or other requirements that are not explicitly present in the prompt. "
-            "This file is strictly for evaluation purposes. Write only markdown content."
+            "This file is strictly for extracting and freezing the scenario requirements. "
+            "Write only markdown content."
         )
 
     def prepare_workspace(self, *, paths: ExperimentPaths, prompt_text: str, resources: ResourceFiles) -> None:

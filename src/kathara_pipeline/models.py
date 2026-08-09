@@ -89,6 +89,7 @@ class TestMetrics:
 class VariantPaths:
     root: Path
     source: Path
+    source_failed: Path
     checker_run: Path
     labs_dir: Path
     candidate: Path
@@ -109,6 +110,9 @@ class ExperimentPaths:
     evaluation_spec: Path
     evaluation_spec_logs: Path
     evaluation_spec_workspace: Path
+    check_plan: Path
+    check_plan_logs: Path
+    check_plan_workspace: Path
     comparison: Path
     comparison_csv: Path
     experiment_manifest: Path
@@ -123,10 +127,12 @@ class VariantSummary:
     variant: Variant
     status: JobStatus
     evaluation_spec_hash: str | None = None
+    check_plan_hash: str | None = None
     correction_generated: bool = False
     correction_hash: str | None = None
     lab_generated: bool = False
     static_validation_passed: bool = False
+    source_failed_preserved: bool = False
     checker_attempted: bool = False
     checker_completed: bool = False
     total_tests: int | None = None
@@ -150,6 +156,7 @@ class ExperimentSummary:
     experiment_id: str
     prompt_file: str
     evaluation_spec_generated: bool
+    check_plan_generated: bool
     with_skill: VariantSummary
     without_skill: VariantSummary
     comparison: ComparisonOutcome
@@ -160,6 +167,7 @@ class ExperimentSummary:
             "experiment_id": self.experiment_id,
             "prompt_file": self.prompt_file,
             "evaluation_spec_generated": self.evaluation_spec_generated,
+            "check_plan_generated": self.check_plan_generated,
             "with_skill": self.with_skill.to_dict(),
             "without_skill": self.without_skill.to_dict(),
             "comparison": self.comparison.value,

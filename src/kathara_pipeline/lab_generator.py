@@ -119,10 +119,17 @@ class LabGenerator:
             if validation.valid:
                 if paths.source.exists():
                     shutil.rmtree(paths.source)
+                if paths.source_failed.exists():
+                    shutil.rmtree(paths.source_failed)
                 shutil.copytree(generated, paths.source, symlinks=True)
                 return last_result
                 
             last_errors = validation.errors
+            
+        if paths.source_failed.exists():
+            shutil.rmtree(paths.source_failed)
+        if generated.exists():
+            shutil.copytree(generated, paths.source_failed, symlinks=True)
             
         raise AgentExecutionError(
             f"Generated lab still invalid after {MAX_LAB_ATTEMPTS} attempt(s): "

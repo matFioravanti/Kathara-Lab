@@ -1,7 +1,0 @@
-$TTL 3600
-@       IN      SOA     root.kathara. hostmaster.kathara. (
-                        2026080901 3600 900 604800 3600 )
-        IN      NS      root.kathara.
-root.kathara.   IN      A       10.0.30.2
-org.            IN      NS      ns.org.
-ns.org.         IN      A       10.0.40.2

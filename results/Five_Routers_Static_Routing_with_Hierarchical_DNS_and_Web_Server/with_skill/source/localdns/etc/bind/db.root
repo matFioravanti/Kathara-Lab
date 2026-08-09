@@ -1,2 +1,2 @@
-.                       3600    IN      NS      root.kathara.
-root.kathara.           3600    IN      A       10.0.30.2
+.               3600000 IN NS root.root.
+root.root.      3600000 IN A  10.10.20.2
