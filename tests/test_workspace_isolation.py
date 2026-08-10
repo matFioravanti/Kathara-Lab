@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from kathara_pipeline.evaluation_spec_generator import EvaluationSpecGenerator
+from kathara_pipeline.evaluation_plan_generator import EvaluationPlanGenerator
 from kathara_pipeline.lab_generator import LabGenerator
 from kathara_pipeline.models import ResourceFiles, Variant
 from kathara_pipeline.paths import build_experiment_paths
@@ -24,7 +24,7 @@ def test_creation_skill_exists_only_in_with_skill_workspace(tmp_path: Path):
     assert (paths.with_skill.workspace / "resources" / "creation" / "SKILL.md").is_file()
     assert not (paths.without_skill.workspace / "resources").exists()
 
-def test_evaluation_spec_workspace_isolation(tmp_path: Path):
+def test_evaluation_plan_workspace_isolation(tmp_path: Path):
     creation = tmp_path / "creation.md"; creation.write_text("skill", encoding="utf-8")
     checker = tmp_path / "checker.md"; checker.write_text("checker", encoding="utf-8")
     schema = tmp_path / "schema.md"; schema.write_text("schema", encoding="utf-8")
@@ -37,13 +37,15 @@ def test_evaluation_spec_workspace_isolation(tmp_path: Path):
     (paths.with_skill.workspace / "candidate.txt").write_text("with", encoding="utf-8")
     (paths.without_skill.workspace / "candidate.txt").write_text("without", encoding="utf-8")
 
-    generator = EvaluationSpecGenerator(DummyRunner(), 10)
+    generator = EvaluationPlanGenerator(DummyRunner(), 10)
     generator.prepare_workspace(paths=paths, prompt_text="p", resources=resources)
 
-    # Check that evaluation_spec_workspace has only input and output and resources
-    workspace = paths.evaluation_spec_workspace
+    # Check that evaluation_plan_workspace has only input and output and resources
+    workspace = paths.evaluation_plan_workspace
     assert (workspace / "input" / "prompt.md").is_file()
     assert (workspace / "resources" / "creation" / "SKILL.md").is_file()
+    assert (workspace / "resources" / "checker" / "SKILL.md").is_file()
+    assert (workspace / "resources" / "checker" / "config-schema.md").is_file()
     assert (workspace / "output").is_dir()
     
     # Must NOT have candidates or other things

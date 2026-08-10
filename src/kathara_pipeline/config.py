@@ -40,6 +40,7 @@ class ProcessingSettings:
     skip_completed: bool = True
     keep_workspaces: bool = False
     resume_from: str | None = None
+    parallel_variants: bool = False
 
 
 @dataclass(frozen=True, slots=True)
@@ -78,7 +79,7 @@ _SECTIONS = {
         "provider", "command", "model", "reasoning_effort", "sandbox", "timeout_seconds"
     },
     "checker": {"report_type", "no_cache", "timeout_seconds"},
-    "processing": {"continue_on_error", "force", "skip_completed", "keep_workspaces"},
+    "processing": {"continue_on_error", "force", "skip_completed", "keep_workspaces", "parallel_variants"},
 }
 
 
@@ -197,5 +198,6 @@ def load_config(path: Path | str = Path("pipeline.yaml")) -> PipelineConfig:
         force=_boolean(processing_data.get("force", False), "processing.force"),
         skip_completed=_boolean(processing_data.get("skip_completed", True), "processing.skip_completed"),
         keep_workspaces=_boolean(processing_data.get("keep_workspaces", False), "processing.keep_workspaces"),
+        parallel_variants=_boolean(processing_data.get("parallel_variants", False), "processing.parallel_variants"),
     )
     return PipelineConfig(paths, generation, checker, processing, config_path)

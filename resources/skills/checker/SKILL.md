@@ -1,201 +1,257 @@
 ---
 name: kathara-lab-checker
-version: framework-automatic-1
-purpose: Generate one candidate-independent correction.yaml from a structured Kathara prompt.
+description: >
+  Generate and run a kathara-lab-checker configuration (correction.yaml) from a Kathara lab
+  prompt or existing lab files. Use this skill whenever the user asks to: check, grade,
+  validate, or auto-correct a Kathara lab or student submission; generate a checker
+  configuration from a lab spec/prompt; run kathara-lab-checker; or produce a correction
+  file for an exam or homework scenario. Trigger even when the user says "checker config",
+  "correction file", "auto-grade", or "validate student labs". Works hand-in-hand with the
+  kathara-lab-creation skill: the structured prompt produced by that skill is the primary
+  input for this one.
 ---
 
-# Kathara Lab Checker — Automatic Framework Mode
+# Kathara Lab Checker
 
-Generate exactly one canonical `correction.yaml` for `kathara-lab-checker==0.1.14`.
-This Skill is used by an automated paired experiment. There is no interactive user-selection step.
+Generate a `correction.yaml` configuration for
+[kathara-lab-checker](https://github.com/KatharaFramework/kathara-lab-checker) from a Kathara
+lab specification or prompt. Optionally install the tool and run it against a directory of
+student submissions. **Always prefer YAML** (`correction.yaml`) over JSON; only use JSON if
+the user explicitly requests it.
 
-## Authoritative inputs
+## Tool overview
 
-In framework mode you may use only:
+`kathara-lab-checker` reads one configuration file and a directory of student labs, starts
+each lab, runs the declared checks, and writes per-lab report files plus a combined
+`results.xlsx` / `results.csv`.
 
-1. `input/prompt.md` — the scenario specification;
-2. `resources/skills/checker/SKILL.md` — this policy;
-3. `resources/checker/config-schema.md` — supported configuration syntax.
+```
+python3 -m kathara_lab_checker \
+  --config <correction.yaml> \
+  --labs   <path-to-labs-directory> \
+  [--no-cache] \
+  [--report-type excel|csv|none]
+```
 
-Candidate laboratories are intentionally unavailable. Never derive checks from a generated lab, its
-`lab.conf`, `.startup` files, logs, manifests, reports, or another correction. The same correction must be fair for both `with_skill` and `without_skill` candidates.
+Install (Python ≥ 3.11 required):
+```
+python3 -m pip install kathara-lab-checker
+```
 
-## Core rule
+## Primary input: the lab prompt
 
-For every requirement explicitly stated or unambiguously and deterministically derivable from the prompt:
+The best input for this skill is the **structured prompt** produced by the
+`kathara-lab-creation` skill (steps 2–3 of that skill's procedure). That prompt already
+contains devices, collision domains, IP/MAC plan, images, routing protocols, and validation
+goals — everything needed to build a complete checker config.
 
-1. prefer a standard checker block when one represents the requirement;
-2. configure expected values only from the prompt;
-3. never assume an implementation choice that the prompt leaves open;
-4. never invent a test merely to increase coverage;
-5. if a requirement cannot be represented reliably, omit that assertion rather than guessing.
+If no structured prompt is available, extract the same information from:
+- an existing `lab.conf` + `.startup` files
+- a natural-language lab description
+- a PDF/docx assignment sheet
 
-The correction evaluates **what the prompt requires**, not **how a candidate happened to implement it**.
+## Configuration file format
 
-## Automatic mapping
+**Use YAML by default** (`correction.yaml`). YAML is more readable, supports comments, and
+allows embedding the lab topology inline via `lab_inline`. See
+`references/config-schema.md` for the full annotated schema with all fields and their
+semantics.
 
-Include an applicable block automatically; do not ask the user which checks to select.
+### Top-level fields
 
-- Expected topology / device-to-link mapping -> `lab_inline`.
-- Devices explicitly required to use startup scripts -> `test.requiring_startup`.
-- Explicit/static interface addresses -> `test.ip_mapping`.
-- Explicitly required services/daemons, or daemons unambiguously implied by an explicitly mandated protocol -> `test.daemons`.
-- Static/default or dynamically learned routes explicitly expected by the scenario -> `test.kernel_routes`.
-- BGP requirements -> `test.protocols.bgpd`.
-- RIP requirements -> `test.protocols.ripd`.
-- OSPF requirements -> `test.protocols.ospfd`.
-- Explicit redistribution -> the corresponding `injections` block.
-- DNS authority/resolver/record requirements -> `test.applications.dns`.
-- HTTP requirements -> `test.applications.http`.
-- Required end-to-end connectivity -> `test.reachability`.
+| Field              | Type    | Purpose |
+|--------------------|---------|---------|
+| `lab_inline`       | string  | Topology-only inline content (YAML only): device-to-collision-domain mappings, no image declarations — use instead of a separate `structure` file |
+| `labs_path`        | string  | Path to the directory of student labs (can be omitted if passed via CLI) |
+| `convergence_time` | int     | Seconds to wait for routing convergence before running checks |
+| `structure`        | string  | Path to a `lab.conf`-formatted file declaring the expected topology (alternative to `lab_inline`) |
+| `default_image`    | string  | Kathara image used when a student lab does not specify one |
+| `test`             | object  | All check declarations (see below) |
 
-Do not add negative daemon assertions unless the prompt explicitly requires a daemon not to run.
-Do not force a specific routing protocol, service implementation, file layout, or daemon when the prompt
-allows multiple valid solutions.
+### Check blocks inside `test`
 
-## Derivation rules
+See `references/config-schema.md` for the complete schema. Quick reference:
 
-### `default_image`
+- `requiring_startup` — list of device names that must have a `.startup` file
+- `ip_mapping` — per-device, per-interface expected `ip/prefix`
+- `daemons` — per-device list of daemons that must (`name`) or must not (`!name`) be running
+- `kernel_routes` — per-device list of expected routes in the data-plane
+- `protocols.bgpd.neighbors` — list of `{ip, asn}` peers that must be established
+- `protocols.bgpd.networks` — prefixes the device must announce in BGP
+- `protocols.<proto>.injections` — protocols redistributed into (or excluded from) another
+- `applications.dns` — DNS authority, local-NS, and record checks
+- `reachability` — per-device list of IPs or DNS names that must be ping-reachable
+- `custom_commands` — arbitrary commands with `regex_match`, `output`, or `exit_code` assertions
 
-`default_image` is mandatory and must always be included in `correction.yaml`.
+## Workflow
 
-If the scenario explicitly specifies a Kathara image, use that image.
-If the scenario does not specify an image, use the fallback defined by
-`resources/checker/config-schema.md`.
+The workflow is strictly interactive. Follow the steps in order and never skip ahead.
 
-The fallback image is a technical checker requirement and must not be
-interpreted as an additional scenario requirement.
+---
 
+### Step 1 — Receive the prompt
 
-### `lab_inline`
+The user provides the lab prompt (typically the structured output of `kathara-lab-creation`).
+Accept it and move to step 2.
 
-Use topology-only `device[index]="collision-domain"` mappings.
-Do not include image declarations. Prefer `lab_inline`; do not emit
-`structure` and do not emit `labs_path`.
+---
 
-Kathara identifier constraints:
+### Step 2 — Inspect the lab files (if available)
 
-- Device identifiers must match `[a-z0-9_]{1,30}`.
-- Device identifiers may contain lowercase letters, digits, and underscores.
-- Device identifiers must not contain uppercase letters, hyphens, spaces, or other special characters.
-- Collision-domain identifiers may contain letters, digits, and underscores.
-- Collision-domain identifiers must not contain hyphens, spaces, or other special characters.
+If the user has provided a path to an existing lab directory, read:
+- `lab.conf` — topology and image declarations
+- every `.startup` file — to infer daemons, IP configuration, routing protocol setup,
+  DNS configuration, and any other service
 
-Examples:
+Use this information to make the check derivation in step 3 more accurate. If no lab
+files are provided, proceed with the prompt alone.
 
-- Valid device identifiers: `r1`, `pc11`, `router_1`
-- Invalid device identifiers: `R1`, `PC11`, `router-1`
-- Valid collision domains: `net12`, `net_12`, `r1_r2`
-- Invalid collision domains: `r1-r2`, `client lan`
+---
 
-When constructing `lab_inline` from a candidate lab, preserve the actual
-candidate topology while ensuring the emitted identifiers are valid for the
-Kathara parser.
+### Step 3 — Derive available checks
 
-### `requiring_startup`
+Analyse the prompt (and lab files if present) and determine which of the following checks
+can be configured for this scenario. For each check, note which devices and values would
+be involved. Do not ask the user anything yet — this step is internal analysis only.
 
-List only devices for which a startup file is explicitly required or is an unambiguous structural
-requirement of the structured prompt. Do not infer from candidate files.
+Checks to evaluate:
 
-### `ip_mapping`
+| Check | Applicable when |
+|---|---|
+| `requiring_startup` | Any device with a `.startup` file |
+| `ip_mapping` | Any device with static IP addresses |
+| `daemons` | Any device running or explicitly not running a known daemon |
+| `kernel_routes` | Any device with a routing table (routers + hosts with a gateway) |
+| `protocols.bgpd` | BGP speakers present |
+| `protocols.ripd` | RIP configured |
+| `protocols.ospfd` | OSPF configured |
+| `protocols.*.injections` | Redistribution between protocols configured |
+| `applications.dns` | BIND or dnsmasq present |
+| `applications.http` | Web server present |
+| `reachability` | End-to-end connectivity is a lab goal |
 
-Use every interface address explicitly specified by the prompt. Runtime compatibility for checker 0.1.14:
-interface keys must be `ethN` (for example `eth0`, `eth1`) when the installed checker syntax requires it,
-even if older documentation shows numeric-only keys.
+---
 
-### `daemons`
+### Step 4 — Ask the user which checks to configure
 
-Require only daemons explicitly named or unambiguously required by a mandated protocol/service. A negative
-entry (`!daemon`) is allowed only when the prompt explicitly prohibits that daemon/service.
+Before presenting the interactive list, write a brief prose paragraph (2–4 sentences)
+in the conversation explaining what checks were found and why — so the user has context
+before they click. Then use the `ask_user_input` tool with `type: multi_select` to
+present the applicable checks as clickable options.
 
-### `kernel_routes`
+Each option label must follow this format:
+```
+<check_name> — <one-line summary of what is checked and on which devices>
+```
 
-List routes explicitly installed by static configuration or expected to be learned by routing protocols.
-Do not list directly connected networks merely because an interface has an address. A one-path kernel route
-must identify either its gateway or its `ethN` interface, not both, for checker 0.1.14 compatibility.
+Example call (adapt labels to the actual lab):
+```
+ask_user_input(questions=[{
+  "question": "Quali check vuoi includere nella correction.yaml?",
+  "type": "multi_select",
+  "options": [
+    "requiring_startup — r1, r2, pc1, pc2 must have a .startup file",
+    "ip_mapping — IP addresses on all interfaces of r1, r2, pc1, pc2",
+    "daemons — ripd + zebra running on r1 and r2; not running on pc1, pc2",
+    "kernel_routes — full routing table after RIP convergence on r1, r2",
+    "protocols.ripd — connected routes redistributed into RIP on r1, r2",
+    "reachability — full mesh reachability across all subnets"
+  ]
+}])
+```
 
-For `kernel_routes`, follow the structure defined in `config-schema.md` exactly.
+Only include options for checks that are actually applicable (derived in step 3).
+Do not include checks for protocols or services not present in the lab.
+Wait for the user's selection before proceeding to step 5.
 
-Allowed forms are:
+---
 
-- simple route presence:
-  `- 10.2.2.0/24`
+### Step 5 — Configure the selected checks
 
-- route with gateway/interface constraints:
-  `- ["10.2.2.0/24", ["10.255.12.2"]]`
-  `- ["10.2.2.0/24", ["eth1"]]`
-  `- ["10.2.2.0/24", ["10.255.12.2", "eth1"]]`
+For each check selected by the user, derive the full configuration from the prompt and
+lab files. Do not ask further questions for standard checks — infer all values directly.
 
-If a `kernel_routes` entry is a two-element list, the second element MUST itself be a YAML list.
+Apply the following derivation rules:
 
-Never generate:
+**`requiring_startup`**: every device that has or must have a `.startup` file.
 
-`- ["10.2.2.0/24", "10.255.12.2"]`
+**`ip_mapping`**: for each device, every interface by number (`"0"`, `"1"`, …) and its
+`ip/prefix`. Use the IP plan from the prompt verbatim.
 
-### Protocols
+**`daemons`**: daemons implied by the image and startup content. Prefix `!` for daemons
+that must not run (e.g. `!ripd` on pure hosts).
 
-Derive protocol values solely from the prompt. Runtime compatibility for checker 0.1.14 overrides older
-Markdown examples where they conflict:
+**`kernel_routes`**: only routes learned via routing protocols (RIP, OSPF, BGP, static
+`ip route add`) — do **not** include directly-connected subnets. Linux installs
+connected subnets as `proto kernel scope link` entries when an IP is assigned to an
+interface; the checker does not count these, so listing them causes false failures
+("wrong number of routes" + "missing route X"). Hosts that set a default gateway via
+`ip route add default via ...` should list only `0.0.0.0/0`, not their own subnet.
 
-- OSPF neighbors use `router_id` / `state` where applicable;
-- OSPF routes use objects containing `route`;
-- OSPF interface identifiers use `ethN`;
-- EVPN uses `protocols.bgpd.evpn_sessions` and `protocols.bgpd.vtep_devices`.
+**`protocols.bgpd`**: `neighbors` (ip + asn), `networks` (announced prefixes), and
+`injections` (redistribution into/from BGP).
 
-### Applications
+**`protocols.<ripd|ospfd>.injections`**: redistributed protocols. Prefix `!` for
+protocols that must not be redistributed.
 
-DNS checks may cover authority, local resolvers, and records only when expected values are specified or
-unambiguously derivable. HTTP entries use `status_code` for checker 0.1.14 (not `expected_status`).
+**`applications.dns`**: `authoritative` (zone → server IPs), `local_ns` (resolver IP →
+device names), `records` (type → name → value).
 
-### `reachability`
+**`reachability`**: for a fully-connected scenario, all IPs in the address plan per
+device. For partial scenarios, only IPs that device should reach.
 
-Use the connectivity goals stated by the prompt. A fully connected requirement may be expanded to the
-relevant explicitly defined addresses. Do not create reachability targets from guessed addressing.
+**`lab_inline`**: topology-only — device-to-collision-domain mappings, no image
+declarations. Images go in `default_image` at the top level.
 
-## `custom_commands` policy
+**`convergence_time`**: 10 s for static-only labs; 60 s for IGP; 90 s for BGP or
+mixed BGP+IGP.
 
-`custom_commands` are a controlled fallback, not a general-purpose way to duplicate standard tests.
-A custom command may be generated automatically only if **all** of these conditions hold:
+---
 
-1. the requirement is explicitly stated in the prompt;
-2. no standard checker block represents it adequately;
-3. it can be verified deterministically on a known device with a non-destructive command;
-4. the expected result is known from the prompt and can be expressed through `regex_match`, `output`, or
-   `exit_code`;
-5. the command does not assume an implementation detail that the prompt leaves unspecified.
+### Step 6 — Write and present the file
 
-Always prefer a standard block over a custom command. Never duplicate `requiring_startup`, `ip_mapping`,
-`daemons`, `kernel_routes`, protocol, DNS, HTTP, or `reachability` checks with custom commands.
+Output the complete `correction.yaml`. Use YAML block style for readability. Add inline
+comments to explain non-obvious values (e.g. `convergence_time` rationale, assumptions).
 
-Safe examples when explicitly required by the prompt include:
+Present the file to the user for review.
 
-- IPv4 forwarding -> `sysctl net.ipv4.ip_forward` with a deterministic assertion;
-- IPv6 forwarding -> `sysctl net.ipv6.conf.all.forwarding`;
-- content of a specifically mandated file -> a read-only `grep`/`cat` assertion;
-- success of a specifically mandated diagnostic command -> an `exit_code` assertion.
-- Always include the mandatory `default_image` field. If the prompt does not specify a Kathara image, use the fallback `default_image` defined in the supplied schema.
+---
 
-Do not use destructive commands, package installation, network reconfiguration, process killing, file
-modification, or commands requiring shell side effects. If a safe deterministic assertion cannot be derived,
-omit the custom check.
+### Step 7 — Validate and run (optional)
 
-## Convergence time
+If the tool is installed and a reference lab is available, offer to validate:
 
-Use a deterministic value from the scenario class unless the prompt specifies one:
+```bash
+python3 -m kathara_lab_checker \
+  --config correction.yaml \
+  --labs   <reference-lab-parent-dir> \
+  --no-cache \
+  --report-type none
+```
 
-- static-only: 10 seconds;
-- IGP (RIP/OSPF): 60 seconds;
-- BGP or mixed BGP+IGP: 90 seconds.
+Once validated, run against student submissions:
 
-## Output contract
+```bash
+python3 -m kathara_lab_checker \
+  --config correction.yaml \
+  --labs   <student-labs-directory> \
+  --report-type excel
+```
 
-Write exactly one file: `output/correction.yaml`.
+## Completion criteria
 
-- YAML only.
-- No surrounding prose or Markdown fences.
-- No `labs_path`.
-- Prefer `lab_inline`.
-- No comments are required; keep the document machine-oriented.
-- Include only checker features supported by the supplied schema and the checker 0.1.14 compatibility rules above.
-- Never read candidate labs.
+A checker configuration is complete when:
 
+1. The user has confirmed which checks to include (step 4 completed).
+2. All devices from the lab prompt appear in at least one selected check block.
+3. Every interface in the IP plan is covered by `ip_mapping` (if selected).
+4. Routing protocol daemons are in `daemons` for every router that runs them (if selected).
+5. `kernel_routes` lists all routes expected after convergence (if selected).
+6. The topology is declared via `lab_inline` with topology-only content (no image declarations).
+7. Custom checks have been fully specified with device, command, and assertion (if any).
+8. The config file is syntactically valid YAML.
+
+## Reference files
+
+- `references/config-schema.md` — Full annotated schema for every field and check type,
+  with YAML-first examples.

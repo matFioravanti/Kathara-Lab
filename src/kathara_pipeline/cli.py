@@ -224,7 +224,7 @@ def main(argv: list[str] | None = None) -> int:
 
         if args.command == "validate":
             lab_validator = LabValidator()
-            correction_validator = CorrectionValidator(config.paths.resources / "checker" / "config-schema.md")
+            correction_validator = CorrectionValidator()
             invalid = 0
             checked = 0
             for root in sorted(output.iterdir()) if output.is_dir() else []:

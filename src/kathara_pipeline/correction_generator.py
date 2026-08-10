@@ -48,13 +48,26 @@ class CorrectionGenerator:
         )
 
     @staticmethod
+    def adaptation_instruction() -> str:
+        return (
+            "Use the validated reference correction located in input/reference_correction.yaml as the evaluation template for this candidate. "
+            "Read the current candidate/ lab and adapt only candidate-dependent concrete values required for the checks to apply to this laboratory. "
+            "For example: device names, IP addresses, interface identifiers, gateways, next hops, route destinations, collision domains, lab_inline, router IDs, etc.\n\n"
+            "Do not redesign the evaluation strategy. The semantic test plan is defined by input/evaluation-spec.md and input/check-plan.md. "
+            "Preserve the same semantic checks and evaluation strictness. "
+            "Do not copy candidate-specific values from the reference correction when they do not match the current candidate.\n\n"
+            "Generate the adapted output/correction.yaml. Write only YAML with no surrounding prose. Do not create any other output file."
+        )
+
+    @staticmethod
     def retry_instruction(validation_errors: tuple[str, ...]) -> str:
         errors_text = "\n".join(f"  - {e}" for e in validation_errors)
         return (
             "The previously generated output/correction.yaml failed validation with the following errors:\n"
             f"{errors_text}\n\n"
-            "Read input/prompt.md, input/evaluation-spec.md, input/check-plan.md, candidate/, resources/checker/SKILL.md, and resources/checker/config-schema.md again and "
-            "regenerate output/correction.yaml fixing all the errors above. "
+            "Open the existing output/correction.yaml and correct in-place only the reported errors. "
+            "Preserve all valid sections already present in the file. Do not regenerate the entire correction from scratch.\n"
+            "Read input/prompt.md, input/evaluation-spec.md, input/check-plan.md, candidate/, resources/checker/SKILL.md, and resources/checker/config-schema.md again to guide your fixes. "
             "Evaluate exactly the requirements and follow the exact evaluation strategy frozen in input/check-plan.md, "
             "using concrete values from candidate/. "
             "CRITICAL: The evaluation strategy is frozen. Perform the exact same semantic checks and use the same checker categories as dictated by the specification. "
@@ -64,7 +77,7 @@ class CorrectionGenerator:
             "Write only YAML to output/correction.yaml, with no surrounding prose. Do not create any other output file."
         )
 
-    def prepare_workspace(self, *, experiment_paths: ExperimentPaths, variant_paths: VariantPaths, prompt_text: str, resources: ResourceFiles) -> None:
+    def prepare_workspace(self, *, experiment_paths: ExperimentPaths, variant_paths: VariantPaths, prompt_text: str, resources: ResourceFiles, reference_correction: Path | None = None) -> None:
         if variant_paths.correction_workspace.exists():
             shutil.rmtree(variant_paths.correction_workspace)
         (variant_paths.correction_workspace / "input").mkdir(parents=True)
@@ -74,6 +87,9 @@ class CorrectionGenerator:
         (variant_paths.correction_workspace / "input" / "prompt.md").write_text(prompt_text, encoding="utf-8")
         shutil.copy2(experiment_paths.evaluation_spec, variant_paths.correction_workspace / "input" / "evaluation-spec.md")
         shutil.copy2(experiment_paths.check_plan, variant_paths.correction_workspace / "input" / "check-plan.md")
+        
+        if reference_correction is not None:
+            shutil.copy2(reference_correction, variant_paths.correction_workspace / "input" / "reference_correction.yaml")
         
         shutil.copytree(variant_paths.source, variant_paths.correction_workspace / "candidate")
 
@@ -88,9 +104,9 @@ class CorrectionGenerator:
         attempt: int,
     ) -> CommandResult:
         """Run one agent call and raise AgentExecutionError on hard failure."""
-        # Remove any previously generated correction to avoid stale files being reused.
         generated = variant_paths.correction_workspace / "output" / "correction.yaml"
-        if generated.exists():
+        # Only remove the file on the first attempt so retries can fix it in-place.
+        if attempt == 1 and generated.exists():
             generated.unlink()
         result = self.runner.run(
             instruction=instruction,
@@ -127,6 +143,7 @@ class CorrectionGenerator:
         prompt_text: str,
         resources: ResourceFiles,
         validator: CorrectionValidator,
+        reference_correction: Path | None = None,
     ) -> CommandResult:
         """Generate correction.yaml with up to MAX_CORRECTION_ATTEMPTS total attempts.
 
@@ -134,14 +151,17 @@ class CorrectionGenerator:
         exact validation errors and asked to regenerate (same workspace, same inputs, candidate lab).
         On final failure an AgentExecutionError is raised.
         """
-        self.prepare_workspace(experiment_paths=experiment_paths, variant_paths=variant_paths, prompt_text=prompt_text, resources=resources)
+        self.prepare_workspace(experiment_paths=experiment_paths, variant_paths=variant_paths, prompt_text=prompt_text, resources=resources, reference_correction=reference_correction)
         variant_paths.correction_logs.mkdir(parents=True, exist_ok=True)
         generated = variant_paths.correction_workspace / "output" / "correction.yaml"
         last_result: CommandResult | None = None
         last_errors: tuple[str, ...] = ()
 
         for attempt in range(1, MAX_CORRECTION_ATTEMPTS + 1):
-            instruction = self.instruction() if attempt == 1 else self.retry_instruction(last_errors)
+            if attempt == 1:
+                instruction = self.adaptation_instruction() if reference_correction else self.instruction()
+            else:
+                instruction = self.retry_instruction(last_errors)
             last_result = self._run_attempt(variant_paths=variant_paths, instruction=instruction, attempt=attempt)
             # Copy so validate() can read the final path.
             variant_paths.correction_dir.mkdir(parents=True, exist_ok=True)

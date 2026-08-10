@@ -464,17 +464,7 @@ python3 -m kathara_lab_checker
 ```
 ---
 
-## Framework runtime compatibility — kathara-lab-checker 0.1.14
-
-For this framework, the installed checker behavior takes precedence over older examples above when they
-conflict. The canonical correction generator must apply these verified rules:
-
-- HTTP checks use `status_code` rather than `expected_status`.
-- OSPF neighbor assertions use the checker 0.1.14 `router_id` / `state` representation where applicable.
-- OSPF routes use objects containing `route`.
-- OSPF interface identifiers use `ethN`.
-- EVPN checks are represented under `protocols.bgpd.evpn_sessions` and `protocols.bgpd.vtep_devices`.
-- A one-path `kernel_routes` entry identifies either a gateway or an `ethN` interface, not both.
+## Framework runtime compatibility — 
 
 WITH_SKILL / WITHOUT_SKILL differ only during lab generation.
 

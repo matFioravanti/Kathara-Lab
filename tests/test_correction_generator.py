@@ -1,0 +1,76 @@
+from pathlib import Path
+from unittest.mock import Mock
+
+import pytest
+
+from kathara_pipeline.agent_runner import AgentRunner
+from kathara_pipeline.correction_generator import CorrectionGenerator
+from kathara_pipeline.correction_validator import CorrectionValidator
+from kathara_pipeline.exceptions import AgentExecutionError
+from kathara_pipeline.models import CommandResult, ExperimentPaths, ResourceFiles, Variant, VariantPaths
+
+def test_correction_generator_retry_keeps_file_and_modifies_instruction(tmp_path: Path):
+    # Setup mocks and paths
+    runner = Mock(spec=AgentRunner)
+    runner.provider = "mock-provider"
+    
+    experiment_paths = Mock(spec=ExperimentPaths)
+    experiment_paths.evaluation_spec = tmp_path / "evaluation-spec.md"
+    experiment_paths.check_plan = tmp_path / "check-plan.md"
+    experiment_paths.evaluation_spec.write_text("eval")
+    experiment_paths.check_plan.write_text("plan")
+    
+    variant_paths = Mock(spec=VariantPaths)
+    variant_paths.correction_workspace = tmp_path / "correction_workspace"
+    variant_paths.correction_logs = tmp_path / "logs"
+    variant_paths.correction_dir = tmp_path / "correction_dir"
+    variant_paths.correction = variant_paths.correction_dir / "correction.yaml"
+    variant_paths.source = tmp_path / "source"
+    variant_paths.source.mkdir()
+    
+    resources = Mock(spec=ResourceFiles)
+    resources.checker_skill = tmp_path / "SKILL.md"
+    resources.checker_schema = tmp_path / "config-schema.md"
+    resources.checker_skill.write_text("skill")
+    resources.checker_schema.write_text("schema")
+    
+    # Mock runner.run to create a dummy correction.yaml
+    def mock_run(*args, **kwargs):
+        output_dir = variant_paths.correction_workspace / "output"
+        output_dir.mkdir(parents=True, exist_ok=True)
+        (output_dir / "correction.yaml").write_text("lab_inline: |\\n  r1[0]=A\\n")
+        return CommandResult(
+            command=["mock"],
+            return_code=0,
+            stdout="",
+            stderr="",
+            duration_seconds=1.0,
+            timed_out=False,
+        )
+    runner.run.side_effect = mock_run
+
+    validator = Mock(spec=CorrectionValidator)
+    # First attempt fails validation, second succeeds
+    validator.validate.side_effect = [
+        Mock(valid=False, errors=("test error 1",)),
+        Mock(valid=True, errors=())
+    ]
+    
+    generator = CorrectionGenerator(runner=runner, timeout_seconds=10)
+    
+    result = generator.generate_with_retry(
+        experiment_paths=experiment_paths,
+        variant_paths=variant_paths,
+        prompt_text="prompt",
+        resources=resources,
+        validator=validator,
+    )
+    
+    assert result.return_code == 0
+    assert runner.run.call_count == 2
+    
+    # Verify the instruction passed to the second run contains the specific wording
+    second_call_kwargs = runner.run.call_args_list[1].kwargs
+    instruction = second_call_kwargs["instruction"]
+    assert "Open the existing output/correction.yaml and correct in-place" in instruction
+    assert "test error 1" in instruction

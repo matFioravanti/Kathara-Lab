@@ -108,11 +108,9 @@ class ExperimentPaths:
     root: Path
     prompt: Path
     evaluation_spec: Path
-    evaluation_spec_logs: Path
-    evaluation_spec_workspace: Path
     check_plan: Path
-    check_plan_logs: Path
-    check_plan_workspace: Path
+    evaluation_plan_logs: Path
+    evaluation_plan_workspace: Path
     comparison: Path
     comparison_csv: Path
     experiment_manifest: Path
@@ -139,6 +137,11 @@ class VariantSummary:
     passed_tests: int | None = None
     failed_tests: int | None = None
     pass_percentage: float | None = None
+    lab_calls: int = 0
+    lab_retries: int = 0
+    correction_calls: int = 0
+    correction_retries: int = 0
+    correction_mode: str | None = None
     generation_duration_seconds: float | None = None
     checker_duration_seconds: float | None = None
     error_message: str | None = None

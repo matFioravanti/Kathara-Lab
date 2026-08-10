@@ -38,11 +38,28 @@ class LabGenerator:
     @staticmethod
     def retry_instruction(variant: Variant, validation_errors: tuple[str, ...]) -> str:
         errors_text = "\n".join(f"  - {e}" for e in validation_errors)
-        base = LabGenerator.instruction(variant)
+        if variant is Variant.WITH_SKILL:
+            base_rules = (
+                "Read input/prompt.md and resources/creation/SKILL.md. "
+                "Use resources/creation/SKILL.md as the authoritative general implementation guide for Kathara, "
+                "while the requested scenario itself is defined only by input/prompt.md."
+            )
+        else:
+            base_rules = (
+                "Read only input/prompt.md. No creation Skill or external implementation guide is available."
+            )
+        
         return (
-            "The previously generated output/lab failed static validation with the following errors:\n"
+            "The previously generated output/lab/ failed static validation with the following errors:\n"
             f"{errors_text}\n\n"
-            f"Fix all the errors above. {base}"
+            "Read the existing output/lab directory and modify it in-place.\n"
+            "Fix all validation errors listed above.\n"
+            "Preserve every valid part of the current lab.\n"
+            "Do not rebuild unrelated files.\n"
+            "Do not recreate the entire lab unless the current structure makes the requested correction impossible.\n"
+            "Do not generate correction.yaml and do not run Kathara or kathara_lab_checker.\n"
+            "The laboratory must be complete, persistent, contain no placeholders, and be internally consistent.\n"
+            f"{base_rules}"
         )
 
     def prepare_workspace(
@@ -71,7 +88,7 @@ class LabGenerator:
         attempt: int,
     ) -> CommandResult:
         generated = paths.workspace / "output" / "lab"
-        if generated.exists():
+        if attempt == 1 and generated.exists():
             shutil.rmtree(generated)
         result = self.runner.run(
             instruction=instruction,
