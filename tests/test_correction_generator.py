@@ -78,7 +78,8 @@ def test_correction_generator_retry_keeps_file_and_modifies_instruction(tmp_path
         validator=validator,
     )
     
-    assert result.return_code == 0
+    assert result.success
+    assert result.last_command_result.return_code == 0
     assert runner.run.call_count == 2
     
     # Verify the instruction passed to the second run contains the specific wording

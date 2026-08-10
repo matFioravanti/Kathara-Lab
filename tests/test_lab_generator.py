@@ -81,7 +81,8 @@ def test_retry_after_lab_validator_failure(tmp_path: Path):
         validator=validator,
     )
     
-    assert result.return_code == 0
+    assert result.success
+    assert result.last_command_result.return_code == 0
     assert runner.run.call_count == 2
     
     # Assert second run used the retry instruction
@@ -145,7 +146,8 @@ def test_final_invalid_lab_is_preserved_in_source_failed(tmp_path: Path):
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text("test")
         
-    with pytest.raises(AgentExecutionError, match="Generated lab still invalid"):
+    from kathara_pipeline.exceptions import GenerationError
+    with pytest.raises(GenerationError, match="Generated lab still invalid"):
         generator.generate_with_retry(
             paths=paths,
             prompt_text="test",
@@ -159,5 +161,6 @@ def test_final_invalid_lab_is_preserved_in_source_failed(tmp_path: Path):
     assert paths.source_failed.exists()
     assert (paths.source_failed / "lab.conf").read_text() == 'r1-invalid[0]="A"\n'
     assert not paths.source.exists()
+
 
 

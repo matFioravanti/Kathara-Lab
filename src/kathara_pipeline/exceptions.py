@@ -25,6 +25,13 @@ class AgentExecutionError(KatharaFrameworkError):
     pass
 
 
+class GenerationError(KatharaFrameworkError):
+    def __init__(self, message: str, result: 'GenerationResult'):
+        super().__init__(message)
+        self.result = result
+
+
+
 class ValidationError(KatharaFrameworkError):
     pass
 

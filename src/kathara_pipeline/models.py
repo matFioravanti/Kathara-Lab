@@ -66,6 +66,26 @@ class CommandResult:
 
 
 @dataclass(frozen=True, slots=True)
+class GenerationAttempt:
+    attempt: int
+    duration_seconds: float
+    return_code: int
+    timed_out: bool
+    success: bool
+    validation_errors: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True, slots=True)
+class GenerationResult:
+    last_command_result: CommandResult
+    calls: int
+    retries: int
+    total_duration_seconds: float
+    attempts: tuple[GenerationAttempt, ...]
+    success: bool
+
+
+@dataclass(frozen=True, slots=True)
 class ValidationResult:
     valid: bool
     errors: tuple[str, ...] = ()

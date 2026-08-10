@@ -1,14 +1,17 @@
 from __future__ import annotations
 
 import sys
+import threading
 from typing import TextIO
 
 class PipelineConsole:
     def __init__(self, stream: TextIO = sys.stdout):
         self._stream = stream
+        self._lock = threading.Lock()
 
     def _print(self, msg: str = "") -> None:
-        print(msg, file=self._stream)
+        with self._lock:
+            print(msg, file=self._stream)
 
     def pipeline_started(self, provider: str, model: str | None, reasoning: str | None, prompts_count: int) -> None:
         self._print("Kathara-Lab Pipeline")

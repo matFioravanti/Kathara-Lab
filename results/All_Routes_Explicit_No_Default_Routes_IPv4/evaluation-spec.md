@@ -1,22 +1,31 @@
-# Evaluation Specification
+# Evaluation specification
 
-## Topology and devices
+## R1 — Router topology
 
-1. The scenario is a Kathara lab containing exactly five routers, identified by the roles R1, R2, R3, R4, and R5.
-2. The router-to-router topology has these links: R1--R2, R1--R3, R2--R4, R3--R4, and R4--R5.
-3. Each router serves one distinct LAN.
-4. Each router LAN contains exactly two PCs, for a total of ten PCs.
+The lab contains five routers: R1, R2, R3, R4, and R5.  Their inter-router connections are exactly:
 
-## Network layer
+- R1 connected to R2
+- R1 connected to R3
+- R2 connected to R4
+- R3 connected to R4
+- R4 connected to R5
 
-5. The scenario uses IPv4 only.
+## R2 — LANs and PCs
 
-## Routing
+Each router serves one distinct LAN.  Each such LAN contains exactly two PCs, for a total of ten PCs.
 
-6. Every router has a fully explicit routing table.
-7. On every router, every remote subnet has a specific static route.
-8. No router has a default route.
+## R3 — IP protocol version
 
-## End-to-end connectivity
+The network uses IPv4 only.
 
-9. Every PC can reach every other PC.
+## R4 — Explicit static routing
+
+Every router has a fully explicit routing table.  For every subnet that is not directly connected to a router, that router has a specific static route to the subnet.
+
+## R5 — No default routes
+
+No router has a default route.
+
+## R6 — End-to-end PC connectivity
+
+Every one of the ten PCs can reach every other PC.

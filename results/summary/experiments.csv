@@ -1,6 +1,3 @@
 experiment_id,prompt_file,variant,status,checker_completed,total_tests,passed_tests,failed_tests,pass_percentage,generation_duration_seconds,checker_duration_seconds,correction_sha256,error
-All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",with_skill,failed,True,265,155,110,58.490566,139.92741554199893,27.46341004200076,ba9f4a241685d2cbc1441ba212c7eedc911d365d3ac800aa470ea1f4f29ba522,
-All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",without_skill,error,False,,,,,,,,"Generated lab still invalid after 2 attempt(s): Kathara LabParser validation failed: In lab.conf - Line 3: `R1[0]=""lan1""
-`."
-Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server,Five Routers Static Routing with Hierarchical DNS and Web Server.md,with_skill,failed,True,71,33,38,46.478873,128.2922645409999,20.794510416002595,bee3197d827d52e75ed27dd38845b07c6f64e9b82e3d92fa16b1177a8a43e3fe,
-Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server,Five Routers Static Routing with Hierarchical DNS and Web Server.md,without_skill,failed,True,73,31,42,42.465753,36.06364958299673,14.947828875003324,ae08ccd5787009d4ff8adbb2b73d8b63ae71386d513038f24c101dd7c1618fae,
+All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",with_skill,failed,True,230,180,50,78.26087,98.86144716600393,25.138176417000068,362eeed089520cd3b98f089a6d3d49485029bef0c4e17c2a04bf93d74ee1a67e,
+All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",without_skill,failed,True,230,180,50,78.26087,131.76333475099818,21.66386179199617,36b26f211f92e5188e0b32b1bc3adc84ea65892842ac0534fec3f14a915cc0fe,

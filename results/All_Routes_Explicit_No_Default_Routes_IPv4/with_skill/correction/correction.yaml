@@ -29,162 +29,247 @@ convergence_time: 10
 default_image: kathara/core
 
 test:
+  requiring_startup:
+    - pc1a
+    - pc1b
+    - pc2a
+    - pc2b
+    - pc3a
+    - pc3b
+    - pc4a
+    - pc4b
+    - pc5a
+    - pc5b
+
   ip_mapping:
     r1:
-      "0": 10.1.1.1/24
+      "0": 10.10.1.1/24
       "1": 10.255.12.1/30
-      "2": 10.255.13.1/30
+      "2": 10.255.13.5/30
     r2:
-      "0": 10.2.2.1/24
+      "0": 10.10.2.1/24
       "1": 10.255.12.2/30
-      "2": 10.255.24.1/30
+      "2": 10.255.24.9/30
     r3:
-      "0": 10.3.3.1/24
-      "1": 10.255.13.2/30
-      "2": 10.255.34.1/30
+      "0": 10.10.3.1/24
+      "1": 10.255.13.6/30
+      "2": 10.255.34.13/30
     r4:
-      "0": 10.4.4.1/24
-      "1": 10.255.24.2/30
-      "2": 10.255.34.2/30
-      "3": 10.255.45.1/30
+      "0": 10.10.4.1/24
+      "1": 10.255.24.10/30
+      "2": 10.255.34.14/30
+      "3": 10.255.45.17/30
     r5:
-      "0": 10.5.5.1/24
-      "1": 10.255.45.2/30
-    pc1a: {"0": 10.1.1.10/24}
-    pc1b: {"0": 10.1.1.11/24}
-    pc2a: {"0": 10.2.2.10/24}
-    pc2b: {"0": 10.2.2.11/24}
-    pc3a: {"0": 10.3.3.10/24}
-    pc3b: {"0": 10.3.3.11/24}
-    pc4a: {"0": 10.4.4.10/24}
-    pc4b: {"0": 10.4.4.11/24}
-    pc5a: {"0": 10.5.5.10/24}
-    pc5b: {"0": 10.5.5.11/24}
+      "0": 10.10.5.1/24
+      "1": 10.255.45.18/30
+    pc1a: { "0": 10.10.1.10/24 }
+    pc1b: { "0": 10.10.1.11/24 }
+    pc2a: { "0": 10.10.2.10/24 }
+    pc2b: { "0": 10.10.2.11/24 }
+    pc3a: { "0": 10.10.3.10/24 }
+    pc3b: { "0": 10.10.3.11/24 }
+    pc4a: { "0": 10.10.4.10/24 }
+    pc4b: { "0": 10.10.4.11/24 }
+    pc5a: { "0": 10.10.5.10/24 }
+    pc5b: { "0": 10.10.5.11/24 }
 
   kernel_routes:
     r1:
-      - [10.2.2.0/24, [10.255.12.2, eth1]]
-      - [10.3.3.0/24, [10.255.13.2, eth2]]
-      - [10.4.4.0/24, [10.255.12.2, eth1]]
-      - [10.5.5.0/24, [10.255.12.2, eth1]]
-      - [10.255.24.0/30, [10.255.12.2, eth1]]
-      - [10.255.34.0/30, [10.255.13.2, eth2]]
-      - [10.255.45.0/30, [10.255.12.2, eth1]]
+      - [10.10.2.0/24, [10.255.12.2, eth1]]
+      - [10.10.3.0/24, [10.255.13.6, eth2]]
+      - [10.10.4.0/24, [10.255.12.2, eth1]]
+      - [10.10.5.0/24, [10.255.12.2, eth1]]
+      - [10.255.24.8/30, [10.255.12.2, eth1]]
+      - [10.255.34.12/30, [10.255.13.6, eth2]]
+      - [10.255.45.16/30, [10.255.12.2, eth1]]
     r2:
-      - [10.1.1.0/24, [10.255.12.1, eth1]]
-      - [10.3.3.0/24, [10.255.12.1, eth1]]
-      - [10.4.4.0/24, [10.255.24.2, eth2]]
-      - [10.5.5.0/24, [10.255.24.2, eth2]]
-      - [10.255.13.0/30, [10.255.12.1, eth1]]
-      - [10.255.34.0/30, [10.255.24.2, eth2]]
-      - [10.255.45.0/30, [10.255.24.2, eth2]]
+      - [10.10.1.0/24, [10.255.12.1, eth1]]
+      - [10.10.3.0/24, [10.255.24.10, eth2]]
+      - [10.10.4.0/24, [10.255.24.10, eth2]]
+      - [10.10.5.0/24, [10.255.24.10, eth2]]
+      - [10.255.13.4/30, [10.255.12.1, eth1]]
+      - [10.255.34.12/30, [10.255.24.10, eth2]]
+      - [10.255.45.16/30, [10.255.24.10, eth2]]
     r3:
-      - [10.1.1.0/24, [10.255.13.1, eth1]]
-      - [10.2.2.0/24, [10.255.13.1, eth1]]
-      - [10.4.4.0/24, [10.255.34.2, eth2]]
-      - [10.5.5.0/24, [10.255.34.2, eth2]]
-      - [10.255.12.0/30, [10.255.13.1, eth1]]
-      - [10.255.24.0/30, [10.255.34.2, eth2]]
-      - [10.255.45.0/30, [10.255.34.2, eth2]]
+      - [10.10.1.0/24, [10.255.13.5, eth1]]
+      - [10.10.2.0/24, [10.255.34.14, eth2]]
+      - [10.10.4.0/24, [10.255.34.14, eth2]]
+      - [10.10.5.0/24, [10.255.34.14, eth2]]
+      - [10.255.12.0/30, [10.255.13.5, eth1]]
+      - [10.255.24.8/30, [10.255.34.14, eth2]]
+      - [10.255.45.16/30, [10.255.34.14, eth2]]
     r4:
-      - [10.1.1.0/24, [10.255.24.1, eth1]]
-      - [10.2.2.0/24, [10.255.24.1, eth1]]
-      - [10.3.3.0/24, [10.255.34.1, eth2]]
-      - [10.5.5.0/24, [10.255.45.2, eth3]]
-      - [10.255.12.0/30, [10.255.24.1, eth1]]
-      - [10.255.13.0/30, [10.255.34.1, eth2]]
+      - [10.10.1.0/24, [10.255.24.9, eth1]]
+      - [10.10.2.0/24, [10.255.24.9, eth1]]
+      - [10.10.3.0/24, [10.255.34.13, eth2]]
+      - [10.10.5.0/24, [10.255.45.18, eth3]]
+      - [10.255.12.0/30, [10.255.24.9, eth1]]
+      - [10.255.13.4/30, [10.255.34.13, eth2]]
     r5:
-      - [10.1.1.0/24, [10.255.45.1, eth1]]
-      - [10.2.2.0/24, [10.255.45.1, eth1]]
-      - [10.3.3.0/24, [10.255.45.1, eth1]]
-      - [10.4.4.0/24, [10.255.45.1, eth1]]
-      - [10.255.12.0/30, [10.255.45.1, eth1]]
-      - [10.255.13.0/30, [10.255.45.1, eth1]]
-      - [10.255.24.0/30, [10.255.45.1, eth1]]
-      - [10.255.34.0/30, [10.255.45.1, eth1]]
+      - [10.10.1.0/24, [10.255.45.17, eth1]]
+      - [10.10.2.0/24, [10.255.45.17, eth1]]
+      - [10.10.3.0/24, [10.255.45.17, eth1]]
+      - [10.10.4.0/24, [10.255.45.17, eth1]]
+      - [10.255.12.0/30, [10.255.45.17, eth1]]
+      - [10.255.13.4/30, [10.255.45.17, eth1]]
+      - [10.255.24.8/30, [10.255.45.17, eth1]]
+      - [10.255.34.12/30, [10.255.45.17, eth1]]
 
   reachability:
-    pc1a: [10.1.1.11, 10.2.2.10, 10.2.2.11, 10.3.3.10, 10.3.3.11, 10.4.4.10, 10.4.4.11, 10.5.5.10, 10.5.5.11]
-    pc1b: [10.1.1.10, 10.2.2.10, 10.2.2.11, 10.3.3.10, 10.3.3.11, 10.4.4.10, 10.4.4.11, 10.5.5.10, 10.5.5.11]
-    pc2a: [10.1.1.10, 10.1.1.11, 10.2.2.11, 10.3.3.10, 10.3.3.11, 10.4.4.10, 10.4.4.11, 10.5.5.10, 10.5.5.11]
-    pc2b: [10.1.1.10, 10.1.1.11, 10.2.2.10, 10.3.3.10, 10.3.3.11, 10.4.4.10, 10.4.4.11, 10.5.5.10, 10.5.5.11]
-    pc3a: [10.1.1.10, 10.1.1.11, 10.2.2.10, 10.2.2.11, 10.3.3.11, 10.4.4.10, 10.4.4.11, 10.5.5.10, 10.5.5.11]
-    pc3b: [10.1.1.10, 10.1.1.11, 10.2.2.10, 10.2.2.11, 10.3.3.10, 10.4.4.10, 10.4.4.11, 10.5.5.10, 10.5.5.11]
-    pc4a: [10.1.1.10, 10.1.1.11, 10.2.2.10, 10.2.2.11, 10.3.3.10, 10.3.3.11, 10.4.4.11, 10.5.5.10, 10.5.5.11]
-    pc4b: [10.1.1.10, 10.1.1.11, 10.2.2.10, 10.2.2.11, 10.3.3.10, 10.3.3.11, 10.4.4.10, 10.5.5.10, 10.5.5.11]
-    pc5a: [10.1.1.10, 10.1.1.11, 10.2.2.10, 10.2.2.11, 10.3.3.10, 10.3.3.11, 10.4.4.10, 10.4.4.11, 10.5.5.11]
-    pc5b: [10.1.1.10, 10.1.1.11, 10.2.2.10, 10.2.2.11, 10.3.3.10, 10.3.3.11, 10.4.4.10, 10.4.4.11, 10.5.5.10]
+    pc1a: [10.10.1.11, 10.10.2.10, 10.10.2.11, 10.10.3.10, 10.10.3.11, 10.10.4.10, 10.10.4.11, 10.10.5.10, 10.10.5.11]
+    pc1b: [10.10.1.10, 10.10.2.10, 10.10.2.11, 10.10.3.10, 10.10.3.11, 10.10.4.10, 10.10.4.11, 10.10.5.10, 10.10.5.11]
+    pc2a: [10.10.1.10, 10.10.1.11, 10.10.2.11, 10.10.3.10, 10.10.3.11, 10.10.4.10, 10.10.4.11, 10.10.5.10, 10.10.5.11]
+    pc2b: [10.10.1.10, 10.10.1.11, 10.10.2.10, 10.10.3.10, 10.10.3.11, 10.10.4.10, 10.10.4.11, 10.10.5.10, 10.10.5.11]
+    pc3a: [10.10.1.10, 10.10.1.11, 10.10.2.10, 10.10.2.11, 10.10.3.11, 10.10.4.10, 10.10.4.11, 10.10.5.10, 10.10.5.11]
+    pc3b: [10.10.1.10, 10.10.1.11, 10.10.2.10, 10.10.2.11, 10.10.3.10, 10.10.4.10, 10.10.4.11, 10.10.5.10, 10.10.5.11]
+    pc4a: [10.10.1.10, 10.10.1.11, 10.10.2.10, 10.10.2.11, 10.10.3.10, 10.10.3.11, 10.10.4.11, 10.10.5.10, 10.10.5.11]
+    pc4b: [10.10.1.10, 10.10.1.11, 10.10.2.10, 10.10.2.11, 10.10.3.10, 10.10.3.11, 10.10.4.10, 10.10.5.10, 10.10.5.11]
+    pc5a: [10.10.1.10, 10.10.1.11, 10.10.2.10, 10.10.2.11, 10.10.3.10, 10.10.3.11, 10.10.4.10, 10.10.4.11, 10.10.5.11]
+    pc5b: [10.10.1.10, 10.10.1.11, 10.10.2.10, 10.10.2.11, 10.10.3.10, 10.10.3.11, 10.10.4.10, 10.10.4.11, 10.10.5.10]
 
   custom_commands:
     r1:
-      - {command: "ip -4 route show default | grep -q . && exit 1 || exit 0", exit_code: 0}
-      - {command: "ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0", exit_code: 0}
-      - {command: "ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0", exit_code: 0}
-      - {command: "test \"$(ip -4 route show proto static | wc -l | tr -d ' ')\" = 7", exit_code: 0}
-      - {command: "ip -4 route show exact 10.2.2.0/24 proto static | grep -Eq '^10.2.2.0/24 via 10.255.12.2 dev eth1 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.3.3.0/24 proto static | grep -Eq '^10.3.3.0/24 via 10.255.13.2 dev eth2 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.4.4.0/24 proto static | grep -Eq '^10.4.4.0/24 via 10.255.12.2 dev eth1 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.5.5.0/24 proto static | grep -Eq '^10.5.5.0/24 via 10.255.12.2 dev eth1 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.255.24.0/30 proto static | grep -Eq '^10.255.24.0/30 via 10.255.12.2 dev eth1 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.255.34.0/30 proto static | grep -Eq '^10.255.34.0/30 via 10.255.13.2 dev eth2 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.255.45.0/30 proto static | grep -Eq '^10.255.45.0/30 via 10.255.12.2 dev eth1 proto static'", exit_code: 0}
+      - command: ip -6 addr show scope global
+        output: ""
+      - command: ip -4 route show table main proto boot | sort
+        output: |-
+          10.10.2.0/24 via 10.255.12.2 dev eth1
+          10.10.3.0/24 via 10.255.13.6 dev eth2
+          10.10.4.0/24 via 10.255.12.2 dev eth1
+          10.10.5.0/24 via 10.255.12.2 dev eth1
+          10.255.24.8/30 via 10.255.12.2 dev eth1
+          10.255.34.12/30 via 10.255.13.6 dev eth2
+          10.255.45.16/30 via 10.255.12.2 dev eth1
+      - command: ip -4 route show table main | grep -Ev ' proto kernel scope link( |$)|^(default|0[.]0[.]0[.]0/0)' | sort
+        output: |-
+          10.10.2.0/24 via 10.255.12.2 dev eth1
+          10.10.3.0/24 via 10.255.13.6 dev eth2
+          10.10.4.0/24 via 10.255.12.2 dev eth1
+          10.10.5.0/24 via 10.255.12.2 dev eth1
+          10.255.24.8/30 via 10.255.12.2 dev eth1
+          10.255.34.12/30 via 10.255.13.6 dev eth2
+          10.255.45.16/30 via 10.255.12.2 dev eth1
+      - command: ip -4 route show table main | grep -E '^(default|0[.]0[.]0[.]0/0)'
+        output: ""
     r2:
-      - {command: "ip -4 route show default | grep -q . && exit 1 || exit 0", exit_code: 0}
-      - {command: "ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0", exit_code: 0}
-      - {command: "ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0", exit_code: 0}
-      - {command: "test \"$(ip -4 route show proto static | wc -l | tr -d ' ')\" = 7", exit_code: 0}
-      - {command: "ip -4 route show exact 10.1.1.0/24 proto static | grep -Eq '^10.1.1.0/24 via 10.255.12.1 dev eth1 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.3.3.0/24 proto static | grep -Eq '^10.3.3.0/24 via 10.255.12.1 dev eth1 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.4.4.0/24 proto static | grep -Eq '^10.4.4.0/24 via 10.255.24.2 dev eth2 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.5.5.0/24 proto static | grep -Eq '^10.5.5.0/24 via 10.255.24.2 dev eth2 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.255.13.0/30 proto static | grep -Eq '^10.255.13.0/30 via 10.255.12.1 dev eth1 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.255.34.0/30 proto static | grep -Eq '^10.255.34.0/30 via 10.255.24.2 dev eth2 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.255.45.0/30 proto static | grep -Eq '^10.255.45.0/30 via 10.255.24.2 dev eth2 proto static'", exit_code: 0}
+      - command: ip -6 addr show scope global
+        output: ""
+      - command: ip -4 route show table main proto boot | sort
+        output: |-
+          10.10.1.0/24 via 10.255.12.1 dev eth1
+          10.10.3.0/24 via 10.255.24.10 dev eth2
+          10.10.4.0/24 via 10.255.24.10 dev eth2
+          10.10.5.0/24 via 10.255.24.10 dev eth2
+          10.255.13.4/30 via 10.255.12.1 dev eth1
+          10.255.34.12/30 via 10.255.24.10 dev eth2
+          10.255.45.16/30 via 10.255.24.10 dev eth2
+      - command: ip -4 route show table main | grep -Ev ' proto kernel scope link( |$)|^(default|0[.]0[.]0[.]0/0)' | sort
+        output: |-
+          10.10.1.0/24 via 10.255.12.1 dev eth1
+          10.10.3.0/24 via 10.255.24.10 dev eth2
+          10.10.4.0/24 via 10.255.24.10 dev eth2
+          10.10.5.0/24 via 10.255.24.10 dev eth2
+          10.255.13.4/30 via 10.255.12.1 dev eth1
+          10.255.34.12/30 via 10.255.24.10 dev eth2
+          10.255.45.16/30 via 10.255.24.10 dev eth2
+      - command: ip -4 route show table main | grep -E '^(default|0[.]0[.]0[.]0/0)'
+        output: ""
     r3:
-      - {command: "ip -4 route show default | grep -q . && exit 1 || exit 0", exit_code: 0}
-      - {command: "ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0", exit_code: 0}
-      - {command: "ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0", exit_code: 0}
-      - {command: "test \"$(ip -4 route show proto static | wc -l | tr -d ' ')\" = 7", exit_code: 0}
-      - {command: "ip -4 route show exact 10.1.1.0/24 proto static | grep -Eq '^10.1.1.0/24 via 10.255.13.1 dev eth1 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.2.2.0/24 proto static | grep -Eq '^10.2.2.0/24 via 10.255.13.1 dev eth1 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.4.4.0/24 proto static | grep -Eq '^10.4.4.0/24 via 10.255.34.2 dev eth2 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.5.5.0/24 proto static | grep -Eq '^10.5.5.0/24 via 10.255.34.2 dev eth2 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.255.12.0/30 proto static | grep -Eq '^10.255.12.0/30 via 10.255.13.1 dev eth1 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.255.24.0/30 proto static | grep -Eq '^10.255.24.0/30 via 10.255.34.2 dev eth2 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.255.45.0/30 proto static | grep -Eq '^10.255.45.0/30 via 10.255.34.2 dev eth2 proto static'", exit_code: 0}
+      - command: ip -6 addr show scope global
+        output: ""
+      - command: ip -4 route show table main proto boot | sort
+        output: |-
+          10.10.1.0/24 via 10.255.13.5 dev eth1
+          10.10.2.0/24 via 10.255.34.14 dev eth2
+          10.10.4.0/24 via 10.255.34.14 dev eth2
+          10.10.5.0/24 via 10.255.34.14 dev eth2
+          10.255.12.0/30 via 10.255.13.5 dev eth1
+          10.255.24.8/30 via 10.255.34.14 dev eth2
+          10.255.45.16/30 via 10.255.34.14 dev eth2
+      - command: ip -4 route show table main | grep -Ev ' proto kernel scope link( |$)|^(default|0[.]0[.]0[.]0/0)' | sort
+        output: |-
+          10.10.1.0/24 via 10.255.13.5 dev eth1
+          10.10.2.0/24 via 10.255.34.14 dev eth2
+          10.10.4.0/24 via 10.255.34.14 dev eth2
+          10.10.5.0/24 via 10.255.34.14 dev eth2
+          10.255.12.0/30 via 10.255.13.5 dev eth1
+          10.255.24.8/30 via 10.255.34.14 dev eth2
+          10.255.45.16/30 via 10.255.34.14 dev eth2
+      - command: ip -4 route show table main | grep -E '^(default|0[.]0[.]0[.]0/0)'
+        output: ""
     r4:
-      - {command: "ip -4 route show default | grep -q . && exit 1 || exit 0", exit_code: 0}
-      - {command: "ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0", exit_code: 0}
-      - {command: "ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0", exit_code: 0}
-      - {command: "test \"$(ip -4 route show proto static | wc -l | tr -d ' ')\" = 6", exit_code: 0}
-      - {command: "ip -4 route show exact 10.1.1.0/24 proto static | grep -Eq '^10.1.1.0/24 via 10.255.24.1 dev eth1 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.2.2.0/24 proto static | grep -Eq '^10.2.2.0/24 via 10.255.24.1 dev eth1 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.3.3.0/24 proto static | grep -Eq '^10.3.3.0/24 via 10.255.34.1 dev eth2 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.5.5.0/24 proto static | grep -Eq '^10.5.5.0/24 via 10.255.45.2 dev eth3 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.255.12.0/30 proto static | grep -Eq '^10.255.12.0/30 via 10.255.24.1 dev eth1 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.255.13.0/30 proto static | grep -Eq '^10.255.13.0/30 via 10.255.34.1 dev eth2 proto static'", exit_code: 0}
+      - command: ip -6 addr show scope global
+        output: ""
+      - command: ip -4 route show table main proto boot | sort
+        output: |-
+          10.10.1.0/24 via 10.255.24.9 dev eth1
+          10.10.2.0/24 via 10.255.24.9 dev eth1
+          10.10.3.0/24 via 10.255.34.13 dev eth2
+          10.10.5.0/24 via 10.255.45.18 dev eth3
+          10.255.12.0/30 via 10.255.24.9 dev eth1
+          10.255.13.4/30 via 10.255.34.13 dev eth2
+      - command: ip -4 route show table main | grep -Ev ' proto kernel scope link( |$)|^(default|0[.]0[.]0[.]0/0)' | sort
+        output: |-
+          10.10.1.0/24 via 10.255.24.9 dev eth1
+          10.10.2.0/24 via 10.255.24.9 dev eth1
+          10.10.3.0/24 via 10.255.34.13 dev eth2
+          10.10.5.0/24 via 10.255.45.18 dev eth3
+          10.255.12.0/30 via 10.255.24.9 dev eth1
+          10.255.13.4/30 via 10.255.34.13 dev eth2
+      - command: ip -4 route show table main | grep -E '^(default|0[.]0[.]0[.]0/0)'
+        output: ""
     r5:
-      - {command: "ip -4 route show default | grep -q . && exit 1 || exit 0", exit_code: 0}
-      - {command: "ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0", exit_code: 0}
-      - {command: "ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0", exit_code: 0}
-      - {command: "test \"$(ip -4 route show proto static | wc -l | tr -d ' ')\" = 8", exit_code: 0}
-      - {command: "ip -4 route show exact 10.1.1.0/24 proto static | grep -Eq '^10.1.1.0/24 via 10.255.45.1 dev eth1 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.2.2.0/24 proto static | grep -Eq '^10.2.2.0/24 via 10.255.45.1 dev eth1 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.3.3.0/24 proto static | grep -Eq '^10.3.3.0/24 via 10.255.45.1 dev eth1 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.4.4.0/24 proto static | grep -Eq '^10.4.4.0/24 via 10.255.45.1 dev eth1 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.255.12.0/30 proto static | grep -Eq '^10.255.12.0/30 via 10.255.45.1 dev eth1 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.255.13.0/30 proto static | grep -Eq '^10.255.13.0/30 via 10.255.45.1 dev eth1 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.255.24.0/30 proto static | grep -Eq '^10.255.24.0/30 via 10.255.45.1 dev eth1 proto static'", exit_code: 0}
-      - {command: "ip -4 route show exact 10.255.34.0/30 proto static | grep -Eq '^10.255.34.0/30 via 10.255.45.1 dev eth1 proto static'", exit_code: 0}
-    pc1a: &ipv6_free
-      - {command: "ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0", exit_code: 0}
-      - {command: "ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0", exit_code: 0}
-    pc1b: *ipv6_free
-    pc2a: *ipv6_free
-    pc2b: *ipv6_free
-    pc3a: *ipv6_free
-    pc3b: *ipv6_free
-    pc4a: *ipv6_free
-    pc4b: *ipv6_free
-    pc5a: *ipv6_free
-    pc5b: *ipv6_free
+      - command: ip -6 addr show scope global
+        output: ""
+      - command: ip -4 route show table main proto boot | sort
+        output: |-
+          10.10.1.0/24 via 10.255.45.17 dev eth1
+          10.10.2.0/24 via 10.255.45.17 dev eth1
+          10.10.3.0/24 via 10.255.45.17 dev eth1
+          10.10.4.0/24 via 10.255.45.17 dev eth1
+          10.255.12.0/30 via 10.255.45.17 dev eth1
+          10.255.13.4/30 via 10.255.45.17 dev eth1
+          10.255.24.8/30 via 10.255.45.17 dev eth1
+          10.255.34.12/30 via 10.255.45.17 dev eth1
+      - command: ip -4 route show table main | grep -Ev ' proto kernel scope link( |$)|^(default|0[.]0[.]0[.]0/0)' | sort
+        output: |-
+          10.10.1.0/24 via 10.255.45.17 dev eth1
+          10.10.2.0/24 via 10.255.45.17 dev eth1
+          10.10.3.0/24 via 10.255.45.17 dev eth1
+          10.10.4.0/24 via 10.255.45.17 dev eth1
+          10.255.12.0/30 via 10.255.45.17 dev eth1
+          10.255.13.4/30 via 10.255.45.17 dev eth1
+          10.255.24.8/30 via 10.255.45.17 dev eth1
+          10.255.34.12/30 via 10.255.45.17 dev eth1
+      - command: ip -4 route show table main | grep -E '^(default|0[.]0[.]0[.]0/0)'
+        output: ""
+    pc1a:
+      - command: ip -6 addr show scope global
+        output: ""
+    pc1b:
+      - command: ip -6 addr show scope global
+        output: ""
+    pc2a:
+      - command: ip -6 addr show scope global
+        output: ""
+    pc2b:
+      - command: ip -6 addr show scope global
+        output: ""
+    pc3a:
+      - command: ip -6 addr show scope global
+        output: ""
+    pc3b:
+      - command: ip -6 addr show scope global
+        output: ""
+    pc4a:
+      - command: ip -6 addr show scope global
+        output: ""
+    pc4b:
+      - command: ip -6 addr show scope global
+        output: ""
+    pc5a:
+      - command: ip -6 addr show scope global
+        output: ""
+    pc5b:
+      - command: ip -6 addr show scope global
+        output: ""

@@ -44,12 +44,33 @@ def _utc_now() -> str:
 
 
 def _metadata(result) -> dict[str, Any]:
-    return {
-        "command": list(result.command),
-        "return_code": result.return_code,
-        "duration_seconds": result.duration_seconds,
-        "timed_out": result.timed_out,
-    }
+    from .models import GenerationResult, CommandResult
+    if isinstance(result, GenerationResult):
+        return {
+            "calls": result.calls,
+            "retries": result.retries,
+            "duration_seconds": result.total_duration_seconds,
+            "attempts": [
+                {
+                    "attempt": a.attempt,
+                    "duration_seconds": a.duration_seconds,
+                    "return_code": a.return_code,
+                    "timed_out": a.timed_out,
+                    "success": a.success,
+                    "validation_errors": a.validation_errors
+                }
+                for a in result.attempts
+            ],
+            "last_command": list(result.last_command_result.command) if result.last_command_result else []
+        }
+    elif isinstance(result, CommandResult):
+        return {
+            "command": list(result.command),
+            "return_code": result.return_code,
+            "duration_seconds": result.duration_seconds,
+            "timed_out": result.timed_out,
+        }
+    return {}
 
 
 class Pipeline:
@@ -210,6 +231,7 @@ class Pipeline:
     def _generate_variant_lab(
         self, prompt: PromptRecord, variant: Variant, paths: VariantPaths, resources: ResourceFiles, current_phase: int = 0, total_phases: int = 7
     ) -> tuple[VariantSummary, dict[str, Any]]:
+        from .exceptions import GenerationError
         manifest = self._base_variant_manifest(prompt, variant, resources)
         summary = VariantSummary(prompt.experiment_id, prompt.name, variant, JobStatus.ERROR)
         paths.root.mkdir(parents=True, exist_ok=True)
@@ -218,18 +240,22 @@ class Pipeline:
         self._phase(manifest, "lab_generation_started")
         if current_phase > 0:
             self.console.phase_started(f"Generazione laboratorio {variant.value}", current_phase, total_phases)
+        
+        def _update_metrics(res):
+            summary.lab_calls = res.calls
+            summary.lab_retries = res.retries
+            summary.generation_duration_seconds = res.total_duration_seconds
+            manifest["lab_calls"] = res.calls
+            manifest["lab_retries"] = res.retries
+            manifest["generation"] = _metadata(res)
+            
         try:
             result = self.lab_generator.generate_with_retry(
                 paths=paths, prompt_text=prompt.content or "", variant=variant, resources=resources, validator=self.lab_validator
             )
-            # Add tracking
-            summary.lab_calls += 1 # We don't have direct access to call count here from result, assuming 1 minimum. Wait, generate_with_retry does internal retries.
-            # We can't easily extract exact retries from generate_with_retry unless we modify it to return call_count.
-            # For now just set generated=True.
-            manifest["generation"] = _metadata(result)
+            _update_metrics(result)
             manifest["lab_generated"] = True
             summary.lab_generated = True
-            summary.generation_duration_seconds = result.duration_seconds
             self._phase(manifest, "lab_generated")
             if current_phase > 0:
                 self.console.phase_success(f"Laboratorio generato {variant.value}")
@@ -240,7 +266,8 @@ class Pipeline:
                 self.console.phase_success(f"Validazione statica completata {variant.value}")
             manifest["status"] = "generated"
             summary.status = JobStatus.DISCOVERED
-        except Exception as exc:
+        except GenerationError as exc:
+            _update_metrics(exc.result)
             if paths.source_failed.exists():
                 manifest["lab_generated"] = True
                 manifest["static_validation_passed"] = False
@@ -260,6 +287,16 @@ class Pipeline:
             summary.status = JobStatus.ERROR
             summary.error_message = str(exc)
             self._phase(manifest, "error")
+        except Exception as exc:
+            if current_phase > 0 and not summary.lab_generated:
+                self.console.phase_failure(f"Generazione laboratorio fallita {variant.value}", str(exc))
+            
+            manifest["errors"].append(str(exc))
+            manifest["status"] = JobStatus.ERROR.value
+            summary.status = JobStatus.ERROR
+            summary.error_message = str(exc)
+            self._phase(manifest, "error")
+            
         self._write_variant(paths.manifest, manifest)
         return summary, manifest
 
@@ -338,6 +375,7 @@ class Pipeline:
         current_phase: int = 0,
         total_phases: int = 7
     ) -> None:
+        from .exceptions import GenerationError
         if not summary.static_validation_passed or not evaluation_spec_generated:
             return
             
@@ -346,23 +384,40 @@ class Pipeline:
         manifest["correction_mode"] = mode
             
         self.console.phase_started(f"Generazione correction.yaml {summary.variant.value} ({mode})", current_phase, total_phases)
+        
+        def _update_metrics(res):
+            summary.correction_calls = res.calls
+            summary.correction_retries = res.retries
+            manifest["correction_calls"] = res.calls
+            manifest["correction_retries"] = res.retries
+            manifest["correction_generation"] = _metadata(res)
+            
         try:
             result = self.correction_generator.generate_with_retry(
                 experiment_paths=experiment_paths,
                 variant_paths=variant_paths,
                 prompt_text=prompt.content or "",
                 resources=resources,
-                validator=CorrectionValidator(),
+                validator=self.correction_validator,
                 reference_correction=reference_correction,
             )
+            _update_metrics(result)
             correction_hash = sha256_file(variant_paths.correction)
             manifest["canonical_correction_sha256"] = correction_hash
             manifest["correction_hash"] = correction_hash
             manifest["correction_generated"] = True
             summary.correction_hash = correction_hash
             summary.correction_generated = True
-            manifest["correction_generation"] = _metadata(result)
             self.console.phase_success(f"correction.yaml generato {summary.variant.value}")
+        except GenerationError as exc:
+            _update_metrics(exc.result)
+            error_msg = str(exc)
+            manifest["errors"].append(error_msg)
+            summary.error_message = f"Generazione correction.yaml fallita: {error_msg}"
+            summary.status = JobStatus.ERROR
+            manifest["status"] = JobStatus.ERROR.value
+            self.console.phase_failure(f"Generazione correction.yaml fallita {summary.variant.value}", error_msg)
+            self._phase(manifest, "error")
         except Exception as exc:
             error_msg = str(exc)
             manifest["errors"].append(error_msg)

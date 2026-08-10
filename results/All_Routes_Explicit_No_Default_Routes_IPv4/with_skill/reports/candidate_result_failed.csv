@@ -1,261 +1,141 @@
 Test Description,Passed,Reason
-Checking the routing table of r1,False,"The routing table of r1 about route 10.2.2.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r1,False,"The routing table of r1 about route 10.3.3.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r1,False,"The routing table of r1 about route 10.4.4.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r1,False,"The routing table of r1 about route 10.5.5.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r1,False,"The routing table of r1 about route 10.255.24.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r1,False,"The routing table of r1 about route 10.255.34.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r1,False,"The routing table of r1 about route 10.255.45.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r2,False,"The routing table of r2 about route 10.1.1.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r2,False,"The routing table of r2 about route 10.3.3.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r2,False,"The routing table of r2 about route 10.4.4.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r2,False,"The routing table of r2 about route 10.5.5.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r2,False,"The routing table of r2 about route 10.255.13.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r2,False,"The routing table of r2 about route 10.255.34.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r2,False,"The routing table of r2 about route 10.255.45.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r3,False,"The routing table of r3 about route 10.1.1.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r3,False,"The routing table of r3 about route 10.2.2.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r3,False,"The routing table of r3 about route 10.4.4.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r3,False,"The routing table of r3 about route 10.5.5.0/24 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r1,False,"The routing table of r1 about route 10.10.2.0/24 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r1,False,"The routing table of r1 about route 10.10.3.0/24 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r1,False,"The routing table of r1 about route 10.10.4.0/24 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r1,False,"The routing table of r1 about route 10.10.5.0/24 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r1,False,"The routing table of r1 about route 10.255.24.8/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r1,False,"The routing table of r1 about route 10.255.34.12/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r1,False,"The routing table of r1 about route 10.255.45.16/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r2,False,"The routing table of r2 about route 10.10.1.0/24 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r2,False,"The routing table of r2 about route 10.10.3.0/24 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r2,False,"The routing table of r2 about route 10.10.4.0/24 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r2,False,"The routing table of r2 about route 10.10.5.0/24 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r2,False,"The routing table of r2 about route 10.255.13.4/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r2,False,"The routing table of r2 about route 10.255.34.12/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r2,False,"The routing table of r2 about route 10.255.45.16/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r3,False,"The routing table of r3 about route 10.10.1.0/24 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r3,False,"The routing table of r3 about route 10.10.2.0/24 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r3,False,"The routing table of r3 about route 10.10.4.0/24 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r3,False,"The routing table of r3 about route 10.10.5.0/24 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r3,False,"The routing table of r3 about route 10.255.12.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r3,False,"The routing table of r3 about route 10.255.24.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r3,False,"The routing table of r3 about route 10.255.45.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r4,False,"The routing table of r4 about route 10.1.1.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r4,False,"The routing table of r4 about route 10.2.2.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r4,False,"The routing table of r4 about route 10.3.3.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r4,False,"The routing table of r4 about route 10.5.5.0/24 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r3,False,"The routing table of r3 about route 10.255.24.8/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r3,False,"The routing table of r3 about route 10.255.45.16/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r4,False,"The routing table of r4 about route 10.10.1.0/24 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r4,False,"The routing table of r4 about route 10.10.2.0/24 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r4,False,"The routing table of r4 about route 10.10.3.0/24 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r4,False,"The routing table of r4 about route 10.10.5.0/24 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r4,False,"The routing table of r4 about route 10.255.12.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r4,False,"The routing table of r4 about route 10.255.13.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r5,False,"The routing table of r5 about route 10.1.1.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r5,False,"The routing table of r5 about route 10.2.2.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r5,False,"The routing table of r5 about route 10.3.3.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r5,False,"The routing table of r5 about route 10.4.4.0/24 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r4,False,"The routing table of r4 about route 10.255.13.4/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r5,False,"The routing table of r5 about route 10.10.1.0/24 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r5,False,"The routing table of r5 about route 10.10.2.0/24 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r5,False,"The routing table of r5 about route 10.10.3.0/24 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r5,False,"The routing table of r5 about route 10.10.4.0/24 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r5,False,"The routing table of r5 about route 10.255.12.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r5,False,"The routing table of r5 about route 10.255.13.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r5,False,"The routing table of r5 about route 10.255.24.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r5,False,"The routing table of r5 about route 10.255.34.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the exit code of the command 'ip -4 route show default | grep -q . && exit 1 || exit 0' on 'r1',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0' on 'r1',False,"The exit code of the command differs from the expected one.
- Actual: 255
- Expected: 0"
-Checking the exit code of the command 'ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0' on 'r1',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-"Checking the exit code of the command 'test ""$(ip -4 route show proto static | wc -l | tr -d ' ')"" = 7' on 'r1'",False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.2.2.0/24 proto static | grep -Eq '^10.2.2.0/24 via 10.255.12.2 dev eth1 proto static'' on 'r1',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.3.3.0/24 proto static | grep -Eq '^10.3.3.0/24 via 10.255.13.2 dev eth2 proto static'' on 'r1',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.4.4.0/24 proto static | grep -Eq '^10.4.4.0/24 via 10.255.12.2 dev eth1 proto static'' on 'r1',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.5.5.0/24 proto static | grep -Eq '^10.5.5.0/24 via 10.255.12.2 dev eth1 proto static'' on 'r1',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.255.24.0/30 proto static | grep -Eq '^10.255.24.0/30 via 10.255.12.2 dev eth1 proto static'' on 'r1',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.255.34.0/30 proto static | grep -Eq '^10.255.34.0/30 via 10.255.13.2 dev eth2 proto static'' on 'r1',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.255.45.0/30 proto static | grep -Eq '^10.255.45.0/30 via 10.255.12.2 dev eth1 proto static'' on 'r1',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show default | grep -q . && exit 1 || exit 0' on 'r2',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0' on 'r2',False,"The exit code of the command differs from the expected one.
- Actual: 255
- Expected: 0"
-Checking the exit code of the command 'ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0' on 'r2',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-"Checking the exit code of the command 'test ""$(ip -4 route show proto static | wc -l | tr -d ' ')"" = 7' on 'r2'",False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.1.1.0/24 proto static | grep -Eq '^10.1.1.0/24 via 10.255.12.1 dev eth1 proto static'' on 'r2',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.3.3.0/24 proto static | grep -Eq '^10.3.3.0/24 via 10.255.12.1 dev eth1 proto static'' on 'r2',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.4.4.0/24 proto static | grep -Eq '^10.4.4.0/24 via 10.255.24.2 dev eth2 proto static'' on 'r2',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.5.5.0/24 proto static | grep -Eq '^10.5.5.0/24 via 10.255.24.2 dev eth2 proto static'' on 'r2',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.255.13.0/30 proto static | grep -Eq '^10.255.13.0/30 via 10.255.12.1 dev eth1 proto static'' on 'r2',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.255.34.0/30 proto static | grep -Eq '^10.255.34.0/30 via 10.255.24.2 dev eth2 proto static'' on 'r2',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.255.45.0/30 proto static | grep -Eq '^10.255.45.0/30 via 10.255.24.2 dev eth2 proto static'' on 'r2',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show default | grep -q . && exit 1 || exit 0' on 'r3',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0' on 'r3',False,"The exit code of the command differs from the expected one.
- Actual: 255
- Expected: 0"
-Checking the exit code of the command 'ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0' on 'r3',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-"Checking the exit code of the command 'test ""$(ip -4 route show proto static | wc -l | tr -d ' ')"" = 7' on 'r3'",False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.1.1.0/24 proto static | grep -Eq '^10.1.1.0/24 via 10.255.13.1 dev eth1 proto static'' on 'r3',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.2.2.0/24 proto static | grep -Eq '^10.2.2.0/24 via 10.255.13.1 dev eth1 proto static'' on 'r3',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.4.4.0/24 proto static | grep -Eq '^10.4.4.0/24 via 10.255.34.2 dev eth2 proto static'' on 'r3',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.5.5.0/24 proto static | grep -Eq '^10.5.5.0/24 via 10.255.34.2 dev eth2 proto static'' on 'r3',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.255.12.0/30 proto static | grep -Eq '^10.255.12.0/30 via 10.255.13.1 dev eth1 proto static'' on 'r3',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.255.24.0/30 proto static | grep -Eq '^10.255.24.0/30 via 10.255.34.2 dev eth2 proto static'' on 'r3',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.255.45.0/30 proto static | grep -Eq '^10.255.45.0/30 via 10.255.34.2 dev eth2 proto static'' on 'r3',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show default | grep -q . && exit 1 || exit 0' on 'r4',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0' on 'r4',False,"The exit code of the command differs from the expected one.
- Actual: 255
- Expected: 0"
-Checking the exit code of the command 'ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0' on 'r4',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-"Checking the exit code of the command 'test ""$(ip -4 route show proto static | wc -l | tr -d ' ')"" = 6' on 'r4'",False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.1.1.0/24 proto static | grep -Eq '^10.1.1.0/24 via 10.255.24.1 dev eth1 proto static'' on 'r4',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.2.2.0/24 proto static | grep -Eq '^10.2.2.0/24 via 10.255.24.1 dev eth1 proto static'' on 'r4',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.3.3.0/24 proto static | grep -Eq '^10.3.3.0/24 via 10.255.34.1 dev eth2 proto static'' on 'r4',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.5.5.0/24 proto static | grep -Eq '^10.5.5.0/24 via 10.255.45.2 dev eth3 proto static'' on 'r4',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.255.12.0/30 proto static | grep -Eq '^10.255.12.0/30 via 10.255.24.1 dev eth1 proto static'' on 'r4',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.255.13.0/30 proto static | grep -Eq '^10.255.13.0/30 via 10.255.34.1 dev eth2 proto static'' on 'r4',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show default | grep -q . && exit 1 || exit 0' on 'r5',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0' on 'r5',False,"The exit code of the command differs from the expected one.
- Actual: 255
- Expected: 0"
-Checking the exit code of the command 'ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0' on 'r5',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-"Checking the exit code of the command 'test ""$(ip -4 route show proto static | wc -l | tr -d ' ')"" = 8' on 'r5'",False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.1.1.0/24 proto static | grep -Eq '^10.1.1.0/24 via 10.255.45.1 dev eth1 proto static'' on 'r5',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.2.2.0/24 proto static | grep -Eq '^10.2.2.0/24 via 10.255.45.1 dev eth1 proto static'' on 'r5',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.3.3.0/24 proto static | grep -Eq '^10.3.3.0/24 via 10.255.45.1 dev eth1 proto static'' on 'r5',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.4.4.0/24 proto static | grep -Eq '^10.4.4.0/24 via 10.255.45.1 dev eth1 proto static'' on 'r5',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.255.12.0/30 proto static | grep -Eq '^10.255.12.0/30 via 10.255.45.1 dev eth1 proto static'' on 'r5',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.255.13.0/30 proto static | grep -Eq '^10.255.13.0/30 via 10.255.45.1 dev eth1 proto static'' on 'r5',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.255.24.0/30 proto static | grep -Eq '^10.255.24.0/30 via 10.255.45.1 dev eth1 proto static'' on 'r5',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -4 route show exact 10.255.34.0/30 proto static | grep -Eq '^10.255.34.0/30 via 10.255.45.1 dev eth1 proto static'' on 'r5',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0' on 'pc1a',False,"The exit code of the command differs from the expected one.
- Actual: 255
- Expected: 0"
-Checking the exit code of the command 'ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0' on 'pc1a',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0' on 'pc1b',False,"The exit code of the command differs from the expected one.
- Actual: 255
- Expected: 0"
-Checking the exit code of the command 'ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0' on 'pc1b',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0' on 'pc2a',False,"The exit code of the command differs from the expected one.
- Actual: 255
- Expected: 0"
-Checking the exit code of the command 'ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0' on 'pc2a',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0' on 'pc2b',False,"The exit code of the command differs from the expected one.
- Actual: 255
- Expected: 0"
-Checking the exit code of the command 'ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0' on 'pc2b',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0' on 'pc3a',False,"The exit code of the command differs from the expected one.
- Actual: 255
- Expected: 0"
-Checking the exit code of the command 'ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0' on 'pc3a',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0' on 'pc3b',False,"The exit code of the command differs from the expected one.
- Actual: 255
- Expected: 0"
-Checking the exit code of the command 'ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0' on 'pc3b',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0' on 'pc4a',False,"The exit code of the command differs from the expected one.
- Actual: 255
- Expected: 0"
-Checking the exit code of the command 'ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0' on 'pc4a',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0' on 'pc4b',False,"The exit code of the command differs from the expected one.
- Actual: 255
- Expected: 0"
-Checking the exit code of the command 'ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0' on 'pc4b',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0' on 'pc5a',False,"The exit code of the command differs from the expected one.
- Actual: 255
- Expected: 0"
-Checking the exit code of the command 'ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0' on 'pc5a',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
-Checking the exit code of the command 'ip -6 addr show scope global | grep -q 'inet6 ' && exit 1 || exit 0' on 'pc5b',False,"The exit code of the command differs from the expected one.
- Actual: 255
- Expected: 0"
-Checking the exit code of the command 'ip -6 route show | grep -Ev '^(::1|fe80::/64|ff00::/8)' | grep -q . && exit 1 || exit 0' on 'pc5b',False,"The exit code of the command differs from the expected one.
- Actual: 1
- Expected: 0"
+Checking the routing table of r5,False,"The routing table of r5 about route 10.255.13.4/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r5,False,"The routing table of r5 about route 10.255.24.8/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r5,False,"The routing table of r5 about route 10.255.34.12/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the output of the command 'ip -4 route show table main proto boot | sort' on 'r1',False,"The output of the command differs from the expected one.
+ Actual: Error: inet prefix is expected rather than ""|"".
+ Expected: 10.10.2.0/24 via 10.255.12.2 dev eth1
+10.10.3.0/24 via 10.255.13.6 dev eth2
+10.10.4.0/24 via 10.255.12.2 dev eth1
+10.10.5.0/24 via 10.255.12.2 dev eth1
+10.255.24.8/30 via 10.255.12.2 dev eth1
+10.255.34.12/30 via 10.255.13.6 dev eth2
+10.255.45.16/30 via 10.255.12.2 dev eth1"
+Checking the output of the command 'ip -4 route show table main | grep -Ev ' proto kernel scope link( |$)|^(default|0[.]0[.]0[.]0/0)' | sort' on 'r1',False,"The output of the command differs from the expected one.
+ Actual: Error: inet prefix is expected rather than ""|"".
+ Expected: 10.10.2.0/24 via 10.255.12.2 dev eth1
+10.10.3.0/24 via 10.255.13.6 dev eth2
+10.10.4.0/24 via 10.255.12.2 dev eth1
+10.10.5.0/24 via 10.255.12.2 dev eth1
+10.255.24.8/30 via 10.255.12.2 dev eth1
+10.255.34.12/30 via 10.255.13.6 dev eth2
+10.255.45.16/30 via 10.255.12.2 dev eth1"
+Checking the output of the command 'ip -4 route show table main | grep -E '^(default|0[.]0[.]0[.]0/0)'' on 'r1',False,"The output of the command differs from the expected one.
+ Actual: Error: inet prefix is expected rather than ""|"".
+ Expected: "
+Checking the output of the command 'ip -4 route show table main proto boot | sort' on 'r2',False,"The output of the command differs from the expected one.
+ Actual: Error: inet prefix is expected rather than ""|"".
+ Expected: 10.10.1.0/24 via 10.255.12.1 dev eth1
+10.10.3.0/24 via 10.255.24.10 dev eth2
+10.10.4.0/24 via 10.255.24.10 dev eth2
+10.10.5.0/24 via 10.255.24.10 dev eth2
+10.255.13.4/30 via 10.255.12.1 dev eth1
+10.255.34.12/30 via 10.255.24.10 dev eth2
+10.255.45.16/30 via 10.255.24.10 dev eth2"
+Checking the output of the command 'ip -4 route show table main | grep -Ev ' proto kernel scope link( |$)|^(default|0[.]0[.]0[.]0/0)' | sort' on 'r2',False,"The output of the command differs from the expected one.
+ Actual: Error: inet prefix is expected rather than ""|"".
+ Expected: 10.10.1.0/24 via 10.255.12.1 dev eth1
+10.10.3.0/24 via 10.255.24.10 dev eth2
+10.10.4.0/24 via 10.255.24.10 dev eth2
+10.10.5.0/24 via 10.255.24.10 dev eth2
+10.255.13.4/30 via 10.255.12.1 dev eth1
+10.255.34.12/30 via 10.255.24.10 dev eth2
+10.255.45.16/30 via 10.255.24.10 dev eth2"
+Checking the output of the command 'ip -4 route show table main | grep -E '^(default|0[.]0[.]0[.]0/0)'' on 'r2',False,"The output of the command differs from the expected one.
+ Actual: Error: inet prefix is expected rather than ""|"".
+ Expected: "
+Checking the output of the command 'ip -4 route show table main proto boot | sort' on 'r3',False,"The output of the command differs from the expected one.
+ Actual: Error: inet prefix is expected rather than ""|"".
+ Expected: 10.10.1.0/24 via 10.255.13.5 dev eth1
+10.10.2.0/24 via 10.255.34.14 dev eth2
+10.10.4.0/24 via 10.255.34.14 dev eth2
+10.10.5.0/24 via 10.255.34.14 dev eth2
+10.255.12.0/30 via 10.255.13.5 dev eth1
+10.255.24.8/30 via 10.255.34.14 dev eth2
+10.255.45.16/30 via 10.255.34.14 dev eth2"
+Checking the output of the command 'ip -4 route show table main | grep -Ev ' proto kernel scope link( |$)|^(default|0[.]0[.]0[.]0/0)' | sort' on 'r3',False,"The output of the command differs from the expected one.
+ Actual: Error: inet prefix is expected rather than ""|"".
+ Expected: 10.10.1.0/24 via 10.255.13.5 dev eth1
+10.10.2.0/24 via 10.255.34.14 dev eth2
+10.10.4.0/24 via 10.255.34.14 dev eth2
+10.10.5.0/24 via 10.255.34.14 dev eth2
+10.255.12.0/30 via 10.255.13.5 dev eth1
+10.255.24.8/30 via 10.255.34.14 dev eth2
+10.255.45.16/30 via 10.255.34.14 dev eth2"
+Checking the output of the command 'ip -4 route show table main | grep -E '^(default|0[.]0[.]0[.]0/0)'' on 'r3',False,"The output of the command differs from the expected one.
+ Actual: Error: inet prefix is expected rather than ""|"".
+ Expected: "
+Checking the output of the command 'ip -4 route show table main proto boot | sort' on 'r4',False,"The output of the command differs from the expected one.
+ Actual: Error: inet prefix is expected rather than ""|"".
+ Expected: 10.10.1.0/24 via 10.255.24.9 dev eth1
+10.10.2.0/24 via 10.255.24.9 dev eth1
+10.10.3.0/24 via 10.255.34.13 dev eth2
+10.10.5.0/24 via 10.255.45.18 dev eth3
+10.255.12.0/30 via 10.255.24.9 dev eth1
+10.255.13.4/30 via 10.255.34.13 dev eth2"
+Checking the output of the command 'ip -4 route show table main | grep -Ev ' proto kernel scope link( |$)|^(default|0[.]0[.]0[.]0/0)' | sort' on 'r4',False,"The output of the command differs from the expected one.
+ Actual: Error: inet prefix is expected rather than ""|"".
+ Expected: 10.10.1.0/24 via 10.255.24.9 dev eth1
+10.10.2.0/24 via 10.255.24.9 dev eth1
+10.10.3.0/24 via 10.255.34.13 dev eth2
+10.10.5.0/24 via 10.255.45.18 dev eth3
+10.255.12.0/30 via 10.255.24.9 dev eth1
+10.255.13.4/30 via 10.255.34.13 dev eth2"
+Checking the output of the command 'ip -4 route show table main | grep -E '^(default|0[.]0[.]0[.]0/0)'' on 'r4',False,"The output of the command differs from the expected one.
+ Actual: Error: inet prefix is expected rather than ""|"".
+ Expected: "
+Checking the output of the command 'ip -4 route show table main proto boot | sort' on 'r5',False,"The output of the command differs from the expected one.
+ Actual: Error: inet prefix is expected rather than ""|"".
+ Expected: 10.10.1.0/24 via 10.255.45.17 dev eth1
+10.10.2.0/24 via 10.255.45.17 dev eth1
+10.10.3.0/24 via 10.255.45.17 dev eth1
+10.10.4.0/24 via 10.255.45.17 dev eth1
+10.255.12.0/30 via 10.255.45.17 dev eth1
+10.255.13.4/30 via 10.255.45.17 dev eth1
+10.255.24.8/30 via 10.255.45.17 dev eth1
+10.255.34.12/30 via 10.255.45.17 dev eth1"
+Checking the output of the command 'ip -4 route show table main | grep -Ev ' proto kernel scope link( |$)|^(default|0[.]0[.]0[.]0/0)' | sort' on 'r5',False,"The output of the command differs from the expected one.
+ Actual: Error: inet prefix is expected rather than ""|"".
+ Expected: 10.10.1.0/24 via 10.255.45.17 dev eth1
+10.10.2.0/24 via 10.255.45.17 dev eth1
+10.10.3.0/24 via 10.255.45.17 dev eth1
+10.10.4.0/24 via 10.255.45.17 dev eth1
+10.255.12.0/30 via 10.255.45.17 dev eth1
+10.255.13.4/30 via 10.255.45.17 dev eth1
+10.255.24.8/30 via 10.255.45.17 dev eth1
+10.255.34.12/30 via 10.255.45.17 dev eth1"
+Checking the output of the command 'ip -4 route show table main | grep -E '^(default|0[.]0[.]0[.]0/0)'' on 'r5',False,"The output of the command differs from the expected one.
+ Actual: Error: inet prefix is expected rather than ""|"".
+ Expected: "

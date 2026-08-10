@@ -90,7 +90,7 @@ class LabGenerator:
         generated = paths.workspace / "output" / "lab"
         if attempt == 1 and generated.exists():
             shutil.rmtree(generated)
-        result = self.runner.run(
+        return self.runner.run(
             instruction=instruction,
             workspace=paths.workspace,
             output_last_message=paths.workspace / ".agent-last-message.txt",
@@ -98,15 +98,6 @@ class LabGenerator:
             stderr_log=paths.logs / f"{self.runner.provider}-lab-attempt{attempt}.stderr.log",
             timeout_seconds=self.timeout_seconds,
         )
-        if result.return_code != 0 or result.timed_out:
-            raise AgentExecutionError(
-                f"{self.runner.provider} lab generation failed (return code {result.return_code}, attempt {attempt})"
-            )
-        if not generated.is_dir():
-            raise AgentExecutionError(
-                f"{self.runner.provider} completed without creating output/lab/ (attempt {attempt})"
-            )
-        return result
 
     def generate_with_retry(
         self,
@@ -116,12 +107,16 @@ class LabGenerator:
         variant: Variant,
         resources: ResourceFiles,
         validator: LabValidator,
-    ) -> CommandResult:
+    ) -> "GenerationResult":
+        from .models import GenerationAttempt, GenerationResult
+        from .exceptions import GenerationError
         self.prepare_workspace(paths=paths, prompt_text=prompt_text, variant=variant, resources=resources)
         paths.logs.mkdir(parents=True, exist_ok=True)
         
         last_result: CommandResult | None = None
         last_errors: tuple[str, ...] = ()
+        attempts_log: list[GenerationAttempt] = []
+        total_duration = 0.0
         
         for attempt in range(1, MAX_LAB_ATTEMPTS + 1):
             if attempt == 1:
@@ -130,25 +125,64 @@ class LabGenerator:
                 instruction = self.retry_instruction(variant, last_errors)
                 
             last_result = self._run_attempt(paths=paths, instruction=instruction, attempt=attempt)
+            current_duration = last_result.duration_seconds
+            current_code = last_result.return_code
+            current_timeout = last_result.timed_out
+            total_duration += current_duration
             
             generated = paths.workspace / "output" / "lab"
-            validation = validator.validate(generated, prompt_text)
-            if validation.valid:
+            
+            if current_code != 0 or current_timeout:
+                validation = LabValidator().validate(generated, prompt_text)
+                validation_errors = (f"{self.runner.provider} execution failed (return code {current_code}, timeout {current_timeout})",)
+                valid = False
+            elif not generated.is_dir():
+                validation = LabValidator().validate(generated, prompt_text)
+                validation_errors = (f"{self.runner.provider} completed without creating output/lab/",)
+                valid = False
+            else:
+                validation = validator.validate(generated, prompt_text)
+                validation_errors = validation.errors
+                valid = validation.valid
+            
+            attempts_log.append(GenerationAttempt(
+                attempt=attempt,
+                duration_seconds=current_duration,
+                return_code=current_code,
+                timed_out=current_timeout,
+                success=valid,
+                validation_errors=validation_errors
+            ))
+            
+            if valid:
                 if paths.source.exists():
                     shutil.rmtree(paths.source)
                 if paths.source_failed.exists():
                     shutil.rmtree(paths.source_failed)
                 shutil.copytree(generated, paths.source, symlinks=True)
-                return last_result
+                return GenerationResult(
+                    last_command_result=last_result,
+                    calls=attempt,
+                    retries=attempt - 1,
+                    total_duration_seconds=total_duration,
+                    attempts=tuple(attempts_log),
+                    success=True
+                )
                 
-            last_errors = validation.errors
+            last_errors = validation_errors
             
         if paths.source_failed.exists():
             shutil.rmtree(paths.source_failed)
         if generated.exists():
             shutil.copytree(generated, paths.source_failed, symlinks=True)
             
-        raise AgentExecutionError(
-            f"Generated lab still invalid after {MAX_LAB_ATTEMPTS} attempt(s): "
-            + "; ".join(last_errors)
+        error_msg = f"Generated lab still invalid after {MAX_LAB_ATTEMPTS} attempt(s): " + "; ".join(last_errors)
+        res = GenerationResult(
+            last_command_result=last_result,
+            calls=MAX_LAB_ATTEMPTS,
+            retries=MAX_LAB_ATTEMPTS - 1,
+            total_duration_seconds=total_duration,
+            attempts=tuple(attempts_log),
+            success=False
         )
+        raise GenerationError(error_msg, res)
