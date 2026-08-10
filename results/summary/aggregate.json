@@ -1,20 +1,20 @@
 {
-  "comparable_pairs": 1,
-  "incomparable_pairs": 1,
+  "comparable_pairs": 0,
+  "incomparable_pairs": 2,
   "quality": {
     "paired": {
-      "mean_delta_pass_percentage_points": 0.0,
-      "median_delta_pass_percentage_points": 0.0,
+      "mean_delta_pass_percentage_points": null,
+      "median_delta_pass_percentage_points": null,
       "outcomes": {
-        "EQUAL": 1,
-        "INCOMPARABLE": 1,
+        "EQUAL": 0,
+        "INCOMPARABLE": 2,
         "WITHOUT_SKILL_BETTER": 0,
         "WITH_SKILL_BETTER": 0
       }
     },
     "with_skill": {
-      "mean_pass_percentage": 97.560975,
-      "median_pass_percentage": 97.560975,
+      "mean_pass_percentage": 85.869565,
+      "median_pass_percentage": 85.869565,
       "status_counts": {
         "error": 0,
         "failed": 1,
@@ -23,12 +23,12 @@
       }
     },
     "without_skill": {
-      "mean_pass_percentage": 100.0,
-      "median_pass_percentage": 100.0,
+      "mean_pass_percentage": null,
+      "median_pass_percentage": null,
       "status_counts": {
-        "error": 0,
+        "error": 2,
         "failed": 0,
-        "passed": 2,
+        "passed": 0,
         "skipped": 0
       }
     }
@@ -36,14 +36,14 @@
   "technical_reliability": {
     "with_skill_checker_completion_rate": 100.0,
     "with_skill_errors": 0,
-    "without_skill_checker_completion_rate": 100.0,
-    "without_skill_errors": 0
+    "without_skill_checker_completion_rate": 0.0,
+    "without_skill_errors": 2
   },
   "time": {
-    "with_skill_mean_checker_seconds": 20.156714,
-    "with_skill_mean_generation_seconds": 144.636333,
-    "without_skill_mean_checker_seconds": 16.816624,
-    "without_skill_mean_generation_seconds": 95.812569
+    "with_skill_mean_checker_seconds": 22.662006,
+    "with_skill_mean_generation_seconds": 110.226764,
+    "without_skill_mean_checker_seconds": null,
+    "without_skill_mean_generation_seconds": null
   },
   "total_prompts": 2
 }

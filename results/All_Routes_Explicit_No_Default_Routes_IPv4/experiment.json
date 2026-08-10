@@ -1,6 +1,32 @@
 {
-  "comparison": "EQUAL",
-  "comparison_reason": "Both candidates produced the same checker result.",
+  "check_plan_generated": true,
+  "check_plan_generation": {
+    "command": [
+      "codex",
+      "exec",
+      "--model",
+      "gpt-5.6-terra",
+      "-c",
+      "model_reasoning_effort=\"low\"",
+      "-c",
+      "approval_policy=\"never\"",
+      "--sandbox",
+      "workspace-write",
+      "--cd",
+      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/check-plan",
+      "--json",
+      "--output-last-message",
+      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/check-plan/.agent-last-message.txt",
+      "--ephemeral",
+      "Read input/prompt.md and input/evaluation-spec.md. Also read resources/checker/SKILL.md and resources/checker/config-schema.md. Generate exactly one file output/check-plan.md. This file must freeze, for every requirement listed in evaluation-spec.md, the evaluation strategy. CRITICAL: For every requirement, you MUST specify:\n- Which checker category/block represents it (e.g., 'kernel_routes', 'reachability').\n- The validation strictness (e.g., 'exact next-hop', 'exact matching').\n- Which concrete values must later be resolved from the candidate lab (e.g., 'client device name', 'server IP').\n\nThis strategy MUST be completely candidate-independent. It will be shared across all candidate evaluations. A missing concrete value (IPs, device names, prefixes, etc.) in the original prompt must NOT cause the requirement to be omitted. Only mark a requirement as not checkable when kathara-lab-checker genuinely has no supported way to represent that requirement. Write only markdown content."
+    ],
+    "duration_seconds": 94.63831424999807,
+    "return_code": 0,
+    "timed_out": false
+  },
+  "check_plan_hash": "166f9f9905d65b392359817e7405b75c280c404bf38b32e75a32bcf24c8f5eaf",
+  "comparison": "INCOMPARABLE",
+  "comparison_reason": "Both checker runs must complete successfully for a paired quality comparison.",
   "complete": true,
   "evaluation_spec_generated": true,
   "evaluation_spec_generation": {
@@ -21,15 +47,15 @@
       "--output-last-message",
       "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/evaluation-spec/.agent-last-message.txt",
       "--ephemeral",
-      "Read input/prompt.md and resources/creation/SKILL.md. Also read resources/checker/SKILL.md and resources/checker/config-schema.md. Generate exactly one file output/evaluation-spec.md. This file must structure the explicit requirements found in the prompt using the Creation Skill as a guide. CRITICAL: For every requirement derived from the prompt, you MUST specify the corresponding checker strategy and category (e.g., 'Checker: kernel_routes', 'Validation: exact next-hop', or 'Checker: reachability') that will be used to evaluate it, determining this from the Checker Skill and config-schema.md. This evaluation strategy MUST be completely candidate-independent. Do NOT add reasonable defaults, and do NOT invent any IP addresses, routing protocols, services, topologies, or other requirements that are not explicitly present in the prompt. This file is strictly for evaluation purposes and freezes both WHAT must be evaluated and HOW. Write only markdown content."
+      "Read input/prompt.md and resources/creation/SKILL.md. Generate exactly one file output/evaluation-spec.md. This file must structure the explicit requirements found in the prompt using the Creation Skill as a guide. CRITICAL: The evaluation-spec.md must describe ONLY WHAT the scenario requires. It must contain ONLY candidate-independent scenario requirements. It must NOT mention checker blocks (such as kernel_routes, reachability, etc.), strategies, or validation strictness. It must NOT contain any candidate-specific values (e.g. concrete IPs, device names, prefixes, interfaces) if they are missing from the prompt. Do NOT decide whether a checker assertion is omitted or not checkable. Do NOT add reasonable defaults, and do NOT invent any IP addresses, routing protocols, services, topologies, or other requirements that are not explicitly present in the prompt. This file is strictly for extracting and freezing the scenario requirements. Write only markdown content."
     ],
-    "duration_seconds": 84.2822778750051,
+    "duration_seconds": 27.87272729200049,
     "return_code": 0,
     "timed_out": false
   },
-  "evaluation_spec_hash": "97c73bf4df105b1df4484ffe65c414d287d9a36449bcc6c9a9fbd0b49abb9309",
+  "evaluation_spec_hash": "556ef79112ecb5b86ff4ec707958b5c60544bf0b12012089903d6166dbb5db9f",
   "experiment_id": "All_Routes_Explicit_No_Default_Routes_IPv4",
-  "finished_at": "2026-08-09T17:50:34.564016Z",
+  "finished_at": "2026-08-09T20:45:54.783513Z",
   "identity": {
     "checker_report_type": "csv",
     "checker_runtime": "kathara-lab-checker==0.1.14",
@@ -47,5 +73,5 @@
   "pipeline_version": "0.4.1",
   "prompt_file": "All Routes Explicit, No Default Routes, IPv4.md",
   "prompt_sha256": "e582f25a35c94ccf914c22072842dc98a4887e31ede17250f0e2c148d8752e5b",
-  "started_at": "2026-08-09T17:39:58.987225Z"
+  "started_at": "2026-08-09T20:35:07.048481Z"
 }

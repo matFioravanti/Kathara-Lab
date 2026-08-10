@@ -1,6 +1,32 @@
 {
+  "check_plan_generated": true,
+  "check_plan_generation": {
+    "command": [
+      "codex",
+      "exec",
+      "--model",
+      "gpt-5.6-terra",
+      "-c",
+      "model_reasoning_effort=\"low\"",
+      "-c",
+      "approval_policy=\"never\"",
+      "--sandbox",
+      "workspace-write",
+      "--cd",
+      "/Users/matthew/Desktop/A-Tesi/results/Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server/.workspaces/check-plan",
+      "--json",
+      "--output-last-message",
+      "/Users/matthew/Desktop/A-Tesi/results/Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server/.workspaces/check-plan/.agent-last-message.txt",
+      "--ephemeral",
+      "Read input/prompt.md and input/evaluation-spec.md. Also read resources/checker/SKILL.md and resources/checker/config-schema.md. Generate exactly one file output/check-plan.md. This file must freeze, for every requirement listed in evaluation-spec.md, the evaluation strategy. CRITICAL: For every requirement, you MUST specify:\n- Which checker category/block represents it (e.g., 'kernel_routes', 'reachability').\n- The validation strictness (e.g., 'exact next-hop', 'exact matching').\n- Which concrete values must later be resolved from the candidate lab (e.g., 'client device name', 'server IP').\n\nThis strategy MUST be completely candidate-independent. It will be shared across all candidate evaluations. A missing concrete value (IPs, device names, prefixes, etc.) in the original prompt must NOT cause the requirement to be omitted. Only mark a requirement as not checkable when kathara-lab-checker genuinely has no supported way to represent that requirement. Write only markdown content."
+    ],
+    "duration_seconds": 60.3409759999995,
+    "return_code": 0,
+    "timed_out": false
+  },
+  "check_plan_hash": "5fd447127817183fd8369b1ffd2d620b2a568392e6e7a3680c8069a0aa9d3181",
   "comparison": "INCOMPARABLE",
-  "comparison_reason": "Per-variant corrections produced different test counts; pair excluded from quality comparison.",
+  "comparison_reason": "Both checker runs must complete successfully for a paired quality comparison.",
   "complete": true,
   "evaluation_spec_generated": true,
   "evaluation_spec_generation": {
@@ -21,15 +47,15 @@
       "--output-last-message",
       "/Users/matthew/Desktop/A-Tesi/results/Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server/.workspaces/evaluation-spec/.agent-last-message.txt",
       "--ephemeral",
-      "Read input/prompt.md and resources/creation/SKILL.md. Also read resources/checker/SKILL.md and resources/checker/config-schema.md. Generate exactly one file output/evaluation-spec.md. This file must structure the explicit requirements found in the prompt using the Creation Skill as a guide. CRITICAL: For every requirement derived from the prompt, you MUST specify the corresponding checker strategy and category (e.g., 'Checker: kernel_routes', 'Validation: exact next-hop', or 'Checker: reachability') that will be used to evaluate it, determining this from the Checker Skill and config-schema.md. This evaluation strategy MUST be completely candidate-independent. Do NOT add reasonable defaults, and do NOT invent any IP addresses, routing protocols, services, topologies, or other requirements that are not explicitly present in the prompt. This file is strictly for evaluation purposes and freezes both WHAT must be evaluated and HOW. Write only markdown content."
+      "Read input/prompt.md and resources/creation/SKILL.md. Generate exactly one file output/evaluation-spec.md. This file must structure the explicit requirements found in the prompt using the Creation Skill as a guide. CRITICAL: The evaluation-spec.md must describe ONLY WHAT the scenario requires. It must contain ONLY candidate-independent scenario requirements. It must NOT mention checker blocks (such as kernel_routes, reachability, etc.), strategies, or validation strictness. It must NOT contain any candidate-specific values (e.g. concrete IPs, device names, prefixes, interfaces) if they are missing from the prompt. Do NOT decide whether a checker assertion is omitted or not checkable. Do NOT add reasonable defaults, and do NOT invent any IP addresses, routing protocols, services, topologies, or other requirements that are not explicitly present in the prompt. This file is strictly for extracting and freezing the scenario requirements. Write only markdown content."
     ],
-    "duration_seconds": 62.84517170899926,
+    "duration_seconds": 27.936423958999512,
     "return_code": 0,
     "timed_out": false
   },
-  "evaluation_spec_hash": "af9891e96fdc03024953c4597d87d1ef19d269d9f191eb3c72290e84ac504838",
+  "evaluation_spec_hash": "50136ee9083981014a69f163f2004170d699fc23d9d816e86e73c5838d436b7a",
   "experiment_id": "Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server",
-  "finished_at": "2026-08-09T18:01:10.572443Z",
+  "finished_at": "2026-08-09T20:55:10.104525Z",
   "identity": {
     "checker_report_type": "csv",
     "checker_runtime": "kathara-lab-checker==0.1.14",
@@ -47,5 +73,5 @@
   "pipeline_version": "0.4.1",
   "prompt_file": "Five Routers Static Routing with Hierarchical DNS and Web Server.md",
   "prompt_sha256": "94149ce85274093ca78c473eff59dc4bd763fd61568e7d566fefd6209c1714c0",
-  "started_at": "2026-08-09T17:50:34.587112Z"
+  "started_at": "2026-08-09T20:45:54.804772Z"
 }

@@ -1,5 +1,6 @@
 {
-  "canonical_correction_sha256": "2ebb740afe749d6506b6431895108973ea72c0dd95cd8374f73ca8d57b97631a",
+  "canonical_correction_sha256": "c1c6a16d243475f86e2736dde7cb7e0fc9383f191cd689ca76381b7b657d83a3",
+  "check_plan_hash": "166f9f9905d65b392359817e7405b75c280c404bf38b32e75a32bcf24c8f5eaf",
   "checker": {
     "command": [
       "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
@@ -13,7 +14,7 @@
       "--report-type",
       "csv"
     ],
-    "duration_seconds": 19.64408325000113,
+    "duration_seconds": 24.35957383299683,
     "return_code": 0,
     "timed_out": false
   },
@@ -40,17 +41,17 @@
       "--output-last-message",
       "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/correction_with_skill/.agent-last-message.txt",
       "--ephemeral",
-      "Read input/prompt.md, input/evaluation-spec.md, candidate/ (the generated lab implementation), resources/checker/SKILL.md, and resources/checker/config-schema.md. Generate exactly one canonical output/correction.yaml for kathara-lab-checker. This is a per-variant correction: the correction MUST evaluate exactly the requirements frozen in input/evaluation-spec.md. The candidate lab must ONLY provide the concrete values (device names, IP addresses, subnets, interfaces, next-hops, collision domains) needed to instantiate those requirements.\n\nCRITICAL REQUIREMENT-DRIVEN GENERATION:\nThe evaluation strategy (which requirements are checked, which checker categories are used, and the strictness of those checks) is already determined and frozen inside evaluation-spec.md. You MUST treat this strategy as mandatory. You must perform the exact same semantic checks and use the exact same checker categories as dictated by the evaluation-spec.md, just as you would for any other candidate fulfilling the same specification. Do not add a check only because one candidate exposes more implementation details. Do not omit or weaken a check in one variant because its candidate is different. Examples:\n- if static routing is required with exact next-hop validation, use it for both variants;\n- if DNS resolution is required, both corrections must contain equivalent DNS checks;\n- if end-to-end reachability is required, both corrections must contain equivalent reachability checks.\n\nAutomatically include every standard supported check that is explicitly specified or unambiguously derivable from the evaluation-spec.md. Prefer standard checks over custom_commands unless explicitly required. IMPORTANT: lab_inline is mandatory and must contain the complete expected topology derived from the evaluation-spec and candidate lab. default_image is a mandatory checker field. Use lab_inline rather than structure and omit labs_path. Follow the runtime 0.1.14 compatibility rules in the Skill. Write only YAML to output/correction.yaml, with no surrounding prose. Do not create any other output file."
+      "Read input/prompt.md, input/evaluation-spec.md, input/check-plan.md, candidate/ (the generated lab implementation), resources/checker/SKILL.md, and resources/checker/config-schema.md. Generate exactly one canonical output/correction.yaml for kathara-lab-checker. This is a per-variant correction: the correction MUST evaluate exactly the requirements frozen in input/evaluation-spec.md, using the evaluation strategy defined in input/check-plan.md. The candidate lab must ONLY provide the concrete values (device names, IP addresses, subnets, interfaces, next-hops, collision domains) needed to instantiate those requirements.\n\nCRITICAL REQUIREMENT-DRIVEN GENERATION:\nThe evaluation strategy (which requirements are checked, which checker categories are used, and the strictness of those checks) is already determined and frozen inside check-plan.md. You MUST treat this strategy as mandatory. You must perform the exact same semantic checks and use the exact same checker categories as dictated by the check-plan.md, just as you would for any other candidate fulfilling the same specification. Do not add a check only because one candidate exposes more implementation details. Do not omit or weaken a check in one variant because its candidate is different. Examples:\n- if static routing is required with exact next-hop validation, use it for both variants;\n- if DNS resolution is required, both corrections must contain equivalent DNS checks;\n- if end-to-end reachability is required, both corrections must contain equivalent reachability checks.\n\nAutomatically include every standard supported check that is explicitly specified or unambiguously derivable from the check-plan.md. Prefer standard checks over custom_commands unless explicitly required. IMPORTANT: lab_inline is mandatory and must contain the complete expected topology derived from the evaluation-spec and candidate lab. default_image is a mandatory checker field. Use lab_inline rather than structure and omit labs_path. Follow the runtime 0.1.14 compatibility rules in the Skill. Write only YAML to output/correction.yaml, with no surrounding prose. Do not create any other output file."
     ],
-    "duration_seconds": 95.62113908399624,
+    "duration_seconds": 206.64073995800572,
     "return_code": 0,
     "timed_out": false
   },
-  "correction_hash": "2ebb740afe749d6506b6431895108973ea72c0dd95cd8374f73ca8d57b97631a",
+  "correction_hash": "c1c6a16d243475f86e2736dde7cb7e0fc9383f191cd689ca76381b7b657d83a3",
   "creation_skill_enabled": true,
   "creation_skill_sha256": "bf4daac809c4088ad9106268c093cca9c41f79e95dba4113f108c0298d85b996",
   "errors": [],
-  "evaluation_spec_hash": "97c73bf4df105b1df4484ffe65c414d287d9a36449bcc6c9a9fbd0b49abb9309",
+  "evaluation_spec_hash": "556ef79112ecb5b86ff4ec707958b5c60544bf0b12012089903d6166dbb5db9f",
   "experiment_id": "All_Routes_Explicit_No_Default_Routes_IPv4",
   "generation": {
     "command": [
@@ -72,7 +73,7 @@
       "--ephemeral",
       "Read input/prompt.md and resources/creation/SKILL.md. Use resources/creation/SKILL.md as the authoritative general implementation guide for Kathara, while the requested scenario itself is defined only by input/prompt.md. Generate exactly one complete Kathara laboratory inside output/lab/. Do not read files outside this workspace. Do not modify input/ or resources/. Do not generate correction.yaml and do not run Kathara or kathara_lab_checker. The laboratory must be complete, persistent, contain no placeholders, and be internally consistent."
     ],
-    "duration_seconds": 129.72993120799947,
+    "duration_seconds": 111.43182820800575,
     "return_code": 0,
     "timed_out": false
   },
@@ -82,52 +83,54 @@
   "generation_reasoning_effort": "low",
   "lab_generated": true,
   "metrics": {
-    "failed_tests": 0,
-    "failure_categories": {},
-    "pass_percentage": 100.0,
-    "passed_tests": 135,
+    "failed_tests": 65,
+    "failure_categories": {
+      "uncategorized": 65
+    },
+    "pass_percentage": 71.73913,
+    "passed_tests": 165,
     "reports_found": [
       "results.csv",
       "candidate_result_all.csv",
       "candidate_result_failed.csv",
       "candidate_result_summary.csv"
     ],
-    "total_tests": 135
+    "total_tests": 230
   },
   "phases": [
     {
-      "at": "2026-08-09T17:41:23.277829Z",
+      "at": "2026-08-09T20:37:09.572803Z",
       "name": "discovered"
     },
     {
-      "at": "2026-08-09T17:41:23.278839Z",
+      "at": "2026-08-09T20:37:09.573344Z",
       "name": "lab_generation_started"
     },
     {
-      "at": "2026-08-09T17:43:33.223913Z",
+      "at": "2026-08-09T20:39:01.214190Z",
       "name": "lab_generated"
     },
     {
-      "at": "2026-08-09T17:43:33.223952Z",
+      "at": "2026-08-09T20:39:01.214220Z",
       "name": "static_validation_passed"
     },
     {
-      "at": "2026-08-09T17:45:08.884444Z",
+      "at": "2026-08-09T20:42:27.900205Z",
       "name": "checker_started"
     },
     {
-      "at": "2026-08-09T17:45:28.532863Z",
+      "at": "2026-08-09T20:42:52.268243Z",
       "name": "checker_completed"
     },
     {
-      "at": "2026-08-09T17:45:28.532878Z",
-      "name": "passed"
+      "at": "2026-08-09T20:42:52.268260Z",
+      "name": "failed"
     }
   ],
   "pipeline_version": "0.4.1",
   "prompt_file": "All Routes Explicit, No Default Routes, IPv4.md",
   "prompt_sha256": "e582f25a35c94ccf914c22072842dc98a4887e31ede17250f0e2c148d8752e5b",
   "static_validation_passed": true,
-  "status": "passed",
+  "status": "failed",
   "variant": "with_skill"
 }

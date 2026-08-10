@@ -1,5 +1,0 @@
-#!/bin/bash
-ip link set eth0 up
-ip addr add 10.0.1.10/24 dev eth0
-ip route add default via 10.0.1.1
-printf 'nameserver 10.0.50.4\n' > /etc/resolv.conf

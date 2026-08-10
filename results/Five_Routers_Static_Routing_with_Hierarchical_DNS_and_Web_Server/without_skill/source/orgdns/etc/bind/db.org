@@ -1,5 +1,0 @@
-$TTL 300
-@ IN SOA ns.org. admin.org. (1 300 300 300 300)
-@ IN NS ns.org.
-ns IN A 10.0.50.3
-kathara IN A 10.0.60.10

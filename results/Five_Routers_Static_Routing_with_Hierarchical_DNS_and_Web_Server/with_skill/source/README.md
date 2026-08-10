@@ -1,18 +1,18 @@
-# Static routing with hierarchical DNS
+# Five Routers, Static Routing, Hierarchical DNS, and Web Server
 
-This laboratory uses five statically routed routers. The client asks the local recursive DNS server for `kathara.org`; that server follows its root hint to the root DNS server, receives the referral for the `org` zone, and obtains the final address from the authoritative `org` DNS server. The resulting address points to the Apache web server.
+This lab connects a client to `kathara.org` through five statically routed routers. The client uses `localdns`, a recursive resolver with a root hint. `rootdns` delegates the `org` top-level domain to `orgdns`, which is authoritative for `kathara.org`; the resulting address is the Apache server `web`.
 
-Start the lab with:
+Start the laboratory from this directory:
 
 ```sh
 kathara lstart
 ```
 
-From `client`, verify name resolution and HTTP access:
+Quick validation from the client:
 
 ```sh
-ping -c 2 kathara.org
-curl http://kathara.org/
+kathara exec client -- ping -c 2 kathara.org
+kathara exec client -- curl http://kathara.org
 ```
 
-Addressing uses the `10.10.0.0/16` private range. Routers `r2`, `r3`, and `r4` each have exactly three interfaces; `r1` and `r5` have two.
+The five routers form the path `r1 - r2 - r3 - r4 - r5`. Router `r2` additionally connects the local DNS LAN, and router `r3` additionally connects the root DNS LAN, so no router has a degree greater than three.

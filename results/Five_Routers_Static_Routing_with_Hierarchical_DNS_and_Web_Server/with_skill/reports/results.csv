@@ -1,3 +1,2 @@
 Student Name,Tests Passed,Tests Failed,Tests Total Number,Problems
-candidate,39,2,41,"1: Verifying `kathara.org` reachable from device `client`: ping: kathara.org: Temporary failure in name resolution
-2: Checking correctness of DNS records: client resolve A kathara.org with IP  instead of ['10.10.40.2']"
+candidate,40,0,40,None

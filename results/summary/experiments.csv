@@ -1,5 +1,7 @@
 experiment_id,prompt_file,variant,status,checker_completed,total_tests,passed_tests,failed_tests,pass_percentage,generation_duration_seconds,checker_duration_seconds,correction_sha256,error
-All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",with_skill,passed,True,135,135,0,100.0,129.72993120799947,19.64408325000113,2ebb740afe749d6506b6431895108973ea72c0dd95cd8374f73ca8d57b97631a,
-All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",without_skill,passed,True,135,135,0,100.0,88.00408670800243,19.6960889999973,2c9c8e98fe307037f7fac9971e270a617c35ae047a859c11377b0e38b85a25ad,
-Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server,Five Routers Static Routing with Hierarchical DNS and Web Server.md,with_skill,failed,True,41,39,2,95.121951,159.54273429199384,20.669343832996674,f2341494ca311e61e86d51507c3bddada237988f16cab9512727aafb95c74fcb,
-Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server,Five Routers Static Routing with Hierarchical DNS and Web Server.md,without_skill,passed,True,28,28,0,100.0,103.62105066699587,13.937158957996871,d9a8945f07542cfbfbf3c261d706e13d20bcf1336feddd65547a9521f678db74,
+All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",with_skill,failed,True,230,165,65,71.73913,111.43182820800575,24.35957383299683,c1c6a16d243475f86e2736dde7cb7e0fc9383f191cd689ca76381b7b657d83a3,
+All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",without_skill,error,False,,,,,,,,"Generated lab still invalid after 2 attempt(s): Kathara LabParser validation failed: In lab.conf - Line 4: `R1[0]=r1-r2
+`."
+Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server,Five Routers Static Routing with Hierarchical DNS and Web Server.md,with_skill,passed,True,40,40,0,100.0,109.02169983299973,20.96443783400173,5c15aabc64ea566c208d95eb0fa4fd708e4d202404c302fe5ae56f5e0eb508f6,
+Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server,Five Routers Static Routing with Hierarchical DNS and Web Server.md,without_skill,error,False,,,,,,,,"Generated lab still invalid after 2 attempt(s): Kathara LabParser validation failed: In lab.conf - Line 6: `root-dns[image]=""kathara/bind9""
+`."

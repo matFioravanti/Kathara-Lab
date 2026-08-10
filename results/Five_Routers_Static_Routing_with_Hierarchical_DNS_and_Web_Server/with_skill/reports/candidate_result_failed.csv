@@ -1,3 +1,1 @@
 Test Description,Passed,Reason
-Verifying `kathara.org` reachable from device `client`,False,ping: kathara.org: Temporary failure in name resolution
-Checking correctness of DNS records,False,client resolve A kathara.org with IP  instead of ['10.10.40.2']

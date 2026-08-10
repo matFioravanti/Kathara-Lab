@@ -1,2 +1,2 @@
 experiment_id,prompt_file,outcome,reason,evaluation_spec_sha256,with_skill_status,without_skill_status,with_skill_pass_percentage,without_skill_pass_percentage,delta_pass_percentage_points,with_skill_failed_tests,without_skill_failed_tests
-All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",EQUAL,Both candidates produced the same checker result.,97c73bf4df105b1df4484ffe65c414d287d9a36449bcc6c9a9fbd0b49abb9309,passed,passed,100.0,100.0,0.0,0,0
+All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,556ef79112ecb5b86ff4ec707958b5c60544bf0b12012089903d6166dbb5db9f,failed,error,71.73913,,,65,
