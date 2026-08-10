@@ -11,7 +11,6 @@ from kathara_pipeline.models import CommandResult, ResourceFiles, Variant, Varia
 
 def test_retry_after_lab_validator_failure(tmp_path: Path):
     runner = Mock()
-    # Mock runner.run to simulate agent generating an invalid lab on attempt 1, and a valid one on attempt 2
     def side_effect(*args, **kwargs):
         workspace = kwargs["workspace"]
         attempt_file = workspace / "attempt.txt"
@@ -22,7 +21,12 @@ def test_retry_after_lab_validator_failure(tmp_path: Path):
         generated.mkdir(parents=True, exist_ok=True)
         if attempt == 1:
             (generated / "lab.conf").write_text('r1-invalid[0]="A"\n')
+            (generated / "KEEP_ME.txt").write_text("sentinel")
         else:
+            # Physically verify the sentinel exists BEFORE doing anything
+            assert (generated / "KEEP_ME.txt").exists(), "output/lab/ was wiped before attempt 2!"
+            assert (generated / "KEEP_ME.txt").read_text() == "sentinel"
+            
             (generated / "lab.conf").write_text('r1[0]="A"\n')
 
         return CommandResult(
@@ -83,7 +87,9 @@ def test_retry_after_lab_validator_failure(tmp_path: Path):
     # Assert second run used the retry instruction
     second_call_instruction = runner.run.call_args_list[1].kwargs["instruction"]
     assert "failed static validation with the following errors" in second_call_instruction
-    assert "Kathara LabParser validation failed" in second_call_instruction
+    assert "modify it in-place" in second_call_instruction
+    assert "Preserve every valid part" in second_call_instruction
+    assert "Do not rebuild unrelated files" in second_call_instruction
 
 
 def test_final_invalid_lab_is_preserved_in_source_failed(tmp_path: Path):

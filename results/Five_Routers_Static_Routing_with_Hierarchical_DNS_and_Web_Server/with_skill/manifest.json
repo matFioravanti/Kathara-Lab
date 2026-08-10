@@ -1,6 +1,6 @@
 {
-  "canonical_correction_sha256": "5c15aabc64ea566c208d95eb0fa4fd708e4d202404c302fe5ae56f5e0eb508f6",
-  "check_plan_hash": "5fd447127817183fd8369b1ffd2d620b2a568392e6e7a3680c8069a0aa9d3181",
+  "canonical_correction_sha256": "bee3197d827d52e75ed27dd38845b07c6f64e9b82e3d92fa16b1177a8a43e3fe",
+  "check_plan_hash": "2dd09b3cf89ebc4441a975179af32c307e8e37dcbae29866b43935c9d6e3a3a0",
   "checker": {
     "command": [
       "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
@@ -14,14 +14,15 @@
       "--report-type",
       "csv"
     ],
-    "duration_seconds": 20.96443783400173,
+    "duration_seconds": 20.794510416002595,
     "return_code": 0,
     "timed_out": false
   },
   "checker_attempted": true,
   "checker_completed": true,
-  "checker_schema_sha256": "2e6226fa74eb59ca212a7fa6e69bc47dcbadc30ec99f146837cea90af5a6e658",
-  "checker_skill_sha256": "08fa430bb7bf38d1485d9568092a368c2434336d08d470cabf99f2fc72df7df2",
+  "checker_schema_sha256": "1442d95a9a4cf265bdc68e90f3340cf23be1cb06b2ee48ca6589da893b0eab90",
+  "checker_skill_sha256": "80ade8e9550a4fa3014f8801b7b9d073ba19e92f7389a014e5566063289c3203",
+  "correction_calls": 0,
   "correction_generated": true,
   "correction_generation": {
     "command": [
@@ -43,15 +44,17 @@
       "--ephemeral",
       "Read input/prompt.md, input/evaluation-spec.md, input/check-plan.md, candidate/ (the generated lab implementation), resources/checker/SKILL.md, and resources/checker/config-schema.md. Generate exactly one canonical output/correction.yaml for kathara-lab-checker. This is a per-variant correction: the correction MUST evaluate exactly the requirements frozen in input/evaluation-spec.md, using the evaluation strategy defined in input/check-plan.md. The candidate lab must ONLY provide the concrete values (device names, IP addresses, subnets, interfaces, next-hops, collision domains) needed to instantiate those requirements.\n\nCRITICAL REQUIREMENT-DRIVEN GENERATION:\nThe evaluation strategy (which requirements are checked, which checker categories are used, and the strictness of those checks) is already determined and frozen inside check-plan.md. You MUST treat this strategy as mandatory. You must perform the exact same semantic checks and use the exact same checker categories as dictated by the check-plan.md, just as you would for any other candidate fulfilling the same specification. Do not add a check only because one candidate exposes more implementation details. Do not omit or weaken a check in one variant because its candidate is different. Examples:\n- if static routing is required with exact next-hop validation, use it for both variants;\n- if DNS resolution is required, both corrections must contain equivalent DNS checks;\n- if end-to-end reachability is required, both corrections must contain equivalent reachability checks.\n\nAutomatically include every standard supported check that is explicitly specified or unambiguously derivable from the check-plan.md. Prefer standard checks over custom_commands unless explicitly required. IMPORTANT: lab_inline is mandatory and must contain the complete expected topology derived from the evaluation-spec and candidate lab. default_image is a mandatory checker field. Use lab_inline rather than structure and omit labs_path. Follow the runtime 0.1.14 compatibility rules in the Skill. Write only YAML to output/correction.yaml, with no surrounding prose. Do not create any other output file."
     ],
-    "duration_seconds": 65.1294400830011,
+    "duration_seconds": 84.50613225000416,
     "return_code": 0,
     "timed_out": false
   },
-  "correction_hash": "5c15aabc64ea566c208d95eb0fa4fd708e4d202404c302fe5ae56f5e0eb508f6",
+  "correction_hash": "bee3197d827d52e75ed27dd38845b07c6f64e9b82e3d92fa16b1177a8a43e3fe",
+  "correction_mode": "full_generation",
+  "correction_retries": 0,
   "creation_skill_enabled": true,
   "creation_skill_sha256": "bf4daac809c4088ad9106268c093cca9c41f79e95dba4113f108c0298d85b996",
   "errors": [],
-  "evaluation_spec_hash": "50136ee9083981014a69f163f2004170d699fc23d9d816e86e73c5838d436b7a",
+  "evaluation_spec_hash": "6b0abbebbae0517084730bd12a6824920f681d439357e3408353e2e3d0cae599",
   "experiment_id": "Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server",
   "generation": {
     "command": [
@@ -73,7 +76,7 @@
       "--ephemeral",
       "Read input/prompt.md and resources/creation/SKILL.md. Use resources/creation/SKILL.md as the authoritative general implementation guide for Kathara, while the requested scenario itself is defined only by input/prompt.md. Generate exactly one complete Kathara laboratory inside output/lab/. Do not read files outside this workspace. Do not modify input/ or resources/. Do not generate correction.yaml and do not run Kathara or kathara_lab_checker. The laboratory must be complete, persistent, contain no placeholders, and be internally consistent."
     ],
-    "duration_seconds": 109.02169983299973,
+    "duration_seconds": 128.2922645409999,
     "return_code": 0,
     "timed_out": false
   },
@@ -81,54 +84,58 @@
   "generation_model": "gpt-5.6-terra",
   "generation_provider": "codex",
   "generation_reasoning_effort": "low",
+  "lab_calls": 0,
   "lab_generated": true,
+  "lab_retries": 0,
   "metrics": {
-    "failed_tests": 0,
-    "failure_categories": {},
-    "pass_percentage": 100.0,
-    "passed_tests": 40,
+    "failed_tests": 38,
+    "failure_categories": {
+      "uncategorized": 38
+    },
+    "pass_percentage": 46.478873,
+    "passed_tests": 33,
     "reports_found": [
       "results.csv",
       "candidate_result_all.csv",
       "candidate_result_failed.csv",
       "candidate_result_summary.csv"
     ],
-    "total_tests": 40
+    "total_tests": 71
   },
   "phases": [
     {
-      "at": "2026-08-09T20:47:23.097476Z",
+      "at": "2026-08-10T20:34:25.821582Z",
       "name": "discovered"
     },
     {
-      "at": "2026-08-09T20:47:23.097954Z",
+      "at": "2026-08-10T20:34:25.822207Z",
       "name": "lab_generation_started"
     },
     {
-      "at": "2026-08-09T20:49:12.150013Z",
+      "at": "2026-08-10T20:36:34.148754Z",
       "name": "lab_generated"
     },
     {
-      "at": "2026-08-09T20:49:12.150067Z",
+      "at": "2026-08-10T20:36:34.148807Z",
       "name": "static_validation_passed"
     },
     {
-      "at": "2026-08-09T20:50:17.319766Z",
+      "at": "2026-08-10T20:41:05.744207Z",
       "name": "checker_started"
     },
     {
-      "at": "2026-08-09T20:50:38.289114Z",
+      "at": "2026-08-10T20:41:26.548782Z",
       "name": "checker_completed"
     },
     {
-      "at": "2026-08-09T20:50:38.289136Z",
-      "name": "passed"
+      "at": "2026-08-10T20:41:26.548800Z",
+      "name": "failed"
     }
   ],
-  "pipeline_version": "0.4.1",
+  "pipeline_version": "0.5.0",
   "prompt_file": "Five Routers Static Routing with Hierarchical DNS and Web Server.md",
-  "prompt_sha256": "94149ce85274093ca78c473eff59dc4bd763fd61568e7d566fefd6209c1714c0",
+  "prompt_sha256": "ffc9c528c44ca6dfbbc45f13cd44e528c7e71a75b58ee704faf9b4872b8d54fb",
   "static_validation_passed": true,
-  "status": "passed",
+  "status": "failed",
   "variant": "with_skill"
 }

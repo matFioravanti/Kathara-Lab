@@ -13,21 +13,21 @@
       }
     },
     "with_skill": {
-      "mean_pass_percentage": 85.869565,
-      "median_pass_percentage": 85.869565,
+      "mean_pass_percentage": 52.484719,
+      "median_pass_percentage": 52.484719,
       "status_counts": {
         "error": 0,
-        "failed": 1,
-        "passed": 1,
+        "failed": 2,
+        "passed": 0,
         "skipped": 0
       }
     },
     "without_skill": {
-      "mean_pass_percentage": null,
-      "median_pass_percentage": null,
+      "mean_pass_percentage": 42.465753,
+      "median_pass_percentage": 42.465753,
       "status_counts": {
-        "error": 2,
-        "failed": 0,
+        "error": 1,
+        "failed": 1,
         "passed": 0,
         "skipped": 0
       }
@@ -36,14 +36,14 @@
   "technical_reliability": {
     "with_skill_checker_completion_rate": 100.0,
     "with_skill_errors": 0,
-    "without_skill_checker_completion_rate": 0.0,
-    "without_skill_errors": 2
+    "without_skill_checker_completion_rate": 50.0,
+    "without_skill_errors": 1
   },
   "time": {
-    "with_skill_mean_checker_seconds": 22.662006,
-    "with_skill_mean_generation_seconds": 110.226764,
-    "without_skill_mean_checker_seconds": null,
-    "without_skill_mean_generation_seconds": null
+    "with_skill_mean_checker_seconds": 24.12896,
+    "with_skill_mean_generation_seconds": 134.10984,
+    "without_skill_mean_checker_seconds": 14.947829,
+    "without_skill_mean_generation_seconds": 36.06365
   },
   "total_prompts": 2
 }

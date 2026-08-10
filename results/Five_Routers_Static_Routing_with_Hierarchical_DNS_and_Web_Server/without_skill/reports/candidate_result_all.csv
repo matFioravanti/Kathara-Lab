@@ -1,0 +1,80 @@
+Test Description,Passed,Reason
+Check existence of `r1`,True,OK
+Check existence of `r2`,True,OK
+Check existence of `r3`,True,OK
+Check existence of `r4`,True,OK
+Check existence of `r5`,True,OK
+Check existence of `client`,True,OK
+Check existence of `localdns`,True,OK
+Check existence of `rootdns`,True,OK
+Check existence of `orgdns`,True,OK
+Check existence of `web`,True,OK
+Checking the collision domain attached to interface `eth0` of `r1`,True,OK
+Checking the collision domain attached to interface `eth1` of `r1`,True,OK
+Checking the collision domain attached to interface `eth0` of `r2`,True,OK
+Checking the collision domain attached to interface `eth1` of `r2`,True,OK
+Checking the collision domain attached to interface `eth0` of `r3`,True,OK
+Checking the collision domain attached to interface `eth1` of `r3`,True,OK
+Checking the collision domain attached to interface `eth2` of `r3`,True,OK
+Checking the collision domain attached to interface `eth0` of `r4`,True,OK
+Checking the collision domain attached to interface `eth1` of `r4`,True,OK
+Checking the collision domain attached to interface `eth0` of `r5`,True,OK
+Checking the collision domain attached to interface `eth1` of `r5`,True,OK
+Checking the collision domain attached to interface `eth0` of `client`,True,OK
+Checking the collision domain attached to interface `eth0` of `localdns`,True,OK
+Checking the collision domain attached to interface `eth0` of `rootdns`,True,OK
+Checking the collision domain attached to interface `eth0` of `orgdns`,True,OK
+Checking the collision domain attached to interface `eth0` of `web`,True,OK
+Verifying `kathara.org` reachable from device `client`,False,ping: kathara.org: Temporary failure in name resolution
+Checking the routing table of r1,False,"The routing table of r1 have the wrong number of routes: 0, expected: 5"
+Checking the routing table of r1,False,The routing table of r1 is missing route 10.0.23.0/30
+Checking the routing table of r1,False,The routing table of r1 is missing route 10.0.34.0/30
+Checking the routing table of r1,False,The routing table of r1 is missing route 10.0.35.0/30
+Checking the routing table of r1,False,The routing table of r1 is missing route 10.0.4.0/24
+Checking the routing table of r1,False,The routing table of r1 is missing route 10.0.5.0/24
+Checking the routing table of r2,False,"The routing table of r2 have the wrong number of routes: 0, expected: 5"
+Checking the routing table of r2,False,The routing table of r2 is missing route 10.0.1.0/24
+Checking the routing table of r2,False,The routing table of r2 is missing route 10.0.34.0/30
+Checking the routing table of r2,False,The routing table of r2 is missing route 10.0.35.0/30
+Checking the routing table of r2,False,The routing table of r2 is missing route 10.0.4.0/24
+Checking the routing table of r2,False,The routing table of r2 is missing route 10.0.5.0/24
+Checking the routing table of r3,False,"The routing table of r3 have the wrong number of routes: 0, expected: 4"
+Checking the routing table of r3,False,The routing table of r3 is missing route 10.0.1.0/24
+Checking the routing table of r3,False,The routing table of r3 is missing route 10.0.12.0/30
+Checking the routing table of r3,False,The routing table of r3 is missing route 10.0.4.0/24
+Checking the routing table of r3,False,The routing table of r3 is missing route 10.0.5.0/24
+Checking the routing table of r4,False,"The routing table of r4 have the wrong number of routes: 0, expected: 5"
+Checking the routing table of r4,False,The routing table of r4 is missing route 10.0.1.0/24
+Checking the routing table of r4,False,The routing table of r4 is missing route 10.0.12.0/30
+Checking the routing table of r4,False,The routing table of r4 is missing route 10.0.23.0/30
+Checking the routing table of r4,False,The routing table of r4 is missing route 10.0.35.0/30
+Checking the routing table of r4,False,The routing table of r4 is missing route 10.0.5.0/24
+Checking the routing table of r5,False,"The routing table of r5 have the wrong number of routes: 0, expected: 5"
+Checking the routing table of r5,False,The routing table of r5 is missing route 10.0.1.0/24
+Checking the routing table of r5,False,The routing table of r5 is missing route 10.0.12.0/30
+Checking the routing table of r5,False,The routing table of r5 is missing route 10.0.23.0/30
+Checking the routing table of r5,False,The routing table of r5 is missing route 10.0.34.0/30
+Checking the routing table of r5,False,The routing table of r5 is missing route 10.0.4.0/24
+Checking the routing table of client,False,"The routing table of client have the wrong number of routes: 0, expected: 1"
+Checking the routing table of client,False,The routing table of client is missing route 0.0.0.0/0
+Checking the routing table of localdns,False,"The routing table of localdns have the wrong number of routes: 0, expected: 1"
+Checking the routing table of localdns,False,The routing table of localdns is missing route 0.0.0.0/0
+Checking the routing table of rootdns,False,"The routing table of rootdns have the wrong number of routes: 0, expected: 1"
+Checking the routing table of rootdns,False,The routing table of rootdns is missing route 0.0.0.0/0
+Checking the routing table of orgdns,False,"The routing table of orgdns have the wrong number of routes: 0, expected: 1"
+Checking the routing table of orgdns,False,The routing table of orgdns is missing route 0.0.0.0/0
+Checking the routing table of web,False,"The routing table of web have the wrong number of routes: 0, expected: 1"
+Checking the routing table of web,False,The routing table of web is missing route 0.0.0.0/0
+Checking that `10.0.1.53` is the local name server for device `client`,False,`resolv.conf` file not found for device `client`
+Checking correctness of DNS records,False,"client resolve A kathara.org with IP ;; UDP setup with ::1#53(::1) for kathara.org failed: address not available.
+;; no servers could be reached
+;; UDP setup with ::1#53(::1) for kathara.org failed: address not available.
+;; no servers could be reached
+;; UDP setup with ::1#53(::1) for kathara.org failed: address not available.
+;; communications error to 127.0.0.1#53: connection refused
+;; no servers could be reached instead of ['10.0.5.10']"
+Checking the output of the command 'cat /proc/sys/net/ipv4/ip_forward' on 'r1',True,OK
+Checking the output of the command 'cat /proc/sys/net/ipv4/ip_forward' on 'r2',True,OK
+Checking the output of the command 'cat /proc/sys/net/ipv4/ip_forward' on 'r3',True,OK
+Checking the output of the command 'cat /proc/sys/net/ipv4/ip_forward' on 'r4',True,OK
+Checking the output of the command 'cat /proc/sys/net/ipv4/ip_forward' on 'r5',True,OK

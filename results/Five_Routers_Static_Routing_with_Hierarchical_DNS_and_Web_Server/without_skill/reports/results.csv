@@ -1,0 +1,49 @@
+Student Name,Tests Passed,Tests Failed,Tests Total Number,Problems
+candidate,31,42,73,"1: Verifying `kathara.org` reachable from device `client`: ping: kathara.org: Temporary failure in name resolution
+2: Checking the routing table of r1: The routing table of r1 have the wrong number of routes: 0, expected: 5
+3: Checking the routing table of r1: The routing table of r1 is missing route 10.0.23.0/30
+4: Checking the routing table of r1: The routing table of r1 is missing route 10.0.34.0/30
+5: Checking the routing table of r1: The routing table of r1 is missing route 10.0.35.0/30
+6: Checking the routing table of r1: The routing table of r1 is missing route 10.0.4.0/24
+7: Checking the routing table of r1: The routing table of r1 is missing route 10.0.5.0/24
+8: Checking the routing table of r2: The routing table of r2 have the wrong number of routes: 0, expected: 5
+9: Checking the routing table of r2: The routing table of r2 is missing route 10.0.1.0/24
+10: Checking the routing table of r2: The routing table of r2 is missing route 10.0.34.0/30
+11: Checking the routing table of r2: The routing table of r2 is missing route 10.0.35.0/30
+12: Checking the routing table of r2: The routing table of r2 is missing route 10.0.4.0/24
+13: Checking the routing table of r2: The routing table of r2 is missing route 10.0.5.0/24
+14: Checking the routing table of r3: The routing table of r3 have the wrong number of routes: 0, expected: 4
+15: Checking the routing table of r3: The routing table of r3 is missing route 10.0.1.0/24
+16: Checking the routing table of r3: The routing table of r3 is missing route 10.0.12.0/30
+17: Checking the routing table of r3: The routing table of r3 is missing route 10.0.4.0/24
+18: Checking the routing table of r3: The routing table of r3 is missing route 10.0.5.0/24
+19: Checking the routing table of r4: The routing table of r4 have the wrong number of routes: 0, expected: 5
+20: Checking the routing table of r4: The routing table of r4 is missing route 10.0.1.0/24
+21: Checking the routing table of r4: The routing table of r4 is missing route 10.0.12.0/30
+22: Checking the routing table of r4: The routing table of r4 is missing route 10.0.23.0/30
+23: Checking the routing table of r4: The routing table of r4 is missing route 10.0.35.0/30
+24: Checking the routing table of r4: The routing table of r4 is missing route 10.0.5.0/24
+25: Checking the routing table of r5: The routing table of r5 have the wrong number of routes: 0, expected: 5
+26: Checking the routing table of r5: The routing table of r5 is missing route 10.0.1.0/24
+27: Checking the routing table of r5: The routing table of r5 is missing route 10.0.12.0/30
+28: Checking the routing table of r5: The routing table of r5 is missing route 10.0.23.0/30
+29: Checking the routing table of r5: The routing table of r5 is missing route 10.0.34.0/30
+30: Checking the routing table of r5: The routing table of r5 is missing route 10.0.4.0/24
+31: Checking the routing table of client: The routing table of client have the wrong number of routes: 0, expected: 1
+32: Checking the routing table of client: The routing table of client is missing route 0.0.0.0/0
+33: Checking the routing table of localdns: The routing table of localdns have the wrong number of routes: 0, expected: 1
+34: Checking the routing table of localdns: The routing table of localdns is missing route 0.0.0.0/0
+35: Checking the routing table of rootdns: The routing table of rootdns have the wrong number of routes: 0, expected: 1
+36: Checking the routing table of rootdns: The routing table of rootdns is missing route 0.0.0.0/0
+37: Checking the routing table of orgdns: The routing table of orgdns have the wrong number of routes: 0, expected: 1
+38: Checking the routing table of orgdns: The routing table of orgdns is missing route 0.0.0.0/0
+39: Checking the routing table of web: The routing table of web have the wrong number of routes: 0, expected: 1
+40: Checking the routing table of web: The routing table of web is missing route 0.0.0.0/0
+41: Checking that `10.0.1.53` is the local name server for device `client`: `resolv.conf` file not found for device `client`
+42: Checking correctness of DNS records: client resolve A kathara.org with IP ;; UDP setup with ::1#53(::1) for kathara.org failed: address not available.
+;; no servers could be reached
+;; UDP setup with ::1#53(::1) for kathara.org failed: address not available.
+;; no servers could be reached
+;; UDP setup with ::1#53(::1) for kathara.org failed: address not available.
+;; communications error to 127.0.0.1#53: connection refused
+;; no servers could be reached instead of ['10.0.5.10']"

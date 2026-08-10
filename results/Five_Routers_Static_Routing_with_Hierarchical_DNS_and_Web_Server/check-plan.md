@@ -1,31 +1,13 @@
-# Frozen evaluation strategy
+# Evaluation check plan
 
-This plan is candidate-independent.  Names such as `router_1`, `client`, and
-`root_dns` below are placeholders for values to resolve at evaluation time;
-they are not required candidate names.  No topology, address plan, daemon
-implementation, or HTTP service is implied beyond the scenario requirements.
+This plan instantiates every requirement in `evaluation-spec.md` only after inspecting the candidate lab. Values discovered then define the check instance; they do not add, remove, or alter requirements.
 
-| ID | Requirement | Checker category/block | Validation strictness | Concrete values to resolve later from the candidate lab |
-| --- | --- | --- | --- | --- |
-| N1 | The lab contains five routers. | Not checkable with the supported checker schema. `lab_inline` can assert one *predefined* device-to-link topology, but has no cardinality, role, or device-type predicate. | N/A | N/A. Do not turn the candidate's discovered router names into `lab_inline`: that would check a candidate-specific topology rather than the required count. |
-| N2 | Each router has maximum degree three. | Not checkable with the supported checker schema. `lab_inline` only performs exact matching against a prescribed topology; it cannot assert a maximum degree over an otherwise unspecified topology. | N/A | N/A. |
-| N3 | Routing is configured statically. | `test.kernel_routes` | Exact route matching: for every required non-connected route, require the exact destination prefix and its static next hop **or** outgoing `ethN` interface, using the supported one-path route form. Do not assert routing daemons or negative daemon checks: neither a daemon choice nor an exhaustive list of prohibited daemons is specified. | Router device names; each router's intended static route destination prefix; the required next-hop IPv4 address or outgoing interface; and any host default routes needed for the stated end-to-end path. Exclude directly connected prefixes. |
-| D1 | The network contains a root DNS server. | `test.applications.dns.authoritative` | Exact authority matching for the root zone (`.`): require the resolved root DNS server IP as an authoritative server. | Root DNS device name (for identification only), root DNS server IP, and the root zone it serves (`.`). |
-| D2 | The network contains an organization DNS server. | `test.applications.dns.authoritative` | Exact authority matching: require the organization DNS server IP as authoritative for the organization zone. | Organization DNS device name, organization DNS server IP, and the organization zone. The zone must be resolved from the DNS delegation/configuration, not guessed from a device name. |
-| D3 | The network contains a local name server. | `test.applications.dns.local_ns` | Exact resolver assignment: the resolved local-name-server IP must be the configured local resolver for the resolved client device. | Local DNS device name, local DNS server IP, and client device name. |
-| S1 | The lab contains a server named `kathara.org`. | `test.applications.dns.records` (A record) | Exact DNS-record matching: require `kathara.org` to have an A record containing the resolved server IPv4 address. | Server device name, server IPv4 address, and the authoritative DNS zone/server hosting the record. The record owner is fixed by the prompt as `kathara.org`. |
-| S2 | The lab contains a client. | `test.reachability` | Exact source-device selection: execute the required name-based reachability assertion from the resolved client device. | Client device name. |
-| S3 | The client can reach the server using the server's name. | `test.reachability` | Exact matching: from the resolved client device, require reachability to the literal DNS target `kathara.org`. This validates name resolution and IP-layer reachability together. | Client device name; the server IPv4 address may be resolved for cross-checking against S1, but the reachability target remains the literal `kathara.org`. |
-
-## Fixed exclusions
-
-- Do not use `lab_inline`: the prompt supplies neither router/device identifiers nor a device-to-link mapping, and an exact candidate-derived topology would not be a shared evaluation requirement.
-- Do not use `test.ip_mapping`: no interface addresses or prefixes are specified.
-- Do not use `test.daemons`: DNS and static routing are requirements, but no particular DNS implementation or daemon is mandated.
-- Do not use `test.applications.http`: the prompt requires a server reachable by name, not an HTTP service or status code.
-- Do not use `custom_commands`: standard blocks cover every representable semantic requirement; topology count and maximum degree have no safe, candidate-independent representation in the supported schema.
-
-## Fixed checker-wide settings
-
-- `default_image`: use the schema fallback `kathara/frr`, because the prompt specifies no image.
-- `convergence_time`: 10 seconds, the prescribed static-only value.
+| Requirement | Checker category/block | Validation strictness | Concrete candidate-lab values to resolve later |
+|---|---|---|---|
+| 1. Exactly five routers | `lab_inline` topology / foundation structural checks, plus `custom_commands` | Exact: declare exactly the five resolved router devices and their interfaces in the expected topology, and require forwarding to be enabled on each resolved router. | The five router device identifiers; each router's declared interface numbers and collision-domain memberships; the forwarding-status command and expected enabled output for each router. |
+| 2. Router degree is at most three | `lab_inline` topology / foundation structural checks | Upper-bound: each resolved router may have no more than three topology interfaces. | Router identifiers; the interface-to-collision-domain mapping used to count each router's degree. |
+| 3. The network uses static routing | `kernel_routes` | Exact route-presence check for every non-connected route that the static design requires, including its prefix and, where applicable, next hop and egress interface. This block verifies the resulting data-plane routes but cannot encode or prove the route-installation mechanism as static rather than dynamic. | For every device needing an explicit route: device identifier, destination prefix, next hop, and egress interface; the set of directly connected routes to exclude. |
+| 4. Three distinct DNS servers: root, `org`, and local name server | `applications.dns.authoritative` and `applications.dns.local_ns` | Exact role check: root authority for `.`, `org` authority for `org`, and a local resolver used by the applicable client(s); the three role holders must be distinct devices. The distinct-device relation itself is not expressible by a separate checker field and is enforced when resolving the block mappings. | Root, `org`, and local-name-server device identifiers and IP addresses; authoritative-zone-to-server-IP mappings; devices configured to use the local resolver. |
+| 5. DNS resolves `kathara.org` to its server | `applications.dns.records` | Exact name-to-server-address check for `kathara.org`; include every address-record value needed by the candidate's DNS design. | DNS record type(s), owner name `kathara.org`, record value(s), and the matching server address or addresses. |
+| 6. A server identified as `kathara.org` exists | `applications.dns.records` | Exact identity check: the `kathara.org` DNS record must map to the resolved server device address. Device existence is additionally represented through the resolved topology when the server has declared interfaces. | Server device identifier, its interface/address values, and the DNS record value(s) mapping `kathara.org` to it. |
+| 7. A client can reach the server using `kathara.org` | `reachability` | Exact functional check: from the resolved client device, `kathara.org` must be ping-reachable by name. This validates both name lookup and IP reachability; it does not assume any particular application protocol. | Client device identifier; DNS name `kathara.org`; the client resolver configuration and target address used by the candidate. |

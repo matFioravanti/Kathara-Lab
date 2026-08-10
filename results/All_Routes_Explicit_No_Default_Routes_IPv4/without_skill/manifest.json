@@ -1,44 +1,49 @@
 {
   "canonical_correction_sha256": null,
-  "check_plan_hash": "166f9f9905d65b392359817e7405b75c280c404bf38b32e75a32bcf24c8f5eaf",
+  "check_plan_hash": "bb4a1a48e9736abc9dda6416f27ad1efa66f80f728f3407d8e4cee084c6e0a9d",
   "checker": null,
   "checker_attempted": false,
   "checker_completed": false,
-  "checker_schema_sha256": "2e6226fa74eb59ca212a7fa6e69bc47dcbadc30ec99f146837cea90af5a6e658",
-  "checker_skill_sha256": "08fa430bb7bf38d1485d9568092a368c2434336d08d470cabf99f2fc72df7df2",
+  "checker_schema_sha256": "1442d95a9a4cf265bdc68e90f3340cf23be1cb06b2ee48ca6589da893b0eab90",
+  "checker_skill_sha256": "80ade8e9550a4fa3014f8801b7b9d073ba19e92f7389a014e5566063289c3203",
+  "correction_calls": 0,
   "correction_generated": false,
   "correction_hash": null,
+  "correction_mode": null,
+  "correction_retries": 0,
   "creation_skill_enabled": false,
   "creation_skill_sha256": null,
   "errors": [
-    "Generated lab still invalid after 2 attempt(s): Kathara LabParser validation failed: In lab.conf - Line 4: `R1[0]=r1-r2\n`."
+    "Generated lab still invalid after 2 attempt(s): Kathara LabParser validation failed: In lab.conf - Line 3: `R1[0]=\"lan1\"\n`."
   ],
-  "evaluation_spec_hash": "556ef79112ecb5b86ff4ec707958b5c60544bf0b12012089903d6166dbb5db9f",
+  "evaluation_spec_hash": "621f1b6c50b1df46f7d871278b02e880783ebcb1715c714509cae1ecca046b6a",
   "experiment_id": "All_Routes_Explicit_No_Default_Routes_IPv4",
   "generation": null,
   "generation_command": "codex",
   "generation_model": "gpt-5.6-terra",
   "generation_provider": "codex",
   "generation_reasoning_effort": "low",
+  "lab_calls": 0,
   "lab_generated": true,
+  "lab_retries": 0,
   "metrics": null,
   "phases": [
     {
-      "at": "2026-08-09T20:42:52.270135Z",
+      "at": "2026-08-10T20:27:54.581095Z",
       "name": "discovered"
     },
     {
-      "at": "2026-08-09T20:42:52.270343Z",
+      "at": "2026-08-10T20:27:54.581296Z",
       "name": "lab_generation_started"
     },
     {
-      "at": "2026-08-09T20:45:54.782082Z",
+      "at": "2026-08-10T20:29:51.742766Z",
       "name": "error"
     }
   ],
-  "pipeline_version": "0.4.1",
+  "pipeline_version": "0.5.0",
   "prompt_file": "All Routes Explicit, No Default Routes, IPv4.md",
-  "prompt_sha256": "e582f25a35c94ccf914c22072842dc98a4887e31ede17250f0e2c148d8752e5b",
+  "prompt_sha256": "d55a80ef2afda10dacb80145c84498288635e3ca760287d6f4bf0740c0f7b891",
   "source_failed_preserved": true,
   "static_validation_passed": false,
   "status": "error",

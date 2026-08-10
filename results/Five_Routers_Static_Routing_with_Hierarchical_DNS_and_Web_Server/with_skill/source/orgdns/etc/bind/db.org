@@ -1,0 +1,6 @@
+$TTL 3600
+@   IN  SOA ns.org. hostmaster.org. (
+        2026081001 3600 900 604800 3600 )
+    IN  NS  ns.org.
+ns  IN  A   10.10.3.53
+@   IN  A   10.10.4.80

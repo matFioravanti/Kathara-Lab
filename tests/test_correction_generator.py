@@ -38,7 +38,19 @@ def test_correction_generator_retry_keeps_file_and_modifies_instruction(tmp_path
     def mock_run(*args, **kwargs):
         output_dir = variant_paths.correction_workspace / "output"
         output_dir.mkdir(parents=True, exist_ok=True)
-        (output_dir / "correction.yaml").write_text("lab_inline: |\\n  r1[0]=A\\n")
+        correction_file = output_dir / "correction.yaml"
+        
+        attempt = 1 if not hasattr(mock_run, 'called_once') else 2
+        mock_run.called_once = True
+        
+        if attempt == 1:
+            correction_file.write_text("metadata:\n  retry_test_marker: preserve-me\n")
+        else:
+            # Physically verify the sentinel exists BEFORE doing anything
+            assert correction_file.exists(), "correction.yaml was wiped before attempt 2!"
+            assert "preserve-me" in correction_file.read_text(), "sentinel not found in correction.yaml!"
+            correction_file.write_text("lab_inline: |\n  r1[0]=A\n")
+
         return CommandResult(
             command=["mock"],
             return_code=0,
@@ -74,3 +86,5 @@ def test_correction_generator_retry_keeps_file_and_modifies_instruction(tmp_path
     instruction = second_call_kwargs["instruction"]
     assert "Open the existing output/correction.yaml and correct in-place" in instruction
     assert "test error 1" in instruction
+    assert "Preserve all valid sections already present" in instruction
+    assert "Do not regenerate the entire correction from scratch" in instruction

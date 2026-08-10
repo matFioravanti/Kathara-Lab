@@ -1,4 +1,4 @@
-#!/bin/sh
-ip addr add 10.10.2.53/24 dev eth0
-ip route add default via 10.10.2.1
+#!/bin/bash
+ip addr add 10.10.1.53/24 dev eth0
+ip route add default via 10.10.1.1
 systemctl restart named

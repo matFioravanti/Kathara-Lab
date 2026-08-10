@@ -1,7 +1,0 @@
-$TTL 3600
-@   IN SOA ns.kathara.org. hostmaster.kathara.org. (
-        2026080901 3600 900 604800 86400 )
-    IN NS ns.kathara.org.
-ns IN A 10.0.3.53
-@ IN A 10.0.5.80
-www IN CNAME kathara.org.

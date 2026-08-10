@@ -1,28 +1,22 @@
-# Kathara Lab Requirements
+# Evaluation Specification
 
-## Devices
+## Topology and devices
 
-- The lab must contain five routers: R1, R2, R3, R4, and R5.
-- Each router must serve one LAN containing two PCs.
-- The lab must therefore contain ten PCs in total.
+1. The scenario is a Kathara lab containing exactly five routers, identified by the roles R1, R2, R3, R4, and R5.
+2. The router-to-router topology has these links: R1--R2, R1--R3, R2--R4, R3--R4, and R4--R5.
+3. Each router serves one distinct LAN.
+4. Each router LAN contains exactly two PCs, for a total of ten PCs.
 
-## Topology
+## Network layer
 
-- R1 must connect to R2 and R3.
-- R2 must connect to R4.
-- R3 must connect to R4.
-- R4 must connect to R5.
-
-## Network Protocol
-
-- The network must use IPv4 only.
+5. The scenario uses IPv4 only.
 
 ## Routing
 
-- Every router must have a fully explicit routing table.
-- Every router must have a specific static route for every remote subnet.
-- No router may contain a default route.
+6. Every router has a fully explicit routing table.
+7. On every router, every remote subnet has a specific static route.
+8. No router has a default route.
 
-## Connectivity
+## End-to-end connectivity
 
-- All ten PCs must be able to reach one another.
+9. Every PC can reach every other PC.

@@ -1,35 +1,10 @@
 {
   "check_plan_generated": true,
-  "check_plan_generation": {
-    "command": [
-      "codex",
-      "exec",
-      "--model",
-      "gpt-5.6-terra",
-      "-c",
-      "model_reasoning_effort=\"low\"",
-      "-c",
-      "approval_policy=\"never\"",
-      "--sandbox",
-      "workspace-write",
-      "--cd",
-      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/check-plan",
-      "--json",
-      "--output-last-message",
-      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/check-plan/.agent-last-message.txt",
-      "--ephemeral",
-      "Read input/prompt.md and input/evaluation-spec.md. Also read resources/checker/SKILL.md and resources/checker/config-schema.md. Generate exactly one file output/check-plan.md. This file must freeze, for every requirement listed in evaluation-spec.md, the evaluation strategy. CRITICAL: For every requirement, you MUST specify:\n- Which checker category/block represents it (e.g., 'kernel_routes', 'reachability').\n- The validation strictness (e.g., 'exact next-hop', 'exact matching').\n- Which concrete values must later be resolved from the candidate lab (e.g., 'client device name', 'server IP').\n\nThis strategy MUST be completely candidate-independent. It will be shared across all candidate evaluations. A missing concrete value (IPs, device names, prefixes, etc.) in the original prompt must NOT cause the requirement to be omitted. Only mark a requirement as not checkable when kathara-lab-checker genuinely has no supported way to represent that requirement. Write only markdown content."
-    ],
-    "duration_seconds": 94.63831424999807,
-    "return_code": 0,
-    "timed_out": false
-  },
-  "check_plan_hash": "166f9f9905d65b392359817e7405b75c280c404bf38b32e75a32bcf24c8f5eaf",
+  "check_plan_hash": "bb4a1a48e9736abc9dda6416f27ad1efa66f80f728f3407d8e4cee084c6e0a9d",
   "comparison": "INCOMPARABLE",
   "comparison_reason": "Both checker runs must complete successfully for a paired quality comparison.",
   "complete": true,
-  "evaluation_spec_generated": true,
-  "evaluation_spec_generation": {
+  "evaluation_plan_generation": {
     "command": [
       "codex",
       "exec",
@@ -42,36 +17,37 @@
       "--sandbox",
       "workspace-write",
       "--cd",
-      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/evaluation-spec",
+      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/evaluation-plan",
       "--json",
       "--output-last-message",
-      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/evaluation-spec/.agent-last-message.txt",
+      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/evaluation-plan/.agent-last-message.txt",
       "--ephemeral",
-      "Read input/prompt.md and resources/creation/SKILL.md. Generate exactly one file output/evaluation-spec.md. This file must structure the explicit requirements found in the prompt using the Creation Skill as a guide. CRITICAL: The evaluation-spec.md must describe ONLY WHAT the scenario requires. It must contain ONLY candidate-independent scenario requirements. It must NOT mention checker blocks (such as kernel_routes, reachability, etc.), strategies, or validation strictness. It must NOT contain any candidate-specific values (e.g. concrete IPs, device names, prefixes, interfaces) if they are missing from the prompt. Do NOT decide whether a checker assertion is omitted or not checkable. Do NOT add reasonable defaults, and do NOT invent any IP addresses, routing protocols, services, topologies, or other requirements that are not explicitly present in the prompt. This file is strictly for extracting and freezing the scenario requirements. Write only markdown content."
+      "Read input/prompt.md and resources/creation/SKILL.md. Also read resources/checker/SKILL.md and resources/checker/config-schema.md. You must generate EXACTLY TWO files in the output/ directory: output/evaluation-spec.md and output/check-plan.md.\n\n1. output/evaluation-spec.md:\nThis file must structure the explicit requirements found in the prompt using the Creation Skill as a guide. CRITICAL: It must describe ONLY WHAT the scenario requires. It must contain ONLY candidate-independent scenario requirements. It must NOT mention checker blocks, strategies, or validation strictness. It must NOT contain any candidate-specific values if they are missing from the prompt.\n\n2. output/check-plan.md:\nThis file must freeze the evaluation strategy for every requirement listed in evaluation-spec.md. CRITICAL: For every requirement, you MUST specify:\n- Which checker category/block represents it.\n- The validation strictness.\n- Which concrete values must later be resolved from the candidate lab.\nThis strategy MUST be completely candidate-independent. A missing concrete value must NOT cause the requirement to be omitted. Only mark a requirement as not checkable when kathara-lab-checker genuinely has no supported way to represent it.\n\nDo NOT write anything outside these two files."
     ],
-    "duration_seconds": 27.87272729200049,
+    "duration_seconds": 76.51142862499546,
     "return_code": 0,
     "timed_out": false
   },
-  "evaluation_spec_hash": "556ef79112ecb5b86ff4ec707958b5c60544bf0b12012089903d6166dbb5db9f",
+  "evaluation_spec_generated": true,
+  "evaluation_spec_hash": "621f1b6c50b1df46f7d871278b02e880783ebcb1715c714509cae1ecca046b6a",
   "experiment_id": "All_Routes_Explicit_No_Default_Routes_IPv4",
-  "finished_at": "2026-08-09T20:45:54.783513Z",
+  "finished_at": "2026-08-10T20:33:04.174702Z",
   "identity": {
     "checker_report_type": "csv",
     "checker_runtime": "kathara-lab-checker==0.1.14",
-    "checker_schema_sha256": "2e6226fa74eb59ca212a7fa6e69bc47dcbadc30ec99f146837cea90af5a6e658",
-    "checker_skill_sha256": "08fa430bb7bf38d1485d9568092a368c2434336d08d470cabf99f2fc72df7df2",
+    "checker_schema_sha256": "1442d95a9a4cf265bdc68e90f3340cf23be1cb06b2ee48ca6589da893b0eab90",
+    "checker_skill_sha256": "80ade8e9550a4fa3014f8801b7b9d073ba19e92f7389a014e5566063289c3203",
     "command": "codex",
     "creation_skill_sha256": "bf4daac809c4088ad9106268c093cca9c41f79e95dba4113f108c0298d85b996",
     "model": "gpt-5.6-terra",
-    "pipeline_version": "0.4.1",
-    "prompt_sha256": "e582f25a35c94ccf914c22072842dc98a4887e31ede17250f0e2c148d8752e5b",
+    "pipeline_version": "0.5.0",
+    "prompt_sha256": "d55a80ef2afda10dacb80145c84498288635e3ca760287d6f4bf0740c0f7b891",
     "provider": "codex",
     "reasoning_effort": "low",
     "sandbox": "workspace-write"
   },
-  "pipeline_version": "0.4.1",
+  "pipeline_version": "0.5.0",
   "prompt_file": "All Routes Explicit, No Default Routes, IPv4.md",
-  "prompt_sha256": "e582f25a35c94ccf914c22072842dc98a4887e31ede17250f0e2c148d8752e5b",
-  "started_at": "2026-08-09T20:35:07.048481Z"
+  "prompt_sha256": "d55a80ef2afda10dacb80145c84498288635e3ca760287d6f4bf0740c0f7b891",
+  "started_at": "2026-08-10T20:24:17.988712Z"
 }

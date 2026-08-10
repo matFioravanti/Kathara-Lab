@@ -1,46 +1,141 @@
 {
-  "canonical_correction_sha256": null,
-  "check_plan_hash": "5fd447127817183fd8369b1ffd2d620b2a568392e6e7a3680c8069a0aa9d3181",
-  "checker": null,
-  "checker_attempted": false,
-  "checker_completed": false,
-  "checker_schema_sha256": "2e6226fa74eb59ca212a7fa6e69bc47dcbadc30ec99f146837cea90af5a6e658",
-  "checker_skill_sha256": "08fa430bb7bf38d1485d9568092a368c2434336d08d470cabf99f2fc72df7df2",
-  "correction_generated": false,
-  "correction_hash": null,
+  "canonical_correction_sha256": "ae08ccd5787009d4ff8adbb2b73d8b63ae71386d513038f24c101dd7c1618fae",
+  "check_plan_hash": "2dd09b3cf89ebc4441a975179af32c307e8e37dcbae29866b43935c9d6e3a3a0",
+  "checker": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
+      "-m",
+      "kathara_lab_checker",
+      "--config",
+      "/Users/matthew/Desktop/A-Tesi/results/Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server/without_skill/correction/correction.yaml",
+      "--labs",
+      "/Users/matthew/Desktop/A-Tesi/results/Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server/without_skill/checker-run/labs",
+      "--no-cache",
+      "--report-type",
+      "csv"
+    ],
+    "duration_seconds": 14.947828875003324,
+    "return_code": 0,
+    "timed_out": false
+  },
+  "checker_attempted": true,
+  "checker_completed": true,
+  "checker_schema_sha256": "1442d95a9a4cf265bdc68e90f3340cf23be1cb06b2ee48ca6589da893b0eab90",
+  "checker_skill_sha256": "80ade8e9550a4fa3014f8801b7b9d073ba19e92f7389a014e5566063289c3203",
+  "correction_calls": 0,
+  "correction_generated": true,
+  "correction_generation": {
+    "command": [
+      "codex",
+      "exec",
+      "--model",
+      "gpt-5.6-terra",
+      "-c",
+      "model_reasoning_effort=\"low\"",
+      "-c",
+      "approval_policy=\"never\"",
+      "--sandbox",
+      "workspace-write",
+      "--cd",
+      "/Users/matthew/Desktop/A-Tesi/results/Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server/.workspaces/correction_without_skill",
+      "--json",
+      "--output-last-message",
+      "/Users/matthew/Desktop/A-Tesi/results/Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server/.workspaces/correction_without_skill/.agent-last-message.txt",
+      "--ephemeral",
+      "Use the validated reference correction located in input/reference_correction.yaml as the evaluation template for this candidate. Read the current candidate/ lab and adapt only candidate-dependent concrete values required for the checks to apply to this laboratory. For example: device names, IP addresses, interface identifiers, gateways, next hops, route destinations, collision domains, lab_inline, router IDs, etc.\n\nDo not redesign the evaluation strategy. The semantic test plan is defined by input/evaluation-spec.md and input/check-plan.md. Preserve the same semantic checks and evaluation strictness. Do not copy candidate-specific values from the reference correction when they do not match the current candidate.\n\nGenerate the adapted output/correction.yaml. Write only YAML with no surrounding prose. Do not create any other output file."
+    ],
+    "duration_seconds": 87.4056368330057,
+    "return_code": 0,
+    "timed_out": false
+  },
+  "correction_hash": "ae08ccd5787009d4ff8adbb2b73d8b63ae71386d513038f24c101dd7c1618fae",
+  "correction_mode": "adaptation",
+  "correction_retries": 0,
   "creation_skill_enabled": false,
   "creation_skill_sha256": null,
-  "errors": [
-    "Generated lab still invalid after 2 attempt(s): Kathara LabParser validation failed: In lab.conf - Line 6: `root-dns[image]=\"kathara/bind9\"\n`."
-  ],
-  "evaluation_spec_hash": "50136ee9083981014a69f163f2004170d699fc23d9d816e86e73c5838d436b7a",
+  "errors": [],
+  "evaluation_spec_hash": "6b0abbebbae0517084730bd12a6824920f681d439357e3408353e2e3d0cae599",
   "experiment_id": "Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server",
-  "generation": null,
+  "generation": {
+    "command": [
+      "codex",
+      "exec",
+      "--model",
+      "gpt-5.6-terra",
+      "-c",
+      "model_reasoning_effort=\"low\"",
+      "-c",
+      "approval_policy=\"never\"",
+      "--sandbox",
+      "workspace-write",
+      "--cd",
+      "/Users/matthew/Desktop/A-Tesi/results/Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server/.workspaces/without_skill",
+      "--json",
+      "--output-last-message",
+      "/Users/matthew/Desktop/A-Tesi/results/Five_Routers_Static_Routing_with_Hierarchical_DNS_and_Web_Server/.workspaces/without_skill/.agent-last-message.txt",
+      "--ephemeral",
+      "The previously generated output/lab/ failed static validation with the following errors:\n  - Kathara LabParser validation failed: In lab.conf - Line 3: Collision domain `client-net` contains non-alphanumeric characters.\n\nRead the existing output/lab directory and modify it in-place.\nFix all validation errors listed above.\nPreserve every valid part of the current lab.\nDo not rebuild unrelated files.\nDo not recreate the entire lab unless the current structure makes the requested correction impossible.\nDo not generate correction.yaml and do not run Kathara or kathara_lab_checker.\nThe laboratory must be complete, persistent, contain no placeholders, and be internally consistent.\nRead only input/prompt.md. No creation Skill or external implementation guide is available."
+    ],
+    "duration_seconds": 36.06364958299673,
+    "return_code": 0,
+    "timed_out": false
+  },
   "generation_command": "codex",
   "generation_model": "gpt-5.6-terra",
   "generation_provider": "codex",
   "generation_reasoning_effort": "low",
+  "lab_calls": 0,
   "lab_generated": true,
-  "metrics": null,
+  "lab_retries": 0,
+  "metrics": {
+    "failed_tests": 42,
+    "failure_categories": {
+      "uncategorized": 42
+    },
+    "pass_percentage": 42.465753,
+    "passed_tests": 31,
+    "reports_found": [
+      "results.csv",
+      "candidate_result_all.csv",
+      "candidate_result_failed.csv",
+      "candidate_result_summary.csv"
+    ],
+    "total_tests": 73
+  },
   "phases": [
     {
-      "at": "2026-08-09T20:50:38.292193Z",
+      "at": "2026-08-10T20:36:34.149543Z",
       "name": "discovered"
     },
     {
-      "at": "2026-08-09T20:50:38.292385Z",
+      "at": "2026-08-10T20:36:34.149817Z",
       "name": "lab_generation_started"
     },
     {
-      "at": "2026-08-09T20:55:10.101983Z",
-      "name": "error"
+      "at": "2026-08-10T20:39:41.191858Z",
+      "name": "lab_generated"
+    },
+    {
+      "at": "2026-08-10T20:39:41.191935Z",
+      "name": "static_validation_passed"
+    },
+    {
+      "at": "2026-08-10T20:42:53.996149Z",
+      "name": "checker_started"
+    },
+    {
+      "at": "2026-08-10T20:43:08.953115Z",
+      "name": "checker_completed"
+    },
+    {
+      "at": "2026-08-10T20:43:08.953135Z",
+      "name": "failed"
     }
   ],
-  "pipeline_version": "0.4.1",
+  "pipeline_version": "0.5.0",
   "prompt_file": "Five Routers Static Routing with Hierarchical DNS and Web Server.md",
-  "prompt_sha256": "94149ce85274093ca78c473eff59dc4bd763fd61568e7d566fefd6209c1714c0",
-  "source_failed_preserved": true,
-  "static_validation_passed": false,
-  "status": "error",
+  "prompt_sha256": "ffc9c528c44ca6dfbbc45f13cd44e528c7e71a75b58ee704faf9b4872b8d54fb",
+  "static_validation_passed": true,
+  "status": "failed",
   "variant": "without_skill"
 }

@@ -5,11 +5,13 @@ Framework Python 3.11+ per generare e valutare automaticamente laboratori Kathar
 - **with_skill**: lo stesso prompt viene risolto con accesso alla Kathara Creation Skill;
 - **without_skill**: lo stesso prompt viene risolto senza accesso alla Creation Skill.
 
-Le due generazioni usano lo stesso provider, modello, reasoning, timeout e policy operative. Sono eseguite **in sequenza, mai in parallelo**. Per ogni prompt viene poi generata una sola `correction.yaml` canonica, derivata esclusivamente dal prompt + Checker Skill + schema, e lo stesso identico file viene eseguito con `kathara-lab-checker==0.1.14` su entrambi i candidati.
+Le due generazioni usano lo stesso provider, modello, reasoning, timeout e policy operative. Possono essere eseguite **in parallelo o sequenzialmente**.
+L'orchestratore genera per primo un `evaluation-spec.md` e un `check-plan.md` (un'unica chiamata LLM, due artefatti).
+Poi genera i due laboratori in modo indipendente. Per le corrections, viene prodotta prima una **reference correction** basata sul primo laboratorio valido. Se l'altro laboratorio è valido, la reference correction viene usata per generare una correction specifica ("adaptation") in modo da preservare esattamente la stessa strategia di test semantica, ma adattando valori concreti come indirizzi IP, nomi device, e topologia interna. Entrambe le correction vengono poi eseguite con `kathara-lab-checker==0.1.14`.
 
 ## Obiettivo sperimentale
 
-La variabile indipendente è soltanto la disponibilità della Creation Skill. La correction non vede i candidati, quindi il criterio di valutazione non viene adattato a una delle due soluzioni. Il confronto finale usa esclusivamente dati deterministici prodotti dal checker e dai manifest, non un LLM giudice.
+La variabile indipendente è soltanto la disponibilità della Creation Skill. `without_skill` continua a non vedere la Skill. Le generazioni dei laboratori sono indipendenti. La reference correction viene utilizzata soltanto durante la fase di adaptation. Il confronto finale usa esclusivamente dati deterministici prodotti dal checker e dai manifest.
 
 ## Input dei prompt
 
@@ -97,36 +99,40 @@ La Creation Skill viene materializzata **solo** nel workspace `with_skill`. Il w
 ```text
 prompt
   │
-  ├─ 1. WITH_SKILL generation
-  │      prompt + Creation Skill -> Lab A
+  ├─ 1. Evaluation Planning (una singola chiamata)
+  │      prompt + Creation Skill -> evaluation-spec.md + check-plan.md
   │
-  ├─ 2. WITHOUT_SKILL generation
-  │      prompt only -> Lab B
+  ├─ 2. Generazione Laboratori (indipendente, possibilmente in parallelo)
+  │      WITH_SKILL: prompt + Creation Skill -> Lab A
+  │      WITHOUT_SKILL: prompt only -> Lab B
   │
-  ├─ 3. canonical correction generation
-  │      prompt + Checker Skill + schema -> correction.yaml
-  │      (nessun candidato è disponibile a questa fase)
+  ├─ 3. Reference Correction (full generation sul primo Lab valido)
+  │      prompt + Checker Skill + schema + plan + Lab A -> reference correction
   │
-  ├─ 4. LabValidator + checker su Lab A
+  ├─ 4. Adaptation (se esiste l'altro Lab)
+  │      reference correction + plan + Lab B -> candidate-specific correction
   │
-  ├─ 5. LabValidator + stesso checker/stessa correction su Lab B
+  ├─ 5. LabValidator + checker su Lab A
   │
-  └─ 6. confronto paired + report aggregato
+  ├─ 6. LabValidator + checker su Lab B
+  │
+  └─ 7. confronto paired + report aggregato
 ```
 
-La fase 2 parte solo dopo la conclusione della fase 1. Anche i checker vengono eseguiti sequenzialmente.
+La valutazione dei test (check-plan.md) è condivisa e fissa per entrambi i laboratori. Il significato semantico dei test rimane equivalente. La reference correction è usata solo nella fase di adaptation (mai mostrata durante la generazione del secondo laboratorio). I valori concreti (device names, IP, interfaces, route, router IDs, `lab_inline`) vengono adattati al candidato.
 
-## Canonical correction
+La fase 2 può avvenire in parallelo attivando `parallel_variants: true`.
 
-La correction viene generata una volta sola per prompt e non può leggere:
+## Canonical correction e Adaptation
 
-- `with_skill/source/`;
-- `without_skill/source/`;
-- manifest;
-- log;
-- report del checker.
+La strategia di valutazione viene decisa durante l'Evaluation Planning. Successivamente:
+- Il primo candidato (preferendo WITH_SKILL) genera una correction in modalità **full_generation**.
+- Se il secondo candidato è anch'esso valido, usa la correction del primo in modalità **adaptation**. Questo significa che la strategia semantica è fissa, ma i valori concreti (indirizzi IP, nomi dispositivi, etc.) sono adattati per quel candidato.
 
-Può leggere soltanto il prompt, la Checker Skill e lo schema. Il suo SHA-256 viene registrato in entrambi i manifest delle varianti; entrambi i checker ricevono lo stesso path/file.
+I log, i report del checker e i manifest non sono visibili alle LLM.
+Il framework gestisce i fallimenti di validazione sintattica con un sistema di **retry in-place**:
+- **Lab retry**: Al primo attempt si genera normalmente il lab. Se fallisce la validazione statica (Attempt > 1), la LLM interviene con modifiche *in-place* sul file lab precedente senza cancellare i file non coinvolti nell'errore.
+- **Correction retry**: Stessa logica per `correction.yaml`, una volta che la prima è errata, la LLM la ri-modifica in-place per fixare l'errore, preservando tutti i test già validi.
 
 Regole principali della Checker Skill automatica:
 

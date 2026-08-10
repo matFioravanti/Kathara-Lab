@@ -68,6 +68,18 @@ def test_custom_command_missing_assertions_is_accepted(tmp_path: Path):
     assert result.valid, result.errors
 
 
+def test_benign_redirection_is_accepted(tmp_path: Path):
+    """The validator should allow benign shell redirections like > and 2>/dev/null."""
+    yaml = (
+        'lab_inline: |\n  r1[0]="A"\n'
+        'test:\n  custom_commands:\n    r1:\n'
+        '      - command: sysctl net.ipv4.ip_forward > /tmp/output\n'
+        '      - command: ping -c 1 8.8.8.8 2>/dev/null\n'
+    )
+    result = CorrectionValidator().validate(_write(tmp_path, yaml))
+    assert result.valid, result.errors
+
+
 # ---------------------------------------------------------------------------
 # Rejected cases
 # ---------------------------------------------------------------------------
@@ -109,6 +121,17 @@ def test_destructive_custom_command_is_rejected(tmp_path: Path):
         'lab_inline: |\n  r1[0]="A"\n'
         'test:\n  custom_commands:\n    r1:\n'
         '      - command: rm -rf /\n'
+    )
+    result = CorrectionValidator().validate(_write(tmp_path, yaml))
+    assert not result.valid
+    assert any("destructive" in e for e in result.errors)
+
+
+def test_other_destructive_custom_commands_are_rejected(tmp_path: Path):
+    yaml = (
+        'lab_inline: |\n  r1[0]="A"\n'
+        'test:\n  custom_commands:\n    r1:\n'
+        '      - command: reboot\n'
     )
     result = CorrectionValidator().validate(_write(tmp_path, yaml))
     assert not result.valid

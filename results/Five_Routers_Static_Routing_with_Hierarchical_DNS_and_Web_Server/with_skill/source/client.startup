@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ip addr add 10.10.1.10/24 dev eth0
 ip route add default via 10.10.1.1
-printf 'nameserver 10.10.2.53\n' > /etc/resolv.conf
+printf 'nameserver 10.10.1.53\n' > /etc/resolv.conf

@@ -51,7 +51,7 @@ def _walk_custom_commands(value: Any, errors: list[str]) -> None:
             if not isinstance(command, str) or not command.strip():
                 errors.append(f"custom_commands.{device}[{index}] requires command")
             lower = (command or "").casefold() if isinstance(command, str) else ""
-            destructive = (" rm ", "rm -", "shutdown", "reboot", "kill ", "pkill", "apt ", "apt-get", ">", "sed -i", "ip addr add", "ip route add")
+            destructive = (" rm ", "rm -", "shutdown", "reboot", "kill ", "pkill", "apt ", "apt-get", "sed -i", "ip addr add", "ip route add")
             padded = f" {lower} "
             if any(token in padded for token in destructive):
                 errors.append(f"custom_commands.{device}[{index}] uses a potentially destructive command")

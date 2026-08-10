@@ -1,0 +1,6 @@
+#!/bin/sh
+ip addr add 10.0.4.53/24 dev eth0
+ip link set eth0 up
+ip route add default via 10.0.4.1
+mkdir -p /var/cache/bind /var/run/named
+named -c /etc/bind/named.conf -g &
