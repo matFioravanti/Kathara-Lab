@@ -1,5 +1,5 @@
 {
-  "canonical_correction_sha256": "fddb59bd94dc863ba45ed12f383d5e6332f5d1519a2cb8d88e85122b3a772c49",
+  "canonical_correction_sha256": "8065ed501aad95ad503ff535aa454fdd1f02fdae7638e6fa94d45912cb6056de",
   "checker": {
     "command": [
       "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
@@ -13,21 +13,21 @@
       "--report-type",
       "csv"
     ],
-    "duration_seconds": 21.84884620899902,
+    "duration_seconds": 21.50886908299799,
     "return_code": 0,
     "timed_out": false
   },
   "checker_attempted": true,
   "checker_completed": true,
-  "checker_schema_sha256": "1442d95a9a4cf265bdc68e90f3340cf23be1cb06b2ee48ca6589da893b0eab90",
-  "checker_skill_sha256": "80ade8e9550a4fa3014f8801b7b9d073ba19e92f7389a014e5566063289c3203",
+  "checker_schema_sha256": "b608b9749a0225c688433d5fa5190d4ff1eb43d72eaa9ab259395f8dbf245894",
+  "checker_skill_sha256": "11683ac87978ebcec2369b190be9f03e37b49fd99291b1ee499325c14d758df4",
   "correction_calls": 1,
   "correction_generated": true,
   "correction_generation": {
     "attempts": [
       {
         "attempt": 1,
-        "duration_seconds": 149.53782087500076,
+        "duration_seconds": 151.75260312499813,
         "return_code": 0,
         "success": true,
         "timed_out": false,
@@ -35,7 +35,7 @@
       }
     ],
     "calls": 1,
-    "duration_seconds": 149.53782087500076,
+    "duration_seconds": 151.75260312499813,
     "last_command": [
       "codex",
       "exec",
@@ -57,7 +57,7 @@
     ],
     "retries": 0
   },
-  "correction_hash": "fddb59bd94dc863ba45ed12f383d5e6332f5d1519a2cb8d88e85122b3a772c49",
+  "correction_hash": "8065ed501aad95ad503ff535aa454fdd1f02fdae7638e6fa94d45912cb6056de",
   "correction_mode": "full_generation",
   "correction_retries": 0,
   "creation_skill_enabled": true,
@@ -68,7 +68,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "duration_seconds": 180.5206437500001,
+        "duration_seconds": 115.71340987499934,
         "return_code": 0,
         "success": true,
         "timed_out": false,
@@ -76,7 +76,7 @@
       }
     ],
     "calls": 1,
-    "duration_seconds": 180.5206437500001,
+    "duration_seconds": 115.71340987499934,
     "last_command": [
       "codex",
       "exec",
@@ -106,54 +106,52 @@
   "lab_generated": true,
   "lab_retries": 0,
   "metrics": {
-    "failed_tests": 50,
-    "failure_categories": {
-      "uncategorized": 50
-    },
-    "pass_percentage": 77.777778,
-    "passed_tests": 175,
+    "failed_tests": 0,
+    "failure_categories": {},
+    "pass_percentage": 100.0,
+    "passed_tests": 190,
     "reports_found": [
       "results.csv",
       "candidate_result_all.csv",
       "candidate_result_failed.csv",
       "candidate_result_summary.csv"
     ],
-    "total_tests": 225
+    "total_tests": 190
   },
   "phases": [
     {
-      "at": "2026-08-11T11:35:20.224455Z",
+      "at": "2026-08-11T14:18:11.380854Z",
       "name": "discovered"
     },
     {
-      "at": "2026-08-11T11:35:20.224734Z",
+      "at": "2026-08-11T14:18:11.381179Z",
       "name": "lab_generation_started"
     },
     {
-      "at": "2026-08-11T11:38:20.769668Z",
+      "at": "2026-08-11T14:20:07.109358Z",
       "name": "lab_generated"
     },
     {
-      "at": "2026-08-11T11:38:20.769714Z",
+      "at": "2026-08-11T14:20:07.109391Z",
       "name": "static_validation_passed"
     },
     {
-      "at": "2026-08-11T11:40:51.934869Z",
+      "at": "2026-08-11T14:22:38.902136Z",
       "name": "checker_started"
     },
     {
-      "at": "2026-08-11T11:41:13.791485Z",
+      "at": "2026-08-11T14:23:00.415957Z",
       "name": "checker_completed"
     },
     {
-      "at": "2026-08-11T11:41:13.791508Z",
-      "name": "failed"
+      "at": "2026-08-11T14:23:00.415973Z",
+      "name": "passed"
     }
   ],
   "pipeline_version": "0.5.0",
   "prompt_file": "All Routes Explicit, No Default Routes, IPv4.md",
   "prompt_sha256": "d55a80ef2afda10dacb80145c84498288635e3ca760287d6f4bf0740c0f7b891",
   "static_validation_passed": true,
-  "status": "failed",
+  "status": "passed",
   "variant": "with_skill"
 }

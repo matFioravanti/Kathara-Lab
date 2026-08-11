@@ -139,8 +139,13 @@ With next-hop / interface assertion (list of two elements):
 test:
   kernel_routes:
     router1:
-      - ["0.0.0.0/0", ["10.0.0.1", "eth0"]]
+      - ["0.0.0.0/0", ["10.0.0.1"]]
+    router2:
+      - ["192.168.3.0/24", ["eth2"]]
 ```
+
+> **Note on single paths:** For a one-path `kernel_routes` entry, identify the path using either the gateway IP or the outgoing `ethN` interface, not both.
+> Multiple elements in the next-hop list represent multiple distinct expected next-hops. Therefore `[gateway, ethN]` must not be used to describe a single path.
 
 Include only routes that are **explicitly installed** by a routing daemon or a manual
 `ip route add` command: IGP-learned (RIP/OSPF), BGP-learned, and static routes. Do

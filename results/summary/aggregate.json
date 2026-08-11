@@ -13,12 +13,12 @@
       }
     },
     "with_skill": {
-      "mean_pass_percentage": 77.777778,
-      "median_pass_percentage": 77.777778,
+      "mean_pass_percentage": 100.0,
+      "median_pass_percentage": 100.0,
       "status_counts": {
         "error": 0,
-        "failed": 1,
-        "passed": 0,
+        "failed": 0,
+        "passed": 1,
         "skipped": 0
       }
     },
@@ -40,10 +40,10 @@
     "without_skill_errors": 1
   },
   "time": {
-    "with_skill_mean_checker_seconds": 21.848846,
-    "with_skill_mean_generation_seconds": 180.520644,
-    "without_skill_mean_checker_seconds": null,
-    "without_skill_mean_generation_seconds": 181.914955
+    "with_skill_mean_checker_seconds": 21.508869,
+    "with_skill_mean_generation_seconds": 115.71341,
+    "without_skill_mean_checker_seconds": 0.472451,
+    "without_skill_mean_generation_seconds": 111.090757
   },
   "total_prompts": 1
 }

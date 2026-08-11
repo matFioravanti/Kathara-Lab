@@ -57,6 +57,26 @@ def _walk_custom_commands(value: Any, errors: list[str]) -> None:
                 errors.append(f"custom_commands.{device}[{index}] uses a potentially destructive command")
 
 
+def _walk_kernel_routes(value: Any, errors: list[str]) -> None:
+    if value is None:
+        return
+    if not isinstance(value, dict):
+        errors.append("test.kernel_routes must be a mapping")
+        return
+    for device, routes in value.items():
+        if not isinstance(routes, list):
+            continue
+        for route in routes:
+            if isinstance(route, list) and len(route) == 2:
+                nexthops = route[1]
+                if isinstance(nexthops, list) and len(nexthops) == 2:
+                    str_hops = [str(n).strip() for n in nexthops]
+                    has_ip = any("." in n or ":" in n for n in str_hops)
+                    has_eth = any(re.match(r"^eth\d+$", n) for n in str_hops)
+                    if has_ip and has_eth:
+                        errors.append(f"kernel_routes for {device} contains ambiguous next-hop list {nexthops}: use either IP or ethN for a single path, not both")
+
+
 class CorrectionValidator:
     """Validate sanity of candidate-independent correction syntax without inspecting a candidate lab.
     Does not perform deep schema validation, which is delegated to the Kathara Lab Checker.
@@ -95,5 +115,6 @@ class CorrectionValidator:
             errors.append("test must be a non-empty mapping")
         else:
             _walk_custom_commands(test.get("custom_commands"), errors)
+            _walk_kernel_routes(test.get("kernel_routes"), errors)
             
         return ValidationResult(not errors, tuple(errors), data=data)

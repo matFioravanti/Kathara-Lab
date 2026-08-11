@@ -1,46 +1,84 @@
 {
-  "canonical_correction_sha256": null,
-  "checker": null,
-  "checker_attempted": false,
+  "canonical_correction_sha256": "087a9121f2b1a64b7f28a9302ea89665432bfa00805e7821d11a43452fcd0bba",
+  "checker": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
+      "-m",
+      "kathara_lab_checker",
+      "--config",
+      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/without_skill/correction/correction.yaml",
+      "--labs",
+      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/without_skill/checker-run/labs",
+      "--no-cache",
+      "--report-type",
+      "csv"
+    ],
+    "duration_seconds": 0.4724514999979874,
+    "return_code": 1,
+    "timed_out": false
+  },
+  "checker_attempted": true,
   "checker_completed": false,
-  "checker_schema_sha256": "1442d95a9a4cf265bdc68e90f3340cf23be1cb06b2ee48ca6589da893b0eab90",
-  "checker_skill_sha256": "80ade8e9550a4fa3014f8801b7b9d073ba19e92f7389a014e5566063289c3203",
-  "correction_calls": 0,
-  "correction_generated": false,
-  "correction_hash": null,
-  "correction_mode": null,
+  "checker_schema_sha256": "b608b9749a0225c688433d5fa5190d4ff1eb43d72eaa9ab259395f8dbf245894",
+  "checker_skill_sha256": "11683ac87978ebcec2369b190be9f03e37b49fd99291b1ee499325c14d758df4",
+  "correction_calls": 1,
+  "correction_generated": true,
+  "correction_generation": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "duration_seconds": 274.4607973750026,
+        "return_code": 0,
+        "success": true,
+        "timed_out": false,
+        "validation_errors": []
+      }
+    ],
+    "calls": 1,
+    "duration_seconds": 274.4607973750026,
+    "last_command": [
+      "codex",
+      "exec",
+      "--model",
+      "gpt-5.6-terra",
+      "-c",
+      "model_reasoning_effort=\"low\"",
+      "-c",
+      "approval_policy=\"never\"",
+      "--sandbox",
+      "workspace-write",
+      "--cd",
+      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/correction_without_skill",
+      "--json",
+      "--output-last-message",
+      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/correction_without_skill/.agent-last-message.txt",
+      "--ephemeral",
+      "output/correction.yaml is already a copy of the validated reference correction.\nOpen it and modify it in place.\nDo not recreate the correction from scratch.\nAdapt only candidate-dependent concrete values.\n\nRead the current candidate/ lab and adapt values required for the checks to apply to this laboratory. For example: device names, IP addresses, interface identifiers, gateways, next hops, route destinations, collision domains, lab_inline, router IDs, default_image (if needed), etc.\n\nDo not redesign the evaluation strategy. Preserve the same semantic checks. Do not add or remove checks. The validated reference correction is authoritative for which checks must exist. Do not copy candidate-specific values from the reference correction when they do not match the current candidate.\n\nWrite only YAML with no surrounding prose. Do not create any other output file."
+    ],
+    "retries": 0
+  },
+  "correction_hash": "087a9121f2b1a64b7f28a9302ea89665432bfa00805e7821d11a43452fcd0bba",
+  "correction_mode": "adaptation",
   "correction_retries": 0,
   "creation_skill_enabled": false,
   "creation_skill_sha256": null,
   "errors": [
-    "Generated lab still invalid after 2 attempt(s): Kathara LabParser validation failed: In lab.conf - Line 1: `R1[0]=lan1\n`."
+    "kathara-lab-checker exited with technical return code 1"
   ],
   "experiment_id": "All_Routes_Explicit_No_Default_Routes_IPv4",
   "generation": {
     "attempts": [
       {
         "attempt": 1,
-        "duration_seconds": 124.9352350829995,
+        "duration_seconds": 111.090757416001,
         "return_code": 0,
-        "success": false,
+        "success": true,
         "timed_out": false,
-        "validation_errors": [
-          "Kathara LabParser validation failed: In lab.conf - Line 1: `R1[0]=\"lan1\"\n`."
-        ]
-      },
-      {
-        "attempt": 2,
-        "duration_seconds": 56.97971962500014,
-        "return_code": 0,
-        "success": false,
-        "timed_out": false,
-        "validation_errors": [
-          "Kathara LabParser validation failed: In lab.conf - Line 1: `R1[0]=lan1\n`."
-        ]
+        "validation_errors": []
       }
     ],
-    "calls": 2,
-    "duration_seconds": 181.91495470799964,
+    "calls": 1,
+    "duration_seconds": 111.090757416001,
     "last_command": [
       "codex",
       "exec",
@@ -58,37 +96,48 @@
       "--output-last-message",
       "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/without_skill/.agent-last-message.txt",
       "--ephemeral",
-      "The previously generated output/lab/ failed static validation with the following errors:\n  - Kathara LabParser validation failed: In lab.conf - Line 1: `R1[0]=\"lan1\"\n`.\n\nRead the existing output/lab directory and modify it in-place.\nFix all validation errors listed above.\nPreserve every valid part of the current lab.\nDo not rebuild unrelated files.\nDo not recreate the entire lab unless the current structure makes the requested correction impossible.\nDo not generate correction.yaml and do not run Kathara or kathara_lab_checker.\nThe laboratory must be complete, persistent, contain no placeholders, and be internally consistent.\nRead only input/prompt.md. No creation Skill or external implementation guide is available."
+      "Read only input/prompt.md. Generate exactly one complete Kathara laboratory inside output/lab/. Do not read files outside this workspace. No creation Skill or external implementation guide is available. Do not modify input/prompt.md. Do not generate correction.yaml and do not run Kathara or kathara_lab_checker. The laboratory must be complete, persistent, contain no placeholders, and be internally consistent."
     ],
-    "retries": 1
+    "retries": 0
   },
   "generation_command": "codex",
   "generation_model": "gpt-5.6-terra",
   "generation_provider": "codex",
   "generation_reasoning_effort": "low",
-  "lab_calls": 2,
+  "lab_calls": 1,
   "lab_generated": true,
-  "lab_retries": 1,
+  "lab_retries": 0,
   "metrics": null,
   "phases": [
     {
-      "at": "2026-08-11T11:35:20.224561Z",
+      "at": "2026-08-11T14:18:11.380980Z",
       "name": "discovered"
     },
     {
-      "at": "2026-08-11T11:35:20.224785Z",
+      "at": "2026-08-11T14:18:11.381266Z",
       "name": "lab_generation_started"
     },
     {
-      "at": "2026-08-11T11:38:22.352599Z",
+      "at": "2026-08-11T14:20:02.484196Z",
+      "name": "lab_generated"
+    },
+    {
+      "at": "2026-08-11T14:20:02.484245Z",
+      "name": "static_validation_passed"
+    },
+    {
+      "at": "2026-08-11T14:27:34.937590Z",
+      "name": "checker_started"
+    },
+    {
+      "at": "2026-08-11T14:27:35.410730Z",
       "name": "error"
     }
   ],
   "pipeline_version": "0.5.0",
   "prompt_file": "All Routes Explicit, No Default Routes, IPv4.md",
   "prompt_sha256": "d55a80ef2afda10dacb80145c84498288635e3ca760287d6f4bf0740c0f7b891",
-  "source_failed_preserved": true,
-  "static_validation_passed": false,
+  "static_validation_passed": true,
   "status": "error",
   "variant": "without_skill"
 }

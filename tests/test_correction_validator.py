@@ -136,3 +136,26 @@ def test_other_destructive_custom_commands_are_rejected(tmp_path: Path):
     result = CorrectionValidator().validate(_write(tmp_path, yaml))
     assert not result.valid
     assert any("destructive" in e for e in result.errors)
+
+
+def test_ambiguous_kernel_routes_are_rejected(tmp_path: Path):
+    yaml = (
+        'lab_inline: |\n  r1[0]="A"\n'
+        'test:\n  kernel_routes:\n    r1:\n'
+        '      - ["192.168.1.0/24", ["10.0.0.1", "eth0"]]\n'
+    )
+    result = CorrectionValidator().validate(_write(tmp_path, yaml))
+    assert not result.valid
+    assert any("ambiguous next-hop list" in e for e in result.errors)
+
+
+def test_valid_kernel_routes_are_accepted(tmp_path: Path):
+    yaml = (
+        'lab_inline: |\n  r1[0]="A"\n'
+        'test:\n  kernel_routes:\n    r1:\n'
+        '      - ["192.168.1.0/24", ["10.0.0.1"]]\n'
+        '      - ["192.168.2.0/24", ["eth0"]]\n'
+        '      - ["192.168.3.0/24", ["10.0.0.1", "10.0.0.2"]]\n'
+    )
+    result = CorrectionValidator().validate(_write(tmp_path, yaml))
+    assert result.valid

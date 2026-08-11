@@ -20,13 +20,14 @@ def test_retry_after_lab_validator_failure(tmp_path: Path):
         generated = workspace / "output" / "lab"
         generated.mkdir(parents=True, exist_ok=True)
         if attempt == 1:
-            (generated / "lab.conf").write_text('r1-invalid[0]="A"\n')
+            # A placeholder token will cause the new sanity validator to reject this lab
+            (generated / "lab.conf").write_text('r1[0]="A"\nTODO: fix routing\n')
             (generated / "KEEP_ME.txt").write_text("sentinel")
         else:
             # Physically verify the sentinel exists BEFORE doing anything
             assert (generated / "KEEP_ME.txt").exists(), "output/lab/ was wiped before attempt 2!"
             assert (generated / "KEEP_ME.txt").read_text() == "sentinel"
-            
+
             (generated / "lab.conf").write_text('r1[0]="A"\n')
 
         return CommandResult(
@@ -100,7 +101,8 @@ def test_final_invalid_lab_is_preserved_in_source_failed(tmp_path: Path):
         workspace = kwargs["workspace"]
         generated = workspace / "output" / "lab"
         generated.mkdir(parents=True, exist_ok=True)
-        (generated / "lab.conf").write_text('r1-invalid[0]="A"\n')
+        # A placeholder token makes the new sanity validator reject this lab on every attempt
+        (generated / "lab.conf").write_text('r1[0]="A"\nTODO: fix routing\n')
 
         return CommandResult(
             command=("agent",),
@@ -159,7 +161,7 @@ def test_final_invalid_lab_is_preserved_in_source_failed(tmp_path: Path):
     assert runner.run.call_count == 2
     
     assert paths.source_failed.exists()
-    assert (paths.source_failed / "lab.conf").read_text() == 'r1-invalid[0]="A"\n'
+    assert "TODO" in (paths.source_failed / "lab.conf").read_text()
     assert not paths.source.exists()
 
 

@@ -187,6 +187,7 @@ connected subnets as `proto kernel scope link` entries when an IP is assigned to
 interface; the checker does not count these, so listing them causes false failures
 ("wrong number of routes" + "missing route X"). Hosts that set a default gateway via
 `ip route add default via ...` should list only `0.0.0.0/0`, not their own subnet.
+When specifying next-hops for a single path, use `[destination, [gateway]]` OR `[destination, [ethN]]`. Do not use `[destination, [gateway, ethN]]` for a single path, because multiple elements in the list mean multiple distinct next-hops are expected.
 
 **`protocols.bgpd`**: `neighbors` (ip + asn), `networks` (announced prefixes), and
 `injections` (redistribution into/from BGP).

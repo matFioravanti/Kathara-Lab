@@ -1,3 +1,0 @@
-.$TTL 3600
-.       IN  NS  a.root.
-a.root. IN  A   10.10.5.53
