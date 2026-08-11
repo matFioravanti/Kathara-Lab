@@ -74,13 +74,7 @@ class TimingFakeRunner:
         out = workspace / "output"
         out.mkdir(parents=True, exist_ok=True)
 
-        if "EXACTLY THREE files" in instruction:
-            self.clock.advance(80.0) # evaluation plan duration
-            (out / "evaluation-spec.md").write_text("Dummy", encoding="utf-8")
-            (out / "check-plan.md").write_text("Dummy", encoding="utf-8")
-            (out / "evaluation-plan.yaml").write_text("checks:\n  - id: chk1\n    checker: reachability\n", encoding="utf-8")
-            duration = 80.0
-        elif "binding an already-defined" in instruction or "failed validation" in instruction or "validated reference correction" in instruction:
+        if "validated reference correction" in instruction or "Determine the evaluation requirements" in instruction or "failed validation" in instruction:
             self.clock.advance(40.0) # correction duration
             (out / "correction.yaml").write_text(_VALID_CORRECTION, encoding="utf-8")
             duration = 40.0
@@ -133,8 +127,8 @@ def test_pipeline_timing_sequential(tmp_path: Path, monkeypatch):
     assert len(summary.experiments) == 1
     exp = summary.experiments[0]
 
-    # Verify timing values
-    assert exp.timings["evaluation_plan_seconds"] >= 80.0
+    # Verify timing values — no evaluation_plan_seconds any more
+    assert "evaluation_plan_seconds" not in exp.timings
     # Sequential: 100.0 + 130.0 = 230.0
     assert exp.timings["lab_generation_wall_seconds"] >= 230.0
     assert "parallel_lab_generation_wall_seconds" not in exp.timings
@@ -181,15 +175,7 @@ def test_pipeline_timing_parallel(tmp_path: Path, monkeypatch):
             def build_command(self, *, instruction, workspace, output_last_message):
                 return ("fake", instruction)
             def run(self, *, instruction, workspace, output_last_message, stdout_log, stderr_log, timeout_seconds):
-                if "EXACTLY THREE files" in instruction:
-                    time.sleep(0.08)
-                    out = workspace / "output"
-                    out.mkdir(parents=True, exist_ok=True)
-                    (out / "evaluation-spec.md").write_text("Dummy", encoding="utf-8")
-                    (out / "check-plan.md").write_text("Dummy", encoding="utf-8")
-                    (out / "evaluation-plan.yaml").write_text("checks:\n  - id: chk1\n    checker: reachability\n", encoding="utf-8")
-                    return CommandResult(("fake",), 0, "", "", 0.08, False)
-                elif "binding an already-defined" in instruction or "failed validation" in instruction or "validated reference correction" in instruction:
+                if "validated reference correction" in instruction or "Determine the evaluation requirements" in instruction or "failed validation" in instruction:
                     time.sleep(0.04)
                     out = workspace / "output"
                     out.mkdir(parents=True, exist_ok=True)

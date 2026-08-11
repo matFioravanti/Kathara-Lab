@@ -29,225 +29,142 @@ convergence_time: 10
 default_image: kathara/core
 
 test:
+  requiring_startup:
+    - r1
+    - r2
+    - r3
+    - r4
+    - r5
+    - pc1a
+    - pc1b
+    - pc2a
+    - pc2b
+    - pc3a
+    - pc3b
+    - pc4a
+    - pc4b
+    - pc5a
+    - pc5b
+
   ip_mapping:
     r1:
       "0": 10.1.1.1/24
-      "1": 10.255.12.1/30
-      "2": 10.255.13.1/30
+      "1": 172.16.12.1/30
+      "2": 172.16.13.1/30
     r2:
       "0": 10.2.2.1/24
-      "1": 10.255.12.2/30
-      "2": 10.255.24.1/30
+      "1": 172.16.12.2/30
+      "2": 172.16.24.1/30
     r3:
       "0": 10.3.3.1/24
-      "1": 10.255.13.2/30
-      "2": 10.255.34.1/30
+      "1": 172.16.13.2/30
+      "2": 172.16.34.1/30
     r4:
       "0": 10.4.4.1/24
-      "1": 10.255.24.2/30
-      "2": 10.255.34.2/30
-      "3": 10.255.45.1/30
+      "1": 172.16.24.2/30
+      "2": 172.16.34.2/30
+      "3": 172.16.45.1/30
     r5:
       "0": 10.5.5.1/24
-      "1": 10.255.45.2/30
-    pc1a:
-      "0": 10.1.1.10/24
-    pc1b:
-      "0": 10.1.1.11/24
-    pc2a:
-      "0": 10.2.2.10/24
-    pc2b:
-      "0": 10.2.2.11/24
-    pc3a:
-      "0": 10.3.3.10/24
-    pc3b:
-      "0": 10.3.3.11/24
-    pc4a:
-      "0": 10.4.4.10/24
-    pc4b:
-      "0": 10.4.4.11/24
-    pc5a:
-      "0": 10.5.5.10/24
-    pc5b:
-      "0": 10.5.5.11/24
+      "1": 172.16.45.2/30
+    pc1a: {"0": 10.1.1.11/24}
+    pc1b: {"0": 10.1.1.12/24}
+    pc2a: {"0": 10.2.2.11/24}
+    pc2b: {"0": 10.2.2.12/24}
+    pc3a: {"0": 10.3.3.11/24}
+    pc3b: {"0": 10.3.3.12/24}
+    pc4a: {"0": 10.4.4.11/24}
+    pc4b: {"0": 10.4.4.12/24}
+    pc5a: {"0": 10.5.5.11/24}
+    pc5b: {"0": 10.5.5.12/24}
 
   kernel_routes:
     r1:
-      - [10.2.2.0/24, [10.255.12.2, eth1]]
-      - [10.3.3.0/24, [10.255.13.2, eth2]]
-      - [10.4.4.0/24, [10.255.12.2, eth1]]
-      - [10.5.5.0/24, [10.255.12.2, eth1]]
-      - [10.255.24.0/30, [10.255.12.2, eth1]]
-      - [10.255.34.0/30, [10.255.13.2, eth2]]
-      - [10.255.45.0/30, [10.255.12.2, eth1]]
+      - [10.2.2.0/24, [172.16.12.2, eth1]]
+      - [10.3.3.0/24, [172.16.13.2, eth2]]
+      - [10.4.4.0/24, [172.16.12.2, eth1]]
+      - [10.5.5.0/24, [172.16.12.2, eth1]]
+      - [172.16.24.0/30, [172.16.12.2, eth1]]
+      - [172.16.34.0/30, [172.16.13.2, eth2]]
+      - [172.16.45.0/30, [172.16.12.2, eth1]]
     r2:
-      - [10.1.1.0/24, [10.255.12.1, eth1]]
-      - [10.3.3.0/24, [10.255.12.1, eth1]]
-      - [10.4.4.0/24, [10.255.24.2, eth2]]
-      - [10.5.5.0/24, [10.255.24.2, eth2]]
-      - [10.255.13.0/30, [10.255.12.1, eth1]]
-      - [10.255.34.0/30, [10.255.24.2, eth2]]
-      - [10.255.45.0/30, [10.255.24.2, eth2]]
+      - [10.1.1.0/24, [172.16.12.1, eth1]]
+      - [10.3.3.0/24, [172.16.12.1, eth1]]
+      - [10.4.4.0/24, [172.16.24.2, eth2]]
+      - [10.5.5.0/24, [172.16.24.2, eth2]]
+      - [172.16.13.0/30, [172.16.12.1, eth1]]
+      - [172.16.34.0/30, [172.16.24.2, eth2]]
+      - [172.16.45.0/30, [172.16.24.2, eth2]]
     r3:
-      - [10.1.1.0/24, [10.255.13.1, eth1]]
-      - [10.2.2.0/24, [10.255.13.1, eth1]]
-      - [10.4.4.0/24, [10.255.34.2, eth2]]
-      - [10.5.5.0/24, [10.255.34.2, eth2]]
-      - [10.255.12.0/30, [10.255.13.1, eth1]]
-      - [10.255.24.0/30, [10.255.34.2, eth2]]
-      - [10.255.45.0/30, [10.255.34.2, eth2]]
+      - [10.1.1.0/24, [172.16.13.1, eth1]]
+      - [10.2.2.0/24, [172.16.13.1, eth1]]
+      - [10.4.4.0/24, [172.16.34.2, eth2]]
+      - [10.5.5.0/24, [172.16.34.2, eth2]]
+      - [172.16.12.0/30, [172.16.13.1, eth1]]
+      - [172.16.24.0/30, [172.16.34.2, eth2]]
+      - [172.16.45.0/30, [172.16.34.2, eth2]]
     r4:
-      - [10.1.1.0/24, [10.255.24.1, eth1]]
-      - [10.2.2.0/24, [10.255.24.1, eth1]]
-      - [10.3.3.0/24, [10.255.34.1, eth2]]
-      - [10.5.5.0/24, [10.255.45.2, eth3]]
-      - [10.255.12.0/30, [10.255.24.1, eth1]]
-      - [10.255.13.0/30, [10.255.34.1, eth2]]
+      - [10.1.1.0/24, [172.16.24.1, eth1]]
+      - [10.2.2.0/24, [172.16.24.1, eth1]]
+      - [10.3.3.0/24, [172.16.34.1, eth2]]
+      - [10.5.5.0/24, [172.16.45.2, eth3]]
+      - [172.16.12.0/30, [172.16.24.1, eth1]]
+      - [172.16.13.0/30, [172.16.34.1, eth2]]
     r5:
-      - [10.1.1.0/24, [10.255.45.1, eth1]]
-      - [10.2.2.0/24, [10.255.45.1, eth1]]
-      - [10.3.3.0/24, [10.255.45.1, eth1]]
-      - [10.4.4.0/24, [10.255.45.1, eth1]]
-      - [10.255.12.0/30, [10.255.45.1, eth1]]
-      - [10.255.13.0/30, [10.255.45.1, eth1]]
-      - [10.255.24.0/30, [10.255.45.1, eth1]]
-      - [10.255.34.0/30, [10.255.45.1, eth1]]
+      - [10.1.1.0/24, [172.16.45.1, eth1]]
+      - [10.2.2.0/24, [172.16.45.1, eth1]]
+      - [10.3.3.0/24, [172.16.45.1, eth1]]
+      - [10.4.4.0/24, [172.16.45.1, eth1]]
+      - [172.16.12.0/30, [172.16.45.1, eth1]]
+      - [172.16.13.0/30, [172.16.45.1, eth1]]
+      - [172.16.24.0/30, [172.16.45.1, eth1]]
+      - [172.16.34.0/30, [172.16.45.1, eth1]]
+    pc1a: [[0.0.0.0/0, [10.1.1.1, eth0]]]
+    pc1b: [[0.0.0.0/0, [10.1.1.1, eth0]]]
+    pc2a: [[0.0.0.0/0, [10.2.2.1, eth0]]]
+    pc2b: [[0.0.0.0/0, [10.2.2.1, eth0]]]
+    pc3a: [[0.0.0.0/0, [10.3.3.1, eth0]]]
+    pc3b: [[0.0.0.0/0, [10.3.3.1, eth0]]]
+    pc4a: [[0.0.0.0/0, [10.4.4.1, eth0]]]
+    pc4b: [[0.0.0.0/0, [10.4.4.1, eth0]]]
+    pc5a: [[0.0.0.0/0, [10.5.5.1, eth0]]]
+    pc5b: [[0.0.0.0/0, [10.5.5.1, eth0]]]
 
   reachability:
-    pc1a: [10.1.1.11, 10.2.2.10, 10.2.2.11, 10.3.3.10, 10.3.3.11, 10.4.4.10, 10.4.4.11, 10.5.5.10, 10.5.5.11]
-    pc1b: [10.1.1.10, 10.2.2.10, 10.2.2.11, 10.3.3.10, 10.3.3.11, 10.4.4.10, 10.4.4.11, 10.5.5.10, 10.5.5.11]
-    pc2a: [10.1.1.10, 10.1.1.11, 10.2.2.11, 10.3.3.10, 10.3.3.11, 10.4.4.10, 10.4.4.11, 10.5.5.10, 10.5.5.11]
-    pc2b: [10.1.1.10, 10.1.1.11, 10.2.2.10, 10.3.3.10, 10.3.3.11, 10.4.4.10, 10.4.4.11, 10.5.5.10, 10.5.5.11]
-    pc3a: [10.1.1.10, 10.1.1.11, 10.2.2.10, 10.2.2.11, 10.3.3.11, 10.4.4.10, 10.4.4.11, 10.5.5.10, 10.5.5.11]
-    pc3b: [10.1.1.10, 10.1.1.11, 10.2.2.10, 10.2.2.11, 10.3.3.10, 10.4.4.10, 10.4.4.11, 10.5.5.10, 10.5.5.11]
-    pc4a: [10.1.1.10, 10.1.1.11, 10.2.2.10, 10.2.2.11, 10.3.3.10, 10.3.3.11, 10.4.4.11, 10.5.5.10, 10.5.5.11]
-    pc4b: [10.1.1.10, 10.1.1.11, 10.2.2.10, 10.2.2.11, 10.3.3.10, 10.3.3.11, 10.4.4.10, 10.5.5.10, 10.5.5.11]
-    pc5a: [10.1.1.10, 10.1.1.11, 10.2.2.10, 10.2.2.11, 10.3.3.10, 10.3.3.11, 10.4.4.10, 10.4.4.11, 10.5.5.11]
-    pc5b: [10.1.1.10, 10.1.1.11, 10.2.2.10, 10.2.2.11, 10.3.3.10, 10.3.3.11, 10.4.4.10, 10.4.4.11, 10.5.5.10]
+    pc1a: [10.1.1.12, 10.2.2.11, 10.2.2.12, 10.3.3.11, 10.3.3.12, 10.4.4.11, 10.4.4.12, 10.5.5.11, 10.5.5.12]
+    pc1b: [10.1.1.11, 10.2.2.11, 10.2.2.12, 10.3.3.11, 10.3.3.12, 10.4.4.11, 10.4.4.12, 10.5.5.11, 10.5.5.12]
+    pc2a: [10.1.1.11, 10.1.1.12, 10.2.2.12, 10.3.3.11, 10.3.3.12, 10.4.4.11, 10.4.4.12, 10.5.5.11, 10.5.5.12]
+    pc2b: [10.1.1.11, 10.1.1.12, 10.2.2.11, 10.3.3.11, 10.3.3.12, 10.4.4.11, 10.4.4.12, 10.5.5.11, 10.5.5.12]
+    pc3a: [10.1.1.11, 10.1.1.12, 10.2.2.11, 10.2.2.12, 10.3.3.12, 10.4.4.11, 10.4.4.12, 10.5.5.11, 10.5.5.12]
+    pc3b: [10.1.1.11, 10.1.1.12, 10.2.2.11, 10.2.2.12, 10.3.3.11, 10.4.4.11, 10.4.4.12, 10.5.5.11, 10.5.5.12]
+    pc4a: [10.1.1.11, 10.1.1.12, 10.2.2.11, 10.2.2.12, 10.3.3.11, 10.3.3.12, 10.4.4.12, 10.5.5.11, 10.5.5.12]
+    pc4b: [10.1.1.11, 10.1.1.12, 10.2.2.11, 10.2.2.12, 10.3.3.11, 10.3.3.12, 10.4.4.11, 10.5.5.11, 10.5.5.12]
+    pc5a: [10.1.1.11, 10.1.1.12, 10.2.2.11, 10.2.2.12, 10.3.3.11, 10.3.3.12, 10.4.4.11, 10.4.4.12, 10.5.5.12]
+    pc5b: [10.1.1.11, 10.1.1.12, 10.2.2.11, 10.2.2.12, 10.3.3.11, 10.3.3.12, 10.4.4.11, 10.4.4.12, 10.5.5.11]
 
   custom_commands:
     r1:
-      - command: "sh -c 'test -z \"$(ip -6 addr show scope global)\" && test \"$(sysctl -n net.ipv6.conf.all.forwarding)\" = 0'"
+      - command: sysctl net.ipv4.ip_forward
+        regex_match: "net\\.ipv4\\.ip_forward = 1"
+      - command: "ip route show default | grep -q .; test $? -eq 1"
         exit_code: 0
-      - command: "sh -c '! ip -4 route show default | grep -q .'"
-        exit_code: 0
-      - command: ip -4 route show 10.2.2.0/24
-        regex_match: '^10\\.2\\.2\\.0/24 via 10\\.255\\.12\\.2 dev eth1 proto static$'
-      - command: ip -4 route show 10.3.3.0/24
-        regex_match: '^10\\.3\\.3\\.0/24 via 10\\.255\\.13\\.2 dev eth2 proto static$'
-      - command: ip -4 route show 10.4.4.0/24
-        regex_match: '^10\\.4\\.4\\.0/24 via 10\\.255\\.12\\.2 dev eth1 proto static$'
-      - command: ip -4 route show 10.5.5.0/24
-        regex_match: '^10\\.5\\.5\\.0/24 via 10\\.255\\.12\\.2 dev eth1 proto static$'
-      - command: ip -4 route show 10.255.24.0/30
-        regex_match: '^10\\.255\\.24\\.0/30 via 10\\.255\\.12\\.2 dev eth1 proto static$'
-      - command: ip -4 route show 10.255.34.0/30
-        regex_match: '^10\\.255\\.34\\.0/30 via 10\\.255\\.13\\.2 dev eth2 proto static$'
-      - command: ip -4 route show 10.255.45.0/30
-        regex_match: '^10\\.255\\.45\\.0/30 via 10\\.255\\.12\\.2 dev eth1 proto static$'
     r2:
-      - command: "sh -c 'test -z \"$(ip -6 addr show scope global)\" && test \"$(sysctl -n net.ipv6.conf.all.forwarding)\" = 0'"
+      - command: sysctl net.ipv4.ip_forward
+        regex_match: "net\\.ipv4\\.ip_forward = 1"
+      - command: "ip route show default | grep -q .; test $? -eq 1"
         exit_code: 0
-      - command: "sh -c '! ip -4 route show default | grep -q .'"
-        exit_code: 0
-      - command: ip -4 route show 10.1.1.0/24
-        regex_match: '^10\\.1\\.1\\.0/24 via 10\\.255\\.12\\.1 dev eth1 proto static$'
-      - command: ip -4 route show 10.3.3.0/24
-        regex_match: '^10\\.3\\.3\\.0/24 via 10\\.255\\.12\\.1 dev eth1 proto static$'
-      - command: ip -4 route show 10.4.4.0/24
-        regex_match: '^10\\.4\\.4\\.0/24 via 10\\.255\\.24\\.2 dev eth2 proto static$'
-      - command: ip -4 route show 10.5.5.0/24
-        regex_match: '^10\\.5\\.5\\.0/24 via 10\\.255\\.24\\.2 dev eth2 proto static$'
-      - command: ip -4 route show 10.255.13.0/30
-        regex_match: '^10\\.255\\.13\\.0/30 via 10\\.255\\.12\\.1 dev eth1 proto static$'
-      - command: ip -4 route show 10.255.34.0/30
-        regex_match: '^10\\.255\\.34\\.0/30 via 10\\.255\\.24\\.2 dev eth2 proto static$'
-      - command: ip -4 route show 10.255.45.0/30
-        regex_match: '^10\\.255\\.45\\.0/30 via 10\\.255\\.24\\.2 dev eth2 proto static$'
     r3:
-      - command: "sh -c 'test -z \"$(ip -6 addr show scope global)\" && test \"$(sysctl -n net.ipv6.conf.all.forwarding)\" = 0'"
+      - command: sysctl net.ipv4.ip_forward
+        regex_match: "net\\.ipv4\\.ip_forward = 1"
+      - command: "ip route show default | grep -q .; test $? -eq 1"
         exit_code: 0
-      - command: "sh -c '! ip -4 route show default | grep -q .'"
-        exit_code: 0
-      - command: ip -4 route show 10.1.1.0/24
-        regex_match: '^10\\.1\\.1\\.0/24 via 10\\.255\\.13\\.1 dev eth1 proto static$'
-      - command: ip -4 route show 10.2.2.0/24
-        regex_match: '^10\\.2\\.2\\.0/24 via 10\\.255\\.13\\.1 dev eth1 proto static$'
-      - command: ip -4 route show 10.4.4.0/24
-        regex_match: '^10\\.4\\.4\\.0/24 via 10\\.255\\.34\\.2 dev eth2 proto static$'
-      - command: ip -4 route show 10.5.5.0/24
-        regex_match: '^10\\.5\\.5\\.0/24 via 10\\.255\\.34\\.2 dev eth2 proto static$'
-      - command: ip -4 route show 10.255.12.0/30
-        regex_match: '^10\\.255\\.12\\.0/30 via 10\\.255\\.13\\.1 dev eth1 proto static$'
-      - command: ip -4 route show 10.255.24.0/30
-        regex_match: '^10\\.255\\.24\\.0/30 via 10\\.255\\.34\\.2 dev eth2 proto static$'
-      - command: ip -4 route show 10.255.45.0/30
-        regex_match: '^10\\.255\\.45\\.0/30 via 10\\.255\\.34\\.2 dev eth2 proto static$'
     r4:
-      - command: "sh -c 'test -z \"$(ip -6 addr show scope global)\" && test \"$(sysctl -n net.ipv6.conf.all.forwarding)\" = 0'"
+      - command: sysctl net.ipv4.ip_forward
+        regex_match: "net\\.ipv4\\.ip_forward = 1"
+      - command: "ip route show default | grep -q .; test $? -eq 1"
         exit_code: 0
-      - command: "sh -c '! ip -4 route show default | grep -q .'"
-        exit_code: 0
-      - command: ip -4 route show 10.1.1.0/24
-        regex_match: '^10\\.1\\.1\\.0/24 via 10\\.255\\.24\\.1 dev eth1 proto static$'
-      - command: ip -4 route show 10.2.2.0/24
-        regex_match: '^10\\.2\\.2\\.0/24 via 10\\.255\\.24\\.1 dev eth1 proto static$'
-      - command: ip -4 route show 10.3.3.0/24
-        regex_match: '^10\\.3\\.3\\.0/24 via 10\\.255\\.34\\.1 dev eth2 proto static$'
-      - command: ip -4 route show 10.5.5.0/24
-        regex_match: '^10\\.5\\.5\\.0/24 via 10\\.255\\.45\\.2 dev eth3 proto static$'
-      - command: ip -4 route show 10.255.12.0/30
-        regex_match: '^10\\.255\\.12\\.0/30 via 10\\.255\\.24\\.1 dev eth1 proto static$'
-      - command: ip -4 route show 10.255.13.0/30
-        regex_match: '^10\\.255\\.13\\.0/30 via 10\\.255\\.34\\.1 dev eth2 proto static$'
     r5:
-      - command: "sh -c 'test -z \"$(ip -6 addr show scope global)\" && test \"$(sysctl -n net.ipv6.conf.all.forwarding)\" = 0'"
-        exit_code: 0
-      - command: "sh -c '! ip -4 route show default | grep -q .'"
-        exit_code: 0
-      - command: ip -4 route show 10.1.1.0/24
-        regex_match: '^10\\.1\\.1\\.0/24 via 10\\.255\\.45\\.1 dev eth1 proto static$'
-      - command: ip -4 route show 10.2.2.0/24
-        regex_match: '^10\\.2\\.2\\.0/24 via 10\\.255\\.45\\.1 dev eth1 proto static$'
-      - command: ip -4 route show 10.3.3.0/24
-        regex_match: '^10\\.3\\.3\\.0/24 via 10\\.255\\.45\\.1 dev eth1 proto static$'
-      - command: ip -4 route show 10.4.4.0/24
-        regex_match: '^10\\.4\\.4\\.0/24 via 10\\.255\\.45\\.1 dev eth1 proto static$'
-      - command: ip -4 route show 10.255.12.0/30
-        regex_match: '^10\\.255\\.12\\.0/30 via 10\\.255\\.45\\.1 dev eth1 proto static$'
-      - command: ip -4 route show 10.255.13.0/30
-        regex_match: '^10\\.255\\.13\\.0/30 via 10\\.255\\.45\\.1 dev eth1 proto static$'
-      - command: ip -4 route show 10.255.24.0/30
-        regex_match: '^10\\.255\\.24\\.0/30 via 10\\.255\\.45\\.1 dev eth1 proto static$'
-      - command: ip -4 route show 10.255.34.0/30
-        regex_match: '^10\\.255\\.34\\.0/30 via 10\\.255\\.45\\.1 dev eth1 proto static$'
-    pc1a:
-      - command: "sh -c 'test -z \"$(ip -6 addr show scope global)\" && test \"$(sysctl -n net.ipv6.conf.all.forwarding)\" = 0'"
-        exit_code: 0
-    pc1b:
-      - command: "sh -c 'test -z \"$(ip -6 addr show scope global)\" && test \"$(sysctl -n net.ipv6.conf.all.forwarding)\" = 0'"
-        exit_code: 0
-    pc2a:
-      - command: "sh -c 'test -z \"$(ip -6 addr show scope global)\" && test \"$(sysctl -n net.ipv6.conf.all.forwarding)\" = 0'"
-        exit_code: 0
-    pc2b:
-      - command: "sh -c 'test -z \"$(ip -6 addr show scope global)\" && test \"$(sysctl -n net.ipv6.conf.all.forwarding)\" = 0'"
-        exit_code: 0
-    pc3a:
-      - command: "sh -c 'test -z \"$(ip -6 addr show scope global)\" && test \"$(sysctl -n net.ipv6.conf.all.forwarding)\" = 0'"
-        exit_code: 0
-    pc3b:
-      - command: "sh -c 'test -z \"$(ip -6 addr show scope global)\" && test \"$(sysctl -n net.ipv6.conf.all.forwarding)\" = 0'"
-        exit_code: 0
-    pc4a:
-      - command: "sh -c 'test -z \"$(ip -6 addr show scope global)\" && test \"$(sysctl -n net.ipv6.conf.all.forwarding)\" = 0'"
-        exit_code: 0
-    pc4b:
-      - command: "sh -c 'test -z \"$(ip -6 addr show scope global)\" && test \"$(sysctl -n net.ipv6.conf.all.forwarding)\" = 0'"
-        exit_code: 0
-    pc5a:
-      - command: "sh -c 'test -z \"$(ip -6 addr show scope global)\" && test \"$(sysctl -n net.ipv6.conf.all.forwarding)\" = 0'"
-        exit_code: 0
-    pc5b:
-      - command: "sh -c 'test -z \"$(ip -6 addr show scope global)\" && test \"$(sysctl -n net.ipv6.conf.all.forwarding)\" = 0'"
+      - command: sysctl net.ipv4.ip_forward
+        regex_match: "net\\.ipv4\\.ip_forward = 1"
+      - command: "ip route show default | grep -q .; test $? -eq 1"
         exit_code: 0

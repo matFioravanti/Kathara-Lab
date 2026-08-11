@@ -39,278 +39,198 @@ Checking the collision domain attached to interface `eth0` of `pc4a`,True,OK
 Checking the collision domain attached to interface `eth0` of `pc4b`,True,OK
 Checking the collision domain attached to interface `eth0` of `pc5a`,True,OK
 Checking the collision domain attached to interface `eth0` of `pc5b`,True,OK
+Check existence of `r1.startup` file,True,OK
+Check existence of `r2.startup` file,True,OK
+Check existence of `r3.startup` file,True,OK
+Check existence of `r4.startup` file,True,OK
+Check existence of `r5.startup` file,True,OK
+Check existence of `pc1a.startup` file,True,OK
+Check existence of `pc1b.startup` file,True,OK
+Check existence of `pc2a.startup` file,True,OK
+Check existence of `pc2b.startup` file,True,OK
+Check existence of `pc3a.startup` file,True,OK
+Check existence of `pc3b.startup` file,True,OK
+Check existence of `pc4a.startup` file,True,OK
+Check existence of `pc4b.startup` file,True,OK
+Check existence of `pc5a.startup` file,True,OK
+Check existence of `pc5b.startup` file,True,OK
 Verifying the IP address (10.1.1.1/24) assigned to eth0 of r1,True,OK
-Verifying the IP address (10.255.12.1/30) assigned to eth1 of r1,True,OK
-Verifying the IP address (10.255.13.1/30) assigned to eth2 of r1,True,OK
+Verifying the IP address (172.16.12.1/30) assigned to eth1 of r1,True,OK
+Verifying the IP address (172.16.13.1/30) assigned to eth2 of r1,True,OK
 Verifying the IP address (10.2.2.1/24) assigned to eth0 of r2,True,OK
-Verifying the IP address (10.255.12.2/30) assigned to eth1 of r2,True,OK
-Verifying the IP address (10.255.24.1/30) assigned to eth2 of r2,True,OK
+Verifying the IP address (172.16.12.2/30) assigned to eth1 of r2,True,OK
+Verifying the IP address (172.16.24.1/30) assigned to eth2 of r2,True,OK
 Verifying the IP address (10.3.3.1/24) assigned to eth0 of r3,True,OK
-Verifying the IP address (10.255.13.2/30) assigned to eth1 of r3,True,OK
-Verifying the IP address (10.255.34.1/30) assigned to eth2 of r3,True,OK
+Verifying the IP address (172.16.13.2/30) assigned to eth1 of r3,True,OK
+Verifying the IP address (172.16.34.1/30) assigned to eth2 of r3,True,OK
 Verifying the IP address (10.4.4.1/24) assigned to eth0 of r4,True,OK
-Verifying the IP address (10.255.24.2/30) assigned to eth1 of r4,True,OK
-Verifying the IP address (10.255.34.2/30) assigned to eth2 of r4,True,OK
-Verifying the IP address (10.255.45.1/30) assigned to eth3 of r4,True,OK
+Verifying the IP address (172.16.24.2/30) assigned to eth1 of r4,True,OK
+Verifying the IP address (172.16.34.2/30) assigned to eth2 of r4,True,OK
+Verifying the IP address (172.16.45.1/30) assigned to eth3 of r4,True,OK
 Verifying the IP address (10.5.5.1/24) assigned to eth0 of r5,True,OK
-Verifying the IP address (10.255.45.2/30) assigned to eth1 of r5,True,OK
-Verifying the IP address (10.1.1.10/24) assigned to eth0 of pc1a,True,OK
-Verifying the IP address (10.1.1.11/24) assigned to eth0 of pc1b,True,OK
-Verifying the IP address (10.2.2.10/24) assigned to eth0 of pc2a,True,OK
-Verifying the IP address (10.2.2.11/24) assigned to eth0 of pc2b,True,OK
-Verifying the IP address (10.3.3.10/24) assigned to eth0 of pc3a,True,OK
-Verifying the IP address (10.3.3.11/24) assigned to eth0 of pc3b,True,OK
-Verifying the IP address (10.4.4.10/24) assigned to eth0 of pc4a,True,OK
-Verifying the IP address (10.4.4.11/24) assigned to eth0 of pc4b,True,OK
-Verifying the IP address (10.5.5.10/24) assigned to eth0 of pc5a,True,OK
-Verifying the IP address (10.5.5.11/24) assigned to eth0 of pc5b,True,OK
-Verifying `10.1.1.11` reachable from device `pc1a`,True,OK
-Verifying `10.2.2.10` reachable from device `pc1a`,True,OK
+Verifying the IP address (172.16.45.2/30) assigned to eth1 of r5,True,OK
+Verifying the IP address (10.1.1.11/24) assigned to eth0 of pc1a,True,OK
+Verifying the IP address (10.1.1.12/24) assigned to eth0 of pc1b,True,OK
+Verifying the IP address (10.2.2.11/24) assigned to eth0 of pc2a,True,OK
+Verifying the IP address (10.2.2.12/24) assigned to eth0 of pc2b,True,OK
+Verifying the IP address (10.3.3.11/24) assigned to eth0 of pc3a,True,OK
+Verifying the IP address (10.3.3.12/24) assigned to eth0 of pc3b,True,OK
+Verifying the IP address (10.4.4.11/24) assigned to eth0 of pc4a,True,OK
+Verifying the IP address (10.4.4.12/24) assigned to eth0 of pc4b,True,OK
+Verifying the IP address (10.5.5.11/24) assigned to eth0 of pc5a,True,OK
+Verifying the IP address (10.5.5.12/24) assigned to eth0 of pc5b,True,OK
+Verifying `10.1.1.12` reachable from device `pc1a`,True,OK
 Verifying `10.2.2.11` reachable from device `pc1a`,True,OK
-Verifying `10.3.3.10` reachable from device `pc1a`,True,OK
+Verifying `10.2.2.12` reachable from device `pc1a`,True,OK
 Verifying `10.3.3.11` reachable from device `pc1a`,True,OK
-Verifying `10.4.4.10` reachable from device `pc1a`,True,OK
+Verifying `10.3.3.12` reachable from device `pc1a`,True,OK
 Verifying `10.4.4.11` reachable from device `pc1a`,True,OK
-Verifying `10.5.5.10` reachable from device `pc1a`,True,OK
+Verifying `10.4.4.12` reachable from device `pc1a`,True,OK
 Verifying `10.5.5.11` reachable from device `pc1a`,True,OK
-Verifying `10.1.1.10` reachable from device `pc1b`,True,OK
-Verifying `10.2.2.10` reachable from device `pc1b`,True,OK
+Verifying `10.5.5.12` reachable from device `pc1a`,True,OK
+Verifying `10.1.1.11` reachable from device `pc1b`,True,OK
 Verifying `10.2.2.11` reachable from device `pc1b`,True,OK
-Verifying `10.3.3.10` reachable from device `pc1b`,True,OK
+Verifying `10.2.2.12` reachable from device `pc1b`,True,OK
 Verifying `10.3.3.11` reachable from device `pc1b`,True,OK
-Verifying `10.4.4.10` reachable from device `pc1b`,True,OK
+Verifying `10.3.3.12` reachable from device `pc1b`,True,OK
 Verifying `10.4.4.11` reachable from device `pc1b`,True,OK
-Verifying `10.5.5.10` reachable from device `pc1b`,True,OK
+Verifying `10.4.4.12` reachable from device `pc1b`,True,OK
 Verifying `10.5.5.11` reachable from device `pc1b`,True,OK
-Verifying `10.1.1.10` reachable from device `pc2a`,True,OK
+Verifying `10.5.5.12` reachable from device `pc1b`,True,OK
 Verifying `10.1.1.11` reachable from device `pc2a`,True,OK
-Verifying `10.2.2.11` reachable from device `pc2a`,True,OK
-Verifying `10.3.3.10` reachable from device `pc2a`,True,OK
+Verifying `10.1.1.12` reachable from device `pc2a`,True,OK
+Verifying `10.2.2.12` reachable from device `pc2a`,True,OK
 Verifying `10.3.3.11` reachable from device `pc2a`,True,OK
-Verifying `10.4.4.10` reachable from device `pc2a`,True,OK
+Verifying `10.3.3.12` reachable from device `pc2a`,True,OK
 Verifying `10.4.4.11` reachable from device `pc2a`,True,OK
-Verifying `10.5.5.10` reachable from device `pc2a`,True,OK
+Verifying `10.4.4.12` reachable from device `pc2a`,True,OK
 Verifying `10.5.5.11` reachable from device `pc2a`,True,OK
-Verifying `10.1.1.10` reachable from device `pc2b`,True,OK
+Verifying `10.5.5.12` reachable from device `pc2a`,True,OK
 Verifying `10.1.1.11` reachable from device `pc2b`,True,OK
-Verifying `10.2.2.10` reachable from device `pc2b`,True,OK
-Verifying `10.3.3.10` reachable from device `pc2b`,True,OK
+Verifying `10.1.1.12` reachable from device `pc2b`,True,OK
+Verifying `10.2.2.11` reachable from device `pc2b`,True,OK
 Verifying `10.3.3.11` reachable from device `pc2b`,True,OK
-Verifying `10.4.4.10` reachable from device `pc2b`,True,OK
+Verifying `10.3.3.12` reachable from device `pc2b`,True,OK
 Verifying `10.4.4.11` reachable from device `pc2b`,True,OK
-Verifying `10.5.5.10` reachable from device `pc2b`,True,OK
+Verifying `10.4.4.12` reachable from device `pc2b`,True,OK
 Verifying `10.5.5.11` reachable from device `pc2b`,True,OK
-Verifying `10.1.1.10` reachable from device `pc3a`,True,OK
+Verifying `10.5.5.12` reachable from device `pc2b`,True,OK
 Verifying `10.1.1.11` reachable from device `pc3a`,True,OK
-Verifying `10.2.2.10` reachable from device `pc3a`,True,OK
+Verifying `10.1.1.12` reachable from device `pc3a`,True,OK
 Verifying `10.2.2.11` reachable from device `pc3a`,True,OK
-Verifying `10.3.3.11` reachable from device `pc3a`,True,OK
-Verifying `10.4.4.10` reachable from device `pc3a`,True,OK
+Verifying `10.2.2.12` reachable from device `pc3a`,True,OK
+Verifying `10.3.3.12` reachable from device `pc3a`,True,OK
 Verifying `10.4.4.11` reachable from device `pc3a`,True,OK
-Verifying `10.5.5.10` reachable from device `pc3a`,True,OK
+Verifying `10.4.4.12` reachable from device `pc3a`,True,OK
 Verifying `10.5.5.11` reachable from device `pc3a`,True,OK
-Verifying `10.1.1.10` reachable from device `pc3b`,True,OK
+Verifying `10.5.5.12` reachable from device `pc3a`,True,OK
 Verifying `10.1.1.11` reachable from device `pc3b`,True,OK
-Verifying `10.2.2.10` reachable from device `pc3b`,True,OK
+Verifying `10.1.1.12` reachable from device `pc3b`,True,OK
 Verifying `10.2.2.11` reachable from device `pc3b`,True,OK
-Verifying `10.3.3.10` reachable from device `pc3b`,True,OK
-Verifying `10.4.4.10` reachable from device `pc3b`,True,OK
+Verifying `10.2.2.12` reachable from device `pc3b`,True,OK
+Verifying `10.3.3.11` reachable from device `pc3b`,True,OK
 Verifying `10.4.4.11` reachable from device `pc3b`,True,OK
-Verifying `10.5.5.10` reachable from device `pc3b`,True,OK
+Verifying `10.4.4.12` reachable from device `pc3b`,True,OK
 Verifying `10.5.5.11` reachable from device `pc3b`,True,OK
-Verifying `10.1.1.10` reachable from device `pc4a`,True,OK
+Verifying `10.5.5.12` reachable from device `pc3b`,True,OK
 Verifying `10.1.1.11` reachable from device `pc4a`,True,OK
-Verifying `10.2.2.10` reachable from device `pc4a`,True,OK
+Verifying `10.1.1.12` reachable from device `pc4a`,True,OK
 Verifying `10.2.2.11` reachable from device `pc4a`,True,OK
-Verifying `10.3.3.10` reachable from device `pc4a`,True,OK
+Verifying `10.2.2.12` reachable from device `pc4a`,True,OK
 Verifying `10.3.3.11` reachable from device `pc4a`,True,OK
-Verifying `10.4.4.11` reachable from device `pc4a`,True,OK
-Verifying `10.5.5.10` reachable from device `pc4a`,True,OK
+Verifying `10.3.3.12` reachable from device `pc4a`,True,OK
+Verifying `10.4.4.12` reachable from device `pc4a`,True,OK
 Verifying `10.5.5.11` reachable from device `pc4a`,True,OK
-Verifying `10.1.1.10` reachable from device `pc4b`,True,OK
+Verifying `10.5.5.12` reachable from device `pc4a`,True,OK
 Verifying `10.1.1.11` reachable from device `pc4b`,True,OK
-Verifying `10.2.2.10` reachable from device `pc4b`,True,OK
+Verifying `10.1.1.12` reachable from device `pc4b`,True,OK
 Verifying `10.2.2.11` reachable from device `pc4b`,True,OK
-Verifying `10.3.3.10` reachable from device `pc4b`,True,OK
+Verifying `10.2.2.12` reachable from device `pc4b`,True,OK
 Verifying `10.3.3.11` reachable from device `pc4b`,True,OK
-Verifying `10.4.4.10` reachable from device `pc4b`,True,OK
-Verifying `10.5.5.10` reachable from device `pc4b`,True,OK
+Verifying `10.3.3.12` reachable from device `pc4b`,True,OK
+Verifying `10.4.4.11` reachable from device `pc4b`,True,OK
 Verifying `10.5.5.11` reachable from device `pc4b`,True,OK
-Verifying `10.1.1.10` reachable from device `pc5a`,True,OK
+Verifying `10.5.5.12` reachable from device `pc4b`,True,OK
 Verifying `10.1.1.11` reachable from device `pc5a`,True,OK
-Verifying `10.2.2.10` reachable from device `pc5a`,True,OK
+Verifying `10.1.1.12` reachable from device `pc5a`,True,OK
 Verifying `10.2.2.11` reachable from device `pc5a`,True,OK
-Verifying `10.3.3.10` reachable from device `pc5a`,True,OK
+Verifying `10.2.2.12` reachable from device `pc5a`,True,OK
 Verifying `10.3.3.11` reachable from device `pc5a`,True,OK
-Verifying `10.4.4.10` reachable from device `pc5a`,True,OK
+Verifying `10.3.3.12` reachable from device `pc5a`,True,OK
 Verifying `10.4.4.11` reachable from device `pc5a`,True,OK
-Verifying `10.5.5.11` reachable from device `pc5a`,True,OK
-Verifying `10.1.1.10` reachable from device `pc5b`,True,OK
+Verifying `10.4.4.12` reachable from device `pc5a`,True,OK
+Verifying `10.5.5.12` reachable from device `pc5a`,True,OK
 Verifying `10.1.1.11` reachable from device `pc5b`,True,OK
-Verifying `10.2.2.10` reachable from device `pc5b`,True,OK
+Verifying `10.1.1.12` reachable from device `pc5b`,True,OK
 Verifying `10.2.2.11` reachable from device `pc5b`,True,OK
-Verifying `10.3.3.10` reachable from device `pc5b`,True,OK
+Verifying `10.2.2.12` reachable from device `pc5b`,True,OK
 Verifying `10.3.3.11` reachable from device `pc5b`,True,OK
-Verifying `10.4.4.10` reachable from device `pc5b`,True,OK
+Verifying `10.3.3.12` reachable from device `pc5b`,True,OK
 Verifying `10.4.4.11` reachable from device `pc5b`,True,OK
-Verifying `10.5.5.10` reachable from device `pc5b`,True,OK
+Verifying `10.4.4.12` reachable from device `pc5b`,True,OK
+Verifying `10.5.5.11` reachable from device `pc5b`,True,OK
 Checking the routing table of r1,False,"The routing table of r1 about route 10.2.2.0/24 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r1,False,"The routing table of r1 about route 10.3.3.0/24 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r1,False,"The routing table of r1 about route 10.4.4.0/24 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r1,False,"The routing table of r1 about route 10.5.5.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r1,False,"The routing table of r1 about route 10.255.24.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r1,False,"The routing table of r1 about route 10.255.34.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r1,False,"The routing table of r1 about route 10.255.45.0/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r1,False,"The routing table of r1 about route 172.16.24.0/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r1,False,"The routing table of r1 about route 172.16.34.0/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r1,False,"The routing table of r1 about route 172.16.45.0/30 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r2,False,"The routing table of r2 about route 10.1.1.0/24 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r2,False,"The routing table of r2 about route 10.3.3.0/24 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r2,False,"The routing table of r2 about route 10.4.4.0/24 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r2,False,"The routing table of r2 about route 10.5.5.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r2,False,"The routing table of r2 about route 10.255.13.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r2,False,"The routing table of r2 about route 10.255.34.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r2,False,"The routing table of r2 about route 10.255.45.0/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r2,False,"The routing table of r2 about route 172.16.13.0/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r2,False,"The routing table of r2 about route 172.16.34.0/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r2,False,"The routing table of r2 about route 172.16.45.0/30 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r3,False,"The routing table of r3 about route 10.1.1.0/24 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r3,False,"The routing table of r3 about route 10.2.2.0/24 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r3,False,"The routing table of r3 about route 10.4.4.0/24 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r3,False,"The routing table of r3 about route 10.5.5.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r3,False,"The routing table of r3 about route 10.255.12.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r3,False,"The routing table of r3 about route 10.255.24.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r3,False,"The routing table of r3 about route 10.255.45.0/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r3,False,"The routing table of r3 about route 172.16.12.0/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r3,False,"The routing table of r3 about route 172.16.24.0/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r3,False,"The routing table of r3 about route 172.16.45.0/30 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r4,False,"The routing table of r4 about route 10.1.1.0/24 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r4,False,"The routing table of r4 about route 10.2.2.0/24 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r4,False,"The routing table of r4 about route 10.3.3.0/24 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r4,False,"The routing table of r4 about route 10.5.5.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r4,False,"The routing table of r4 about route 10.255.12.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r4,False,"The routing table of r4 about route 10.255.13.0/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r4,False,"The routing table of r4 about route 172.16.12.0/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r4,False,"The routing table of r4 about route 172.16.13.0/30 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r5,False,"The routing table of r5 about route 10.1.1.0/24 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r5,False,"The routing table of r5 about route 10.2.2.0/24 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r5,False,"The routing table of r5 about route 10.3.3.0/24 have the wrong number of next-hops: 1, expected: 2"
 Checking the routing table of r5,False,"The routing table of r5 about route 10.4.4.0/24 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r5,False,"The routing table of r5 about route 10.255.12.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r5,False,"The routing table of r5 about route 10.255.13.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r5,False,"The routing table of r5 about route 10.255.24.0/30 have the wrong number of next-hops: 1, expected: 2"
-Checking the routing table of r5,False,"The routing table of r5 about route 10.255.34.0/30 have the wrong number of next-hops: 1, expected: 2"
-"Checking the exit code of the command 'sh -c 'test -z ""$(ip -6 addr show scope global)"" && test ""$(sysctl -n net.ipv6.conf.all.forwarding)"" = 0'' on 'r1'",True,OK
-Checking the exit code of the command 'sh -c '! ip -4 route show default | grep -q .'' on 'r1',True,OK
-Checking the output of the command 'ip -4 route show 10.2.2.0/24' on 'r1',False,"The output of the command do not match the expected regex.
- Actual: 10.2.2.0/24 via 10.255.12.2 dev eth1
- Regex: ^10\\.2\\.2\\.0/24 via 10\\.255\\.12\\.2 dev eth1 proto static$"
-Checking the output of the command 'ip -4 route show 10.3.3.0/24' on 'r1',False,"The output of the command do not match the expected regex.
- Actual: 10.3.3.0/24 via 10.255.13.2 dev eth2
- Regex: ^10\\.3\\.3\\.0/24 via 10\\.255\\.13\\.2 dev eth2 proto static$"
-Checking the output of the command 'ip -4 route show 10.4.4.0/24' on 'r1',False,"The output of the command do not match the expected regex.
- Actual: 10.4.4.0/24 via 10.255.12.2 dev eth1
- Regex: ^10\\.4\\.4\\.0/24 via 10\\.255\\.12\\.2 dev eth1 proto static$"
-Checking the output of the command 'ip -4 route show 10.5.5.0/24' on 'r1',False,"The output of the command do not match the expected regex.
- Actual: 10.5.5.0/24 via 10.255.12.2 dev eth1
- Regex: ^10\\.5\\.5\\.0/24 via 10\\.255\\.12\\.2 dev eth1 proto static$"
-Checking the output of the command 'ip -4 route show 10.255.24.0/30' on 'r1',False,"The output of the command do not match the expected regex.
- Actual: 10.255.24.0/30 via 10.255.12.2 dev eth1
- Regex: ^10\\.255\\.24\\.0/30 via 10\\.255\\.12\\.2 dev eth1 proto static$"
-Checking the output of the command 'ip -4 route show 10.255.34.0/30' on 'r1',False,"The output of the command do not match the expected regex.
- Actual: 10.255.34.0/30 via 10.255.13.2 dev eth2
- Regex: ^10\\.255\\.34\\.0/30 via 10\\.255\\.13\\.2 dev eth2 proto static$"
-Checking the output of the command 'ip -4 route show 10.255.45.0/30' on 'r1',False,"The output of the command do not match the expected regex.
- Actual: 10.255.45.0/30 via 10.255.12.2 dev eth1
- Regex: ^10\\.255\\.45\\.0/30 via 10\\.255\\.12\\.2 dev eth1 proto static$"
-"Checking the exit code of the command 'sh -c 'test -z ""$(ip -6 addr show scope global)"" && test ""$(sysctl -n net.ipv6.conf.all.forwarding)"" = 0'' on 'r2'",True,OK
-Checking the exit code of the command 'sh -c '! ip -4 route show default | grep -q .'' on 'r2',True,OK
-Checking the output of the command 'ip -4 route show 10.1.1.0/24' on 'r2',False,"The output of the command do not match the expected regex.
- Actual: 10.1.1.0/24 via 10.255.12.1 dev eth1
- Regex: ^10\\.1\\.1\\.0/24 via 10\\.255\\.12\\.1 dev eth1 proto static$"
-Checking the output of the command 'ip -4 route show 10.3.3.0/24' on 'r2',False,"The output of the command do not match the expected regex.
- Actual: 10.3.3.0/24 via 10.255.12.1 dev eth1
- Regex: ^10\\.3\\.3\\.0/24 via 10\\.255\\.12\\.1 dev eth1 proto static$"
-Checking the output of the command 'ip -4 route show 10.4.4.0/24' on 'r2',False,"The output of the command do not match the expected regex.
- Actual: 10.4.4.0/24 via 10.255.24.2 dev eth2
- Regex: ^10\\.4\\.4\\.0/24 via 10\\.255\\.24\\.2 dev eth2 proto static$"
-Checking the output of the command 'ip -4 route show 10.5.5.0/24' on 'r2',False,"The output of the command do not match the expected regex.
- Actual: 10.5.5.0/24 via 10.255.24.2 dev eth2
- Regex: ^10\\.5\\.5\\.0/24 via 10\\.255\\.24\\.2 dev eth2 proto static$"
-Checking the output of the command 'ip -4 route show 10.255.13.0/30' on 'r2',False,"The output of the command do not match the expected regex.
- Actual: 10.255.13.0/30 via 10.255.12.1 dev eth1
- Regex: ^10\\.255\\.13\\.0/30 via 10\\.255\\.12\\.1 dev eth1 proto static$"
-Checking the output of the command 'ip -4 route show 10.255.34.0/30' on 'r2',False,"The output of the command do not match the expected regex.
- Actual: 10.255.34.0/30 via 10.255.24.2 dev eth2
- Regex: ^10\\.255\\.34\\.0/30 via 10\\.255\\.24\\.2 dev eth2 proto static$"
-Checking the output of the command 'ip -4 route show 10.255.45.0/30' on 'r2',False,"The output of the command do not match the expected regex.
- Actual: 10.255.45.0/30 via 10.255.24.2 dev eth2
- Regex: ^10\\.255\\.45\\.0/30 via 10\\.255\\.24\\.2 dev eth2 proto static$"
-"Checking the exit code of the command 'sh -c 'test -z ""$(ip -6 addr show scope global)"" && test ""$(sysctl -n net.ipv6.conf.all.forwarding)"" = 0'' on 'r3'",True,OK
-Checking the exit code of the command 'sh -c '! ip -4 route show default | grep -q .'' on 'r3',True,OK
-Checking the output of the command 'ip -4 route show 10.1.1.0/24' on 'r3',False,"The output of the command do not match the expected regex.
- Actual: 10.1.1.0/24 via 10.255.13.1 dev eth1
- Regex: ^10\\.1\\.1\\.0/24 via 10\\.255\\.13\\.1 dev eth1 proto static$"
-Checking the output of the command 'ip -4 route show 10.2.2.0/24' on 'r3',False,"The output of the command do not match the expected regex.
- Actual: 10.2.2.0/24 via 10.255.13.1 dev eth1
- Regex: ^10\\.2\\.2\\.0/24 via 10\\.255\\.13\\.1 dev eth1 proto static$"
-Checking the output of the command 'ip -4 route show 10.4.4.0/24' on 'r3',False,"The output of the command do not match the expected regex.
- Actual: 10.4.4.0/24 via 10.255.34.2 dev eth2
- Regex: ^10\\.4\\.4\\.0/24 via 10\\.255\\.34\\.2 dev eth2 proto static$"
-Checking the output of the command 'ip -4 route show 10.5.5.0/24' on 'r3',False,"The output of the command do not match the expected regex.
- Actual: 10.5.5.0/24 via 10.255.34.2 dev eth2
- Regex: ^10\\.5\\.5\\.0/24 via 10\\.255\\.34\\.2 dev eth2 proto static$"
-Checking the output of the command 'ip -4 route show 10.255.12.0/30' on 'r3',False,"The output of the command do not match the expected regex.
- Actual: 10.255.12.0/30 via 10.255.13.1 dev eth1
- Regex: ^10\\.255\\.12\\.0/30 via 10\\.255\\.13\\.1 dev eth1 proto static$"
-Checking the output of the command 'ip -4 route show 10.255.24.0/30' on 'r3',False,"The output of the command do not match the expected regex.
- Actual: 10.255.24.0/30 via 10.255.34.2 dev eth2
- Regex: ^10\\.255\\.24\\.0/30 via 10\\.255\\.34\\.2 dev eth2 proto static$"
-Checking the output of the command 'ip -4 route show 10.255.45.0/30' on 'r3',False,"The output of the command do not match the expected regex.
- Actual: 10.255.45.0/30 via 10.255.34.2 dev eth2
- Regex: ^10\\.255\\.45\\.0/30 via 10\\.255\\.34\\.2 dev eth2 proto static$"
-"Checking the exit code of the command 'sh -c 'test -z ""$(ip -6 addr show scope global)"" && test ""$(sysctl -n net.ipv6.conf.all.forwarding)"" = 0'' on 'r4'",True,OK
-Checking the exit code of the command 'sh -c '! ip -4 route show default | grep -q .'' on 'r4',True,OK
-Checking the output of the command 'ip -4 route show 10.1.1.0/24' on 'r4',False,"The output of the command do not match the expected regex.
- Actual: 10.1.1.0/24 via 10.255.24.1 dev eth1
- Regex: ^10\\.1\\.1\\.0/24 via 10\\.255\\.24\\.1 dev eth1 proto static$"
-Checking the output of the command 'ip -4 route show 10.2.2.0/24' on 'r4',False,"The output of the command do not match the expected regex.
- Actual: 10.2.2.0/24 via 10.255.24.1 dev eth1
- Regex: ^10\\.2\\.2\\.0/24 via 10\\.255\\.24\\.1 dev eth1 proto static$"
-Checking the output of the command 'ip -4 route show 10.3.3.0/24' on 'r4',False,"The output of the command do not match the expected regex.
- Actual: 10.3.3.0/24 via 10.255.34.1 dev eth2
- Regex: ^10\\.3\\.3\\.0/24 via 10\\.255\\.34\\.1 dev eth2 proto static$"
-Checking the output of the command 'ip -4 route show 10.5.5.0/24' on 'r4',False,"The output of the command do not match the expected regex.
- Actual: 10.5.5.0/24 via 10.255.45.2 dev eth3
- Regex: ^10\\.5\\.5\\.0/24 via 10\\.255\\.45\\.2 dev eth3 proto static$"
-Checking the output of the command 'ip -4 route show 10.255.12.0/30' on 'r4',False,"The output of the command do not match the expected regex.
- Actual: 10.255.12.0/30 via 10.255.24.1 dev eth1
- Regex: ^10\\.255\\.12\\.0/30 via 10\\.255\\.24\\.1 dev eth1 proto static$"
-Checking the output of the command 'ip -4 route show 10.255.13.0/30' on 'r4',False,"The output of the command do not match the expected regex.
- Actual: 10.255.13.0/30 via 10.255.34.1 dev eth2
- Regex: ^10\\.255\\.13\\.0/30 via 10\\.255\\.34\\.1 dev eth2 proto static$"
-"Checking the exit code of the command 'sh -c 'test -z ""$(ip -6 addr show scope global)"" && test ""$(sysctl -n net.ipv6.conf.all.forwarding)"" = 0'' on 'r5'",True,OK
-Checking the exit code of the command 'sh -c '! ip -4 route show default | grep -q .'' on 'r5',True,OK
-Checking the output of the command 'ip -4 route show 10.1.1.0/24' on 'r5',False,"The output of the command do not match the expected regex.
- Actual: 10.1.1.0/24 via 10.255.45.1 dev eth1
- Regex: ^10\\.1\\.1\\.0/24 via 10\\.255\\.45\\.1 dev eth1 proto static$"
-Checking the output of the command 'ip -4 route show 10.2.2.0/24' on 'r5',False,"The output of the command do not match the expected regex.
- Actual: 10.2.2.0/24 via 10.255.45.1 dev eth1
- Regex: ^10\\.2\\.2\\.0/24 via 10\\.255\\.45\\.1 dev eth1 proto static$"
-Checking the output of the command 'ip -4 route show 10.3.3.0/24' on 'r5',False,"The output of the command do not match the expected regex.
- Actual: 10.3.3.0/24 via 10.255.45.1 dev eth1
- Regex: ^10\\.3\\.3\\.0/24 via 10\\.255\\.45\\.1 dev eth1 proto static$"
-Checking the output of the command 'ip -4 route show 10.4.4.0/24' on 'r5',False,"The output of the command do not match the expected regex.
- Actual: 10.4.4.0/24 via 10.255.45.1 dev eth1
- Regex: ^10\\.4\\.4\\.0/24 via 10\\.255\\.45\\.1 dev eth1 proto static$"
-Checking the output of the command 'ip -4 route show 10.255.12.0/30' on 'r5',False,"The output of the command do not match the expected regex.
- Actual: 10.255.12.0/30 via 10.255.45.1 dev eth1
- Regex: ^10\\.255\\.12\\.0/30 via 10\\.255\\.45\\.1 dev eth1 proto static$"
-Checking the output of the command 'ip -4 route show 10.255.13.0/30' on 'r5',False,"The output of the command do not match the expected regex.
- Actual: 10.255.13.0/30 via 10.255.45.1 dev eth1
- Regex: ^10\\.255\\.13\\.0/30 via 10\\.255\\.45\\.1 dev eth1 proto static$"
-Checking the output of the command 'ip -4 route show 10.255.24.0/30' on 'r5',False,"The output of the command do not match the expected regex.
- Actual: 10.255.24.0/30 via 10.255.45.1 dev eth1
- Regex: ^10\\.255\\.24\\.0/30 via 10\\.255\\.45\\.1 dev eth1 proto static$"
-Checking the output of the command 'ip -4 route show 10.255.34.0/30' on 'r5',False,"The output of the command do not match the expected regex.
- Actual: 10.255.34.0/30 via 10.255.45.1 dev eth1
- Regex: ^10\\.255\\.34\\.0/30 via 10\\.255\\.45\\.1 dev eth1 proto static$"
-"Checking the exit code of the command 'sh -c 'test -z ""$(ip -6 addr show scope global)"" && test ""$(sysctl -n net.ipv6.conf.all.forwarding)"" = 0'' on 'pc1a'",True,OK
-"Checking the exit code of the command 'sh -c 'test -z ""$(ip -6 addr show scope global)"" && test ""$(sysctl -n net.ipv6.conf.all.forwarding)"" = 0'' on 'pc1b'",True,OK
-"Checking the exit code of the command 'sh -c 'test -z ""$(ip -6 addr show scope global)"" && test ""$(sysctl -n net.ipv6.conf.all.forwarding)"" = 0'' on 'pc2a'",True,OK
-"Checking the exit code of the command 'sh -c 'test -z ""$(ip -6 addr show scope global)"" && test ""$(sysctl -n net.ipv6.conf.all.forwarding)"" = 0'' on 'pc2b'",True,OK
-"Checking the exit code of the command 'sh -c 'test -z ""$(ip -6 addr show scope global)"" && test ""$(sysctl -n net.ipv6.conf.all.forwarding)"" = 0'' on 'pc3a'",True,OK
-"Checking the exit code of the command 'sh -c 'test -z ""$(ip -6 addr show scope global)"" && test ""$(sysctl -n net.ipv6.conf.all.forwarding)"" = 0'' on 'pc3b'",True,OK
-"Checking the exit code of the command 'sh -c 'test -z ""$(ip -6 addr show scope global)"" && test ""$(sysctl -n net.ipv6.conf.all.forwarding)"" = 0'' on 'pc4a'",True,OK
-"Checking the exit code of the command 'sh -c 'test -z ""$(ip -6 addr show scope global)"" && test ""$(sysctl -n net.ipv6.conf.all.forwarding)"" = 0'' on 'pc4b'",True,OK
-"Checking the exit code of the command 'sh -c 'test -z ""$(ip -6 addr show scope global)"" && test ""$(sysctl -n net.ipv6.conf.all.forwarding)"" = 0'' on 'pc5a'",True,OK
-"Checking the exit code of the command 'sh -c 'test -z ""$(ip -6 addr show scope global)"" && test ""$(sysctl -n net.ipv6.conf.all.forwarding)"" = 0'' on 'pc5b'",True,OK
+Checking the routing table of r5,False,"The routing table of r5 about route 172.16.12.0/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r5,False,"The routing table of r5 about route 172.16.13.0/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r5,False,"The routing table of r5 about route 172.16.24.0/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of r5,False,"The routing table of r5 about route 172.16.34.0/30 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of pc1a,False,"The routing table of pc1a about route 0.0.0.0/0 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of pc1b,False,"The routing table of pc1b about route 0.0.0.0/0 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of pc2a,False,"The routing table of pc2a about route 0.0.0.0/0 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of pc2b,False,"The routing table of pc2b about route 0.0.0.0/0 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of pc3a,False,"The routing table of pc3a about route 0.0.0.0/0 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of pc3b,False,"The routing table of pc3b about route 0.0.0.0/0 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of pc4a,False,"The routing table of pc4a about route 0.0.0.0/0 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of pc4b,False,"The routing table of pc4b about route 0.0.0.0/0 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of pc5a,False,"The routing table of pc5a about route 0.0.0.0/0 have the wrong number of next-hops: 1, expected: 2"
+Checking the routing table of pc5b,False,"The routing table of pc5b about route 0.0.0.0/0 have the wrong number of next-hops: 1, expected: 2"
+Checking the output of the command 'sysctl net.ipv4.ip_forward' on 'r1',True,OK
+Checking the exit code of the command 'ip route show default | grep -q .; test $? -eq 1' on 'r1',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the output of the command 'sysctl net.ipv4.ip_forward' on 'r2',True,OK
+Checking the exit code of the command 'ip route show default | grep -q .; test $? -eq 1' on 'r2',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the output of the command 'sysctl net.ipv4.ip_forward' on 'r3',True,OK
+Checking the exit code of the command 'ip route show default | grep -q .; test $? -eq 1' on 'r3',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the output of the command 'sysctl net.ipv4.ip_forward' on 'r4',True,OK
+Checking the exit code of the command 'ip route show default | grep -q .; test $? -eq 1' on 'r4',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the output of the command 'sysctl net.ipv4.ip_forward' on 'r5',True,OK
+Checking the exit code of the command 'ip route show default | grep -q .; test $? -eq 1' on 'r5',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"

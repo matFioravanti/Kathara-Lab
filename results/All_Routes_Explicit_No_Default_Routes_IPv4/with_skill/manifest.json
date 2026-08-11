@@ -1,6 +1,5 @@
 {
-  "canonical_correction_sha256": "0071c9bfb92e9760f1df196a29891db4b556534c35b1524c0996668971e9b218",
-  "check_plan_hash": "0bd6426903fc0ed6a4bb6a9c08fe2be4c13c5b20eb4ba65b3f1eaba658a03b55",
+  "canonical_correction_sha256": "fddb59bd94dc863ba45ed12f383d5e6332f5d1519a2cb8d88e85122b3a772c49",
   "checker": {
     "command": [
       "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
@@ -14,7 +13,7 @@
       "--report-type",
       "csv"
     ],
-    "duration_seconds": 24.109103874999164,
+    "duration_seconds": 21.84884620899902,
     "return_code": 0,
     "timed_out": false
   },
@@ -28,7 +27,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "duration_seconds": 188.4700386249997,
+        "duration_seconds": 149.53782087500076,
         "return_code": 0,
         "success": true,
         "timed_out": false,
@@ -36,7 +35,7 @@
       }
     ],
     "calls": 1,
-    "duration_seconds": 188.4700386249997,
+    "duration_seconds": 149.53782087500076,
     "last_command": [
       "codex",
       "exec",
@@ -54,23 +53,22 @@
       "--output-last-message",
       "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/correction_with_skill/.agent-last-message.txt",
       "--ephemeral",
-      "You are binding an already-defined evaluation plan to a concrete Kathara candidate.\nRead input/evaluation-plan.yaml, candidate/ (the generated lab implementation), resources/checker/SKILL.md, and resources/checker/config-schema.md.\n\nDo not redesign the evaluation strategy.\ninput/evaluation-plan.yaml is authoritative for which checks must exist. You must generate exactly one canonical output/correction.yaml for kathara-lab-checker based on this structured plan.\n\nRead the candidate lab only to resolve concrete candidate-dependent values such as:\n- machine names;\n- IP addresses;\n- interfaces;\n- routes;\n- gateways;\n- router IDs;\n- topology references.\n\nTranslate the structured evaluation plan into a valid Kathara Lab Checker output/correction.yaml. Use the checker schema/resources only to ensure correct output syntax. Do not add checks that are not present in the evaluation plan. Do not remove checks. Do not reinterpret the original assignment.\n\nIMPORTANT: lab_inline is mandatory and must contain the complete expected topology derived from the candidate lab. default_image is a mandatory checker field. Use lab_inline rather than structure and omit labs_path. Follow the runtime 0.1.14 compatibility rules in the Skill.\nWrite only YAML to output/correction.yaml, with no surrounding prose. Do not create any other output file."
+      "Determine the evaluation requirements from the original prompt.\nRead input/prompt.md to understand what the network must achieve.\nRead candidate/ (the generated lab implementation) to resolve the concrete values needed to instantiate those requirements: device names, IP addresses, interfaces, routes, gateways, router IDs, topology references.\n\nUse resources/checker/SKILL.md and resources/checker/config-schema.md to produce a valid output/correction.yaml for kathara-lab-checker.\n\nIMPORTANT: lab_inline is mandatory and must contain the complete expected topology derived from the candidate lab. default_image is a mandatory checker field. Use lab_inline rather than structure and omit labs_path. Follow the runtime 0.1.14 compatibility rules in the Skill.\nWrite only YAML to output/correction.yaml, with no surrounding prose. Do not create any other output file."
     ],
     "retries": 0
   },
-  "correction_hash": "0071c9bfb92e9760f1df196a29891db4b556534c35b1524c0996668971e9b218",
+  "correction_hash": "fddb59bd94dc863ba45ed12f383d5e6332f5d1519a2cb8d88e85122b3a772c49",
   "correction_mode": "full_generation",
   "correction_retries": 0,
   "creation_skill_enabled": true,
   "creation_skill_sha256": "bf4daac809c4088ad9106268c093cca9c41f79e95dba4113f108c0298d85b996",
   "errors": [],
-  "evaluation_spec_hash": "3a7a7948c17e2d6c859796035c4a6198b8b852452ee69eaa03c1c7103e9c9ca0",
   "experiment_id": "All_Routes_Explicit_No_Default_Routes_IPv4",
   "generation": {
     "attempts": [
       {
         "attempt": 1,
-        "duration_seconds": 103.15253725000002,
+        "duration_seconds": 180.5206437500001,
         "return_code": 0,
         "success": true,
         "timed_out": false,
@@ -78,7 +76,7 @@
       }
     ],
     "calls": 1,
-    "duration_seconds": 103.15253725000002,
+    "duration_seconds": 180.5206437500001,
     "last_command": [
       "codex",
       "exec",
@@ -108,11 +106,11 @@
   "lab_generated": true,
   "lab_retries": 0,
   "metrics": {
-    "failed_tests": 70,
+    "failed_tests": 50,
     "failure_categories": {
-      "uncategorized": 70
+      "uncategorized": 50
     },
-    "pass_percentage": 71.428571,
+    "pass_percentage": 77.777778,
     "passed_tests": 175,
     "reports_found": [
       "results.csv",
@@ -120,35 +118,35 @@
       "candidate_result_failed.csv",
       "candidate_result_summary.csv"
     ],
-    "total_tests": 245
+    "total_tests": 225
   },
   "phases": [
     {
-      "at": "2026-08-11T10:19:35.107667Z",
+      "at": "2026-08-11T11:35:20.224455Z",
       "name": "discovered"
     },
     {
-      "at": "2026-08-11T10:19:35.108223Z",
+      "at": "2026-08-11T11:35:20.224734Z",
       "name": "lab_generation_started"
     },
     {
-      "at": "2026-08-11T10:21:18.451254Z",
+      "at": "2026-08-11T11:38:20.769668Z",
       "name": "lab_generated"
     },
     {
-      "at": "2026-08-11T10:21:18.451264Z",
+      "at": "2026-08-11T11:38:20.769714Z",
       "name": "static_validation_passed"
     },
     {
-      "at": "2026-08-11T10:25:22.153730Z",
+      "at": "2026-08-11T11:40:51.934869Z",
       "name": "checker_started"
     },
     {
-      "at": "2026-08-11T10:25:46.269453Z",
+      "at": "2026-08-11T11:41:13.791485Z",
       "name": "checker_completed"
     },
     {
-      "at": "2026-08-11T10:25:46.269465Z",
+      "at": "2026-08-11T11:41:13.791508Z",
       "name": "failed"
     }
   ],

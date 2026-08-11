@@ -69,19 +69,15 @@ class FakeRunner:
 
     def run(self, *, instruction, workspace, output_last_message, stdout_log, stderr_log, timeout_seconds):
         self.calls.append((instruction, workspace))
-        
+
         out = workspace / "output"
         out.mkdir(parents=True, exist_ok=True)
-        
-        if "EXACTLY THREE files" in instruction:
-            (out / "evaluation-spec.md").write_text("Dummy evaluation spec", encoding="utf-8")
-            (out / "check-plan.md").write_text("Dummy check plan", encoding="utf-8")
-            (out / "evaluation-plan.yaml").write_text("checks:\n  - id: chk1\n    checker: reachability\n", encoding="utf-8")
-        elif "binding an already-defined" in instruction or "failed validation" in instruction or "validated reference correction" in instruction:
+
+        if "validated reference correction" in instruction or "Determine the evaluation requirements" in instruction or "failed validation" in instruction:
             (out / "correction.yaml").write_text(self.correction_yaml, encoding="utf-8")
         else:
             _write_lab(workspace)
-            
+
         stdout_log.parent.mkdir(parents=True, exist_ok=True)
         stdout_log.write_text("{}\n", encoding="utf-8")
         stderr_log.write_text("", encoding="utf-8")
@@ -95,21 +91,17 @@ class FakeRunnerRetryFix(FakeRunner):
 
     def run(self, *, instruction, workspace, output_last_message, stdout_log, stderr_log, timeout_seconds):
         self.calls.append((instruction, workspace))
-        
+
         out = workspace / "output"
         out.mkdir(parents=True, exist_ok=True)
-        
-        if "EXACTLY THREE files" in instruction:
-            (out / "evaluation-spec.md").write_text("Dummy evaluation spec", encoding="utf-8")
-            (out / "check-plan.md").write_text("Dummy check plan", encoding="utf-8")
-            (out / "evaluation-plan.yaml").write_text("checks:\n  - id: chk1\n    checker: reachability\n", encoding="utf-8")
-        elif "binding an already-defined" in instruction or "failed validation" in instruction or "validated reference correction" in instruction:
+
+        if "validated reference correction" in instruction or "Determine the evaluation requirements" in instruction or "failed validation" in instruction:
             self._correction_attempts += 1
             content = _VALID_CORRECTION if self._correction_attempts > 1 else _INVALID_CORRECTION_NO_LAB_INLINE
             (out / "correction.yaml").write_text(content, encoding="utf-8")
         else:
             _write_lab(workspace)
-            
+
         stdout_log.parent.mkdir(parents=True, exist_ok=True)
         stdout_log.write_text("{}\n", encoding="utf-8")
         stderr_log.write_text("", encoding="utf-8")
@@ -141,46 +133,39 @@ class FakeChecker:
         return ("checker", str(correction), str(paths.labs_dir))
 
 
-def test_pipeline_runs_variants_in_new_order_and_shares_checker_skill(tmp_path: Path):
+def test_pipeline_runs_variants_and_shares_checker_skill(tmp_path: Path):
     project, prompts = _make_project(tmp_path)
     config = load_config(project / "pipeline.yaml")
     pipeline = Pipeline(config)
     fake_runner = FakeRunner()
     pipeline.runner = fake_runner
     pipeline.lab_generator.runner = fake_runner
-    pipeline.evaluation_plan_generator.runner = fake_runner
     pipeline.correction_generator.runner = fake_runner
     fake_checker = FakeChecker()
     pipeline.checker = fake_checker
     resources = discover_resources(project / "resources")
     summary = pipeline.run(discover_prompts(prompts), resources)
-    
-    # Verify exact call order: 
-    # 0: eval plan (spec + check plan)
-    # 1: with_skill lab
-    # 2: without_skill lab
-    # 3: with_skill correction (full generation)
-    # 4: without_skill correction (adaptation)
-    assert len(fake_runner.calls) == 5
-    assert "evaluation-spec.md" in fake_runner.calls[0][0] and "check-plan.md" in fake_runner.calls[0][0]
-    
-    assert "resources/creation/SKILL.md" in fake_runner.calls[1][0] # with_skill lab
-    assert "Read only input/prompt.md" in fake_runner.calls[2][0] # without_skill lab
-    
-    with_corr_call = fake_runner.calls[3][0]
-    without_corr_call = fake_runner.calls[4][0]
-    
-    assert "binding an already-defined" in with_corr_call
+
+    # Verify exact call order (4 calls total, no eval plan):
+    # 0: with_skill lab (parallel, but order may vary)
+    # 1: without_skill lab
+    # 2: with_skill correction (full generation)
+    # 3: without_skill correction (adaptation)
+    assert len(fake_runner.calls) == 4
+
+    # Corrections: full generation then adaptation
+    with_corr_call = fake_runner.calls[2][0]
+    without_corr_call = fake_runner.calls[3][0]
+
+    assert "Determine the evaluation requirements" in with_corr_call
     assert "resources/checker/SKILL.md" in with_corr_call
-    
+
     assert "validated reference correction" in without_corr_call
     assert "output/correction.yaml" in without_corr_call
-    
+
     assert fake_checker.order == ["with_skill", "without_skill"]
     assert len(fake_checker.corrections) == 2
     exp = summary.experiments[0]
-    assert exp.evaluation_spec_generated
-    assert exp.check_plan_generated
     assert exp.with_skill.correction_generated
     assert exp.without_skill.correction_generated
     assert exp.with_skill.correction_mode == "full_generation"
@@ -197,13 +182,12 @@ def test_checker_is_not_called_when_correction_is_invalid(tmp_path: Path):
     fake_runner = FakeRunner(correction_yaml=_INVALID_CORRECTION_NO_LAB_INLINE)
     pipeline.runner = fake_runner
     pipeline.lab_generator.runner = fake_runner
-    pipeline.evaluation_plan_generator.runner = fake_runner
     pipeline.correction_generator.runner = fake_runner
     fake_checker = FakeChecker()
     pipeline.checker = fake_checker
     resources = discover_resources(project / "resources")
     summary = pipeline.run(discover_prompts(prompts), resources)
-    
+
     assert fake_checker.corrections == []
     assert fake_checker.order == []
     exp = summary.experiments[0]
@@ -220,18 +204,14 @@ def test_retry_fixes_correction_missing_lab_inline(tmp_path: Path):
     fake_runner = FakeRunnerRetryFix()
     pipeline.runner = fake_runner
     pipeline.lab_generator.runner = fake_runner
-    pipeline.evaluation_plan_generator.runner = fake_runner
     pipeline.correction_generator.runner = fake_runner
     fake_checker = FakeChecker()
     pipeline.checker = fake_checker
     resources = discover_resources(project / "resources")
     summary = pipeline.run(discover_prompts(prompts), resources)
-    
-    correction_calls = [c for c, _ in fake_runner.calls if "binding an already-defined" in c or "regenerate" in c or "validated reference correction" in c or "in place" in c]
-    # Expect: 1. with_skill corr (fails), 2. with_skill corr retry (passes), 3. without_skill corr (fails, it's fake runner), 4. without_skill corr retry (passes)
-    # Actually FakeRunnerRetryFix increments total correction_attempts across both variants.
-    # So attempt 1 fails, attempt 2 (retry with_skill) passes.
-    # Then without_skill gets attempt 3, which passes immediately!
+
+    correction_calls = [c for c, _ in fake_runner.calls if "Determine the evaluation requirements" in c or "regenerate" in c or "validated reference correction" in c or "in place" in c]
+    # Attempt 1 fails, retry passes, then without_skill gets attempt 3 which passes
     assert len(correction_calls) == 3
     assert fake_checker.order == ["with_skill", "without_skill"]
     assert len(fake_checker.corrections) == 2
@@ -247,7 +227,6 @@ def test_checker_cleanup_on_technical_failure(tmp_path: Path):
     fake_runner = FakeRunner()
     pipeline.runner = fake_runner
     pipeline.lab_generator.runner = fake_runner
-    pipeline.evaluation_plan_generator.runner = fake_runner
     pipeline.correction_generator.runner = fake_runner
 
     class FakeFailingChecker(FakeChecker):
@@ -268,50 +247,6 @@ def test_checker_cleanup_on_technical_failure(tmp_path: Path):
     assert not with_skill_paths.checker_run.exists()
 
 
-class FakeRunnerEvalSpecFails(FakeRunner):
-    def run(self, *, instruction, workspace, output_last_message, stdout_log, stderr_log, timeout_seconds):
-        self.calls.append((instruction, workspace))
-        if "EXACTLY TWO files" in instruction:
-            stdout_log.parent.mkdir(parents=True, exist_ok=True)
-            stdout_log.write_text("{}\n", encoding="utf-8")
-            stderr_log.write_text("Error", encoding="utf-8")
-            return CommandResult(("fake",), 1, "", "Error", 1.0, False)
-        out = workspace / "output"
-        out.mkdir(parents=True, exist_ok=True)
-        if "per-variant" in instruction or "failed validation" in instruction or "copy" in instruction:
-            (out / "correction.yaml").write_text(self.correction_yaml, encoding="utf-8")
-        else:
-            _write_lab(workspace)
-        stdout_log.parent.mkdir(parents=True, exist_ok=True)
-        stdout_log.write_text("{}\n", encoding="utf-8")
-        stderr_log.write_text("", encoding="utf-8")
-        return CommandResult(("fake",), 0, "", "", 1.0, False)
-
-
-def test_checker_is_not_called_when_eval_spec_fails(tmp_path: Path):
-    project, prompts = _make_project(tmp_path)
-    config = load_config(project / "pipeline.yaml")
-    pipeline = Pipeline(config)
-    fake_runner = FakeRunnerEvalSpecFails()
-    pipeline.runner = fake_runner
-    pipeline.lab_generator.runner = fake_runner
-    pipeline.evaluation_plan_generator.runner = fake_runner
-    pipeline.correction_generator.runner = fake_runner
-    fake_checker = FakeChecker()
-    pipeline.checker = fake_checker
-    resources = discover_resources(project / "resources")
-    summary = pipeline.run(discover_prompts(prompts), resources)
-    
-    assert fake_checker.corrections == []
-    exp = summary.experiments[0]
-    assert not exp.evaluation_spec_generated
-    assert not exp.check_plan_generated
-    assert not exp.with_skill.correction_generated
-    assert not exp.without_skill.correction_generated
-    assert exp.with_skill.status.value == "error"
-    assert "Generazione correction fallita o saltata" in exp.with_skill.error_message
-
-
 def test_resume_from_correction(tmp_path: Path):
     project, prompts = _make_project(tmp_path)
     config = load_config(project / "pipeline.yaml")
@@ -319,36 +254,34 @@ def test_resume_from_correction(tmp_path: Path):
     fake_runner = FakeRunner()
     pipeline.runner = fake_runner
     pipeline.lab_generator.runner = fake_runner
-    pipeline.evaluation_plan_generator.runner = fake_runner
     pipeline.correction_generator.runner = fake_runner
     fake_checker = FakeChecker()
     pipeline.checker = fake_checker
     resources = discover_resources(project / "resources")
-    
+
     summary = pipeline.run(discover_prompts(prompts), resources)
     assert summary.experiments[0].with_skill.status.value == "passed"
-    
+
     fake_runner.calls.clear()
     fake_checker.corrections.clear()
     fake_checker.order.clear()
-    
+
     config_resume = config.with_overrides(resume_from="correction")
     pipeline_resume = Pipeline(config_resume)
     pipeline_resume.runner = fake_runner
     pipeline_resume.lab_generator.runner = fake_runner
-    pipeline_resume.evaluation_plan_generator.runner = fake_runner
     pipeline_resume.correction_generator.runner = fake_runner
     pipeline_resume.checker = fake_checker
-    
+
     summary2 = pipeline_resume.run(discover_prompts(prompts), resources)
-    
+
     # Should only run correction for with_skill and without_skill
     assert len(fake_runner.calls) == 2
-    assert "binding an already-defined" in fake_runner.calls[0][0]
+    assert "Determine the evaluation requirements" in fake_runner.calls[0][0]
     assert "validated reference correction" in fake_runner.calls[1][0]
-    
+
     assert fake_checker.order == ["with_skill", "without_skill"]
     assert len(fake_checker.corrections) == 2
-    
+
     assert summary2.experiments[0].with_skill.status.value == "passed"
     assert summary2.experiments[0].without_skill.status.value == "passed"

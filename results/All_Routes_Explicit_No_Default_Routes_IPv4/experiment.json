@@ -1,37 +1,9 @@
 {
-  "check_plan_generated": true,
-  "check_plan_hash": "0bd6426903fc0ed6a4bb6a9c08fe2be4c13c5b20eb4ba65b3f1eaba658a03b55",
   "comparison": "INCOMPARABLE",
   "comparison_reason": "Both checker runs must complete successfully for a paired quality comparison.",
   "complete": true,
-  "evaluation_plan_generation": {
-    "command": [
-      "codex",
-      "exec",
-      "--model",
-      "gpt-5.6-terra",
-      "-c",
-      "model_reasoning_effort=\"low\"",
-      "-c",
-      "approval_policy=\"never\"",
-      "--sandbox",
-      "workspace-write",
-      "--cd",
-      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/evaluation-plan",
-      "--json",
-      "--output-last-message",
-      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/evaluation-plan/.agent-last-message.txt",
-      "--ephemeral",
-      "Read input/prompt.md and resources/creation/SKILL.md. Also read resources/checker/SKILL.md and resources/checker/config-schema.md. You must generate EXACTLY THREE files in the output/ directory: output/evaluation-spec.md, output/check-plan.md, and output/evaluation-plan.yaml.\n\n1. output/evaluation-spec.md:\nThis file must structure the explicit requirements found in the prompt using the Creation Skill as a guide. CRITICAL: It must describe ONLY WHAT the scenario requires. It must contain ONLY candidate-independent scenario requirements. It must NOT mention checker blocks, strategies, or validation strictness. It must NOT contain any candidate-specific values if they are missing from the prompt.\n\n2. output/check-plan.md:\nThis file must freeze the evaluation strategy for every requirement listed in evaluation-spec.md. CRITICAL: For every requirement, you MUST specify:\n- Which checker category/block represents it.\n- The validation strictness.\n- Which concrete values must later be resolved from the candidate lab.\nThis strategy MUST be completely candidate-independent. A missing concrete value must NOT cause the requirement to be omitted. Only mark a requirement as not checkable when kathara-lab-checker genuinely has no supported way to represent it.\n\n3. output/evaluation-plan.yaml:\nThis file must be a machine-readable structured representation of the checks defined in check-plan.md. It must contain a top-level `checks` list. Each item MUST have a unique `id` and a `checker` primitive/category. Include target roles, expected properties, or cardinalities, but DO NOT include candidate-dependent concrete values (e.g., machine names, IP addresses, interfaces, next-hops) unless they are hardcoded in the original prompt. Do NOT include placeholders like 'TODO' or '...'. It must be valid YAML. This file will be used as the authoritative source of truth for the checks to generate.\n\nDo NOT write anything outside these three files."
-    ],
-    "duration_seconds": 165.543440292,
-    "return_code": 0,
-    "timed_out": false
-  },
-  "evaluation_spec_generated": true,
-  "evaluation_spec_hash": "3a7a7948c17e2d6c859796035c4a6198b8b852452ee69eaa03c1c7103e9c9ca0",
   "experiment_id": "All_Routes_Explicit_No_Default_Routes_IPv4",
-  "finished_at": "2026-08-11T10:25:46.271822Z",
+  "finished_at": "2026-08-11T11:41:13.794594Z",
   "identity": {
     "checker_report_type": "csv",
     "checker_runtime": "kathara-lab-checker==0.1.14",
@@ -49,7 +21,5 @@
   "pipeline_version": "0.5.0",
   "prompt_file": "All Routes Explicit, No Default Routes, IPv4.md",
   "prompt_sha256": "d55a80ef2afda10dacb80145c84498288635e3ca760287d6f4bf0740c0f7b891",
-  "started_at": "2026-08-11T10:16:49.544312Z",
-  "structured_plan_generated": true,
-  "structured_plan_hash": "7fbc621bf0168c36a65edb058545123f94f0a7ffad90214622e12e33253fed6e"
+  "started_at": "2026-08-11T11:35:20.220052Z"
 }

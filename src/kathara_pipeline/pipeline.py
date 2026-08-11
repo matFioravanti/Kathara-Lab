@@ -13,7 +13,6 @@ from .config import PipelineConfig
 from .console import PipelineConsole
 from .correction_generator import CorrectionGenerator
 from .correction_validator import CorrectionValidator
-from .evaluation_plan_generator import EvaluationPlanGenerator
 from .exceptions import KatharaFrameworkError, ReportParsingError
 from .lab_generator import LabGenerator
 from .lab_validator import LabValidator
@@ -79,7 +78,6 @@ class Pipeline:
         self.console = console or PipelineConsole()
         self.runner = build_runner(config.generation)
         self.lab_generator = LabGenerator(self.runner, config.generation.timeout_seconds)
-        self.evaluation_plan_generator = EvaluationPlanGenerator(self.runner, config.generation.timeout_seconds)
         self.correction_generator = CorrectionGenerator(self.runner, config.generation.timeout_seconds)
         self.lab_validator = LabValidator()
         self.correction_validator = CorrectionValidator()
@@ -130,8 +128,6 @@ class Pipeline:
         return ExperimentSummary(
             paths.root.name,
             saved.get("prompt_file", paths.prompt.name),
-            saved.get("evaluation_spec_generated", False),
-            saved.get("check_plan_generated", False),
             self._restore_summary(a, Variant.WITH_SKILL, paths.root.name, paths.prompt.name),
             self._restore_summary(b, Variant.WITHOUT_SKILL, paths.root.name, paths.prompt.name),
             outcome,
@@ -158,8 +154,6 @@ class Pipeline:
             error_message=(data.get("errors") or [None])[-1] if data.get("errors") else None,
             skip_reason="unchanged completed paired experiment",
             correction_generated=bool(data.get("correction_generated")),
-            evaluation_spec_hash=data.get("evaluation_spec_hash"),
-            check_plan_hash=data.get("check_plan_hash"),
             correction_hash=data.get("correction_hash"),
             lab_calls=data.get("lab_calls", 0),
             lab_retries=data.get("lab_retries", 0),
@@ -196,8 +190,6 @@ class Pipeline:
             "creation_skill_sha256": resources.creation_skill_hash if variant is Variant.WITH_SKILL else None,
             "checker_skill_sha256": resources.checker_skill_hash,
             "checker_schema_sha256": resources.checker_schema_hash,
-            "evaluation_spec_hash": None,
-            "check_plan_hash": None,
             "correction_generated": False,
             "correction_hash": None,
             "canonical_correction_sha256": None,
@@ -370,13 +362,12 @@ class Pipeline:
         summary: VariantSummary,
         manifest: dict[str, Any],
         resources: ResourceFiles,
-        evaluation_spec_generated: bool,
         reference_correction: Path | None = None,
         current_phase: int = 0,
-        total_phases: int = 7
+        total_phases: int = 6
     ) -> None:
         from .exceptions import GenerationError
-        if not summary.static_validation_passed or not evaluation_spec_generated:
+        if not summary.static_validation_passed:
             return
             
         mode = "adaptation" if reference_correction else "full_generation"
@@ -440,17 +431,16 @@ class Pipeline:
             return skipped
             
         is_resume_correction = self.config.processing.resume_from == "correction"
-        total_phases = 6 if is_resume_correction else 7
+        total_phases = 5 if is_resume_correction else 6
         
         self.console.experiment_started(prompt.name, current_index, total_prompts)
         
         if is_resume_correction:
-            if not paths.evaluation_spec.exists() or not paths.check_plan.exists() or not (paths.with_skill.source / "lab.conf").exists() or not (paths.without_skill.source / "lab.conf").exists():
+            # Resume: labs must exist, skip lab generation
+            if not (paths.with_skill.source / "lab.conf").exists() and not (paths.without_skill.source / "lab.conf").exists():
                 return ExperimentSummary(
                     prompt.experiment_id,
                     prompt.name,
-                    False,
-                    False,
                     VariantSummary(prompt.experiment_id, prompt.name, Variant.WITH_SKILL, JobStatus.ERROR, error_message="Cannot resume"),
                     VariantSummary(prompt.experiment_id, prompt.name, Variant.WITHOUT_SKILL, JobStatus.ERROR, error_message="Cannot resume"),
                     ComparisonOutcome.INCOMPARABLE,
@@ -477,10 +467,6 @@ class Pipeline:
                 s.checker_attempted = False
                 s.checker_completed = False
             
-            evaluation_spec_generated = bool(experiment_manifest.get("evaluation_spec_generated"))
-            evaluation_spec_hash = experiment_manifest.get("evaluation_spec_hash")
-            check_plan_hash = experiment_manifest.get("check_plan_hash")
-            
             self._reset_experiment(paths)
         else:
             self._reset_experiment(paths)
@@ -491,53 +477,15 @@ class Pipeline:
                 "prompt_file": prompt.name,
                 "prompt_sha256": prompt.prompt_hash,
                 "identity": identity,
-                "evaluation_spec_generated": False,
-                "evaluation_spec_hash": None,
-                "check_plan_generated": False,
-                "check_plan_hash": None,
                 "complete": False,
                 "started_at": _utc_now(),
             }
             write_json_atomic(paths.experiment_manifest, experiment_manifest)
 
-            # PHASE 1: Generazione evaluation plan (spec + check-plan)
-            self.console.phase_started("Generazione evaluation plan", 1, total_phases)
-            evaluation_spec_generated = False
-            evaluation_plan_error: str | None = None
-            evaluation_spec_hash: str | None = None
-            check_plan_hash: str | None = None
-            eval_plan_started = time.perf_counter()
-            try:
-                plan_result = self.evaluation_plan_generator.generate(
-                    paths=paths,
-                    prompt_text=prompt.content or "",
-                    resources=resources,
-                )
-                evaluation_spec_generated = True
-                evaluation_spec_hash = sha256_file(paths.evaluation_spec)
-                check_plan_hash = sha256_file(paths.check_plan)
-                structured_plan_hash = sha256_file(paths.structured_plan)
-                experiment_manifest["evaluation_spec_generated"] = True
-                experiment_manifest["evaluation_spec_hash"] = evaluation_spec_hash
-                experiment_manifest["check_plan_generated"] = True
-                experiment_manifest["check_plan_hash"] = check_plan_hash
-                experiment_manifest["structured_plan_generated"] = True
-                experiment_manifest["structured_plan_hash"] = structured_plan_hash
-                experiment_manifest["evaluation_plan_generation"] = _metadata(plan_result)
-                self.console.phase_success("evaluation plan generato")
-            except Exception as exc:
-                evaluation_plan_error = str(exc)
-                experiment_manifest["evaluation_plan_error"] = evaluation_plan_error
-                self.console.phase_failure("Generazione evaluation plan fallita", evaluation_plan_error)
-            finally:
-                timings["evaluation_plan_seconds"] = time.perf_counter() - eval_plan_started
-
-            write_json_atomic(paths.experiment_manifest, experiment_manifest)
-
-            # PHASE 2: Generazione laboratori (parallela se configurata)
+            # PHASE 1: Generazione laboratori (parallela se configurata)
             lab_gen_started = time.perf_counter()
             if self.config.processing.parallel_variants:
-                self.console.phase_started("Generazione laboratori in parallelo", 2, total_phases)
+                self.console.phase_started("Generazione laboratori in parallelo", 1, total_phases)
                 with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
                     f_with = executor.submit(self._generate_variant_lab, prompt, Variant.WITH_SKILL, paths.with_skill, resources, 0, 0)
                     f_without = executor.submit(self._generate_variant_lab, prompt, Variant.WITHOUT_SKILL, paths.without_skill, resources, 0, 0)
@@ -555,21 +503,10 @@ class Pipeline:
                 timings["lab_generation_wall_seconds"] = lab_gen_duration
                 timings["parallel_lab_generation_wall_seconds"] = lab_gen_duration
             else:
-                with_summary, with_manifest = self._generate_variant_lab(prompt, Variant.WITH_SKILL, paths.with_skill, resources, current_phase=2, total_phases=total_phases)
-                without_summary, without_manifest = self._generate_variant_lab(prompt, Variant.WITHOUT_SKILL, paths.without_skill, resources, current_phase=3, total_phases=total_phases)
+                with_summary, with_manifest = self._generate_variant_lab(prompt, Variant.WITH_SKILL, paths.with_skill, resources, current_phase=1, total_phases=total_phases)
+                without_summary, without_manifest = self._generate_variant_lab(prompt, Variant.WITHOUT_SKILL, paths.without_skill, resources, current_phase=2, total_phases=total_phases)
                 timings["lab_generation_wall_seconds"] = time.perf_counter() - lab_gen_started
-            
-            if evaluation_spec_generated and evaluation_spec_hash:
-                with_manifest["evaluation_spec_hash"] = evaluation_spec_hash
-                with_summary.evaluation_spec_hash = evaluation_spec_hash
-                without_manifest["evaluation_spec_hash"] = evaluation_spec_hash
-                without_summary.evaluation_spec_hash = evaluation_spec_hash
-            if check_plan_hash:
-                with_manifest["check_plan_hash"] = check_plan_hash
-                with_summary.check_plan_hash = check_plan_hash
-                without_manifest["check_plan_hash"] = check_plan_hash
-                without_summary.check_plan_hash = check_plan_hash
-                
+
             self._write_variant(paths.with_skill.manifest, with_manifest)
             self._write_variant(paths.without_skill.manifest, without_manifest)
 
@@ -583,19 +520,19 @@ class Pipeline:
         ref_correction_path: Path | None = None
         timings["corrections_wall_seconds"] = 0.0
         timings["checkers_wall_seconds"] = 0.0
-        
+
         for idx, (var, v_paths, v_summary, v_manifest) in enumerate(valid_variants):
             is_first = (idx == 0)
             passed_ref = ref_correction_path if not is_first else None
-            
-            # PHASE 4-5/6-7: Generazione correction e valutazione
+
+            # Generazione correction e valutazione
             corr_start = time.perf_counter()
             self._generate_correction(
-                prompt, paths, v_paths, v_summary, v_manifest, resources, evaluation_spec_generated, 
+                prompt, paths, v_paths, v_summary, v_manifest, resources,
                 reference_correction=passed_ref, current_phase=0, total_phases=total_phases
             )
             timings["corrections_wall_seconds"] += time.perf_counter() - corr_start
-            
+
             if v_summary.correction_generated:
                 if is_first:
                     # Update ref_correction_path to be used by the second variant (if any)
@@ -616,22 +553,19 @@ class Pipeline:
         comparison_started = time.perf_counter()
         outcome, reason = compare_variants(with_summary, without_summary)
         timings["comparison_seconds"] = time.perf_counter() - comparison_started
-        
+
         timings["total_wall_seconds"] = time.perf_counter() - total_wall_started
         sum_components = (
-            timings.get("evaluation_plan_seconds", 0.0) +
             timings.get("lab_generation_wall_seconds", 0.0) +
             timings.get("corrections_wall_seconds", 0.0) +
             timings.get("checkers_wall_seconds", 0.0) +
             timings.get("comparison_seconds", 0.0)
         )
         timings["pipeline_overhead_seconds"] = max(0.0, timings["total_wall_seconds"] - sum_components)
-        
+
         experiment = ExperimentSummary(
             prompt.experiment_id,
             prompt.name,
-            evaluation_spec_generated,
-            bool(experiment_manifest.get("check_plan_generated")),
             with_summary,
             without_summary,
             outcome,
@@ -669,7 +603,7 @@ class Pipeline:
             except Exception as exc:
                 a = VariantSummary(prompt.experiment_id, prompt.name, Variant.WITH_SKILL, JobStatus.ERROR, error_message=str(exc))
                 b = VariantSummary(prompt.experiment_id, prompt.name, Variant.WITHOUT_SKILL, JobStatus.ERROR, error_message=str(exc))
-                experiments.append(ExperimentSummary(prompt.experiment_id, prompt.name, False, False, a, b, ComparisonOutcome.INCOMPARABLE, str(exc)))
+                experiments.append(ExperimentSummary(prompt.experiment_id, prompt.name, a, b, ComparisonOutcome.INCOMPARABLE, str(exc)))
                 if not self.config.processing.continue_on_error:
                     break
         aggregate = write_aggregate(self.config.paths.output, experiments)

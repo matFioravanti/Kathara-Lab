@@ -96,8 +96,6 @@ class PipelineConsole:
     def experiment_completed(self, timings: dict[str, float], with_skill_summary, without_skill_summary) -> None:
         self._print()
         self._print("  Timing:")
-        self._print(f"    Evaluation plan:      {format_duration(timings.get('evaluation_plan_seconds', 0.0))}")
-        
         self._print(f"    Lab generation:       {format_duration(timings.get('lab_generation_wall_seconds', 0.0))}")
         self._print(f"      with_skill:          {format_duration(with_skill_summary.lab_duration_seconds or 0.0)}")
         self._print(f"      without_skill:       {format_duration(without_skill_summary.lab_duration_seconds or 0.0)}")

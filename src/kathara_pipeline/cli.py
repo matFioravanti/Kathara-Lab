@@ -111,7 +111,6 @@ def _variant_from_manifest(data: dict, variant: Variant) -> VariantSummary:
         prompt_file=str(data.get("prompt_file", "unknown")),
         variant=variant,
         status=JobStatus(str(data.get("status", "error"))) if str(data.get("status", "error")) in {s.value for s in JobStatus} else JobStatus.ERROR,
-        evaluation_spec_hash=data.get("evaluation_spec_hash"),
         correction_generated=bool(data.get("correction_generated")),
         correction_hash=data.get("correction_hash"),
         lab_generated=bool(data.get("lab_generated")),
@@ -150,7 +149,6 @@ def _load_experiments(output: Path) -> list[ExperimentSummary]:
             ExperimentSummary(
                 experiment_id=str(exp.get("experiment_id", root.name)),
                 prompt_file=str(exp.get("prompt_file", "prompt.md")),
-                evaluation_spec_generated=bool(exp.get("evaluation_spec_generated")),
                 with_skill=_variant_from_manifest(a, Variant.WITH_SKILL),
                 without_skill=_variant_from_manifest(b, Variant.WITHOUT_SKILL),
                 comparison=outcome,

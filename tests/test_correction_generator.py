@@ -13,15 +13,9 @@ def test_correction_generator_retry_keeps_file_and_modifies_instruction(tmp_path
     # Setup mocks and paths
     runner = Mock(spec=AgentRunner)
     runner.provider = "mock-provider"
-    
+
     experiment_paths = Mock(spec=ExperimentPaths)
-    experiment_paths.evaluation_spec = tmp_path / "evaluation-spec.md"
-    experiment_paths.check_plan = tmp_path / "check-plan.md"
-    experiment_paths.structured_plan = tmp_path / "evaluation-plan.yaml"
-    experiment_paths.evaluation_spec.write_text("eval")
-    experiment_paths.check_plan.write_text("plan")
-    experiment_paths.structured_plan.write_text("checks:\n  - id: 1\n")
-    
+
     variant_paths = Mock(spec=VariantPaths)
     variant_paths.correction_workspace = tmp_path / "correction_workspace"
     variant_paths.correction_logs = tmp_path / "logs"
@@ -29,22 +23,22 @@ def test_correction_generator_retry_keeps_file_and_modifies_instruction(tmp_path
     variant_paths.correction = variant_paths.correction_dir / "correction.yaml"
     variant_paths.source = tmp_path / "source"
     variant_paths.source.mkdir()
-    
+
     resources = Mock(spec=ResourceFiles)
     resources.checker_skill = tmp_path / "SKILL.md"
     resources.checker_schema = tmp_path / "config-schema.md"
     resources.checker_skill.write_text("skill")
     resources.checker_schema.write_text("schema")
-    
+
     # Mock runner.run to create a dummy correction.yaml
     def mock_run(*args, **kwargs):
         output_dir = variant_paths.correction_workspace / "output"
         output_dir.mkdir(parents=True, exist_ok=True)
         correction_file = output_dir / "correction.yaml"
-        
+
         attempt = 1 if not hasattr(mock_run, 'called_once') else 2
         mock_run.called_once = True
-        
+
         if attempt == 1:
             correction_file.write_text("metadata:\n  retry_test_marker: preserve-me\n")
         else:
@@ -69,9 +63,9 @@ def test_correction_generator_retry_keeps_file_and_modifies_instruction(tmp_path
         Mock(valid=False, errors=("test error 1",)),
         Mock(valid=True, errors=())
     ]
-    
+
     generator = CorrectionGenerator(runner=runner, timeout_seconds=10)
-    
+
     result = generator.generate_with_retry(
         experiment_paths=experiment_paths,
         variant_paths=variant_paths,
@@ -79,11 +73,11 @@ def test_correction_generator_retry_keeps_file_and_modifies_instruction(tmp_path
         resources=resources,
         validator=validator,
     )
-    
+
     assert result.success
     assert result.last_command_result.return_code == 0
     assert runner.run.call_count == 2
-    
+
     # Verify the instruction passed to the second run contains the specific wording
     second_call_kwargs = runner.run.call_args_list[1].kwargs
     instruction = second_call_kwargs["instruction"]
@@ -92,9 +86,9 @@ def test_correction_generator_retry_keeps_file_and_modifies_instruction(tmp_path
     assert "Preserve all valid sections already present" in instruction
     assert "Do not regenerate the entire correction from scratch" in instruction
 
-    # Verify that the redundant files were NOT copied into the workspace
+    # Verify that the workspace has prompt.md instead of evaluation-plan.yaml
     input_dir = variant_paths.correction_workspace / "input"
-    assert (input_dir / "evaluation-plan.yaml").is_file()
-    assert not (input_dir / "prompt.md").exists()
+    assert (input_dir / "prompt.md").is_file()
+    assert not (input_dir / "evaluation-plan.yaml").exists()
     assert not (input_dir / "evaluation-spec.md").exists()
     assert not (input_dir / "check-plan.md").exists()

@@ -30,7 +30,6 @@ def comparison_payload(summary: ExperimentSummary) -> dict[str, Any]:
     return {
         "experiment_id": summary.experiment_id,
         "prompt_file": summary.prompt_file,
-        "evaluation_spec_sha256": a.evaluation_spec_hash or b.evaluation_spec_hash,
         "outcome": summary.comparison.value,
         "reason": summary.comparison_reason,
         "with_skill": a.to_dict(),
@@ -54,7 +53,6 @@ def write_comparison(summary: ExperimentSummary, json_path: Path, csv_path: Path
         "prompt_file": summary.prompt_file,
         "outcome": summary.comparison.value,
         "reason": summary.comparison_reason or "",
-        "evaluation_spec_sha256": summary.with_skill.evaluation_spec_hash or summary.without_skill.evaluation_spec_hash or "",
         "with_skill_status": summary.with_skill.status.value,
         "without_skill_status": summary.without_skill.status.value,
         "with_skill_pass_percentage": summary.with_skill.pass_percentage if summary.with_skill.pass_percentage is not None else "",

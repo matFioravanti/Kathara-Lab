@@ -105,7 +105,6 @@ def write_aggregate(output_root: Path, experiments: list[ExperimentSummary]) -> 
             "with_skill_pass_percentage": a.pass_percentage if a.pass_percentage is not None else "",
             "without_skill_pass_percentage": b.pass_percentage if b.pass_percentage is not None else "",
             "delta_pass_percentage_points": round(a.pass_percentage - b.pass_percentage, 6) if a.pass_percentage is not None and b.pass_percentage is not None else "",
-            "evaluation_spec_sha256": a.evaluation_spec_hash or b.evaluation_spec_hash or "",
         })
 
     def write_csv(path: Path, data: list[dict[str, Any]]) -> None:
