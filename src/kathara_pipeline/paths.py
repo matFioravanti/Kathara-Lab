@@ -117,6 +117,7 @@ def build_experiment_paths(output_root: Path, experiment_id: str) -> ExperimentP
         prompt=root / "prompt.md",
         evaluation_spec=root / "evaluation-spec.md",
         check_plan=root / "check-plan.md",
+        structured_plan=root / "evaluation-plan.yaml",
         evaluation_plan_logs=root / "logs" / "evaluation-plan",
         evaluation_plan_workspace=root / ".workspaces" / "evaluation-plan",
         comparison=root / "comparison.json",

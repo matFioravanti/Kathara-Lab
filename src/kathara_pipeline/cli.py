@@ -103,6 +103,7 @@ def _print_summary(summary) -> None:
 def _variant_from_manifest(data: dict, variant: Variant) -> VariantSummary:
     metrics = data.get("metrics") or {}
     generation = data.get("generation") or {}
+    correction_generation = data.get("correction_generation") or {}
     checker = data.get("checker") or {}
     errors = data.get("errors") or []
     return VariantSummary(
@@ -121,7 +122,8 @@ def _variant_from_manifest(data: dict, variant: Variant) -> VariantSummary:
         passed_tests=metrics.get("passed_tests"),
         failed_tests=metrics.get("failed_tests"),
         pass_percentage=metrics.get("pass_percentage"),
-        generation_duration_seconds=generation.get("duration_seconds"),
+        lab_duration_seconds=generation.get("duration_seconds"),
+        correction_duration_seconds=correction_generation.get("duration_seconds"),
         checker_duration_seconds=checker.get("duration_seconds"),
         error_message=str(errors[-1]) if errors else None,
     )

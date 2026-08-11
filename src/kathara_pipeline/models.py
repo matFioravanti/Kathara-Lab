@@ -129,6 +129,7 @@ class ExperimentPaths:
     prompt: Path
     evaluation_spec: Path
     check_plan: Path
+    structured_plan: Path
     evaluation_plan_logs: Path
     evaluation_plan_workspace: Path
     comparison: Path
@@ -162,7 +163,8 @@ class VariantSummary:
     correction_calls: int = 0
     correction_retries: int = 0
     correction_mode: str | None = None
-    generation_duration_seconds: float | None = None
+    lab_duration_seconds: float | None = None
+    correction_duration_seconds: float | None = None
     checker_duration_seconds: float | None = None
     error_message: str | None = None
     skip_reason: str | None = None
@@ -184,6 +186,7 @@ class ExperimentSummary:
     without_skill: VariantSummary
     comparison: ComparisonOutcome
     comparison_reason: str | None = None
+    timings: dict[str, float] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -195,6 +198,7 @@ class ExperimentSummary:
             "without_skill": self.without_skill.to_dict(),
             "comparison": self.comparison.value,
             "comparison_reason": self.comparison_reason,
+            "timings": self.timings,
         }
 
 
@@ -204,6 +208,7 @@ class PipelineSummary:
     started_at: str
     finished_at: str
     duration_seconds: float
+    run_total_wall_seconds: float
     prompts_found: int
     experiments_completed: int
     variant_counts: dict[str, dict[str, int]]
@@ -216,6 +221,7 @@ class PipelineSummary:
             "started_at": self.started_at,
             "finished_at": self.finished_at,
             "duration_seconds": self.duration_seconds,
+            "run_total_wall_seconds": self.run_total_wall_seconds,
             "prompts_found": self.prompts_found,
             "experiments_completed": self.experiments_completed,
             "variant_counts": self.variant_counts,

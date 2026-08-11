@@ -42,24 +42,20 @@ def test_checker_attempted_not_completed():
     console = PipelineConsole(stream)
     console.phase_started("Checker", 5, 6)
     console.checker_started()
-    console.checker_failed("container crashed")
+    console.checker_failed("with_skill", "container crashed")
     
     output = stream.getvalue()
-    assert "        ✓ Checker avviato" in output
-    assert "        ✗ Checker non completato" in output
-    assert "          Error: container crashed" in output
+    assert "        ✗ Checker with_skill fallito: container crashed" in output
 
 def test_checker_completed():
     stream = io.StringIO()
     console = PipelineConsole(stream)
     console.checker_started()
     console.checker_completed()
-    console.checker_metrics(24, 19, 5, 79.17)
+    console.checker_metrics("with_skill", 24, 19, 5, 79.17)
     
     output = stream.getvalue()
-    assert "        ✓ Checker avviato" in output
-    assert "        ✓ Checker completato" in output
-    assert "        Test: 24 | Passed: 19 | Failed: 5 | Pass: 79.17%" in output
+    assert "        ✓ Checker with_skill: 19/24 passed (79.17%)" in output
 
 def test_phase_error():
     stream = io.StringIO()

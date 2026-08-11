@@ -1,39 +1,49 @@
-# Checker plan
+# Check plan
 
-This plan instantiates the requirements in `evaluation-spec.md` from the candidate lab without changing their scope.  Role labels R1–R5 refer to the routers required by the scenario; candidate device identifiers, interfaces, collision-domain names, addresses, prefixes, and next hops must be resolved from the candidate lab.
+## R01 — Five routers
 
-## R1 — Router topology
+- Checker category/block: `lab_inline` topology declaration.
+- Validation strictness: exact cardinality of five router devices and exact one-to-one assignment to the R1–R5 router roles.
+- Values to resolve from the candidate lab: router machine names and their interface-to-collision-domain mappings.
 
-- Checker category/block: `lab_inline` (or `structure`) topology declaration.
-- Validation strictness: exact.  Declare exactly five router devices mapped to the R1–R5 roles and exactly the five required inter-router collision domains/connections; reject an extra or missing inter-router connection.
-- Candidate values to resolve: the device identifier for each router role; each router-facing interface number; the collision-domain name used for each of the five required links; and the candidate's distinction between router-facing and LAN-facing interfaces.
+## R02 — Required router-to-router topology
 
-## R2 — LANs and PCs
+- Checker category/block: `lab_inline` topology declaration.
+- Validation strictness: exact presence of the five required direct adjacencies: R1–R2, R1–R3, R2–R4, R3–R4, and R4–R5; no substituted router adjacency satisfies this requirement.
+- Values to resolve from the candidate lab: the router machine names, interface numbers, and collision-domain names that implement each adjacency.
 
-- Checker category/block: `lab_inline` (or `structure`) topology declaration; `requiring_startup` for the ten PC devices.
-- Validation strictness: exact topology cardinality and membership.  Require one distinct LAN collision domain per router, exactly two PCs on each LAN, and no PC attached to a router other than the router serving that LAN.  Require a startup file for every resolved PC device.
-- Candidate values to resolve: the two PC device identifiers for each router LAN; each PC and router LAN-facing interface number; the five LAN collision-domain names; and the device identifiers of all ten PCs.
+## R03 — One LAN per router
 
-## R3 — IP protocol version
+- Checker category/block: `lab_inline` topology declaration.
+- Validation strictness: exact cardinality of one distinct PC-serving LAN for each router role; each LAN is directly attached to its associated router.
+- Values to resolve from the candidate lab: LAN collision-domain names, router LAN interfaces, and the router role associated with each LAN.
 
-- Checker category/block: `ip_mapping` plus `custom_commands`.
-- Validation strictness: exact for assigned interface addresses and strict absence for IPv6 global addressing.  Require the resolved IPv4 address/prefix on every configured non-loopback interface and require each device to report no global IPv6 addresses.
-- Candidate values to resolve: every device identifier; every configured interface number; every IPv4 address/prefix; and the command assertion representation that verifies an empty global-IPv6 address listing on each device.
+## R04 — Two PCs on every router LAN and ten PCs in total
 
-## R4 — Explicit static routing
+- Checker category/block: `lab_inline` topology declaration.
+- Validation strictness: exactly two PC devices are attached to each required router LAN, for an exact total of ten PCs; no PC is counted for more than one LAN.
+- Values to resolve from the candidate lab: PC machine names, their interfaces, and their LAN collision-domain memberships.
 
-- Checker category/block: `kernel_routes` plus `custom_commands`.
-- Validation strictness: exact.  For each router, require one specific route, with the resolved next hop and outgoing interface, for every subnet not directly connected to it; require no extra non-connected routes.  Custom commands must verify that every required non-connected route is installed as a static route rather than by a routing daemon or another route source.
-- Candidate values to resolve: router identifiers; the complete IPv4 subnet inventory; the directly connected subnet set for each router; the remote-subnet set for each router; each required route prefix, next-hop IPv4 address, and outgoing interface; and command assertions that identify each route as static.
-
-## R5 — No default routes
+## R05 — IPv4 only
 
 - Checker category/block: `custom_commands`.
-- Validation strictness: strict absence.  On every router, assert that the IPv4 routing table contains no `default` route and no `0.0.0.0/0` route.
-- Candidate values to resolve: router device identifiers and the concrete empty-output assertion for the IPv4 default-route query.
+- Validation strictness: strict prohibition of globally configured IPv6 addresses and IPv6 forwarding/routing configuration on every router and PC; IPv4 is the only configured network-layer protocol used for the lab.
+- Values to resolve from the candidate lab: all router and PC machine names.
 
-## R6 — End-to-end PC connectivity
+## R06 — Explicit static route for every remote subnet
+
+- Checker category/block: `kernel_routes` plus `custom_commands`.
+- Validation strictness: exact route coverage on each router. For every IPv4 subnet that is not directly connected to that router, require one specific route with the resolved destination prefix, next hop, and egress interface; verify that every required route is static and that no required remote subnet is omitted.
+- Values to resolve from the candidate lab: all IPv4 subnet prefixes, each router's directly connected subnets, every router's remote-subnet set, and the destination prefix, next hop, egress interface, and static-route evidence for each required route.
+
+## R07 — No router default routes
+
+- Checker category/block: `custom_commands`.
+- Validation strictness: strict absence of an IPv4 default route on every router, including routes expressed as `default` or `0.0.0.0/0`.
+- Values to resolve from the candidate lab: router machine names.
+
+## R08 — Full PC-to-PC reachability
 
 - Checker category/block: `reachability`.
-- Validation strictness: exhaustive directed full mesh.  For each PC, require ping reachability to every other PC's resolved IPv4 address; self-reachability is not required.
-- Candidate values to resolve: the ten PC device identifiers and one reachable IPv4 address for each PC.
+- Validation strictness: complete directed reachability matrix: each of the ten PCs must successfully ping each of the other nine PCs, for 90 required source-to-destination checks.
+- Values to resolve from the candidate lab: PC machine names and the IPv4 address used for each PC reachability target.

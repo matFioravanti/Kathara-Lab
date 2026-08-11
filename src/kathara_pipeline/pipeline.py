@@ -153,7 +153,7 @@ class Pipeline:
             passed_tests=metrics.get("passed_tests"),
             failed_tests=metrics.get("failed_tests"),
             pass_percentage=metrics.get("pass_percentage"),
-            generation_duration_seconds=(data.get("generation") or {}).get("duration_seconds"),
+            lab_duration_seconds=(data.get("generation") or {}).get("duration_seconds"),
             checker_duration_seconds=(data.get("checker") or {}).get("duration_seconds"),
             error_message=(data.get("errors") or [None])[-1] if data.get("errors") else None,
             skip_reason="unchanged completed paired experiment",
@@ -244,7 +244,7 @@ class Pipeline:
         def _update_metrics(res):
             summary.lab_calls = res.calls
             summary.lab_retries = res.retries
-            summary.generation_duration_seconds = res.total_duration_seconds
+            summary.lab_duration_seconds = res.total_duration_seconds
             manifest["lab_calls"] = res.calls
             manifest["lab_retries"] = res.retries
             manifest["generation"] = _metadata(res)
@@ -343,11 +343,11 @@ class Pipeline:
             self._phase(manifest, summary.status.value)
             if current_phase > 0:
                 self.console.checker_completed()
-                self.console.checker_metrics(metrics.total_tests, metrics.passed_tests, metrics.failed_tests, metrics.pass_percentage)
+                self.console.checker_metrics(summary.variant.value, metrics.total_tests, metrics.passed_tests, metrics.failed_tests, metrics.pass_percentage)
         except Exception as exc:
             if current_phase > 0:
                 if summary.checker_attempted and not summary.checker_completed:
-                    self.console.checker_failed(str(exc))
+                    self.console.checker_failed(summary.variant.value, str(exc))
                 elif not summary.checker_attempted:
                     self.console.phase_failure("Checker preparation failed", str(exc))
             manifest["errors"].append(str(exc))
@@ -388,6 +388,7 @@ class Pipeline:
         def _update_metrics(res):
             summary.correction_calls = res.calls
             summary.correction_retries = res.retries
+            summary.correction_duration_seconds = res.total_duration_seconds
             manifest["correction_calls"] = res.calls
             manifest["correction_retries"] = res.retries
             manifest["correction_generation"] = _metadata(res)
@@ -429,6 +430,9 @@ class Pipeline:
         self._write_variant(variant_paths.manifest, manifest)
 
     def process_prompt(self, prompt: PromptRecord, resources: ResourceFiles, current_index: int = 1, total_prompts: int = 1) -> ExperimentSummary:
+        total_wall_started = time.perf_counter()
+        timings: dict[str, float] = {}
+
         paths = build_experiment_paths(self.config.paths.output, prompt.experiment_id)
         identity = self._identity(prompt, resources)
         skipped = self._can_skip(paths, identity)
@@ -502,6 +506,7 @@ class Pipeline:
             evaluation_plan_error: str | None = None
             evaluation_spec_hash: str | None = None
             check_plan_hash: str | None = None
+            eval_plan_started = time.perf_counter()
             try:
                 plan_result = self.evaluation_plan_generator.generate(
                     paths=paths,
@@ -511,20 +516,26 @@ class Pipeline:
                 evaluation_spec_generated = True
                 evaluation_spec_hash = sha256_file(paths.evaluation_spec)
                 check_plan_hash = sha256_file(paths.check_plan)
+                structured_plan_hash = sha256_file(paths.structured_plan)
                 experiment_manifest["evaluation_spec_generated"] = True
                 experiment_manifest["evaluation_spec_hash"] = evaluation_spec_hash
                 experiment_manifest["check_plan_generated"] = True
                 experiment_manifest["check_plan_hash"] = check_plan_hash
+                experiment_manifest["structured_plan_generated"] = True
+                experiment_manifest["structured_plan_hash"] = structured_plan_hash
                 experiment_manifest["evaluation_plan_generation"] = _metadata(plan_result)
                 self.console.phase_success("evaluation plan generato")
             except Exception as exc:
                 evaluation_plan_error = str(exc)
                 experiment_manifest["evaluation_plan_error"] = evaluation_plan_error
                 self.console.phase_failure("Generazione evaluation plan fallita", evaluation_plan_error)
+            finally:
+                timings["evaluation_plan_seconds"] = time.perf_counter() - eval_plan_started
 
             write_json_atomic(paths.experiment_manifest, experiment_manifest)
 
             # PHASE 2: Generazione laboratori (parallela se configurata)
+            lab_gen_started = time.perf_counter()
             if self.config.processing.parallel_variants:
                 self.console.phase_started("Generazione laboratori in parallelo", 2, total_phases)
                 with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
@@ -532,10 +543,21 @@ class Pipeline:
                     f_without = executor.submit(self._generate_variant_lab, prompt, Variant.WITHOUT_SKILL, paths.without_skill, resources, 0, 0)
                     with_summary, with_manifest = f_with.result()
                     without_summary, without_manifest = f_without.result()
-                self.console.phase_success("Generazione laboratori completata")
+                if with_summary.static_validation_passed:
+                    self.console.phase_success("with_skill generato e validato")
+                else:
+                    self.console.phase_failure("with_skill validazione fallita", with_summary.error_message)
+                if without_summary.static_validation_passed:
+                    self.console.phase_success("without_skill generato e validato")
+                else:
+                    self.console.phase_failure("without_skill validazione fallita", without_summary.error_message)
+                lab_gen_duration = time.perf_counter() - lab_gen_started
+                timings["lab_generation_wall_seconds"] = lab_gen_duration
+                timings["parallel_lab_generation_wall_seconds"] = lab_gen_duration
             else:
                 with_summary, with_manifest = self._generate_variant_lab(prompt, Variant.WITH_SKILL, paths.with_skill, resources, current_phase=2, total_phases=total_phases)
                 without_summary, without_manifest = self._generate_variant_lab(prompt, Variant.WITHOUT_SKILL, paths.without_skill, resources, current_phase=3, total_phases=total_phases)
+                timings["lab_generation_wall_seconds"] = time.perf_counter() - lab_gen_started
             
             if evaluation_spec_generated and evaluation_spec_hash:
                 with_manifest["evaluation_spec_hash"] = evaluation_spec_hash
@@ -559,22 +581,28 @@ class Pipeline:
             valid_variants.append((Variant.WITHOUT_SKILL, paths.without_skill, without_summary, without_manifest))
 
         ref_correction_path: Path | None = None
+        timings["corrections_wall_seconds"] = 0.0
+        timings["checkers_wall_seconds"] = 0.0
         
         for idx, (var, v_paths, v_summary, v_manifest) in enumerate(valid_variants):
             is_first = (idx == 0)
             passed_ref = ref_correction_path if not is_first else None
             
             # PHASE 4-5/6-7: Generazione correction e valutazione
+            corr_start = time.perf_counter()
             self._generate_correction(
                 prompt, paths, v_paths, v_summary, v_manifest, resources, evaluation_spec_generated, 
                 reference_correction=passed_ref, current_phase=0, total_phases=total_phases
             )
+            timings["corrections_wall_seconds"] += time.perf_counter() - corr_start
             
             if v_summary.correction_generated:
                 if is_first:
                     # Update ref_correction_path to be used by the second variant (if any)
                     ref_correction_path = v_paths.correction
+                chk_start = time.perf_counter()
                 v_summary = self._evaluate_variant(prompt, v_paths, v_summary, v_manifest, current_phase=0, total_phases=total_phases)
+                timings["checkers_wall_seconds"] += time.perf_counter() - chk_start
 
         # Handle missing corrections for invalid variants
         for var, v_paths, v_summary, v_manifest in ((Variant.WITH_SKILL, paths.with_skill, with_summary, with_manifest), (Variant.WITHOUT_SKILL, paths.without_skill, without_summary, without_manifest)):
@@ -585,7 +613,20 @@ class Pipeline:
                  v_manifest["status"] = JobStatus.ERROR.value
                  self._write_variant(v_paths.manifest, v_manifest)
 
+        comparison_started = time.perf_counter()
         outcome, reason = compare_variants(with_summary, without_summary)
+        timings["comparison_seconds"] = time.perf_counter() - comparison_started
+        
+        timings["total_wall_seconds"] = time.perf_counter() - total_wall_started
+        sum_components = (
+            timings.get("evaluation_plan_seconds", 0.0) +
+            timings.get("lab_generation_wall_seconds", 0.0) +
+            timings.get("corrections_wall_seconds", 0.0) +
+            timings.get("checkers_wall_seconds", 0.0) +
+            timings.get("comparison_seconds", 0.0)
+        )
+        timings["pipeline_overhead_seconds"] = max(0.0, timings["total_wall_seconds"] - sum_components)
+        
         experiment = ExperimentSummary(
             prompt.experiment_id,
             prompt.name,
@@ -595,9 +636,11 @@ class Pipeline:
             without_summary,
             outcome,
             reason,
+            timings=timings
         )
         write_comparison(experiment, paths.comparison, paths.comparison_csv)
-        self.console.experiment_result(outcome.value, "COMPLETED" if outcome != ComparisonOutcome.INCOMPARABLE else "ERROR")
+        self.console.experiment_result(experiment)
+        self.console.experiment_completed(timings, with_summary, without_summary)
         experiment_manifest.update({
             "comparison": outcome.value,
             "comparison_reason": reason,
@@ -617,7 +660,7 @@ class Pipeline:
 
     def run(self, prompts: list[PromptRecord], resources: ResourceFiles) -> PipelineSummary:
         ensure_output_root(self.config.paths.output, initialize=True)
-        started_mono = time.monotonic()
+        started_mono = time.perf_counter()
         started_at = _utc_now()
         experiments: list[ExperimentSummary] = []
         for index, prompt in enumerate(prompts, 1):
@@ -639,7 +682,8 @@ class Pipeline:
             pipeline_version=PIPELINE_VERSION,
             started_at=started_at,
             finished_at=_utc_now(),
-            duration_seconds=time.monotonic() - started_mono,
+            duration_seconds=time.monotonic() - started_mono, # For backward compatibility with existing tests
+            run_total_wall_seconds=time.perf_counter() - started_mono,
             prompts_found=len(prompts),
             experiments_completed=len(experiments),
             variant_counts=variant_counts,

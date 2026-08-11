@@ -73,10 +73,11 @@ class FakeRunner:
         out = workspace / "output"
         out.mkdir(parents=True, exist_ok=True)
         
-        if "EXACTLY TWO files" in instruction:
+        if "EXACTLY THREE files" in instruction:
             (out / "evaluation-spec.md").write_text("Dummy evaluation spec", encoding="utf-8")
             (out / "check-plan.md").write_text("Dummy check plan", encoding="utf-8")
-        elif "per-variant" in instruction or "failed validation" in instruction or "copy" in instruction:
+            (out / "evaluation-plan.yaml").write_text("checks:\n  - id: chk1\n    checker: reachability\n", encoding="utf-8")
+        elif "binding an already-defined" in instruction or "failed validation" in instruction or "validated reference correction" in instruction:
             (out / "correction.yaml").write_text(self.correction_yaml, encoding="utf-8")
         else:
             _write_lab(workspace)
@@ -98,10 +99,11 @@ class FakeRunnerRetryFix(FakeRunner):
         out = workspace / "output"
         out.mkdir(parents=True, exist_ok=True)
         
-        if "EXACTLY TWO files" in instruction:
+        if "EXACTLY THREE files" in instruction:
             (out / "evaluation-spec.md").write_text("Dummy evaluation spec", encoding="utf-8")
             (out / "check-plan.md").write_text("Dummy check plan", encoding="utf-8")
-        elif "per-variant" in instruction or "failed validation" in instruction or "copy" in instruction:
+            (out / "evaluation-plan.yaml").write_text("checks:\n  - id: chk1\n    checker: reachability\n", encoding="utf-8")
+        elif "binding an already-defined" in instruction or "failed validation" in instruction or "validated reference correction" in instruction:
             self._correction_attempts += 1
             content = _VALID_CORRECTION if self._correction_attempts > 1 else _INVALID_CORRECTION_NO_LAB_INLINE
             (out / "correction.yaml").write_text(content, encoding="utf-8")
@@ -168,10 +170,10 @@ def test_pipeline_runs_variants_in_new_order_and_shares_checker_skill(tmp_path: 
     with_corr_call = fake_runner.calls[3][0]
     without_corr_call = fake_runner.calls[4][0]
     
-    assert "per-variant" in with_corr_call
+    assert "binding an already-defined" in with_corr_call
     assert "resources/checker/SKILL.md" in with_corr_call
     
-    assert "copy" in without_corr_call
+    assert "validated reference correction" in without_corr_call
     assert "output/correction.yaml" in without_corr_call
     
     assert fake_checker.order == ["with_skill", "without_skill"]
@@ -225,7 +227,7 @@ def test_retry_fixes_correction_missing_lab_inline(tmp_path: Path):
     resources = discover_resources(project / "resources")
     summary = pipeline.run(discover_prompts(prompts), resources)
     
-    correction_calls = [c for c, _ in fake_runner.calls if "per-variant" in c or "regenerate" in c or "copy" in c or "in place" in c]
+    correction_calls = [c for c, _ in fake_runner.calls if "binding an already-defined" in c or "regenerate" in c or "validated reference correction" in c or "in place" in c]
     # Expect: 1. with_skill corr (fails), 2. with_skill corr retry (passes), 3. without_skill corr (fails, it's fake runner), 4. without_skill corr retry (passes)
     # Actually FakeRunnerRetryFix increments total correction_attempts across both variants.
     # So attempt 1 fails, attempt 2 (retry with_skill) passes.
@@ -342,8 +344,8 @@ def test_resume_from_correction(tmp_path: Path):
     
     # Should only run correction for with_skill and without_skill
     assert len(fake_runner.calls) == 2
-    assert "per-variant" in fake_runner.calls[0][0]
-    assert "copy" in fake_runner.calls[1][0]
+    assert "binding an already-defined" in fake_runner.calls[0][0]
+    assert "validated reference correction" in fake_runner.calls[1][0]
     
     assert fake_checker.order == ["with_skill", "without_skill"]
     assert len(fake_checker.corrections) == 2

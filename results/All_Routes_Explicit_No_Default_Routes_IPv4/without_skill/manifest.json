@@ -1,94 +1,48 @@
 {
-  "canonical_correction_sha256": "36b26f211f92e5188e0b32b1bc3adc84ea65892842ac0534fec3f14a915cc0fe",
-  "check_plan_hash": "ae91437bd4532207f44c10038ddfb83c6049df8fca6496b981e4994d6244c9d0",
-  "checker": {
-    "command": [
-      "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
-      "-m",
-      "kathara_lab_checker",
-      "--config",
-      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/without_skill/correction/correction.yaml",
-      "--labs",
-      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/without_skill/checker-run/labs",
-      "--no-cache",
-      "--report-type",
-      "csv"
-    ],
-    "duration_seconds": 21.66386179199617,
-    "return_code": 0,
-    "timed_out": false
-  },
-  "checker_attempted": true,
-  "checker_completed": true,
+  "canonical_correction_sha256": null,
+  "check_plan_hash": "0bd6426903fc0ed6a4bb6a9c08fe2be4c13c5b20eb4ba65b3f1eaba658a03b55",
+  "checker": null,
+  "checker_attempted": false,
+  "checker_completed": false,
   "checker_schema_sha256": "1442d95a9a4cf265bdc68e90f3340cf23be1cb06b2ee48ca6589da893b0eab90",
   "checker_skill_sha256": "80ade8e9550a4fa3014f8801b7b9d073ba19e92f7389a014e5566063289c3203",
-  "correction_calls": 1,
-  "correction_generated": true,
-  "correction_generation": {
-    "attempts": [
-      {
-        "attempt": 1,
-        "duration_seconds": 158.92220420800004,
-        "return_code": 0,
-        "success": true,
-        "timed_out": false,
-        "validation_errors": []
-      }
-    ],
-    "calls": 1,
-    "duration_seconds": 158.92220420800004,
-    "last_command": [
-      "codex",
-      "exec",
-      "--model",
-      "gpt-5.6-terra",
-      "-c",
-      "model_reasoning_effort=\"low\"",
-      "-c",
-      "approval_policy=\"never\"",
-      "--sandbox",
-      "workspace-write",
-      "--cd",
-      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/correction_without_skill",
-      "--json",
-      "--output-last-message",
-      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/correction_without_skill/.agent-last-message.txt",
-      "--ephemeral",
-      "output/correction.yaml is already a copy of the validated reference correction.\nOpen it and modify it in place.\nDo not recreate the correction from scratch.\nAdapt only candidate-dependent concrete values.\n\nRead the current candidate/ lab and adapt values required for the checks to apply to this laboratory. For example: device names, IP addresses, interface identifiers, gateways, next hops, route destinations, collision domains, lab_inline, router IDs, default_image (if needed), etc.\n\nDo not redesign the evaluation strategy. The semantic test plan is defined by input/evaluation-spec.md and input/check-plan.md. Preserve the same semantic checks and evaluation strictness. Do not copy candidate-specific values from the reference correction when they do not match the current candidate.\n\nWrite only YAML with no surrounding prose. Do not create any other output file."
-    ],
-    "retries": 0
-  },
-  "correction_hash": "36b26f211f92e5188e0b32b1bc3adc84ea65892842ac0534fec3f14a915cc0fe",
-  "correction_mode": "adaptation",
+  "correction_calls": 0,
+  "correction_generated": false,
+  "correction_hash": null,
+  "correction_mode": null,
   "correction_retries": 0,
   "creation_skill_enabled": false,
   "creation_skill_sha256": null,
-  "errors": [],
-  "evaluation_spec_hash": "b3119ffd76103d88486f394a2b303035c0f47a28dfdd82ae8f6f150e0505da44",
+  "errors": [
+    "Generated lab still invalid after 2 attempt(s): Kathara LabParser validation failed: In lab.conf - Line 1: `R1[0]=r1-r2\n`."
+  ],
+  "evaluation_spec_hash": "3a7a7948c17e2d6c859796035c4a6198b8b852452ee69eaa03c1c7103e9c9ca0",
   "experiment_id": "All_Routes_Explicit_No_Default_Routes_IPv4",
   "generation": {
     "attempts": [
       {
         "attempt": 1,
-        "duration_seconds": 101.67047041699698,
+        "duration_seconds": 112.04890800000067,
         "return_code": 0,
         "success": false,
         "timed_out": false,
         "validation_errors": [
-          "Kathara LabParser validation failed: In lab.conf - Line 2: Collision domain `r1-r2` contains non-alphanumeric characters."
+          "Kathara LabParser validation failed: In lab.conf - Line 1: `R1[0]=\"r1-r2\"\n`."
         ]
       },
       {
         "attempt": 2,
-        "duration_seconds": 30.092864334001206,
+        "duration_seconds": 46.43621325000004,
         "return_code": 0,
-        "success": true,
+        "success": false,
         "timed_out": false,
-        "validation_errors": []
+        "validation_errors": [
+          "Kathara LabParser validation failed: In lab.conf - Line 1: `R1[0]=r1-r2\n`."
+        ]
       }
     ],
     "calls": 2,
-    "duration_seconds": 131.76333475099818,
+    "duration_seconds": 158.4851212500007,
     "last_command": [
       "codex",
       "exec",
@@ -106,7 +60,7 @@
       "--output-last-message",
       "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/without_skill/.agent-last-message.txt",
       "--ephemeral",
-      "The previously generated output/lab/ failed static validation with the following errors:\n  - Kathara LabParser validation failed: In lab.conf - Line 2: Collision domain `r1-r2` contains non-alphanumeric characters.\n\nRead the existing output/lab directory and modify it in-place.\nFix all validation errors listed above.\nPreserve every valid part of the current lab.\nDo not rebuild unrelated files.\nDo not recreate the entire lab unless the current structure makes the requested correction impossible.\nDo not generate correction.yaml and do not run Kathara or kathara_lab_checker.\nThe laboratory must be complete, persistent, contain no placeholders, and be internally consistent.\nRead only input/prompt.md. No creation Skill or external implementation guide is available."
+      "The previously generated output/lab/ failed static validation with the following errors:\n  - Kathara LabParser validation failed: In lab.conf - Line 1: `R1[0]=\"r1-r2\"\n`.\n\nRead the existing output/lab directory and modify it in-place.\nFix all validation errors listed above.\nPreserve every valid part of the current lab.\nDo not rebuild unrelated files.\nDo not recreate the entire lab unless the current structure makes the requested correction impossible.\nDo not generate correction.yaml and do not run Kathara or kathara_lab_checker.\nThe laboratory must be complete, persistent, contain no placeholders, and be internally consistent.\nRead only input/prompt.md. No creation Skill or external implementation guide is available."
     ],
     "retries": 1
   },
@@ -117,55 +71,26 @@
   "lab_calls": 2,
   "lab_generated": true,
   "lab_retries": 1,
-  "metrics": {
-    "failed_tests": 50,
-    "failure_categories": {
-      "uncategorized": 50
-    },
-    "pass_percentage": 78.26087,
-    "passed_tests": 180,
-    "reports_found": [
-      "results.csv",
-      "candidate_result_all.csv",
-      "candidate_result_failed.csv",
-      "candidate_result_summary.csv"
-    ],
-    "total_tests": 230
-  },
+  "metrics": null,
   "phases": [
     {
-      "at": "2026-08-10T21:39:35.814970Z",
+      "at": "2026-08-11T10:19:35.107856Z",
       "name": "discovered"
     },
     {
-      "at": "2026-08-10T21:39:35.815306Z",
+      "at": "2026-08-11T10:19:35.108271Z",
       "name": "lab_generation_started"
     },
     {
-      "at": "2026-08-10T21:41:47.608807Z",
-      "name": "lab_generated"
-    },
-    {
-      "at": "2026-08-10T21:41:47.608821Z",
-      "name": "static_validation_passed"
-    },
-    {
-      "at": "2026-08-10T21:48:11.042628Z",
-      "name": "checker_started"
-    },
-    {
-      "at": "2026-08-10T21:48:32.715127Z",
-      "name": "checker_completed"
-    },
-    {
-      "at": "2026-08-10T21:48:32.715141Z",
-      "name": "failed"
+      "at": "2026-08-11T10:22:13.629148Z",
+      "name": "error"
     }
   ],
   "pipeline_version": "0.5.0",
   "prompt_file": "All Routes Explicit, No Default Routes, IPv4.md",
   "prompt_sha256": "d55a80ef2afda10dacb80145c84498288635e3ca760287d6f4bf0740c0f7b891",
-  "static_validation_passed": true,
-  "status": "failed",
+  "source_failed_preserved": true,
+  "static_validation_passed": false,
+  "status": "error",
   "variant": "without_skill"
 }

@@ -100,7 +100,7 @@ La Creation Skill viene materializzata **solo** nel workspace `with_skill`. Il w
 prompt
   │
   ├─ 1. Evaluation Planning (una singola chiamata)
-  │      prompt + Creation Skill -> evaluation-spec.md + check-plan.md
+  │      prompt + Creation Skill -> evaluation-spec.md + check-plan.md + evaluation-plan.yaml
   │
   ├─ 2. Generazione Laboratori (indipendente, possibilmente in parallelo)
   │      WITH_SKILL: prompt + Creation Skill -> Lab A

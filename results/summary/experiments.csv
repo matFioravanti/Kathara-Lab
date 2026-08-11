@@ -1,3 +1,4 @@
 experiment_id,prompt_file,variant,status,checker_completed,total_tests,passed_tests,failed_tests,pass_percentage,generation_duration_seconds,checker_duration_seconds,correction_sha256,error
-All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",with_skill,failed,True,230,180,50,78.26087,98.86144716600393,25.138176417000068,362eeed089520cd3b98f089a6d3d49485029bef0c4e17c2a04bf93d74ee1a67e,
-All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",without_skill,failed,True,230,180,50,78.26087,131.76333475099818,21.66386179199617,36b26f211f92e5188e0b32b1bc3adc84ea65892842ac0534fec3f14a915cc0fe,
+All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",with_skill,failed,True,245,175,70,71.428571,103.15253725000002,24.109103874999164,0071c9bfb92e9760f1df196a29891db4b556534c35b1524c0996668971e9b218,
+All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",without_skill,error,False,,,,,158.4851212500007,,,"Generated lab still invalid after 2 attempt(s): Kathara LabParser validation failed: In lab.conf - Line 1: `R1[0]=r1-r2
+`."

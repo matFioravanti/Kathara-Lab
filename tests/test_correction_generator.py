@@ -17,8 +17,10 @@ def test_correction_generator_retry_keeps_file_and_modifies_instruction(tmp_path
     experiment_paths = Mock(spec=ExperimentPaths)
     experiment_paths.evaluation_spec = tmp_path / "evaluation-spec.md"
     experiment_paths.check_plan = tmp_path / "check-plan.md"
+    experiment_paths.structured_plan = tmp_path / "evaluation-plan.yaml"
     experiment_paths.evaluation_spec.write_text("eval")
     experiment_paths.check_plan.write_text("plan")
+    experiment_paths.structured_plan.write_text("checks:\n  - id: 1\n")
     
     variant_paths = Mock(spec=VariantPaths)
     variant_paths.correction_workspace = tmp_path / "correction_workspace"
@@ -89,3 +91,10 @@ def test_correction_generator_retry_keeps_file_and_modifies_instruction(tmp_path
     assert "test error 1" in instruction
     assert "Preserve all valid sections already present" in instruction
     assert "Do not regenerate the entire correction from scratch" in instruction
+
+    # Verify that the redundant files were NOT copied into the workspace
+    input_dir = variant_paths.correction_workspace / "input"
+    assert (input_dir / "evaluation-plan.yaml").is_file()
+    assert not (input_dir / "prompt.md").exists()
+    assert not (input_dir / "evaluation-spec.md").exists()
+    assert not (input_dir / "check-plan.md").exists()

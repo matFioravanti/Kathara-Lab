@@ -39,7 +39,7 @@ def comparison_payload(summary: ExperimentSummary) -> dict[str, Any]:
             "passed_tests": (a.passed_tests - b.passed_tests) if a.passed_tests is not None and b.passed_tests is not None else None,
             "failed_tests": (a.failed_tests - b.failed_tests) if a.failed_tests is not None and b.failed_tests is not None else None,
             "pass_percentage_points": round(a.pass_percentage - b.pass_percentage, 6) if a.pass_percentage is not None and b.pass_percentage is not None else None,
-            "generation_duration_seconds": round(a.generation_duration_seconds - b.generation_duration_seconds, 6) if a.generation_duration_seconds is not None and b.generation_duration_seconds is not None else None,
+            "generation_duration_seconds": round(a.lab_duration_seconds - b.lab_duration_seconds, 6) if a.lab_duration_seconds is not None and b.lab_duration_seconds is not None else None,
             "checker_duration_seconds": round(a.checker_duration_seconds - b.checker_duration_seconds, 6) if a.checker_duration_seconds is not None and b.checker_duration_seconds is not None else None,
         },
     }

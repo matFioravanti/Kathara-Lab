@@ -1,31 +1,23 @@
 # Evaluation specification
 
-## R1 — Router topology
+## Devices and topology
 
-The lab contains five routers: R1, R2, R3, R4, and R5.  Their inter-router connections are exactly:
+- The lab contains exactly five routers, designated R1, R2, R3, R4, and R5.
+- R1 has a direct router-to-router connection to R2 and a direct router-to-router connection to R3.
+- R2 has a direct router-to-router connection to R4.
+- R3 has a direct router-to-router connection to R4.
+- R4 has a direct router-to-router connection to R5.
+- Each router serves exactly one LAN.
+- Each router LAN contains exactly two PCs.
+- The lab therefore contains exactly ten PCs.
 
-- R1 connected to R2
-- R1 connected to R3
-- R2 connected to R4
-- R3 connected to R4
-- R4 connected to R5
+## Network layer and routing
 
-## R2 — LANs and PCs
+- The lab uses IPv4 only.
+- Every router has a fully explicit routing table.
+- On every router, there is a specific static route for every remote subnet.
+- No router has a default route.
 
-Each router serves one distinct LAN.  Each such LAN contains exactly two PCs, for a total of ten PCs.
+## Connectivity
 
-## R3 — IP protocol version
-
-The network uses IPv4 only.
-
-## R4 — Explicit static routing
-
-Every router has a fully explicit routing table.  For every subnet that is not directly connected to a router, that router has a specific static route to the subnet.
-
-## R5 — No default routes
-
-No router has a default route.
-
-## R6 — End-to-end PC connectivity
-
-Every one of the ten PCs can reach every other PC.
+- Every PC can reach each of the other nine PCs.

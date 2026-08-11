@@ -21,29 +21,28 @@ class CorrectionGenerator:
     @staticmethod
     def instruction() -> str:
         return (
-            "Read input/prompt.md, input/evaluation-spec.md, input/check-plan.md, candidate/ (the generated lab implementation), "
-            "resources/checker/SKILL.md, and resources/checker/config-schema.md. "
-            "Generate exactly one canonical output/correction.yaml for kathara-lab-checker. "
-            "This is a per-variant correction: the correction MUST evaluate exactly the requirements frozen in "
-            "input/evaluation-spec.md, using the evaluation strategy defined in input/check-plan.md. "
-            "The candidate lab must ONLY provide the concrete values (device names, "
-            "IP addresses, subnets, interfaces, next-hops, collision domains) needed to instantiate those requirements.\n\n"
-            "CRITICAL REQUIREMENT-DRIVEN GENERATION:\n"
-            "The evaluation strategy (which requirements are checked, which checker categories are used, and the strictness of those checks) "
-            "is already determined and frozen inside check-plan.md. You MUST treat this strategy as mandatory. "
-            "You must perform the exact same semantic checks and use the exact same checker categories as dictated by the check-plan.md, "
-            "just as you would for any other candidate fulfilling the same specification. "
-            "Do not add a check only because one candidate exposes more implementation details. "
-            "Do not omit or weaken a check in one variant because its candidate is different. "
-            "Examples:\n"
-            "- if static routing is required with exact next-hop validation, use it for both variants;\n"
-            "- if DNS resolution is required, both corrections must contain equivalent DNS checks;\n"
-            "- if end-to-end reachability is required, both corrections must contain equivalent reachability checks.\n\n"
-            "Automatically include every standard supported check that is explicitly specified or unambiguously derivable "
-            "from the check-plan.md. Prefer standard checks over custom_commands unless explicitly required. "
-            "IMPORTANT: lab_inline is mandatory and must contain the complete expected topology derived from the evaluation-spec "
-            "and candidate lab. default_image is a mandatory checker field. "
-            "Use lab_inline rather than structure and omit labs_path. Follow the runtime 0.1.14 compatibility rules in the Skill. "
+            "You are binding an already-defined evaluation plan to a concrete Kathara candidate.\n"
+            "Read input/evaluation-plan.yaml, candidate/ (the generated lab implementation), "
+            "resources/checker/SKILL.md, and resources/checker/config-schema.md.\n\n"
+            "Do not redesign the evaluation strategy.\n"
+            "input/evaluation-plan.yaml is authoritative for which checks must exist. "
+            "You must generate exactly one canonical output/correction.yaml for kathara-lab-checker based on this structured plan.\n\n"
+            "Read the candidate lab only to resolve concrete candidate-dependent values such as:\n"
+            "- machine names;\n"
+            "- IP addresses;\n"
+            "- interfaces;\n"
+            "- routes;\n"
+            "- gateways;\n"
+            "- router IDs;\n"
+            "- topology references.\n\n"
+            "Translate the structured evaluation plan into a valid Kathara Lab Checker output/correction.yaml. "
+            "Use the checker schema/resources only to ensure correct output syntax. "
+            "Do not add checks that are not present in the evaluation plan. "
+            "Do not remove checks. "
+            "Do not reinterpret the original assignment.\n\n"
+            "IMPORTANT: lab_inline is mandatory and must contain the complete expected topology derived from the candidate lab. "
+            "default_image is a mandatory checker field. "
+            "Use lab_inline rather than structure and omit labs_path. Follow the runtime 0.1.14 compatibility rules in the Skill.\n"
             "Write only YAML to output/correction.yaml, with no surrounding prose. Do not create any other output file."
         )
 
@@ -56,8 +55,8 @@ class CorrectionGenerator:
             "Adapt only candidate-dependent concrete values.\n\n"
             "Read the current candidate/ lab and adapt values required for the checks to apply to this laboratory. "
             "For example: device names, IP addresses, interface identifiers, gateways, next hops, route destinations, collision domains, lab_inline, router IDs, default_image (if needed), etc.\n\n"
-            "Do not redesign the evaluation strategy. The semantic test plan is defined by input/evaluation-spec.md and input/check-plan.md. "
-            "Preserve the same semantic checks and evaluation strictness. "
+            "Do not redesign the evaluation strategy. input/evaluation-plan.yaml is authoritative for which checks must exist. "
+            "Preserve the same semantic checks. Do not add or remove checks. "
             "Do not copy candidate-specific values from the reference correction when they do not match the current candidate.\n\n"
             "Write only YAML with no surrounding prose. Do not create any other output file."
         )
@@ -70,10 +69,8 @@ class CorrectionGenerator:
             f"{errors_text}\n\n"
             "Open the existing output/correction.yaml and correct in-place only the reported errors. "
             "Preserve all valid sections already present in the file. Do not regenerate the entire correction from scratch.\n"
-            "Read input/prompt.md, input/evaluation-spec.md, input/check-plan.md, candidate/, resources/checker/SKILL.md, and resources/checker/config-schema.md again to guide your fixes. "
-            "Evaluate exactly the requirements and follow the exact evaluation strategy frozen in input/check-plan.md, "
-            "using concrete values from candidate/. "
-            "CRITICAL: The evaluation strategy is frozen. Perform the exact same semantic checks and use the same checker categories as dictated by the specification. "
+            "Read input/evaluation-plan.yaml, candidate/, resources/checker/SKILL.md, and resources/checker/config-schema.md again to guide your fixes.\n"
+            "CRITICAL: The evaluation strategy is frozen in input/evaluation-plan.yaml, which is authoritative. "
             "Do not add, omit, or weaken checks based on candidate-specific details. "
             "lab_inline is mandatory and must contain the complete expected topology (lab.conf format). It must be a non-empty string. "
             "Do not use structure. Do not include labs_path. "
@@ -87,9 +84,7 @@ class CorrectionGenerator:
         resource_dir = variant_paths.correction_workspace / "resources" / "checker"
         resource_dir.mkdir(parents=True)
         (variant_paths.correction_workspace / "output").mkdir()
-        (variant_paths.correction_workspace / "input" / "prompt.md").write_text(prompt_text, encoding="utf-8")
-        shutil.copy2(experiment_paths.evaluation_spec, variant_paths.correction_workspace / "input" / "evaluation-spec.md")
-        shutil.copy2(experiment_paths.check_plan, variant_paths.correction_workspace / "input" / "check-plan.md")
+        shutil.copy2(experiment_paths.structured_plan, variant_paths.correction_workspace / "input" / "evaluation-plan.yaml")
         
         if reference_correction is not None:
             shutil.copy2(reference_correction, variant_paths.correction_workspace / "output" / "correction.yaml")

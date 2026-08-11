@@ -1,0 +1,130 @@
+checks:
+  - id: five-router-cardinality
+    checker: lab_inline
+    requirement: exactly five routers designated by the R1 through R5 roles
+    target_roles:
+      router_roles: [R1, R2, R3, R4, R5]
+    expected_properties:
+      router_count: 5
+      role_assignment: one_to_one
+    resolution_required:
+      - router_machine_names
+      - router_interface_collision_domain_mappings
+
+  - id: required-router-adjacencies
+    checker: lab_inline
+    requirement: required direct router-to-router connections
+    target_roles:
+      adjacencies:
+        - [R1, R2]
+        - [R1, R3]
+        - [R2, R4]
+        - [R3, R4]
+        - [R4, R5]
+    expected_properties:
+      direct_adjacency_count: 5
+      each_listed_adjacency_is_direct: true
+    resolution_required:
+      - router_machine_names
+      - router_interface_numbers
+      - router_to_router_collision_domains
+
+  - id: one-lan-per-router
+    checker: lab_inline
+    requirement: each router serves exactly one LAN
+    target_roles:
+      router_roles: [R1, R2, R3, R4, R5]
+    expected_properties:
+      lans_per_router: 1
+      lan_is_directly_attached_to_router: true
+    resolution_required:
+      - lan_collision_domains
+      - router_lan_interface_numbers
+      - router_machine_names
+
+  - id: pc-lan-cardinality
+    checker: lab_inline
+    requirement: each router LAN has two PCs and the lab has ten PCs
+    target_roles:
+      router_roles: [R1, R2, R3, R4, R5]
+      device_role: PC
+    expected_properties:
+      pcs_per_router_lan: 2
+      total_pc_count: 10
+      pc_belongs_to_exactly_one_router_lan: true
+    resolution_required:
+      - pc_machine_names
+      - pc_interface_numbers
+      - pc_lan_collision_domain_mappings
+
+  - id: ipv4-only
+    checker: custom_commands
+    requirement: IPv4 is the only configured network-layer protocol
+    target_roles:
+      device_roles: [router, PC]
+    expected_properties:
+      globally_configured_ipv6_addresses: absent
+      ipv6_forwarding_or_routing_configuration: absent
+    resolution_required:
+      - router_machine_names
+      - pc_machine_names
+
+  - id: static-route-coverage
+    checker: kernel_routes
+    requirement: every router has one specific static route for every remote IPv4 subnet
+    target_roles:
+      device_role: router
+    expected_properties:
+      route_destination: remote_ipv4_subnet
+      route_next_hop: required
+      route_egress_interface: required
+      required_route_coverage: every_remote_subnet
+      route_set_strictness: exact
+    resolution_required:
+      - router_machine_names
+      - ipv4_subnet_prefixes
+      - directly_connected_subnets_per_router
+      - remote_subnets_per_router
+      - static_route_destinations
+      - static_route_next_hops
+      - static_route_egress_interfaces
+
+  - id: static-route-provenance
+    checker: custom_commands
+    requirement: required remote-subnet routes are static routes
+    target_roles:
+      device_role: router
+    expected_properties:
+      required_remote_routes_have_static_provenance: true
+      required_remote_routes_are_not_dynamic: true
+    resolution_required:
+      - router_machine_names
+      - required_remote_route_prefixes
+      - static_route_command_assertions
+
+  - id: no-router-default-route
+    checker: custom_commands
+    requirement: no router has an IPv4 default route
+    target_roles:
+      device_role: router
+    expected_properties:
+      ipv4_default_route: absent
+      zero_prefix_route: absent
+    resolution_required:
+      - router_machine_names
+
+  - id: full-pc-to-pc-reachability
+    checker: reachability
+    requirement: every PC can reach every other PC
+    target_roles:
+      source_device_role: PC
+      destination_device_role: PC
+    expected_properties:
+      source_and_destination_must_be_distinct: true
+      directed_reachability_matrix: complete
+      source_pc_count: 10
+      destinations_per_source_pc: 9
+      required_ping_checks: 90
+    resolution_required:
+      - pc_machine_names
+      - pc_ipv4_addresses

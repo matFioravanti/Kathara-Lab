@@ -19,6 +19,7 @@ def test_evaluation_plan_generator_success(tmp_path: Path):
         (workspace / "output").mkdir(exist_ok=True)
         (workspace / "output" / "evaluation-spec.md").write_text("spec")
         (workspace / "output" / "check-plan.md").write_text("plan")
+        (workspace / "output" / "evaluation-plan.yaml").write_text("checks:\n  - id: '1'\n    checker: r")
         return CommandResult(
             command=["mock"],
             return_code=0,
@@ -34,6 +35,7 @@ def test_evaluation_plan_generator_success(tmp_path: Path):
     paths.evaluation_plan_logs = tmp_path / "logs"
     paths.evaluation_spec = tmp_path / "evaluation-spec.md"
     paths.check_plan = tmp_path / "check-plan.md"
+    paths.structured_plan = tmp_path / "evaluation-plan.yaml"
 
     resources = Mock(spec=ResourceFiles)
     resources.creation_skill = tmp_path / "c_skill"
@@ -48,6 +50,7 @@ def test_evaluation_plan_generator_success(tmp_path: Path):
     assert result.return_code == 0
     assert paths.evaluation_spec.read_text() == "spec"
     assert paths.check_plan.read_text() == "plan"
+    assert "checks:" in paths.structured_plan.read_text()
 
 
 def test_evaluation_plan_generator_missing_file_raises_error(tmp_path: Path):
@@ -59,6 +62,8 @@ def test_evaluation_plan_generator_missing_file_raises_error(tmp_path: Path):
         workspace = kwargs["workspace"]
         (workspace / "output").mkdir(exist_ok=True)
         (workspace / "output" / "evaluation-spec.md").write_text("spec")
+        (workspace / "output" / "check-plan.md").write_text("plan")
+        # Missing evaluation-plan.yaml
         return CommandResult(
             command=["mock"],
             return_code=0,
@@ -74,6 +79,7 @@ def test_evaluation_plan_generator_missing_file_raises_error(tmp_path: Path):
     paths.evaluation_plan_logs = tmp_path / "logs"
     paths.evaluation_spec = tmp_path / "evaluation-spec.md"
     paths.check_plan = tmp_path / "check-plan.md"
+    paths.structured_plan = tmp_path / "evaluation-plan.yaml"
 
     resources = Mock(spec=ResourceFiles)
     resources.creation_skill = tmp_path / "c_skill"
@@ -84,5 +90,5 @@ def test_evaluation_plan_generator_missing_file_raises_error(tmp_path: Path):
 
     generator = EvaluationPlanGenerator(runner=runner, timeout_seconds=10)
     
-    with pytest.raises(AgentExecutionError, match="without creating: check-plan.md"):
+    with pytest.raises(AgentExecutionError, match="without creating: evaluation-plan.yaml"):
         generator.generate(paths=paths, prompt_text="prompt", resources=resources)
