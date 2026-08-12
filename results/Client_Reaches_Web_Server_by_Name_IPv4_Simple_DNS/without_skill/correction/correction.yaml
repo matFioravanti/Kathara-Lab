@@ -1,0 +1,73 @@
+lab_inline: |
+  client[0]="lan-client"
+  dns[0]="lan-client"
+  r1[0]="lan-client"
+  r1[1]="r1-r2"
+  r2[0]="r1-r2"
+  r2[1]="lan-web"
+  web[0]="lan-web"
+convergence_time: 10
+default_image: kathara/base
+test:
+  requiring_startup:
+    - client
+    - dns
+    - r1
+    - r2
+    - web
+  ip_mapping:
+    client:
+      eth0: 192.168.10.10/24
+    dns:
+      eth0: 192.168.10.53/24
+    r1:
+      eth0: 192.168.10.1/24
+      eth1: 10.0.0.1/30
+    r2:
+      eth0: 10.0.0.2/30
+      eth1: 192.168.20.1/24
+    web:
+      eth0: 192.168.20.20/24
+  daemons:
+    dns:
+      - named
+    web:
+      - nginx
+  kernel_routes:
+    client:
+      - ["192.168.20.0/24", ["192.168.10.1"]]
+      - ["10.0.0.0/30", ["192.168.10.1"]]
+      - ["0.0.0.0/0", ["192.168.10.1"]]
+    dns:
+      - ["192.168.20.0/24", ["192.168.10.1"]]
+      - ["10.0.0.0/30", ["192.168.10.1"]]
+      - ["0.0.0.0/0", ["192.168.10.1"]]
+    r1:
+      - ["192.168.20.0/24", ["10.0.0.2"]]
+    r2:
+      - ["192.168.10.0/24", ["10.0.0.1"]]
+    web:
+      - ["192.168.10.0/24", ["192.168.20.1"]]
+      - ["10.0.0.0/30", ["192.168.20.1"]]
+      - ["0.0.0.0/0", ["192.168.20.1"]]
+  applications:
+    dns:
+      authoritative:
+        service.local:
+          - 192.168.10.53
+      local_ns:
+        192.168.10.53:
+          - client
+      records:
+        A:
+          service.local:
+            - 192.168.20.20
+    http:
+      client:
+        - url: http://service.local/
+          status_code: 200
+  reachability:
+    client:
+      - 192.168.10.53
+      - 192.168.20.20
+      - service.local

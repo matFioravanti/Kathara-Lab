@@ -1,0 +1,7 @@
+#!/bin/bash
+ip addr add 10.0.23.2/30 dev eth0
+ip addr add 10.0.34.1/30 dev eth1
+ip addr add 192.168.30.1/24 dev eth2
+ip route add 192.168.10.0/24 via 10.0.23.1
+ip route add 192.168.20.0/24 via 10.0.23.1
+ip route add 10.0.12.0/30 via 10.0.23.1

@@ -3,7 +3,7 @@
   "comparison_reason": "Both checker runs must complete successfully for a paired quality comparison.",
   "complete": true,
   "experiment_id": "All_Routes_Explicit_No_Default_Routes_IPv4",
-  "finished_at": "2026-08-12T09:49:57.969776Z",
+  "finished_at": "2026-08-12T10:46:24.569020Z",
   "identity": {
     "checker_report_type": "csv",
     "checker_runtime": "kathara-lab-checker==0.1.14",
@@ -20,7 +20,7 @@
   },
   "paired_correction": {
     "calls": 1,
-    "duration_seconds": 178.8091290000002,
+    "duration_seconds": 186.64978299999984,
     "mode": "paired_generation",
     "return_code": 0,
     "timed_out": false
@@ -28,5 +28,5 @@
   "pipeline_version": "0.5.0",
   "prompt_file": "All Routes Explicit, No Default Routes, IPv4.md",
   "prompt_sha256": "d55a80ef2afda10dacb80145c84498288635e3ca760287d6f4bf0740c0f7b891",
-  "started_at": "2026-08-12T09:40:12.397970Z"
+  "started_at": "2026-08-12T10:40:14.704120Z"
 }

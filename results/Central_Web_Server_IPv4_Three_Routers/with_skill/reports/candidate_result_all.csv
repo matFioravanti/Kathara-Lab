@@ -1,0 +1,59 @@
+Test Description,Passed,Reason
+Check existence of `pc1`,True,OK
+Check existence of `pc2`,True,OK
+Check existence of `r1`,True,OK
+Check existence of `r2`,True,OK
+Check existence of `r3`,True,OK
+Check existence of `web`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc1`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc2`,True,OK
+Checking the collision domain attached to interface `eth0` of `r1`,True,OK
+Checking the collision domain attached to interface `eth1` of `r1`,True,OK
+Checking the collision domain attached to interface `eth0` of `r2`,True,OK
+Checking the collision domain attached to interface `eth1` of `r2`,True,OK
+Checking the collision domain attached to interface `eth0` of `r3`,True,OK
+Checking the collision domain attached to interface `eth1` of `r3`,True,OK
+Checking the collision domain attached to interface `eth0` of `web`,True,OK
+Check existence of `pc1.startup` file,True,OK
+Check existence of `pc2.startup` file,True,OK
+Check existence of `r1.startup` file,True,OK
+Check existence of `r2.startup` file,True,OK
+Check existence of `r3.startup` file,True,OK
+Check existence of `web.startup` file,True,OK
+Verifying the IP address (192.168.10.10/24) assigned to eth0 of pc1,True,OK
+Verifying the IP address (192.168.10.11/24) assigned to eth0 of pc2,True,OK
+Verifying the IP address (192.168.10.1/24) assigned to eth0 of r1,True,OK
+Verifying the IP address (10.0.12.1/30) assigned to eth1 of r1,True,OK
+Verifying the IP address (10.0.12.2/30) assigned to eth0 of r2,True,OK
+Verifying the IP address (10.0.23.1/30) assigned to eth1 of r2,True,OK
+Verifying the IP address (10.0.23.2/30) assigned to eth0 of r3,True,OK
+Verifying the IP address (192.168.30.1/24) assigned to eth1 of r3,True,OK
+Verifying the IP address (192.168.30.10/24) assigned to eth0 of web,True,OK
+Verifying `192.168.30.10` reachable from device `pc1`,True,OK
+Verifying `192.168.30.10` reachable from device `pc2`,True,OK
+Checking that ripd is not running on device `pc1`,True,OK
+Checking that ospfd is not running on device `pc1`,True,OK
+Checking that bgpd is not running on device `pc1`,True,OK
+Checking that ripd is not running on device `pc2`,True,OK
+Checking that ospfd is not running on device `pc2`,True,OK
+Checking that bgpd is not running on device `pc2`,True,OK
+Checking that ripd is not running on device `r1`,True,OK
+Checking that ospfd is not running on device `r1`,True,OK
+Checking that bgpd is not running on device `r1`,True,OK
+Checking that ripd is not running on device `r2`,True,OK
+Checking that ospfd is not running on device `r2`,True,OK
+Checking that bgpd is not running on device `r2`,True,OK
+Checking that ripd is not running on device `r3`,True,OK
+Checking that ospfd is not running on device `r3`,True,OK
+Checking that bgpd is not running on device `r3`,True,OK
+Checking that ripd is not running on device `web`,True,OK
+Checking that ospfd is not running on device `web`,True,OK
+Checking that bgpd is not running on device `web`,True,OK
+Checking the routing table of pc1,True,OK
+Checking the routing table of pc2,True,OK
+Checking the routing table of r1,True,OK
+Checking the routing table of r2,True,OK
+Checking the routing table of r3,True,OK
+Checking the routing table of web,True,OK
+HTTP check 'http://192.168.30.10/' on pc1 status,True,HTTP 200 == 200
+HTTP check 'http://192.168.30.10/' on pc2 status,True,HTTP 200 == 200

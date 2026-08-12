@@ -1,0 +1,104 @@
+{
+  "canonical_correction_sha256": "047500dcbc48cf13d269ce52a4b2b683b7d0a874dbde20fb2a9fc65c3dda1eb8",
+  "checker": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
+      "-m",
+      "kathara_lab_checker",
+      "--config",
+      "/Users/matthew/Desktop/A-Tesi/results/Default_Routes_on_Edge_Routers_IPv4_Line_Topology/without_skill/correction/correction.yaml",
+      "--labs",
+      "/Users/matthew/Desktop/A-Tesi/results/Default_Routes_on_Edge_Routers_IPv4_Line_Topology/without_skill/checker-run/labs",
+      "--no-cache",
+      "--report-type",
+      "csv"
+    ],
+    "duration_seconds": 0.42929883299984795,
+    "return_code": 1,
+    "timed_out": false
+  },
+  "checker_attempted": true,
+  "checker_completed": false,
+  "checker_schema_sha256": "841251ca20af61595e8e8521b3de8900dbeadba81cc59e7480765496cad436b0",
+  "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
+  "correction_calls": 0,
+  "correction_generated": true,
+  "correction_hash": "047500dcbc48cf13d269ce52a4b2b683b7d0a874dbde20fb2a9fc65c3dda1eb8",
+  "correction_mode": "paired_generation",
+  "correction_retries": 0,
+  "creation_skill_enabled": false,
+  "creation_skill_sha256": null,
+  "errors": [
+    "kathara-lab-checker exited with technical return code 1"
+  ],
+  "experiment_id": "Default_Routes_on_Edge_Routers_IPv4_Line_Topology",
+  "generation": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "duration_seconds": 57.95911187500042,
+        "return_code": 0,
+        "success": true,
+        "timed_out": false,
+        "validation_errors": []
+      }
+    ],
+    "calls": 1,
+    "duration_seconds": 57.95911187500042,
+    "last_command": [
+      "codex",
+      "exec",
+      "--model",
+      "gpt-5.6-terra",
+      "-c",
+      "model_reasoning_effort=\"low\"",
+      "-c",
+      "approval_policy=\"never\"",
+      "--sandbox",
+      "workspace-write",
+      "--cd",
+      "/Users/matthew/Desktop/A-Tesi/results/Default_Routes_on_Edge_Routers_IPv4_Line_Topology/.workspaces/without_skill",
+      "--json",
+      "--output-last-message",
+      "/Users/matthew/Desktop/A-Tesi/results/Default_Routes_on_Edge_Routers_IPv4_Line_Topology/.workspaces/without_skill/.agent-last-message.txt",
+      "--ephemeral",
+      "Read only input/prompt.md. Generate exactly one complete Kathara laboratory inside output/lab/. Do not read files outside this workspace. No creation Skill or external implementation guide is available. Do not modify input/prompt.md. Do not generate correction.yaml and do not run Kathara or kathara_lab_checker. The laboratory must be complete, persistent, contain no placeholders, and be internally consistent."
+    ],
+    "retries": 0
+  },
+  "generation_command": "codex",
+  "generation_model": "gpt-5.6-terra",
+  "generation_provider": "codex",
+  "generation_reasoning_effort": "low",
+  "lab_calls": 1,
+  "lab_generated": true,
+  "lab_retries": 0,
+  "metrics": null,
+  "phases": [
+    {
+      "at": "2026-08-12T11:12:49.893492Z",
+      "name": "discovered"
+    },
+    {
+      "at": "2026-08-12T11:12:49.893963Z",
+      "name": "lab_generation_started"
+    },
+    {
+      "at": "2026-08-12T11:13:47.860515Z",
+      "name": "lab_generated"
+    },
+    {
+      "at": "2026-08-12T11:19:22.786705Z",
+      "name": "checker_started"
+    },
+    {
+      "at": "2026-08-12T11:19:23.216643Z",
+      "name": "error"
+    }
+  ],
+  "pipeline_version": "0.5.0",
+  "prompt_file": "Default Routes on Edge Routers, IPv4, Line Topology.md",
+  "prompt_sha256": "5269fbd50bd6625418e30baae5ec525ef240b003ec2a31a2bba5193470800a9c",
+  "status": "error",
+  "variant": "without_skill"
+}

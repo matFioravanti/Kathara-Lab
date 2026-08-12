@@ -1,0 +1,137 @@
+Test Description,Passed,Reason
+Check existence of `r1`,True,OK
+Check existence of `r2`,True,OK
+Check existence of `r3`,True,OK
+Check existence of `r4`,True,OK
+Check existence of `pc11`,True,OK
+Check existence of `pc12`,True,OK
+Check existence of `pc21`,True,OK
+Check existence of `pc22`,True,OK
+Check existence of `pc31`,True,OK
+Check existence of `pc32`,True,OK
+Check existence of `pc41`,True,OK
+Check existence of `pc42`,True,OK
+Checking the collision domain attached to interface `eth0` of `r1`,True,OK
+Checking the collision domain attached to interface `eth1` of `r1`,True,OK
+Checking the collision domain attached to interface `eth0` of `r2`,True,OK
+Checking the collision domain attached to interface `eth1` of `r2`,True,OK
+Checking the collision domain attached to interface `eth2` of `r2`,True,OK
+Checking the collision domain attached to interface `eth0` of `r3`,True,OK
+Checking the collision domain attached to interface `eth1` of `r3`,True,OK
+Checking the collision domain attached to interface `eth2` of `r3`,True,OK
+Checking the collision domain attached to interface `eth0` of `r4`,True,OK
+Checking the collision domain attached to interface `eth1` of `r4`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc11`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc12`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc21`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc22`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc31`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc32`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc41`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc42`,True,OK
+Check existence of `r1.startup` file,True,OK
+Check existence of `r2.startup` file,True,OK
+Check existence of `r3.startup` file,True,OK
+Check existence of `r4.startup` file,True,OK
+Check existence of `pc11.startup` file,True,OK
+Check existence of `pc12.startup` file,True,OK
+Check existence of `pc21.startup` file,True,OK
+Check existence of `pc22.startup` file,True,OK
+Check existence of `pc31.startup` file,True,OK
+Check existence of `pc32.startup` file,True,OK
+Check existence of `pc41.startup` file,True,OK
+Check existence of `pc42.startup` file,True,OK
+Verifying the IP address (192.168.10.1/24) assigned to eth0 of r1,False,The interface `eth0` of `r1` has the following IP addresses: []`.
+Verifying the IP address (10.0.12.1/30) assigned to eth1 of r1,False,The interface `eth1` of `r1` has the following IP addresses: []`.
+Verifying the IP address (192.168.20.1/24) assigned to eth0 of r2,False,The interface `eth0` of `r2` has the following IP addresses: []`.
+Verifying the IP address (10.0.12.2/30) assigned to eth1 of r2,False,The interface `eth1` of `r2` has the following IP addresses: []`.
+Verifying the IP address (10.0.23.1/30) assigned to eth2 of r2,False,The interface `eth2` of `r2` has the following IP addresses: []`.
+Verifying the IP address (192.168.30.1/24) assigned to eth0 of r3,False,The interface `eth0` of `r3` has the following IP addresses: []`.
+Verifying the IP address (10.0.23.2/30) assigned to eth1 of r3,False,The interface `eth1` of `r3` has the following IP addresses: []`.
+Verifying the IP address (10.0.34.1/30) assigned to eth2 of r3,False,The interface `eth2` of `r3` has the following IP addresses: []`.
+Verifying the IP address (192.168.40.1/24) assigned to eth0 of r4,False,The interface `eth0` of `r4` has the following IP addresses: []`.
+Verifying the IP address (10.0.34.2/30) assigned to eth1 of r4,False,The interface `eth1` of `r4` has the following IP addresses: []`.
+Verifying the IP address (192.168.10.11/24) assigned to eth0 of pc11,True,OK
+Verifying the IP address (192.168.10.12/24) assigned to eth0 of pc12,True,OK
+Verifying the IP address (192.168.20.11/24) assigned to eth0 of pc21,True,OK
+Verifying the IP address (192.168.20.12/24) assigned to eth0 of pc22,True,OK
+Verifying the IP address (192.168.30.11/24) assigned to eth0 of pc31,True,OK
+Verifying the IP address (192.168.30.12/24) assigned to eth0 of pc32,True,OK
+Verifying the IP address (192.168.40.11/24) assigned to eth0 of pc41,True,OK
+Verifying the IP address (192.168.40.12/24) assigned to eth0 of pc42,True,OK
+Verifying `192.168.10.12` reachable from device `pc11`,True,OK
+Verifying `192.168.20.11` reachable from device `pc11`,False,`pc11` does not receive any answer from `192.168.20.11`.
+Verifying `192.168.20.12` reachable from device `pc11`,False,`pc11` does not receive any answer from `192.168.20.12`.
+Verifying `192.168.30.11` reachable from device `pc11`,False,`pc11` does not receive any answer from `192.168.30.11`.
+Verifying `192.168.30.12` reachable from device `pc11`,False,`pc11` does not receive any answer from `192.168.30.12`.
+Verifying `192.168.40.11` reachable from device `pc11`,False,`pc11` does not receive any answer from `192.168.40.11`.
+Verifying `192.168.40.12` reachable from device `pc11`,False,`pc11` does not receive any answer from `192.168.40.12`.
+Verifying `192.168.10.11` reachable from device `pc12`,True,OK
+Verifying `192.168.20.11` reachable from device `pc12`,False,`pc12` does not receive any answer from `192.168.20.11`.
+Verifying `192.168.20.12` reachable from device `pc12`,False,`pc12` does not receive any answer from `192.168.20.12`.
+Verifying `192.168.30.11` reachable from device `pc12`,False,`pc12` does not receive any answer from `192.168.30.11`.
+Verifying `192.168.30.12` reachable from device `pc12`,False,`pc12` does not receive any answer from `192.168.30.12`.
+Verifying `192.168.40.11` reachable from device `pc12`,False,`pc12` does not receive any answer from `192.168.40.11`.
+Verifying `192.168.40.12` reachable from device `pc12`,False,`pc12` does not receive any answer from `192.168.40.12`.
+Verifying `192.168.10.11` reachable from device `pc21`,False,`pc21` does not receive any answer from `192.168.10.11`.
+Verifying `192.168.10.12` reachable from device `pc21`,False,`pc21` does not receive any answer from `192.168.10.12`.
+Verifying `192.168.20.12` reachable from device `pc21`,True,OK
+Verifying `192.168.30.11` reachable from device `pc21`,False,`pc21` does not receive any answer from `192.168.30.11`.
+Verifying `192.168.30.12` reachable from device `pc21`,False,`pc21` does not receive any answer from `192.168.30.12`.
+Verifying `192.168.40.11` reachable from device `pc21`,False,`pc21` does not receive any answer from `192.168.40.11`.
+Verifying `192.168.40.12` reachable from device `pc21`,False,`pc21` does not receive any answer from `192.168.40.12`.
+Verifying `192.168.10.11` reachable from device `pc22`,False,`pc22` does not receive any answer from `192.168.10.11`.
+Verifying `192.168.10.12` reachable from device `pc22`,False,`pc22` does not receive any answer from `192.168.10.12`.
+Verifying `192.168.20.11` reachable from device `pc22`,True,OK
+Verifying `192.168.30.11` reachable from device `pc22`,False,`pc22` does not receive any answer from `192.168.30.11`.
+Verifying `192.168.30.12` reachable from device `pc22`,False,`pc22` does not receive any answer from `192.168.30.12`.
+Verifying `192.168.40.11` reachable from device `pc22`,False,`pc22` does not receive any answer from `192.168.40.11`.
+Verifying `192.168.40.12` reachable from device `pc22`,False,`pc22` does not receive any answer from `192.168.40.12`.
+Verifying `192.168.10.11` reachable from device `pc31`,False,`pc31` does not receive any answer from `192.168.10.11`.
+Verifying `192.168.10.12` reachable from device `pc31`,False,`pc31` does not receive any answer from `192.168.10.12`.
+Verifying `192.168.20.11` reachable from device `pc31`,False,`pc31` does not receive any answer from `192.168.20.11`.
+Verifying `192.168.20.12` reachable from device `pc31`,False,`pc31` does not receive any answer from `192.168.20.12`.
+Verifying `192.168.30.12` reachable from device `pc31`,True,OK
+Verifying `192.168.40.11` reachable from device `pc31`,False,`pc31` does not receive any answer from `192.168.40.11`.
+Verifying `192.168.40.12` reachable from device `pc31`,False,`pc31` does not receive any answer from `192.168.40.12`.
+Verifying `192.168.10.11` reachable from device `pc32`,False,`pc32` does not receive any answer from `192.168.10.11`.
+Verifying `192.168.10.12` reachable from device `pc32`,False,`pc32` does not receive any answer from `192.168.10.12`.
+Verifying `192.168.20.11` reachable from device `pc32`,False,`pc32` does not receive any answer from `192.168.20.11`.
+Verifying `192.168.20.12` reachable from device `pc32`,False,`pc32` does not receive any answer from `192.168.20.12`.
+Verifying `192.168.30.11` reachable from device `pc32`,True,OK
+Verifying `192.168.40.11` reachable from device `pc32`,False,`pc32` does not receive any answer from `192.168.40.11`.
+Verifying `192.168.40.12` reachable from device `pc32`,False,`pc32` does not receive any answer from `192.168.40.12`.
+Verifying `192.168.10.11` reachable from device `pc41`,False,`pc41` does not receive any answer from `192.168.10.11`.
+Verifying `192.168.10.12` reachable from device `pc41`,False,`pc41` does not receive any answer from `192.168.10.12`.
+Verifying `192.168.20.11` reachable from device `pc41`,False,`pc41` does not receive any answer from `192.168.20.11`.
+Verifying `192.168.20.12` reachable from device `pc41`,False,`pc41` does not receive any answer from `192.168.20.12`.
+Verifying `192.168.30.11` reachable from device `pc41`,False,`pc41` does not receive any answer from `192.168.30.11`.
+Verifying `192.168.30.12` reachable from device `pc41`,False,`pc41` does not receive any answer from `192.168.30.12`.
+Verifying `192.168.40.12` reachable from device `pc41`,True,OK
+Verifying `192.168.10.11` reachable from device `pc42`,False,`pc42` does not receive any answer from `192.168.10.11`.
+Verifying `192.168.10.12` reachable from device `pc42`,False,`pc42` does not receive any answer from `192.168.10.12`.
+Verifying `192.168.20.11` reachable from device `pc42`,False,`pc42` does not receive any answer from `192.168.20.11`.
+Verifying `192.168.20.12` reachable from device `pc42`,False,`pc42` does not receive any answer from `192.168.20.12`.
+Verifying `192.168.30.11` reachable from device `pc42`,False,`pc42` does not receive any answer from `192.168.30.11`.
+Verifying `192.168.30.12` reachable from device `pc42`,False,`pc42` does not receive any answer from `192.168.30.12`.
+Verifying `192.168.40.11` reachable from device `pc42`,True,OK
+Checking the routing table of r1,False,"The routing table of r1 have the wrong number of routes: 0, expected: 1"
+Checking the routing table of r1,False,The routing table of r1 is missing route 0.0.0.0/0
+Checking the routing table of r2,False,"The routing table of r2 have the wrong number of routes: 0, expected: 3"
+Checking the routing table of r2,False,The routing table of r2 is missing route 192.168.10.0/24
+Checking the routing table of r2,False,The routing table of r2 is missing route 192.168.30.0/24
+Checking the routing table of r2,False,The routing table of r2 is missing route 192.168.40.0/24
+Checking the routing table of r3,False,"The routing table of r3 have the wrong number of routes: 0, expected: 3"
+Checking the routing table of r3,False,The routing table of r3 is missing route 192.168.10.0/24
+Checking the routing table of r3,False,The routing table of r3 is missing route 192.168.20.0/24
+Checking the routing table of r3,False,The routing table of r3 is missing route 192.168.40.0/24
+Checking the routing table of r4,False,"The routing table of r4 have the wrong number of routes: 0, expected: 1"
+Checking the routing table of r4,False,The routing table of r4 is missing route 0.0.0.0/0
+Checking the routing table of pc11,True,OK
+Checking the routing table of pc12,True,OK
+Checking the routing table of pc21,True,OK
+Checking the routing table of pc22,True,OK
+Checking the routing table of pc31,True,OK
+Checking the routing table of pc32,True,OK
+Checking the routing table of pc41,True,OK
+Checking the routing table of pc42,True,OK

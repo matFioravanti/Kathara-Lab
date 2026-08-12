@@ -1,6 +1,9 @@
 {
-  "complete": false,
+  "comparison": "INCOMPARABLE",
+  "comparison_reason": "Both checker runs must complete successfully for a paired quality comparison.",
+  "complete": true,
   "experiment_id": "Client_Reaches_Web_Server_by_Name_IPv4_Simple_DNS",
+  "finished_at": "2026-08-12T11:04:14.661008Z",
   "identity": {
     "checker_report_type": "csv",
     "checker_runtime": "kathara-lab-checker==0.1.14",
@@ -15,8 +18,15 @@
     "reasoning_effort": "low",
     "sandbox": "workspace-write"
   },
+  "paired_correction": {
+    "calls": 1,
+    "duration_seconds": 395.2724854170001,
+    "mode": "paired_generation",
+    "return_code": 0,
+    "timed_out": false
+  },
   "pipeline_version": "0.5.0",
   "prompt_file": "Client Reaches Web Server by Name, IPv4, Simple DNS.md",
   "prompt_sha256": "a67358ab906de898c1f639be5f6036e5e1abd97d07c54acc4b54b806dd0629dd",
-  "started_at": "2026-08-12T09:56:52.940579Z"
+  "started_at": "2026-08-12T10:55:10.625851Z"
 }

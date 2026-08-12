@@ -1,0 +1,42 @@
+#!/bin/sh
+# Authoritative DNS server on the client LAN.
+ip link set eth0 up
+ip addr add 192.168.10.53/24 dev eth0
+ip route add 192.168.20.0/24 via 192.168.10.1
+ip route add 10.0.0.0/30 via 192.168.10.1
+ip route add default via 192.168.10.1
+
+mkdir -p /etc/bind
+cat > /etc/bind/named.conf <<'EOF'
+options {
+        directory "/var/cache/bind";
+        listen-on { 127.0.0.1; 192.168.10.53; };
+        listen-on-v6 { none; };
+        recursion no;
+        allow-query { any; };
+};
+
+zone "service.local" {
+        type primary;
+        file "/etc/bind/db.service.local";
+};
+EOF
+
+cat > /etc/bind/db.service.local <<'EOF'
+$TTL 300
+@       IN      SOA     ns.service.local. admin.service.local. (
+                        2026081201 ; serial
+                        3600       ; refresh
+                        900        ; retry
+                        604800     ; expire
+                        300 )      ; negative cache TTL
+        IN      NS      ns.service.local.
+ns      IN      A       192.168.10.53
+@       IN      A       192.168.20.20
+web     IN      A       192.168.20.20
+EOF
+
+# named is supplied by the kathara/bind image.  Validate before launching so a
+# bad zone never leaves the topology in an ambiguous state.
+named-checkconf /etc/bind/named.conf && named-checkzone service.local /etc/bind/db.service.local || exit 1
+named -c /etc/bind/named.conf

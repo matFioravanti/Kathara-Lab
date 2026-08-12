@@ -1,0 +1,95 @@
+lab_inline: |
+  pc1[0]="lan_left"
+  pc2[0]="lan_left"
+  r1[0]="lan_left"
+  r1[1]="r1_r2"
+  r2[0]="r1_r2"
+  r2[1]="r2_r3"
+  r3[0]="r2_r3"
+  r3[1]="lan_server"
+  web[0]="lan_server"
+
+default_image: kathara/core:latest
+convergence_time: 10
+
+test:
+  requiring_startup:
+    - pc1
+    - pc2
+    - r1
+    - r2
+    - r3
+    - web
+
+  ip_mapping:
+    pc1:
+      "0": 192.168.10.10/24
+    pc2:
+      "0": 192.168.10.11/24
+    r1:
+      "0": 192.168.10.1/24
+      "1": 10.0.12.1/30
+    r2:
+      "0": 10.0.12.2/30
+      "1": 10.0.23.1/30
+    r3:
+      "0": 10.0.23.2/30
+      "1": 192.168.30.1/24
+    web:
+      "0": 192.168.30.10/24
+
+  daemons:
+    pc1:
+      - "!ripd"
+      - "!ospfd"
+      - "!bgpd"
+    pc2:
+      - "!ripd"
+      - "!ospfd"
+      - "!bgpd"
+    r1:
+      - "!ripd"
+      - "!ospfd"
+      - "!bgpd"
+    r2:
+      - "!ripd"
+      - "!ospfd"
+      - "!bgpd"
+    r3:
+      - "!ripd"
+      - "!ospfd"
+      - "!bgpd"
+    web:
+      - "!ripd"
+      - "!ospfd"
+      - "!bgpd"
+
+  kernel_routes:
+    pc1:
+      - ["0.0.0.0/0", ["192.168.10.1"]]
+    pc2:
+      - ["0.0.0.0/0", ["192.168.10.1"]]
+    r1:
+      - ["0.0.0.0/0", ["10.0.12.2"]]
+    r2:
+      - ["192.168.10.0/24", ["10.0.12.1"]]
+      - ["192.168.30.0/24", ["10.0.23.2"]]
+    r3:
+      - ["0.0.0.0/0", ["10.0.23.1"]]
+    web:
+      - ["0.0.0.0/0", ["192.168.30.1"]]
+
+  reachability:
+    pc1:
+      - 192.168.30.10
+    pc2:
+      - 192.168.30.10
+
+  applications:
+    http:
+      pc1:
+        - url: http://192.168.30.10/
+          status_code: 200
+      pc2:
+        - url: http://192.168.30.10/
+          status_code: 200

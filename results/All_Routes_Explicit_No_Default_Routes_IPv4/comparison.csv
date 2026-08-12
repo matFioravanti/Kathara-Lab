@@ -1,2 +1,2 @@
 experiment_id,prompt_file,outcome,reason,with_skill_status,without_skill_status,with_skill_pass_percentage,without_skill_pass_percentage,delta_pass_percentage_points,with_skill_failed_tests,without_skill_failed_tests
-All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,failed,error,38.636364,,,135,
+All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,passed,error,100.0,,,0,

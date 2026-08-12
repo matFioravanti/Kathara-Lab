@@ -1,0 +1,67 @@
+lab_inline: |
+  client[0]="client_lan"
+  dns[0]="client_lan"
+  r1[0]="client_lan"
+  r1[1]="router_transit"
+  r2[0]="router_transit"
+  r2[1]="web_lan"
+  web[0]="web_lan"
+convergence_time: 10
+default_image: kathara/core
+test:
+  requiring_startup:
+    - client
+    - dns
+    - r1
+    - r2
+    - web
+  ip_mapping:
+    client:
+      eth0: 192.168.10.10/24
+    dns:
+      eth0: 192.168.10.53/24
+    r1:
+      eth0: 192.168.10.1/24
+      eth1: 10.0.0.1/30
+    r2:
+      eth0: 10.0.0.2/30
+      eth1: 192.168.20.1/24
+    web:
+      eth0: 192.168.20.10/24
+  daemons:
+    dns:
+      - named
+    web:
+      - apache2
+  kernel_routes:
+    client:
+      - ["0.0.0.0/0", ["192.168.10.1"]]
+    dns:
+      - ["0.0.0.0/0", ["192.168.10.1"]]
+    r1:
+      - ["192.168.20.0/24", ["10.0.0.2"]]
+    r2:
+      - ["192.168.10.0/24", ["10.0.0.1"]]
+    web:
+      - ["0.0.0.0/0", ["192.168.20.1"]]
+  applications:
+    dns:
+      authoritative:
+        service.local:
+          - 192.168.10.53
+      local_ns:
+        192.168.10.53:
+          - client
+      records:
+        A:
+          service.local:
+            - 192.168.20.10
+    http:
+      client:
+        - url: http://service.local/
+          status_code: 200
+  reachability:
+    client:
+      - 192.168.10.53
+      - 192.168.20.10
+      - service.local

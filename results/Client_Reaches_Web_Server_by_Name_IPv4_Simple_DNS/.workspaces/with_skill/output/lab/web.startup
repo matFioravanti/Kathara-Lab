@@ -1,4 +1,0 @@
-#!/bin/bash
-ip addr add 10.10.2.80/24 dev eth0
-ip route replace default via 10.10.2.1
-systemctl restart apache2

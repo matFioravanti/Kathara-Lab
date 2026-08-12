@@ -1,0 +1,10 @@
+#!/bin/bash
+set -eu
+
+ip link set eth0 up
+ip link set eth1 up
+ip addr add 10.0.23.2/30 dev eth0
+ip addr add 192.168.30.1/24 dev eth1
+
+# Static route back to the client LAN through the middle router.
+ip route add 192.168.10.0/24 via 10.0.23.1 dev eth0

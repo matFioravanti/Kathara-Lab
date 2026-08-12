@@ -3,7 +3,7 @@
   "comparison_reason": "Both checker runs must complete successfully for a paired quality comparison.",
   "complete": true,
   "experiment_id": "Central_Web_Server_IPv4_Three_Routers",
-  "finished_at": "2026-08-12T09:56:52.935567Z",
+  "finished_at": "2026-08-12T10:55:10.606865Z",
   "identity": {
     "checker_report_type": "csv",
     "checker_runtime": "kathara-lab-checker==0.1.14",
@@ -18,8 +18,15 @@
     "reasoning_effort": "low",
     "sandbox": "workspace-write"
   },
+  "paired_correction": {
+    "calls": 1,
+    "duration_seconds": 132.8261777080006,
+    "mode": "paired_generation",
+    "return_code": 0,
+    "timed_out": false
+  },
   "pipeline_version": "0.5.0",
   "prompt_file": "Central Web Server, IPv4, Three Routers.md",
   "prompt_sha256": "23bd627a296b137728e94728c96a8e8c37f626694055232401c77b57ce659c71",
-  "started_at": "2026-08-12T09:53:10.421255Z"
+  "started_at": "2026-08-12T10:50:51.324364Z"
 }

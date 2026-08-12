@@ -6,16 +6,5 @@ ip addr add 192.168.30.10/24 dev eth0
 ip route add default via 192.168.30.1 dev eth0
 
 mkdir -p /var/www/html
-printf '%b\n' \
-  '\074!doctype html\076' \
-  '\074html lang="en"\076' \
-  '\074head\076\074meta charset="utf-8"\076\074title\076Three-router static-routing lab\074/title\076\074/head\076' \
-  '\074body\076' \
-  '  \074h1\076HTTP service is reachable\074/h1\076' \
-  '  \074p\076This page is served by web (192.168.30.10) across three static IPv4 routers.\074/p\076' \
-  '\074/body\076' \
-  '\074/html\076' \
-  > /var/www/html/index.html
-
-# kathara/base includes BusyBox; foreground mode is backgrounded so the node keeps running.
-busybox httpd -f -p 80 -h /var/www/html >/var/log/httpd.log 2>&1 &
+cp /root/index.html /var/www/html/index.html
+python3 -m http.server 80 --directory /var/www/html >/var/log/web-http.log 2>&1 &

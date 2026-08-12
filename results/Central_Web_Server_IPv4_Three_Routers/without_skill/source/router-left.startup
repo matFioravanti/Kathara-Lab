@@ -1,0 +1,10 @@
+#!/bin/bash
+set -eu
+
+ip link set eth0 up
+ip link set eth1 up
+ip addr add 192.168.10.1/24 dev eth0
+ip addr add 10.0.12.1/30 dev eth1
+
+# Static route to the web-server LAN through the middle router.
+ip route add 192.168.30.0/24 via 10.0.12.2 dev eth1

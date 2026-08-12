@@ -3,7 +3,7 @@
   "comparison_reason": "Both checker runs must complete successfully for a paired quality comparison.",
   "complete": true,
   "experiment_id": "Authoritative_DNS_for_Multiple_Domains_IPv4",
-  "finished_at": "2026-08-12T09:53:10.404133Z",
+  "finished_at": "2026-08-12T10:50:51.299114Z",
   "identity": {
     "checker_report_type": "csv",
     "checker_runtime": "kathara-lab-checker==0.1.14",
@@ -18,8 +18,15 @@
     "reasoning_effort": "low",
     "sandbox": "workspace-write"
   },
+  "paired_correction": {
+    "calls": 1,
+    "duration_seconds": 127.29338825000013,
+    "mode": "paired_generation",
+    "return_code": 0,
+    "timed_out": false
+  },
   "pipeline_version": "0.5.0",
   "prompt_file": "Authoritative DNS for Multiple Domains, IPv4.md",
   "prompt_sha256": "8cedae64ebc9a02c62ab90bee81f4e6dca2321c8782277c9d0837d64a5bd479a",
-  "started_at": "2026-08-12T09:49:57.977028Z"
+  "started_at": "2026-08-12T10:46:24.595447Z"
 }

@@ -1,0 +1,12 @@
+Student Name,Tests Passed,Tests Failed,Tests Total Number,Problems
+candidate,106,9,115,"1: Verifying `research.org` reachable from device `client`: ping: research.org: Temporary failure in name resolution
+2: Verifying `main.research.org` reachable from device `client`: ping: main.research.org: Temporary failure in name resolution
+3: Checking on `rootdns` that `192.168.2.53` is the authority for domain `.`: named on rootdns is running but answered with SERVFAIL when quering for .
+4: Checking on `rootdns` that `192.168.2.53` is the authority for domain `.`: named on rootdns is running but answered with SERVFAIL when quering for .
+5: Checking on `localdns` that `192.168.2.53` is the authority for domain `.`: named on localdns is running but answered with SERVFAIL when quering for .
+6: Checking on `tlddns` that `192.168.3.53` is the authority for domain `org`: named on tlddns is running but answered with SERVFAIL when quering for org
+7: Checking on `authdns` that `192.168.4.53` is the authority for domain `research.org`: named on authdns is running but answered with SERVFAIL when quering for research.org
+8: Checking correctness of DNS records: client resolve A research.org with IP ;; communications error to 192.168.1.53#53: timed out
+;; communications error to 192.168.1.53#53: timed out instead of ['192.168.4.80']
+9: Checking correctness of DNS records: client resolve A main.research.org with IP ;; communications error to 192.168.1.53#53: timed out
+;; communications error to 192.168.1.53#53: timed out instead of ['192.168.5.80']"

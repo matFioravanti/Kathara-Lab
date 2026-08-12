@@ -1,0 +1,7 @@
+#!/bin/sh
+# Router for the DNS/client LAN and the point-to-point transit network.
+ip link set eth0 up
+ip link set eth1 up
+ip addr add 192.168.10.1/24 dev eth0
+ip addr add 10.0.0.1/30 dev eth1
+ip route add 192.168.20.0/24 via 10.0.0.2

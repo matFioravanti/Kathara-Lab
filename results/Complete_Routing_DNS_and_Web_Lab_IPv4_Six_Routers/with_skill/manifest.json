@@ -1,0 +1,118 @@
+{
+  "canonical_correction_sha256": "7090ef6760d9ce87b3e215dd17cff3f8ad27fa29508af5b726e23022345c5727",
+  "checker": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
+      "-m",
+      "kathara_lab_checker",
+      "--config",
+      "/Users/matthew/Desktop/A-Tesi/results/Complete_Routing_DNS_and_Web_Lab_IPv4_Six_Routers/with_skill/correction/correction.yaml",
+      "--labs",
+      "/Users/matthew/Desktop/A-Tesi/results/Complete_Routing_DNS_and_Web_Lab_IPv4_Six_Routers/with_skill/checker-run/labs",
+      "--no-cache",
+      "--report-type",
+      "csv"
+    ],
+    "duration_seconds": 26.103936708999754,
+    "return_code": 0,
+    "timed_out": false
+  },
+  "checker_attempted": true,
+  "checker_completed": true,
+  "checker_schema_sha256": "841251ca20af61595e8e8521b3de8900dbeadba81cc59e7480765496cad436b0",
+  "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
+  "correction_calls": 0,
+  "correction_generated": true,
+  "correction_hash": "7090ef6760d9ce87b3e215dd17cff3f8ad27fa29508af5b726e23022345c5727",
+  "correction_mode": "paired_generation",
+  "correction_retries": 0,
+  "creation_skill_enabled": true,
+  "creation_skill_sha256": "bf4daac809c4088ad9106268c093cca9c41f79e95dba4113f108c0298d85b996",
+  "errors": [],
+  "experiment_id": "Complete_Routing_DNS_and_Web_Lab_IPv4_Six_Routers",
+  "generation": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "duration_seconds": 187.76526958400063,
+        "return_code": 0,
+        "success": true,
+        "timed_out": false,
+        "validation_errors": []
+      }
+    ],
+    "calls": 1,
+    "duration_seconds": 187.76526958400063,
+    "last_command": [
+      "codex",
+      "exec",
+      "--model",
+      "gpt-5.6-terra",
+      "-c",
+      "model_reasoning_effort=\"low\"",
+      "-c",
+      "approval_policy=\"never\"",
+      "--sandbox",
+      "workspace-write",
+      "--cd",
+      "/Users/matthew/Desktop/A-Tesi/results/Complete_Routing_DNS_and_Web_Lab_IPv4_Six_Routers/.workspaces/with_skill",
+      "--json",
+      "--output-last-message",
+      "/Users/matthew/Desktop/A-Tesi/results/Complete_Routing_DNS_and_Web_Lab_IPv4_Six_Routers/.workspaces/with_skill/.agent-last-message.txt",
+      "--ephemeral",
+      "Read input/prompt.md and resources/creation/SKILL.md. Use resources/creation/SKILL.md as the authoritative general implementation guide for Kathara, while the requested scenario itself is defined only by input/prompt.md. Generate exactly one complete Kathara laboratory inside output/lab/. Do not read files outside this workspace. Do not modify input/ or resources/. Do not generate correction.yaml and do not run Kathara or kathara_lab_checker. The laboratory must be complete, persistent, contain no placeholders, and be internally consistent."
+    ],
+    "retries": 0
+  },
+  "generation_command": "codex",
+  "generation_model": "gpt-5.6-terra",
+  "generation_provider": "codex",
+  "generation_reasoning_effort": "low",
+  "lab_calls": 1,
+  "lab_generated": true,
+  "lab_retries": 0,
+  "metrics": {
+    "failed_tests": 0,
+    "failure_categories": {},
+    "pass_percentage": 100.0,
+    "passed_tests": 115,
+    "reports_found": [
+      "results.csv",
+      "candidate_result_all.csv",
+      "candidate_result_failed.csv",
+      "candidate_result_summary.csv"
+    ],
+    "total_tests": 115
+  },
+  "phases": [
+    {
+      "at": "2026-08-12T11:04:14.671513Z",
+      "name": "discovered"
+    },
+    {
+      "at": "2026-08-12T11:04:14.671768Z",
+      "name": "lab_generation_started"
+    },
+    {
+      "at": "2026-08-12T11:07:22.459843Z",
+      "name": "lab_generated"
+    },
+    {
+      "at": "2026-08-12T11:10:43.039814Z",
+      "name": "checker_started"
+    },
+    {
+      "at": "2026-08-12T11:11:09.150114Z",
+      "name": "checker_completed"
+    },
+    {
+      "at": "2026-08-12T11:11:09.150130Z",
+      "name": "passed"
+    }
+  ],
+  "pipeline_version": "0.5.0",
+  "prompt_file": "Complete Routing, DNS, and Web Lab, IPv4, Six Routers.md",
+  "prompt_sha256": "cbf45587ffd7081e91da5bd7a0af593a986722026af7fe1a175eab2a0012362d",
+  "status": "passed",
+  "variant": "with_skill"
+}

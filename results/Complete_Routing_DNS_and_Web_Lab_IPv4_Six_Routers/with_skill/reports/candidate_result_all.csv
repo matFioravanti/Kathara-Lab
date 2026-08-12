@@ -1,0 +1,116 @@
+Test Description,Passed,Reason
+Check existence of `r1`,True,OK
+Check existence of `r2`,True,OK
+Check existence of `r3`,True,OK
+Check existence of `r4`,True,OK
+Check existence of `r5`,True,OK
+Check existence of `r6`,True,OK
+Check existence of `client`,True,OK
+Check existence of `localdns`,True,OK
+Check existence of `rootdns`,True,OK
+Check existence of `orgdns`,True,OK
+Check existence of `authdns`,True,OK
+Check existence of `web`,True,OK
+Check existence of `main`,True,OK
+Check existence of `pc6a`,True,OK
+Check existence of `pc6b`,True,OK
+Checking the collision domain attached to interface `eth0` of `r1`,True,OK
+Checking the collision domain attached to interface `eth1` of `r1`,True,OK
+Checking the collision domain attached to interface `eth2` of `r1`,True,OK
+Checking the collision domain attached to interface `eth0` of `r2`,True,OK
+Checking the collision domain attached to interface `eth1` of `r2`,True,OK
+Checking the collision domain attached to interface `eth2` of `r2`,True,OK
+Checking the collision domain attached to interface `eth3` of `r2`,True,OK
+Checking the collision domain attached to interface `eth0` of `r3`,True,OK
+Checking the collision domain attached to interface `eth1` of `r3`,True,OK
+Checking the collision domain attached to interface `eth2` of `r3`,True,OK
+Checking the collision domain attached to interface `eth0` of `r4`,True,OK
+Checking the collision domain attached to interface `eth1` of `r4`,True,OK
+Checking the collision domain attached to interface `eth2` of `r4`,True,OK
+Checking the collision domain attached to interface `eth0` of `r5`,True,OK
+Checking the collision domain attached to interface `eth1` of `r5`,True,OK
+Checking the collision domain attached to interface `eth2` of `r5`,True,OK
+Checking the collision domain attached to interface `eth3` of `r5`,True,OK
+Checking the collision domain attached to interface `eth0` of `r6`,True,OK
+Checking the collision domain attached to interface `eth1` of `r6`,True,OK
+Checking the collision domain attached to interface `eth2` of `r6`,True,OK
+Checking the collision domain attached to interface `eth0` of `client`,True,OK
+Checking the collision domain attached to interface `eth0` of `localdns`,True,OK
+Checking the collision domain attached to interface `eth0` of `rootdns`,True,OK
+Checking the collision domain attached to interface `eth0` of `orgdns`,True,OK
+Checking the collision domain attached to interface `eth0` of `authdns`,True,OK
+Checking the collision domain attached to interface `eth0` of `web`,True,OK
+Checking the collision domain attached to interface `eth0` of `main`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc6a`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc6b`,True,OK
+Check existence of `r1.startup` file,True,OK
+Check existence of `r2.startup` file,True,OK
+Check existence of `r3.startup` file,True,OK
+Check existence of `r4.startup` file,True,OK
+Check existence of `r5.startup` file,True,OK
+Check existence of `r6.startup` file,True,OK
+Check existence of `client.startup` file,True,OK
+Check existence of `localdns.startup` file,True,OK
+Check existence of `rootdns.startup` file,True,OK
+Check existence of `orgdns.startup` file,True,OK
+Check existence of `authdns.startup` file,True,OK
+Check existence of `web.startup` file,True,OK
+Check existence of `main.startup` file,True,OK
+Check existence of `pc6a.startup` file,True,OK
+Check existence of `pc6b.startup` file,True,OK
+Verifying the IP address (10.0.12.1/30) assigned to eth0 of r1,True,OK
+Verifying the IP address (10.0.13.1/30) assigned to eth1 of r1,True,OK
+Verifying the IP address (192.168.1.1/24) assigned to eth2 of r1,True,OK
+Verifying the IP address (10.0.12.2/30) assigned to eth0 of r2,True,OK
+Verifying the IP address (10.0.24.1/30) assigned to eth1 of r2,True,OK
+Verifying the IP address (10.0.25.1/30) assigned to eth2 of r2,True,OK
+Verifying the IP address (192.168.2.1/24) assigned to eth3 of r2,True,OK
+Verifying the IP address (10.0.13.2/30) assigned to eth0 of r3,True,OK
+Verifying the IP address (10.0.35.1/30) assigned to eth1 of r3,True,OK
+Verifying the IP address (192.168.3.1/24) assigned to eth2 of r3,True,OK
+Verifying the IP address (10.0.24.2/30) assigned to eth0 of r4,True,OK
+Verifying the IP address (10.0.46.1/30) assigned to eth1 of r4,True,OK
+Verifying the IP address (192.168.4.1/24) assigned to eth2 of r4,True,OK
+Verifying the IP address (10.0.25.2/30) assigned to eth0 of r5,True,OK
+Verifying the IP address (10.0.35.2/30) assigned to eth1 of r5,True,OK
+Verifying the IP address (10.0.56.1/30) assigned to eth2 of r5,True,OK
+Verifying the IP address (192.168.5.1/24) assigned to eth3 of r5,True,OK
+Verifying the IP address (10.0.46.2/30) assigned to eth0 of r6,True,OK
+Verifying the IP address (10.0.56.2/30) assigned to eth1 of r6,True,OK
+Verifying the IP address (192.168.6.1/24) assigned to eth2 of r6,True,OK
+Verifying the IP address (192.168.1.10/24) assigned to eth0 of client,True,OK
+Verifying the IP address (192.168.1.53/24) assigned to eth0 of localdns,True,OK
+Verifying the IP address (192.168.2.53/24) assigned to eth0 of rootdns,True,OK
+Verifying the IP address (192.168.3.53/24) assigned to eth0 of orgdns,True,OK
+Verifying the IP address (192.168.4.53/24) assigned to eth0 of authdns,True,OK
+Verifying the IP address (192.168.4.80/24) assigned to eth0 of web,True,OK
+Verifying the IP address (192.168.5.80/24) assigned to eth0 of main,True,OK
+Verifying the IP address (192.168.6.10/24) assigned to eth0 of pc6a,True,OK
+Verifying the IP address (192.168.6.11/24) assigned to eth0 of pc6b,True,OK
+Verifying `research.org` reachable from device `client`,True,OK
+Verifying `main.research.org` reachable from device `client`,True,OK
+Checking the routing table of r1,True,OK
+Checking the routing table of r2,True,OK
+Checking the routing table of r3,True,OK
+Checking the routing table of r4,True,OK
+Checking the routing table of r5,True,OK
+Checking the routing table of r6,True,OK
+Checking the routing table of client,True,OK
+Checking the routing table of localdns,True,OK
+Checking the routing table of rootdns,True,OK
+Checking the routing table of orgdns,True,OK
+Checking the routing table of authdns,True,OK
+Checking the routing table of web,True,OK
+Checking the routing table of main,True,OK
+Checking the routing table of pc6a,True,OK
+Checking the routing table of pc6b,True,OK
+Checking on `rootdns` that `192.168.2.53` is the authority for domain `.`,True,OK
+Checking on `rootdns` that `192.168.2.53` is the authority for domain `.`,True,OK
+Checking on `localdns` that `192.168.2.53` is the authority for domain `.`,True,OK
+Checking on `orgdns` that `192.168.3.53` is the authority for domain `org`,True,OK
+Checking on `authdns` that `192.168.4.53` is the authority for domain `research.org`,True,OK
+Checking that `192.168.1.53` is the local name server for device `client`,True,OK
+Checking correctness of DNS records,True,OK
+Checking correctness of DNS records,True,OK
+HTTP check 'http://192.168.4.80/' on web status,True,HTTP 200 == 200
+HTTP check 'http://192.168.5.80/' on main status,True,HTTP 200 == 200

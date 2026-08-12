@@ -1,0 +1,71 @@
+Student Name,Tests Passed,Tests Failed,Tests Total Number,Problems
+candidate,66,70,136,"1: Verifying the IP address (192.168.10.1/24) assigned to eth0 of r1: The interface `eth0` of `r1` has the following IP addresses: []`.
+2: Verifying the IP address (10.0.12.1/30) assigned to eth1 of r1: The interface `eth1` of `r1` has the following IP addresses: []`.
+3: Verifying the IP address (192.168.20.1/24) assigned to eth0 of r2: The interface `eth0` of `r2` has the following IP addresses: []`.
+4: Verifying the IP address (10.0.12.2/30) assigned to eth1 of r2: The interface `eth1` of `r2` has the following IP addresses: []`.
+5: Verifying the IP address (10.0.23.1/30) assigned to eth2 of r2: The interface `eth2` of `r2` has the following IP addresses: []`.
+6: Verifying the IP address (192.168.30.1/24) assigned to eth0 of r3: The interface `eth0` of `r3` has the following IP addresses: []`.
+7: Verifying the IP address (10.0.23.2/30) assigned to eth1 of r3: The interface `eth1` of `r3` has the following IP addresses: []`.
+8: Verifying the IP address (10.0.34.1/30) assigned to eth2 of r3: The interface `eth2` of `r3` has the following IP addresses: []`.
+9: Verifying the IP address (192.168.40.1/24) assigned to eth0 of r4: The interface `eth0` of `r4` has the following IP addresses: []`.
+10: Verifying the IP address (10.0.34.2/30) assigned to eth1 of r4: The interface `eth1` of `r4` has the following IP addresses: []`.
+11: Verifying `192.168.20.11` reachable from device `pc11`: `pc11` does not receive any answer from `192.168.20.11`.
+12: Verifying `192.168.20.12` reachable from device `pc11`: `pc11` does not receive any answer from `192.168.20.12`.
+13: Verifying `192.168.30.11` reachable from device `pc11`: `pc11` does not receive any answer from `192.168.30.11`.
+14: Verifying `192.168.30.12` reachable from device `pc11`: `pc11` does not receive any answer from `192.168.30.12`.
+15: Verifying `192.168.40.11` reachable from device `pc11`: `pc11` does not receive any answer from `192.168.40.11`.
+16: Verifying `192.168.40.12` reachable from device `pc11`: `pc11` does not receive any answer from `192.168.40.12`.
+17: Verifying `192.168.20.11` reachable from device `pc12`: `pc12` does not receive any answer from `192.168.20.11`.
+18: Verifying `192.168.20.12` reachable from device `pc12`: `pc12` does not receive any answer from `192.168.20.12`.
+19: Verifying `192.168.30.11` reachable from device `pc12`: `pc12` does not receive any answer from `192.168.30.11`.
+20: Verifying `192.168.30.12` reachable from device `pc12`: `pc12` does not receive any answer from `192.168.30.12`.
+21: Verifying `192.168.40.11` reachable from device `pc12`: `pc12` does not receive any answer from `192.168.40.11`.
+22: Verifying `192.168.40.12` reachable from device `pc12`: `pc12` does not receive any answer from `192.168.40.12`.
+23: Verifying `192.168.10.11` reachable from device `pc21`: `pc21` does not receive any answer from `192.168.10.11`.
+24: Verifying `192.168.10.12` reachable from device `pc21`: `pc21` does not receive any answer from `192.168.10.12`.
+25: Verifying `192.168.30.11` reachable from device `pc21`: `pc21` does not receive any answer from `192.168.30.11`.
+26: Verifying `192.168.30.12` reachable from device `pc21`: `pc21` does not receive any answer from `192.168.30.12`.
+27: Verifying `192.168.40.11` reachable from device `pc21`: `pc21` does not receive any answer from `192.168.40.11`.
+28: Verifying `192.168.40.12` reachable from device `pc21`: `pc21` does not receive any answer from `192.168.40.12`.
+29: Verifying `192.168.10.11` reachable from device `pc22`: `pc22` does not receive any answer from `192.168.10.11`.
+30: Verifying `192.168.10.12` reachable from device `pc22`: `pc22` does not receive any answer from `192.168.10.12`.
+31: Verifying `192.168.30.11` reachable from device `pc22`: `pc22` does not receive any answer from `192.168.30.11`.
+32: Verifying `192.168.30.12` reachable from device `pc22`: `pc22` does not receive any answer from `192.168.30.12`.
+33: Verifying `192.168.40.11` reachable from device `pc22`: `pc22` does not receive any answer from `192.168.40.11`.
+34: Verifying `192.168.40.12` reachable from device `pc22`: `pc22` does not receive any answer from `192.168.40.12`.
+35: Verifying `192.168.10.11` reachable from device `pc31`: `pc31` does not receive any answer from `192.168.10.11`.
+36: Verifying `192.168.10.12` reachable from device `pc31`: `pc31` does not receive any answer from `192.168.10.12`.
+37: Verifying `192.168.20.11` reachable from device `pc31`: `pc31` does not receive any answer from `192.168.20.11`.
+38: Verifying `192.168.20.12` reachable from device `pc31`: `pc31` does not receive any answer from `192.168.20.12`.
+39: Verifying `192.168.40.11` reachable from device `pc31`: `pc31` does not receive any answer from `192.168.40.11`.
+40: Verifying `192.168.40.12` reachable from device `pc31`: `pc31` does not receive any answer from `192.168.40.12`.
+41: Verifying `192.168.10.11` reachable from device `pc32`: `pc32` does not receive any answer from `192.168.10.11`.
+42: Verifying `192.168.10.12` reachable from device `pc32`: `pc32` does not receive any answer from `192.168.10.12`.
+43: Verifying `192.168.20.11` reachable from device `pc32`: `pc32` does not receive any answer from `192.168.20.11`.
+44: Verifying `192.168.20.12` reachable from device `pc32`: `pc32` does not receive any answer from `192.168.20.12`.
+45: Verifying `192.168.40.11` reachable from device `pc32`: `pc32` does not receive any answer from `192.168.40.11`.
+46: Verifying `192.168.40.12` reachable from device `pc32`: `pc32` does not receive any answer from `192.168.40.12`.
+47: Verifying `192.168.10.11` reachable from device `pc41`: `pc41` does not receive any answer from `192.168.10.11`.
+48: Verifying `192.168.10.12` reachable from device `pc41`: `pc41` does not receive any answer from `192.168.10.12`.
+49: Verifying `192.168.20.11` reachable from device `pc41`: `pc41` does not receive any answer from `192.168.20.11`.
+50: Verifying `192.168.20.12` reachable from device `pc41`: `pc41` does not receive any answer from `192.168.20.12`.
+51: Verifying `192.168.30.11` reachable from device `pc41`: `pc41` does not receive any answer from `192.168.30.11`.
+52: Verifying `192.168.30.12` reachable from device `pc41`: `pc41` does not receive any answer from `192.168.30.12`.
+53: Verifying `192.168.10.11` reachable from device `pc42`: `pc42` does not receive any answer from `192.168.10.11`.
+54: Verifying `192.168.10.12` reachable from device `pc42`: `pc42` does not receive any answer from `192.168.10.12`.
+55: Verifying `192.168.20.11` reachable from device `pc42`: `pc42` does not receive any answer from `192.168.20.11`.
+56: Verifying `192.168.20.12` reachable from device `pc42`: `pc42` does not receive any answer from `192.168.20.12`.
+57: Verifying `192.168.30.11` reachable from device `pc42`: `pc42` does not receive any answer from `192.168.30.11`.
+58: Verifying `192.168.30.12` reachable from device `pc42`: `pc42` does not receive any answer from `192.168.30.12`.
+59: Checking the routing table of r1: The routing table of r1 have the wrong number of routes: 0, expected: 1
+60: Checking the routing table of r1: The routing table of r1 is missing route 0.0.0.0/0
+61: Checking the routing table of r2: The routing table of r2 have the wrong number of routes: 0, expected: 3
+62: Checking the routing table of r2: The routing table of r2 is missing route 192.168.10.0/24
+63: Checking the routing table of r2: The routing table of r2 is missing route 192.168.30.0/24
+64: Checking the routing table of r2: The routing table of r2 is missing route 192.168.40.0/24
+65: Checking the routing table of r3: The routing table of r3 have the wrong number of routes: 0, expected: 3
+66: Checking the routing table of r3: The routing table of r3 is missing route 192.168.10.0/24
+67: Checking the routing table of r3: The routing table of r3 is missing route 192.168.20.0/24
+68: Checking the routing table of r3: The routing table of r3 is missing route 192.168.40.0/24
+69: Checking the routing table of r4: The routing table of r4 have the wrong number of routes: 0, expected: 1
+70: Checking the routing table of r4: The routing table of r4 is missing route 0.0.0.0/0"

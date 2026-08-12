@@ -1,0 +1,120 @@
+{
+  "canonical_correction_sha256": "32abc197675d09f440561a2b53d6ad799c2d4d37ff4f3f397a0a8282f5eb4e79",
+  "checker": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
+      "-m",
+      "kathara_lab_checker",
+      "--config",
+      "/Users/matthew/Desktop/A-Tesi/results/Complete_Routing_DNS_and_Web_Lab_IPv4_Six_Routers/without_skill/correction/correction.yaml",
+      "--labs",
+      "/Users/matthew/Desktop/A-Tesi/results/Complete_Routing_DNS_and_Web_Lab_IPv4_Six_Routers/without_skill/checker-run/labs",
+      "--no-cache",
+      "--report-type",
+      "csv"
+    ],
+    "duration_seconds": 100.69229470800019,
+    "return_code": 0,
+    "timed_out": false
+  },
+  "checker_attempted": true,
+  "checker_completed": true,
+  "checker_schema_sha256": "841251ca20af61595e8e8521b3de8900dbeadba81cc59e7480765496cad436b0",
+  "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
+  "correction_calls": 0,
+  "correction_generated": true,
+  "correction_hash": "32abc197675d09f440561a2b53d6ad799c2d4d37ff4f3f397a0a8282f5eb4e79",
+  "correction_mode": "paired_generation",
+  "correction_retries": 0,
+  "creation_skill_enabled": false,
+  "creation_skill_sha256": null,
+  "errors": [],
+  "experiment_id": "Complete_Routing_DNS_and_Web_Lab_IPv4_Six_Routers",
+  "generation": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "duration_seconds": 161.88739312500002,
+        "return_code": 0,
+        "success": true,
+        "timed_out": false,
+        "validation_errors": []
+      }
+    ],
+    "calls": 1,
+    "duration_seconds": 161.88739312500002,
+    "last_command": [
+      "codex",
+      "exec",
+      "--model",
+      "gpt-5.6-terra",
+      "-c",
+      "model_reasoning_effort=\"low\"",
+      "-c",
+      "approval_policy=\"never\"",
+      "--sandbox",
+      "workspace-write",
+      "--cd",
+      "/Users/matthew/Desktop/A-Tesi/results/Complete_Routing_DNS_and_Web_Lab_IPv4_Six_Routers/.workspaces/without_skill",
+      "--json",
+      "--output-last-message",
+      "/Users/matthew/Desktop/A-Tesi/results/Complete_Routing_DNS_and_Web_Lab_IPv4_Six_Routers/.workspaces/without_skill/.agent-last-message.txt",
+      "--ephemeral",
+      "Read only input/prompt.md. Generate exactly one complete Kathara laboratory inside output/lab/. Do not read files outside this workspace. No creation Skill or external implementation guide is available. Do not modify input/prompt.md. Do not generate correction.yaml and do not run Kathara or kathara_lab_checker. The laboratory must be complete, persistent, contain no placeholders, and be internally consistent."
+    ],
+    "retries": 0
+  },
+  "generation_command": "codex",
+  "generation_model": "gpt-5.6-terra",
+  "generation_provider": "codex",
+  "generation_reasoning_effort": "low",
+  "lab_calls": 1,
+  "lab_generated": true,
+  "lab_retries": 0,
+  "metrics": {
+    "failed_tests": 9,
+    "failure_categories": {
+      "uncategorized": 9
+    },
+    "pass_percentage": 92.173913,
+    "passed_tests": 106,
+    "reports_found": [
+      "results.csv",
+      "candidate_result_all.csv",
+      "candidate_result_failed.csv",
+      "candidate_result_summary.csv"
+    ],
+    "total_tests": 115
+  },
+  "phases": [
+    {
+      "at": "2026-08-12T11:04:14.671595Z",
+      "name": "discovered"
+    },
+    {
+      "at": "2026-08-12T11:04:14.671876Z",
+      "name": "lab_generation_started"
+    },
+    {
+      "at": "2026-08-12T11:06:56.578242Z",
+      "name": "lab_generated"
+    },
+    {
+      "at": "2026-08-12T11:11:09.169276Z",
+      "name": "checker_started"
+    },
+    {
+      "at": "2026-08-12T11:12:49.867628Z",
+      "name": "checker_completed"
+    },
+    {
+      "at": "2026-08-12T11:12:49.867655Z",
+      "name": "failed"
+    }
+  ],
+  "pipeline_version": "0.5.0",
+  "prompt_file": "Complete Routing, DNS, and Web Lab, IPv4, Six Routers.md",
+  "prompt_sha256": "cbf45587ffd7081e91da5bd7a0af593a986722026af7fe1a175eab2a0012362d",
+  "status": "failed",
+  "variant": "without_skill"
+}

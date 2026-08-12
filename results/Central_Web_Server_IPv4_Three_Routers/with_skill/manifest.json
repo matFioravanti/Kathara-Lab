@@ -1,46 +1,48 @@
 {
-  "canonical_correction_sha256": null,
-  "checker": null,
-  "checker_attempted": false,
-  "checker_completed": false,
+  "canonical_correction_sha256": "b49ce77a6f17b8d98f09ea1235a0fcd1b9910060972a76bebb867a6b8178a789",
+  "checker": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
+      "-m",
+      "kathara_lab_checker",
+      "--config",
+      "/Users/matthew/Desktop/A-Tesi/results/Central_Web_Server_IPv4_Three_Routers/with_skill/correction/correction.yaml",
+      "--labs",
+      "/Users/matthew/Desktop/A-Tesi/results/Central_Web_Server_IPv4_Three_Routers/with_skill/checker-run/labs",
+      "--no-cache",
+      "--report-type",
+      "csv"
+    ],
+    "duration_seconds": 17.648169332999714,
+    "return_code": 0,
+    "timed_out": false
+  },
+  "checker_attempted": true,
+  "checker_completed": true,
   "checker_schema_sha256": "841251ca20af61595e8e8521b3de8900dbeadba81cc59e7480765496cad436b0",
   "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
   "correction_calls": 0,
-  "correction_generated": false,
-  "correction_hash": null,
-  "correction_mode": null,
+  "correction_generated": true,
+  "correction_hash": "b49ce77a6f17b8d98f09ea1235a0fcd1b9910060972a76bebb867a6b8178a789",
+  "correction_mode": "paired_generation",
   "correction_retries": 0,
   "creation_skill_enabled": true,
   "creation_skill_sha256": "bf4daac809c4088ad9106268c093cca9c41f79e95dba4113f108c0298d85b996",
-  "errors": [
-    "Generated lab still invalid after 2 attempt(s): Placeholder token found in: webserver/var/www/html/index.html"
-  ],
+  "errors": [],
   "experiment_id": "Central_Web_Server_IPv4_Three_Routers",
   "generation": {
     "attempts": [
       {
         "attempt": 1,
-        "duration_seconds": 66.48047154200003,
+        "duration_seconds": 108.43056774999968,
         "return_code": 0,
-        "success": false,
+        "success": true,
         "timed_out": false,
-        "validation_errors": [
-          "Placeholder token found in: webserver/var/www/html/index.html"
-        ]
-      },
-      {
-        "attempt": 2,
-        "duration_seconds": 53.22242600000027,
-        "return_code": 0,
-        "success": false,
-        "timed_out": false,
-        "validation_errors": [
-          "Placeholder token found in: webserver/var/www/html/index.html"
-        ]
+        "validation_errors": []
       }
     ],
-    "calls": 2,
-    "duration_seconds": 119.7028975420003,
+    "calls": 1,
+    "duration_seconds": 108.43056774999968,
     "last_command": [
       "codex",
       "exec",
@@ -58,37 +60,59 @@
       "--output-last-message",
       "/Users/matthew/Desktop/A-Tesi/results/Central_Web_Server_IPv4_Three_Routers/.workspaces/with_skill/.agent-last-message.txt",
       "--ephemeral",
-      "The previously generated output/lab/ failed static validation with the following errors:\n  - Placeholder token found in: webserver/var/www/html/index.html\n\nRead the existing output/lab directory and modify it in-place.\nFix all validation errors listed above.\nPreserve every valid part of the current lab.\nDo not rebuild unrelated files.\nDo not recreate the entire lab unless the current structure makes the requested correction impossible.\nDo not generate correction.yaml and do not run Kathara or kathara_lab_checker.\nThe laboratory must be complete, persistent, contain no placeholders, and be internally consistent.\nRead input/prompt.md and resources/creation/SKILL.md. Use resources/creation/SKILL.md as the authoritative general implementation guide for Kathara, while the requested scenario itself is defined only by input/prompt.md."
+      "Read input/prompt.md and resources/creation/SKILL.md. Use resources/creation/SKILL.md as the authoritative general implementation guide for Kathara, while the requested scenario itself is defined only by input/prompt.md. Generate exactly one complete Kathara laboratory inside output/lab/. Do not read files outside this workspace. Do not modify input/ or resources/. Do not generate correction.yaml and do not run Kathara or kathara_lab_checker. The laboratory must be complete, persistent, contain no placeholders, and be internally consistent."
     ],
-    "retries": 1
+    "retries": 0
   },
   "generation_command": "codex",
   "generation_model": "gpt-5.6-terra",
   "generation_provider": "codex",
   "generation_reasoning_effort": "low",
-  "lab_calls": 2,
+  "lab_calls": 1,
   "lab_generated": true,
-  "lab_retries": 1,
-  "metrics": null,
+  "lab_retries": 0,
+  "metrics": {
+    "failed_tests": 0,
+    "failure_categories": {},
+    "pass_percentage": 100.0,
+    "passed_tests": 58,
+    "reports_found": [
+      "results.csv",
+      "candidate_result_all.csv",
+      "candidate_result_failed.csv",
+      "candidate_result_summary.csv"
+    ],
+    "total_tests": 58
+  },
   "phases": [
     {
-      "at": "2026-08-12T09:53:10.422121Z",
+      "at": "2026-08-12T10:50:51.325120Z",
       "name": "discovered"
     },
     {
-      "at": "2026-08-12T09:53:10.422483Z",
+      "at": "2026-08-12T10:50:51.325494Z",
       "name": "lab_generation_started"
     },
     {
-      "at": "2026-08-12T09:55:10.147062Z",
-      "name": "error"
+      "at": "2026-08-12T10:52:39.770663Z",
+      "name": "lab_generated"
+    },
+    {
+      "at": "2026-08-12T10:54:52.618093Z",
+      "name": "checker_started"
+    },
+    {
+      "at": "2026-08-12T10:55:10.270675Z",
+      "name": "checker_completed"
+    },
+    {
+      "at": "2026-08-12T10:55:10.270691Z",
+      "name": "passed"
     }
   ],
   "pipeline_version": "0.5.0",
   "prompt_file": "Central Web Server, IPv4, Three Routers.md",
   "prompt_sha256": "23bd627a296b137728e94728c96a8e8c37f626694055232401c77b57ce659c71",
-  "source_failed_preserved": true,
-  "static_validation_passed": false,
-  "status": "error",
+  "status": "passed",
   "variant": "with_skill"
 }

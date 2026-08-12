@@ -1,0 +1,6 @@
+#!/bin/bash
+ip addr add 192.168.10.53/24 dev eth0
+ip link set eth0 up
+ip route add default via 192.168.10.1
+named-checkconf /etc/bind/named.conf
+named -c /etc/bind/named.conf

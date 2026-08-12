@@ -1,0 +1,2 @@
+experiment_id,prompt_file,outcome,reason,with_skill_status,without_skill_status,with_skill_pass_percentage,without_skill_pass_percentage,delta_pass_percentage_points,with_skill_failed_tests,without_skill_failed_tests
+Complete_Routing_DNS_and_Web_Lab_IPv4_Six_Routers,"Complete Routing, DNS, and Web Lab, IPv4, Six Routers.md",WITH_SKILL_BETTER,With-skill candidate failed fewer checks.,passed,failed,100.0,92.173913,7.826087,0,9

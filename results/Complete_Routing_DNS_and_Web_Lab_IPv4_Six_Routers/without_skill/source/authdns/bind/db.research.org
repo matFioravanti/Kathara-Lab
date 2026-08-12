@@ -1,0 +1,6 @@
+$TTL 86400
+@ IN SOA ns.research.org. hostmaster.research.org. ( 2026081201 3600 900 604800 86400 )
+  IN NS ns.research.org.
+ns IN A 192.168.4.53
+@ IN A 192.168.4.80
+main IN A 192.168.5.80

@@ -1,17 +1,26 @@
-# Five-router explicit IPv4 routing lab
+# Five-router explicit IPv4 static routing
 
-This lab has five routers and five two-host LANs. It demonstrates end-to-end IPv4 connectivity using only explicit static routes on the routers; no router has a default route.
+This laboratory has five routers and five LANs. R1 connects to R2 and R3; R2 and R3 each connect to R4; and R4 connects to R5. Each LAN contains two PCs. Every router has a specific static route for every subnet that is not directly connected; router default routes are intentionally absent.
 
-## Topology and addressing
+Start the laboratory from this directory:
 
-- R1: LAN1 `10.1.1.0/24`, R1-R2 `10.0.12.0/30`, R1-R3 `10.0.13.0/30`
-- R2: LAN2 `10.2.2.0/24`, R2-R4 `10.0.24.0/30`
-- R3: LAN3 `10.3.3.0/24`, R3-R4 `10.0.34.0/30`
-- R4: LAN4 `10.4.4.0/24`, R4-R5 `10.0.45.0/30`
-- R5: LAN5 `10.5.5.0/24`
+```sh
+kathara lstart
+```
 
-Each LAN router uses address `.1`; the two PCs use `.10` and `.11`.
+For a quick end-to-end check, run `ping -c 2 10.5.0.12` from `pc1a`. The ten PCs use their respective local router as the default gateway.
 
-## Run and verify
+## Addressing
 
-Start the lab with `kathara lstart`. For a quick end-to-end check, run `kathara exec pc1a -- ping -c 2 10.5.5.11`.
+| Segment | IPv4 subnet | Router addresses |
+| --- | --- | --- |
+| LAN 1 | 10.1.0.0/24 | R1: 10.1.0.1 |
+| LAN 2 | 10.2.0.0/24 | R2: 10.2.0.1 |
+| LAN 3 | 10.3.0.0/24 | R3: 10.3.0.1 |
+| LAN 4 | 10.4.0.0/24 | R4: 10.4.0.1 |
+| LAN 5 | 10.5.0.0/24 | R5: 10.5.0.1 |
+| R1-R2 | 10.255.12.0/30 | R1: .1, R2: .2 |
+| R1-R3 | 10.255.13.0/30 | R1: .1, R3: .2 |
+| R2-R4 | 10.255.24.0/30 | R2: .1, R4: .2 |
+| R3-R4 | 10.255.34.0/30 | R3: .1, R4: .2 |
+| R4-R5 | 10.255.45.0/30 | R4: .1, R5: .2 |

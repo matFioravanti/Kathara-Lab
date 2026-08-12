@@ -1,0 +1,8 @@
+#!/bin/bash
+ip addr add 192.168.1.53/24 dev eth0
+ip route add default via 192.168.1.1
+apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y bind9 dnsutils
+cp /shared/bind/named.conf /etc/bind/named.conf
+cp /shared/bind/root.hints /etc/bind/root.hints
+pkill -x named || true
+named -c /etc/bind/named.conf

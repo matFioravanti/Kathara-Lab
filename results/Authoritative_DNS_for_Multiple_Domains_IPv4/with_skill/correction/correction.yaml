@@ -1,0 +1,140 @@
+lab_inline: |
+  r1[0]="r1_r2"
+  r1[1]="lan_r1"
+  r2[0]="r1_r2"
+  r2[1]="r2_r3"
+  r2[2]="lan_r2"
+  r3[0]="r2_r3"
+  r3[1]="r3_r4"
+  r3[2]="lan_r3"
+  r4[0]="r3_r4"
+  client1[0]="lan_r1"
+  client2[0]="lan_r1"
+  localdns[0]="lan_r1"
+  unidns[0]="lan_r2"
+  uniweb[0]="lan_r2"
+  companydns[0]="lan_r3"
+  companyweb[0]="lan_r3"
+convergence_time: 10
+default_image: kathara/frr
+test:
+  requiring_startup:
+    - r1
+    - r2
+    - r3
+    - r4
+    - client1
+    - client2
+    - localdns
+    - unidns
+    - uniweb
+    - companydns
+    - companyweb
+  ip_mapping:
+    r1:
+      "0": 10.0.12.1/30
+      "1": 192.168.10.1/24
+    r2:
+      "0": 10.0.12.2/30
+      "1": 10.0.23.1/30
+      "2": 192.168.20.1/24
+    r3:
+      "0": 10.0.23.2/30
+      "1": 10.0.34.1/30
+      "2": 192.168.30.1/24
+    r4:
+      "0": 10.0.34.2/30
+    client1:
+      "0": 192.168.10.101/24
+    client2:
+      "0": 192.168.10.102/24
+    localdns:
+      "0": 192.168.10.53/24
+    unidns:
+      "0": 192.168.20.53/24
+    uniweb:
+      "0": 192.168.20.80/24
+    companydns:
+      "0": 192.168.30.53/24
+    companyweb:
+      "0": 192.168.30.80/24
+  daemons:
+    localdns:
+      - named
+    unidns:
+      - named
+    companydns:
+      - named
+    uniweb:
+      - apache2
+    companyweb:
+      - apache2
+  kernel_routes:
+    r1:
+      - [192.168.20.0/24, [10.0.12.2]]
+      - [192.168.30.0/24, [10.0.12.2]]
+      - [10.0.23.0/30, [10.0.12.2]]
+      - [10.0.34.0/30, [10.0.12.2]]
+    r2:
+      - [192.168.10.0/24, [10.0.12.1]]
+      - [192.168.30.0/24, [10.0.23.2]]
+      - [10.0.34.0/30, [10.0.23.2]]
+    r3:
+      - [192.168.10.0/24, [10.0.23.1]]
+      - [192.168.20.0/24, [10.0.23.1]]
+      - [10.0.12.0/30, [10.0.23.1]]
+    r4:
+      - [10.0.12.0/30, [10.0.34.1]]
+      - [10.0.23.0/30, [10.0.34.1]]
+      - [192.168.10.0/24, [10.0.34.1]]
+      - [192.168.20.0/24, [10.0.34.1]]
+      - [192.168.30.0/24, [10.0.34.1]]
+    client1:
+      - [0.0.0.0/0, [192.168.10.1]]
+    client2:
+      - [0.0.0.0/0, [192.168.10.1]]
+    localdns:
+      - [0.0.0.0/0, [192.168.10.1]]
+    unidns:
+      - [0.0.0.0/0, [192.168.20.1]]
+    uniweb:
+      - [0.0.0.0/0, [192.168.20.1]]
+    companydns:
+      - [0.0.0.0/0, [192.168.30.1]]
+    companyweb:
+      - [0.0.0.0/0, [192.168.30.1]]
+  applications:
+    dns:
+      authoritative:
+        university.edu:
+          - 192.168.20.53
+        company.test:
+          - 192.168.30.53
+      local_ns:
+        192.168.10.53:
+          - client1
+          - client2
+      records:
+        A:
+          www.university.edu:
+            - 192.168.20.80
+          www.company.test:
+            - 192.168.30.80
+    http:
+      client1:
+        - url: http://www.university.edu/
+          expected_status: 200
+        - url: http://www.company.test/
+          expected_status: 200
+      client2:
+        - url: http://www.university.edu/
+          expected_status: 200
+        - url: http://www.company.test/
+          expected_status: 200
+  reachability:
+    client1:
+      - www.university.edu
+      - www.company.test
+    client2:
+      - www.university.edu
+      - www.company.test

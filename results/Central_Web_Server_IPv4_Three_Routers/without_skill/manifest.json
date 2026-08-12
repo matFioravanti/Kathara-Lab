@@ -1,5 +1,5 @@
 {
-  "canonical_correction_sha256": "17f29bda49edc2dfa1cf684281e590d66e2aad8785356ce122b77b78371ea514",
+  "canonical_correction_sha256": "af9be1936cfd5071fbf6d65a80e1f92316d6997024f3afe8eebde53ecd7285f2",
   "checker": {
     "command": [
       "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
@@ -13,7 +13,7 @@
       "--report-type",
       "csv"
     ],
-    "duration_seconds": 2.901681708000069,
+    "duration_seconds": 0.327737332999277,
     "return_code": 1,
     "timed_out": false
   },
@@ -21,44 +21,10 @@
   "checker_completed": false,
   "checker_schema_sha256": "841251ca20af61595e8e8521b3de8900dbeadba81cc59e7480765496cad436b0",
   "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
-  "correction_calls": 1,
+  "correction_calls": 0,
   "correction_generated": true,
-  "correction_generation": {
-    "attempts": [
-      {
-        "attempt": 1,
-        "duration_seconds": 66.50268795900001,
-        "return_code": 0,
-        "success": true,
-        "timed_out": false,
-        "validation_errors": []
-      }
-    ],
-    "calls": 1,
-    "duration_seconds": 66.50268795900001,
-    "last_command": [
-      "codex",
-      "exec",
-      "--model",
-      "gpt-5.6-terra",
-      "-c",
-      "model_reasoning_effort=\"low\"",
-      "-c",
-      "approval_policy=\"never\"",
-      "--sandbox",
-      "workspace-write",
-      "--cd",
-      "/Users/matthew/Desktop/A-Tesi/results/Central_Web_Server_IPv4_Three_Routers/.workspaces/correction_without_skill",
-      "--json",
-      "--output-last-message",
-      "/Users/matthew/Desktop/A-Tesi/results/Central_Web_Server_IPv4_Three_Routers/.workspaces/correction_without_skill/.agent-last-message.txt",
-      "--ephemeral",
-      "Read input/prompt.md to understand what must be tested.\nRead candidate/ (the generated lab implementation) to resolve the concrete values needed to instantiate those tests: device names, IP addresses, interfaces, routes, gateways, router IDs, topology references.\n\nUse resources/checker/SKILL.md and resources/checker/config-schema.md to produce a valid output/correction.yaml for kathara-lab-checker.\n\nIMPORTANT: lab_inline is mandatory and must contain the complete expected topology derived from the candidate lab. default_image is a mandatory checker field. Use lab_inline rather than structure and omit labs_path. Follow the runtime 0.1.14 compatibility rules in the Skill.\nWrite only YAML to output/correction.yaml, with no surrounding prose. Do not create any other output file."
-    ],
-    "retries": 0
-  },
-  "correction_hash": "17f29bda49edc2dfa1cf684281e590d66e2aad8785356ce122b77b78371ea514",
-  "correction_mode": "full_generation",
+  "correction_hash": "af9be1936cfd5071fbf6d65a80e1f92316d6997024f3afe8eebde53ecd7285f2",
+  "correction_mode": "paired_generation",
   "correction_retries": 0,
   "creation_skill_enabled": false,
   "creation_skill_sha256": null,
@@ -70,25 +36,15 @@
     "attempts": [
       {
         "attempt": 1,
-        "duration_seconds": 94.21171708400016,
-        "return_code": 0,
-        "success": false,
-        "timed_out": false,
-        "validation_errors": [
-          "Placeholder token found in: web.startup"
-        ]
-      },
-      {
-        "attempt": 2,
-        "duration_seconds": 58.86822475000008,
+        "duration_seconds": 80.34710774999985,
         "return_code": 0,
         "success": true,
         "timed_out": false,
         "validation_errors": []
       }
     ],
-    "calls": 2,
-    "duration_seconds": 153.07994183400024,
+    "calls": 1,
+    "duration_seconds": 80.34710774999985,
     "last_command": [
       "codex",
       "exec",
@@ -106,48 +62,43 @@
       "--output-last-message",
       "/Users/matthew/Desktop/A-Tesi/results/Central_Web_Server_IPv4_Three_Routers/.workspaces/without_skill/.agent-last-message.txt",
       "--ephemeral",
-      "The previously generated output/lab/ failed static validation with the following errors:\n  - Placeholder token found in: web.startup\n\nRead the existing output/lab directory and modify it in-place.\nFix all validation errors listed above.\nPreserve every valid part of the current lab.\nDo not rebuild unrelated files.\nDo not recreate the entire lab unless the current structure makes the requested correction impossible.\nDo not generate correction.yaml and do not run Kathara or kathara_lab_checker.\nThe laboratory must be complete, persistent, contain no placeholders, and be internally consistent.\nRead only input/prompt.md. No creation Skill or external implementation guide is available."
+      "Read only input/prompt.md. Generate exactly one complete Kathara laboratory inside output/lab/. Do not read files outside this workspace. No creation Skill or external implementation guide is available. Do not modify input/prompt.md. Do not generate correction.yaml and do not run Kathara or kathara_lab_checker. The laboratory must be complete, persistent, contain no placeholders, and be internally consistent."
     ],
-    "retries": 1
+    "retries": 0
   },
   "generation_command": "codex",
   "generation_model": "gpt-5.6-terra",
   "generation_provider": "codex",
   "generation_reasoning_effort": "low",
-  "lab_calls": 2,
+  "lab_calls": 1,
   "lab_generated": true,
-  "lab_retries": 1,
+  "lab_retries": 0,
   "metrics": null,
   "phases": [
     {
-      "at": "2026-08-12T09:53:10.422253Z",
+      "at": "2026-08-12T10:50:51.325260Z",
       "name": "discovered"
     },
     {
-      "at": "2026-08-12T09:53:10.422605Z",
+      "at": "2026-08-12T10:50:51.325567Z",
       "name": "lab_generation_started"
     },
     {
-      "at": "2026-08-12T09:55:43.507332Z",
+      "at": "2026-08-12T10:52:11.677605Z",
       "name": "lab_generated"
     },
     {
-      "at": "2026-08-12T09:55:43.507361Z",
-      "name": "static_validation_passed"
-    },
-    {
-      "at": "2026-08-12T09:56:50.030829Z",
+      "at": "2026-08-12T10:55:10.276342Z",
       "name": "checker_started"
     },
     {
-      "at": "2026-08-12T09:56:52.933161Z",
+      "at": "2026-08-12T10:55:10.604664Z",
       "name": "error"
     }
   ],
   "pipeline_version": "0.5.0",
   "prompt_file": "Central Web Server, IPv4, Three Routers.md",
   "prompt_sha256": "23bd627a296b137728e94728c96a8e8c37f626694055232401c77b57ce659c71",
-  "static_validation_passed": true,
   "status": "error",
   "variant": "without_skill"
 }

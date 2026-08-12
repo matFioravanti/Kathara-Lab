@@ -1,0 +1,7 @@
+$TTL 3600
+@   IN SOA dns.company.test. hostmaster.company.test. (
+        2026081201 3600 900 604800 3600 )
+    IN NS  dns.company.test.
+dns IN A   192.168.30.53
+www IN A   192.168.30.80
+@   IN A   192.168.30.80

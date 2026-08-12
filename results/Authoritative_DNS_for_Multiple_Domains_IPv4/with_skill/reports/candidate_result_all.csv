@@ -1,0 +1,87 @@
+Test Description,Passed,Reason
+Check existence of `r1`,True,OK
+Check existence of `r2`,True,OK
+Check existence of `r3`,True,OK
+Check existence of `r4`,True,OK
+Check existence of `client1`,True,OK
+Check existence of `client2`,True,OK
+Check existence of `localdns`,True,OK
+Check existence of `unidns`,True,OK
+Check existence of `uniweb`,True,OK
+Check existence of `companydns`,True,OK
+Check existence of `companyweb`,True,OK
+Checking the collision domain attached to interface `eth0` of `r1`,True,OK
+Checking the collision domain attached to interface `eth1` of `r1`,True,OK
+Checking the collision domain attached to interface `eth0` of `r2`,True,OK
+Checking the collision domain attached to interface `eth1` of `r2`,True,OK
+Checking the collision domain attached to interface `eth2` of `r2`,True,OK
+Checking the collision domain attached to interface `eth0` of `r3`,True,OK
+Checking the collision domain attached to interface `eth1` of `r3`,True,OK
+Checking the collision domain attached to interface `eth2` of `r3`,True,OK
+Checking the collision domain attached to interface `eth0` of `r4`,True,OK
+Checking the collision domain attached to interface `eth0` of `client1`,True,OK
+Checking the collision domain attached to interface `eth0` of `client2`,True,OK
+Checking the collision domain attached to interface `eth0` of `localdns`,True,OK
+Checking the collision domain attached to interface `eth0` of `unidns`,True,OK
+Checking the collision domain attached to interface `eth0` of `uniweb`,True,OK
+Checking the collision domain attached to interface `eth0` of `companydns`,True,OK
+Checking the collision domain attached to interface `eth0` of `companyweb`,True,OK
+Check existence of `r1.startup` file,True,OK
+Check existence of `r2.startup` file,True,OK
+Check existence of `r3.startup` file,True,OK
+Check existence of `r4.startup` file,True,OK
+Check existence of `client1.startup` file,True,OK
+Check existence of `client2.startup` file,True,OK
+Check existence of `localdns.startup` file,True,OK
+Check existence of `unidns.startup` file,True,OK
+Check existence of `uniweb.startup` file,True,OK
+Check existence of `companydns.startup` file,True,OK
+Check existence of `companyweb.startup` file,True,OK
+Verifying the IP address (10.0.12.1/30) assigned to eth0 of r1,True,OK
+Verifying the IP address (192.168.10.1/24) assigned to eth1 of r1,True,OK
+Verifying the IP address (10.0.12.2/30) assigned to eth0 of r2,True,OK
+Verifying the IP address (10.0.23.1/30) assigned to eth1 of r2,True,OK
+Verifying the IP address (192.168.20.1/24) assigned to eth2 of r2,True,OK
+Verifying the IP address (10.0.23.2/30) assigned to eth0 of r3,True,OK
+Verifying the IP address (10.0.34.1/30) assigned to eth1 of r3,True,OK
+Verifying the IP address (192.168.30.1/24) assigned to eth2 of r3,True,OK
+Verifying the IP address (10.0.34.2/30) assigned to eth0 of r4,True,OK
+Verifying the IP address (192.168.10.101/24) assigned to eth0 of client1,True,OK
+Verifying the IP address (192.168.10.102/24) assigned to eth0 of client2,True,OK
+Verifying the IP address (192.168.10.53/24) assigned to eth0 of localdns,True,OK
+Verifying the IP address (192.168.20.53/24) assigned to eth0 of unidns,True,OK
+Verifying the IP address (192.168.20.80/24) assigned to eth0 of uniweb,True,OK
+Verifying the IP address (192.168.30.53/24) assigned to eth0 of companydns,True,OK
+Verifying the IP address (192.168.30.80/24) assigned to eth0 of companyweb,True,OK
+Verifying `www.university.edu` reachable from device `client1`,True,OK
+Verifying `www.company.test` reachable from device `client1`,True,OK
+Verifying `www.university.edu` reachable from device `client2`,True,OK
+Verifying `www.company.test` reachable from device `client2`,True,OK
+Checking that named is running on device `localdns`,True,OK
+Checking that named is running on device `unidns`,True,OK
+Checking that named is running on device `companydns`,True,OK
+Checking that apache2 is running on device `uniweb`,True,OK
+Checking that apache2 is running on device `companyweb`,True,OK
+Checking the routing table of r1,True,OK
+Checking the routing table of r2,True,OK
+Checking the routing table of r3,True,OK
+Checking the routing table of r4,True,OK
+Checking the routing table of client1,True,OK
+Checking the routing table of client2,True,OK
+Checking the routing table of localdns,True,OK
+Checking the routing table of unidns,True,OK
+Checking the routing table of uniweb,True,OK
+Checking the routing table of companydns,True,OK
+Checking the routing table of companyweb,True,OK
+Checking on `unidns` that `192.168.20.53` is the authority for domain `university.edu`,True,OK
+Checking on `companydns` that `192.168.30.53` is the authority for domain `company.test`,True,OK
+Checking that `192.168.10.53` is the local name server for device `client1`,True,OK
+Checking that `192.168.10.53` is the local name server for device `client2`,True,OK
+Checking correctness of DNS records,True,OK
+Checking correctness of DNS records,True,OK
+Checking correctness of DNS records,True,OK
+Checking correctness of DNS records,True,OK
+HTTP check 'http://www.university.edu/' on client1 status,True,HTTP 200 == 200
+HTTP check 'http://www.company.test/' on client1 status,True,HTTP 200 == 200
+HTTP check 'http://www.university.edu/' on client2 status,True,HTTP 200 == 200
+HTTP check 'http://www.company.test/' on client2 status,True,HTTP 200 == 200

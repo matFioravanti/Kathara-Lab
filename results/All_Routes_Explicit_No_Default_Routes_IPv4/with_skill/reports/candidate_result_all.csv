@@ -54,161 +54,126 @@ Check existence of `pc4a.startup` file,True,OK
 Check existence of `pc4b.startup` file,True,OK
 Check existence of `pc5a.startup` file,True,OK
 Check existence of `pc5b.startup` file,True,OK
-Verifying the IP address (10.1.1.1/24) assigned to eth0 of r1,False,The interface `eth0` of `r1` has the following IP addresses: []`.
-Verifying the IP address (10.0.12.1/30) assigned to eth1 of r1,False,The interface `eth1` of `r1` has the following IP addresses: []`.
-Verifying the IP address (10.0.13.1/30) assigned to eth2 of r1,False,The interface `eth2` of `r1` has the following IP addresses: []`.
-Verifying the IP address (10.2.2.1/24) assigned to eth0 of r2,False,The interface `eth0` of `r2` has the following IP addresses: []`.
-Verifying the IP address (10.0.12.2/30) assigned to eth1 of r2,False,The interface `eth1` of `r2` has the following IP addresses: []`.
-Verifying the IP address (10.0.24.1/30) assigned to eth2 of r2,False,The interface `eth2` of `r2` has the following IP addresses: []`.
-Verifying the IP address (10.3.3.1/24) assigned to eth0 of r3,False,The interface `eth0` of `r3` has the following IP addresses: []`.
-Verifying the IP address (10.0.13.2/30) assigned to eth1 of r3,False,The interface `eth1` of `r3` has the following IP addresses: []`.
-Verifying the IP address (10.0.34.1/30) assigned to eth2 of r3,False,The interface `eth2` of `r3` has the following IP addresses: []`.
-Verifying the IP address (10.4.4.1/24) assigned to eth0 of r4,False,The interface `eth0` of `r4` has the following IP addresses: []`.
-Verifying the IP address (10.0.24.2/30) assigned to eth1 of r4,False,The interface `eth1` of `r4` has the following IP addresses: []`.
-Verifying the IP address (10.0.34.2/30) assigned to eth2 of r4,False,The interface `eth2` of `r4` has the following IP addresses: []`.
-Verifying the IP address (10.0.45.1/30) assigned to eth3 of r4,False,The interface `eth3` of `r4` has the following IP addresses: []`.
-Verifying the IP address (10.5.5.1/24) assigned to eth0 of r5,False,The interface `eth0` of `r5` has the following IP addresses: []`.
-Verifying the IP address (10.0.45.2/30) assigned to eth1 of r5,False,The interface `eth1` of `r5` has the following IP addresses: []`.
-Verifying the IP address (10.1.1.10/24) assigned to eth0 of pc1a,True,OK
-Verifying the IP address (10.1.1.11/24) assigned to eth0 of pc1b,True,OK
-Verifying the IP address (10.2.2.10/24) assigned to eth0 of pc2a,True,OK
-Verifying the IP address (10.2.2.11/24) assigned to eth0 of pc2b,True,OK
-Verifying the IP address (10.3.3.10/24) assigned to eth0 of pc3a,True,OK
-Verifying the IP address (10.3.3.11/24) assigned to eth0 of pc3b,True,OK
-Verifying the IP address (10.4.4.10/24) assigned to eth0 of pc4a,True,OK
-Verifying the IP address (10.4.4.11/24) assigned to eth0 of pc4b,True,OK
-Verifying the IP address (10.5.5.10/24) assigned to eth0 of pc5a,True,OK
-Verifying the IP address (10.5.5.11/24) assigned to eth0 of pc5b,True,OK
-Verifying `10.1.1.11` reachable from device `pc1a`,True,OK
-Verifying `10.2.2.10` reachable from device `pc1a`,False,`pc1a` does not receive any answer from `10.2.2.10`.
-Verifying `10.2.2.11` reachable from device `pc1a`,False,`pc1a` does not receive any answer from `10.2.2.11`.
-Verifying `10.3.3.10` reachable from device `pc1a`,False,`pc1a` does not receive any answer from `10.3.3.10`.
-Verifying `10.3.3.11` reachable from device `pc1a`,False,`pc1a` does not receive any answer from `10.3.3.11`.
-Verifying `10.4.4.10` reachable from device `pc1a`,False,`pc1a` does not receive any answer from `10.4.4.10`.
-Verifying `10.4.4.11` reachable from device `pc1a`,False,`pc1a` does not receive any answer from `10.4.4.11`.
-Verifying `10.5.5.10` reachable from device `pc1a`,False,`pc1a` does not receive any answer from `10.5.5.10`.
-Verifying `10.5.5.11` reachable from device `pc1a`,False,`pc1a` does not receive any answer from `10.5.5.11`.
-Verifying `10.1.1.10` reachable from device `pc1b`,True,OK
-Verifying `10.2.2.10` reachable from device `pc1b`,False,`pc1b` does not receive any answer from `10.2.2.10`.
-Verifying `10.2.2.11` reachable from device `pc1b`,False,`pc1b` does not receive any answer from `10.2.2.11`.
-Verifying `10.3.3.10` reachable from device `pc1b`,False,`pc1b` does not receive any answer from `10.3.3.10`.
-Verifying `10.3.3.11` reachable from device `pc1b`,False,`pc1b` does not receive any answer from `10.3.3.11`.
-Verifying `10.4.4.10` reachable from device `pc1b`,False,`pc1b` does not receive any answer from `10.4.4.10`.
-Verifying `10.4.4.11` reachable from device `pc1b`,False,`pc1b` does not receive any answer from `10.4.4.11`.
-Verifying `10.5.5.10` reachable from device `pc1b`,False,`pc1b` does not receive any answer from `10.5.5.10`.
-Verifying `10.5.5.11` reachable from device `pc1b`,False,`pc1b` does not receive any answer from `10.5.5.11`.
-Verifying `10.1.1.10` reachable from device `pc2a`,False,`pc2a` does not receive any answer from `10.1.1.10`.
-Verifying `10.1.1.11` reachable from device `pc2a`,False,`pc2a` does not receive any answer from `10.1.1.11`.
-Verifying `10.2.2.11` reachable from device `pc2a`,True,OK
-Verifying `10.3.3.10` reachable from device `pc2a`,False,`pc2a` does not receive any answer from `10.3.3.10`.
-Verifying `10.3.3.11` reachable from device `pc2a`,False,`pc2a` does not receive any answer from `10.3.3.11`.
-Verifying `10.4.4.10` reachable from device `pc2a`,False,`pc2a` does not receive any answer from `10.4.4.10`.
-Verifying `10.4.4.11` reachable from device `pc2a`,False,`pc2a` does not receive any answer from `10.4.4.11`.
-Verifying `10.5.5.10` reachable from device `pc2a`,False,`pc2a` does not receive any answer from `10.5.5.10`.
-Verifying `10.5.5.11` reachable from device `pc2a`,False,`pc2a` does not receive any answer from `10.5.5.11`.
-Verifying `10.1.1.10` reachable from device `pc2b`,False,`pc2b` does not receive any answer from `10.1.1.10`.
-Verifying `10.1.1.11` reachable from device `pc2b`,False,`pc2b` does not receive any answer from `10.1.1.11`.
-Verifying `10.2.2.10` reachable from device `pc2b`,True,OK
-Verifying `10.3.3.10` reachable from device `pc2b`,False,`pc2b` does not receive any answer from `10.3.3.10`.
-Verifying `10.3.3.11` reachable from device `pc2b`,False,`pc2b` does not receive any answer from `10.3.3.11`.
-Verifying `10.4.4.10` reachable from device `pc2b`,False,`pc2b` does not receive any answer from `10.4.4.10`.
-Verifying `10.4.4.11` reachable from device `pc2b`,False,`pc2b` does not receive any answer from `10.4.4.11`.
-Verifying `10.5.5.10` reachable from device `pc2b`,False,`pc2b` does not receive any answer from `10.5.5.10`.
-Verifying `10.5.5.11` reachable from device `pc2b`,False,`pc2b` does not receive any answer from `10.5.5.11`.
-Verifying `10.1.1.10` reachable from device `pc3a`,False,`pc3a` does not receive any answer from `10.1.1.10`.
-Verifying `10.1.1.11` reachable from device `pc3a`,False,`pc3a` does not receive any answer from `10.1.1.11`.
-Verifying `10.2.2.10` reachable from device `pc3a`,False,`pc3a` does not receive any answer from `10.2.2.10`.
-Verifying `10.2.2.11` reachable from device `pc3a`,False,`pc3a` does not receive any answer from `10.2.2.11`.
-Verifying `10.3.3.11` reachable from device `pc3a`,True,OK
-Verifying `10.4.4.10` reachable from device `pc3a`,False,`pc3a` does not receive any answer from `10.4.4.10`.
-Verifying `10.4.4.11` reachable from device `pc3a`,False,`pc3a` does not receive any answer from `10.4.4.11`.
-Verifying `10.5.5.10` reachable from device `pc3a`,False,`pc3a` does not receive any answer from `10.5.5.10`.
-Verifying `10.5.5.11` reachable from device `pc3a`,False,`pc3a` does not receive any answer from `10.5.5.11`.
-Verifying `10.1.1.10` reachable from device `pc3b`,False,`pc3b` does not receive any answer from `10.1.1.10`.
-Verifying `10.1.1.11` reachable from device `pc3b`,False,`pc3b` does not receive any answer from `10.1.1.11`.
-Verifying `10.2.2.10` reachable from device `pc3b`,False,`pc3b` does not receive any answer from `10.2.2.10`.
-Verifying `10.2.2.11` reachable from device `pc3b`,False,`pc3b` does not receive any answer from `10.2.2.11`.
-Verifying `10.3.3.10` reachable from device `pc3b`,True,OK
-Verifying `10.4.4.10` reachable from device `pc3b`,False,`pc3b` does not receive any answer from `10.4.4.10`.
-Verifying `10.4.4.11` reachable from device `pc3b`,False,`pc3b` does not receive any answer from `10.4.4.11`.
-Verifying `10.5.5.10` reachable from device `pc3b`,False,`pc3b` does not receive any answer from `10.5.5.10`.
-Verifying `10.5.5.11` reachable from device `pc3b`,False,`pc3b` does not receive any answer from `10.5.5.11`.
-Verifying `10.1.1.10` reachable from device `pc4a`,False,`pc4a` does not receive any answer from `10.1.1.10`.
-Verifying `10.1.1.11` reachable from device `pc4a`,False,`pc4a` does not receive any answer from `10.1.1.11`.
-Verifying `10.2.2.10` reachable from device `pc4a`,False,`pc4a` does not receive any answer from `10.2.2.10`.
-Verifying `10.2.2.11` reachable from device `pc4a`,False,`pc4a` does not receive any answer from `10.2.2.11`.
-Verifying `10.3.3.10` reachable from device `pc4a`,False,`pc4a` does not receive any answer from `10.3.3.10`.
-Verifying `10.3.3.11` reachable from device `pc4a`,False,`pc4a` does not receive any answer from `10.3.3.11`.
-Verifying `10.4.4.11` reachable from device `pc4a`,True,OK
-Verifying `10.5.5.10` reachable from device `pc4a`,False,`pc4a` does not receive any answer from `10.5.5.10`.
-Verifying `10.5.5.11` reachable from device `pc4a`,False,`pc4a` does not receive any answer from `10.5.5.11`.
-Verifying `10.1.1.10` reachable from device `pc4b`,False,`pc4b` does not receive any answer from `10.1.1.10`.
-Verifying `10.1.1.11` reachable from device `pc4b`,False,`pc4b` does not receive any answer from `10.1.1.11`.
-Verifying `10.2.2.10` reachable from device `pc4b`,False,`pc4b` does not receive any answer from `10.2.2.10`.
-Verifying `10.2.2.11` reachable from device `pc4b`,False,`pc4b` does not receive any answer from `10.2.2.11`.
-Verifying `10.3.3.10` reachable from device `pc4b`,False,`pc4b` does not receive any answer from `10.3.3.10`.
-Verifying `10.3.3.11` reachable from device `pc4b`,False,`pc4b` does not receive any answer from `10.3.3.11`.
-Verifying `10.4.4.10` reachable from device `pc4b`,True,OK
-Verifying `10.5.5.10` reachable from device `pc4b`,False,`pc4b` does not receive any answer from `10.5.5.10`.
-Verifying `10.5.5.11` reachable from device `pc4b`,False,`pc4b` does not receive any answer from `10.5.5.11`.
-Verifying `10.1.1.10` reachable from device `pc5a`,False,`pc5a` does not receive any answer from `10.1.1.10`.
-Verifying `10.1.1.11` reachable from device `pc5a`,False,`pc5a` does not receive any answer from `10.1.1.11`.
-Verifying `10.2.2.10` reachable from device `pc5a`,False,`pc5a` does not receive any answer from `10.2.2.10`.
-Verifying `10.2.2.11` reachable from device `pc5a`,False,`pc5a` does not receive any answer from `10.2.2.11`.
-Verifying `10.3.3.10` reachable from device `pc5a`,False,`pc5a` does not receive any answer from `10.3.3.10`.
-Verifying `10.3.3.11` reachable from device `pc5a`,False,`pc5a` does not receive any answer from `10.3.3.11`.
-Verifying `10.4.4.10` reachable from device `pc5a`,False,`pc5a` does not receive any answer from `10.4.4.10`.
-Verifying `10.4.4.11` reachable from device `pc5a`,False,`pc5a` does not receive any answer from `10.4.4.11`.
-Verifying `10.5.5.11` reachable from device `pc5a`,True,OK
-Verifying `10.1.1.10` reachable from device `pc5b`,False,`pc5b` does not receive any answer from `10.1.1.10`.
-Verifying `10.1.1.11` reachable from device `pc5b`,False,`pc5b` does not receive any answer from `10.1.1.11`.
-Verifying `10.2.2.10` reachable from device `pc5b`,False,`pc5b` does not receive any answer from `10.2.2.10`.
-Verifying `10.2.2.11` reachable from device `pc5b`,False,`pc5b` does not receive any answer from `10.2.2.11`.
-Verifying `10.3.3.10` reachable from device `pc5b`,False,`pc5b` does not receive any answer from `10.3.3.10`.
-Verifying `10.3.3.11` reachable from device `pc5b`,False,`pc5b` does not receive any answer from `10.3.3.11`.
-Verifying `10.4.4.10` reachable from device `pc5b`,False,`pc5b` does not receive any answer from `10.4.4.10`.
-Verifying `10.4.4.11` reachable from device `pc5b`,False,`pc5b` does not receive any answer from `10.4.4.11`.
-Verifying `10.5.5.10` reachable from device `pc5b`,True,OK
-Checking the routing table of r1,False,"The routing table of r1 have the wrong number of routes: 0, expected: 7"
-Checking the routing table of r1,False,The routing table of r1 is missing route 10.2.2.0/24
-Checking the routing table of r1,False,The routing table of r1 is missing route 10.3.3.0/24
-Checking the routing table of r1,False,The routing table of r1 is missing route 10.4.4.0/24
-Checking the routing table of r1,False,The routing table of r1 is missing route 10.5.5.0/24
-Checking the routing table of r1,False,The routing table of r1 is missing route 10.0.24.0/30
-Checking the routing table of r1,False,The routing table of r1 is missing route 10.0.34.0/30
-Checking the routing table of r1,False,The routing table of r1 is missing route 10.0.45.0/30
-Checking the routing table of r2,False,"The routing table of r2 have the wrong number of routes: 0, expected: 7"
-Checking the routing table of r2,False,The routing table of r2 is missing route 10.1.1.0/24
-Checking the routing table of r2,False,The routing table of r2 is missing route 10.3.3.0/24
-Checking the routing table of r2,False,The routing table of r2 is missing route 10.4.4.0/24
-Checking the routing table of r2,False,The routing table of r2 is missing route 10.5.5.0/24
-Checking the routing table of r2,False,The routing table of r2 is missing route 10.0.13.0/30
-Checking the routing table of r2,False,The routing table of r2 is missing route 10.0.34.0/30
-Checking the routing table of r2,False,The routing table of r2 is missing route 10.0.45.0/30
-Checking the routing table of r3,False,"The routing table of r3 have the wrong number of routes: 0, expected: 7"
-Checking the routing table of r3,False,The routing table of r3 is missing route 10.1.1.0/24
-Checking the routing table of r3,False,The routing table of r3 is missing route 10.2.2.0/24
-Checking the routing table of r3,False,The routing table of r3 is missing route 10.4.4.0/24
-Checking the routing table of r3,False,The routing table of r3 is missing route 10.5.5.0/24
-Checking the routing table of r3,False,The routing table of r3 is missing route 10.0.12.0/30
-Checking the routing table of r3,False,The routing table of r3 is missing route 10.0.24.0/30
-Checking the routing table of r3,False,The routing table of r3 is missing route 10.0.45.0/30
-Checking the routing table of r4,False,"The routing table of r4 have the wrong number of routes: 0, expected: 6"
-Checking the routing table of r4,False,The routing table of r4 is missing route 10.1.1.0/24
-Checking the routing table of r4,False,The routing table of r4 is missing route 10.2.2.0/24
-Checking the routing table of r4,False,The routing table of r4 is missing route 10.3.3.0/24
-Checking the routing table of r4,False,The routing table of r4 is missing route 10.5.5.0/24
-Checking the routing table of r4,False,The routing table of r4 is missing route 10.0.12.0/30
-Checking the routing table of r4,False,The routing table of r4 is missing route 10.0.13.0/30
-Checking the routing table of r5,False,"The routing table of r5 have the wrong number of routes: 0, expected: 8"
-Checking the routing table of r5,False,The routing table of r5 is missing route 10.1.1.0/24
-Checking the routing table of r5,False,The routing table of r5 is missing route 10.2.2.0/24
-Checking the routing table of r5,False,The routing table of r5 is missing route 10.3.3.0/24
-Checking the routing table of r5,False,The routing table of r5 is missing route 10.4.4.0/24
-Checking the routing table of r5,False,The routing table of r5 is missing route 10.0.12.0/30
-Checking the routing table of r5,False,The routing table of r5 is missing route 10.0.13.0/30
-Checking the routing table of r5,False,The routing table of r5 is missing route 10.0.24.0/30
-Checking the routing table of r5,False,The routing table of r5 is missing route 10.0.34.0/30
+Verifying the IP address (10.1.0.1/24) assigned to eth0 of r1,True,OK
+Verifying the IP address (10.255.12.1/30) assigned to eth1 of r1,True,OK
+Verifying the IP address (10.255.13.1/30) assigned to eth2 of r1,True,OK
+Verifying the IP address (10.2.0.1/24) assigned to eth0 of r2,True,OK
+Verifying the IP address (10.255.12.2/30) assigned to eth1 of r2,True,OK
+Verifying the IP address (10.255.24.1/30) assigned to eth2 of r2,True,OK
+Verifying the IP address (10.3.0.1/24) assigned to eth0 of r3,True,OK
+Verifying the IP address (10.255.13.2/30) assigned to eth1 of r3,True,OK
+Verifying the IP address (10.255.34.1/30) assigned to eth2 of r3,True,OK
+Verifying the IP address (10.4.0.1/24) assigned to eth0 of r4,True,OK
+Verifying the IP address (10.255.24.2/30) assigned to eth1 of r4,True,OK
+Verifying the IP address (10.255.34.2/30) assigned to eth2 of r4,True,OK
+Verifying the IP address (10.255.45.1/30) assigned to eth3 of r4,True,OK
+Verifying the IP address (10.5.0.1/24) assigned to eth0 of r5,True,OK
+Verifying the IP address (10.255.45.2/30) assigned to eth1 of r5,True,OK
+Verifying the IP address (10.1.0.11/24) assigned to eth0 of pc1a,True,OK
+Verifying the IP address (10.1.0.12/24) assigned to eth0 of pc1b,True,OK
+Verifying the IP address (10.2.0.11/24) assigned to eth0 of pc2a,True,OK
+Verifying the IP address (10.2.0.12/24) assigned to eth0 of pc2b,True,OK
+Verifying the IP address (10.3.0.11/24) assigned to eth0 of pc3a,True,OK
+Verifying the IP address (10.3.0.12/24) assigned to eth0 of pc3b,True,OK
+Verifying the IP address (10.4.0.11/24) assigned to eth0 of pc4a,True,OK
+Verifying the IP address (10.4.0.12/24) assigned to eth0 of pc4b,True,OK
+Verifying the IP address (10.5.0.11/24) assigned to eth0 of pc5a,True,OK
+Verifying the IP address (10.5.0.12/24) assigned to eth0 of pc5b,True,OK
+Verifying `10.1.0.12` reachable from device `pc1a`,True,OK
+Verifying `10.2.0.11` reachable from device `pc1a`,True,OK
+Verifying `10.2.0.12` reachable from device `pc1a`,True,OK
+Verifying `10.3.0.11` reachable from device `pc1a`,True,OK
+Verifying `10.3.0.12` reachable from device `pc1a`,True,OK
+Verifying `10.4.0.11` reachable from device `pc1a`,True,OK
+Verifying `10.4.0.12` reachable from device `pc1a`,True,OK
+Verifying `10.5.0.11` reachable from device `pc1a`,True,OK
+Verifying `10.5.0.12` reachable from device `pc1a`,True,OK
+Verifying `10.1.0.11` reachable from device `pc1b`,True,OK
+Verifying `10.2.0.11` reachable from device `pc1b`,True,OK
+Verifying `10.2.0.12` reachable from device `pc1b`,True,OK
+Verifying `10.3.0.11` reachable from device `pc1b`,True,OK
+Verifying `10.3.0.12` reachable from device `pc1b`,True,OK
+Verifying `10.4.0.11` reachable from device `pc1b`,True,OK
+Verifying `10.4.0.12` reachable from device `pc1b`,True,OK
+Verifying `10.5.0.11` reachable from device `pc1b`,True,OK
+Verifying `10.5.0.12` reachable from device `pc1b`,True,OK
+Verifying `10.1.0.11` reachable from device `pc2a`,True,OK
+Verifying `10.1.0.12` reachable from device `pc2a`,True,OK
+Verifying `10.2.0.12` reachable from device `pc2a`,True,OK
+Verifying `10.3.0.11` reachable from device `pc2a`,True,OK
+Verifying `10.3.0.12` reachable from device `pc2a`,True,OK
+Verifying `10.4.0.11` reachable from device `pc2a`,True,OK
+Verifying `10.4.0.12` reachable from device `pc2a`,True,OK
+Verifying `10.5.0.11` reachable from device `pc2a`,True,OK
+Verifying `10.5.0.12` reachable from device `pc2a`,True,OK
+Verifying `10.1.0.11` reachable from device `pc2b`,True,OK
+Verifying `10.1.0.12` reachable from device `pc2b`,True,OK
+Verifying `10.2.0.11` reachable from device `pc2b`,True,OK
+Verifying `10.3.0.11` reachable from device `pc2b`,True,OK
+Verifying `10.3.0.12` reachable from device `pc2b`,True,OK
+Verifying `10.4.0.11` reachable from device `pc2b`,True,OK
+Verifying `10.4.0.12` reachable from device `pc2b`,True,OK
+Verifying `10.5.0.11` reachable from device `pc2b`,True,OK
+Verifying `10.5.0.12` reachable from device `pc2b`,True,OK
+Verifying `10.1.0.11` reachable from device `pc3a`,True,OK
+Verifying `10.1.0.12` reachable from device `pc3a`,True,OK
+Verifying `10.2.0.11` reachable from device `pc3a`,True,OK
+Verifying `10.2.0.12` reachable from device `pc3a`,True,OK
+Verifying `10.3.0.12` reachable from device `pc3a`,True,OK
+Verifying `10.4.0.11` reachable from device `pc3a`,True,OK
+Verifying `10.4.0.12` reachable from device `pc3a`,True,OK
+Verifying `10.5.0.11` reachable from device `pc3a`,True,OK
+Verifying `10.5.0.12` reachable from device `pc3a`,True,OK
+Verifying `10.1.0.11` reachable from device `pc3b`,True,OK
+Verifying `10.1.0.12` reachable from device `pc3b`,True,OK
+Verifying `10.2.0.11` reachable from device `pc3b`,True,OK
+Verifying `10.2.0.12` reachable from device `pc3b`,True,OK
+Verifying `10.3.0.11` reachable from device `pc3b`,True,OK
+Verifying `10.4.0.11` reachable from device `pc3b`,True,OK
+Verifying `10.4.0.12` reachable from device `pc3b`,True,OK
+Verifying `10.5.0.11` reachable from device `pc3b`,True,OK
+Verifying `10.5.0.12` reachable from device `pc3b`,True,OK
+Verifying `10.1.0.11` reachable from device `pc4a`,True,OK
+Verifying `10.1.0.12` reachable from device `pc4a`,True,OK
+Verifying `10.2.0.11` reachable from device `pc4a`,True,OK
+Verifying `10.2.0.12` reachable from device `pc4a`,True,OK
+Verifying `10.3.0.11` reachable from device `pc4a`,True,OK
+Verifying `10.3.0.12` reachable from device `pc4a`,True,OK
+Verifying `10.4.0.12` reachable from device `pc4a`,True,OK
+Verifying `10.5.0.11` reachable from device `pc4a`,True,OK
+Verifying `10.5.0.12` reachable from device `pc4a`,True,OK
+Verifying `10.1.0.11` reachable from device `pc4b`,True,OK
+Verifying `10.1.0.12` reachable from device `pc4b`,True,OK
+Verifying `10.2.0.11` reachable from device `pc4b`,True,OK
+Verifying `10.2.0.12` reachable from device `pc4b`,True,OK
+Verifying `10.3.0.11` reachable from device `pc4b`,True,OK
+Verifying `10.3.0.12` reachable from device `pc4b`,True,OK
+Verifying `10.4.0.11` reachable from device `pc4b`,True,OK
+Verifying `10.5.0.11` reachable from device `pc4b`,True,OK
+Verifying `10.5.0.12` reachable from device `pc4b`,True,OK
+Verifying `10.1.0.11` reachable from device `pc5a`,True,OK
+Verifying `10.1.0.12` reachable from device `pc5a`,True,OK
+Verifying `10.2.0.11` reachable from device `pc5a`,True,OK
+Verifying `10.2.0.12` reachable from device `pc5a`,True,OK
+Verifying `10.3.0.11` reachable from device `pc5a`,True,OK
+Verifying `10.3.0.12` reachable from device `pc5a`,True,OK
+Verifying `10.4.0.11` reachable from device `pc5a`,True,OK
+Verifying `10.4.0.12` reachable from device `pc5a`,True,OK
+Verifying `10.5.0.12` reachable from device `pc5a`,True,OK
+Verifying `10.1.0.11` reachable from device `pc5b`,True,OK
+Verifying `10.1.0.12` reachable from device `pc5b`,True,OK
+Verifying `10.2.0.11` reachable from device `pc5b`,True,OK
+Verifying `10.2.0.12` reachable from device `pc5b`,True,OK
+Verifying `10.3.0.11` reachable from device `pc5b`,True,OK
+Verifying `10.3.0.12` reachable from device `pc5b`,True,OK
+Verifying `10.4.0.11` reachable from device `pc5b`,True,OK
+Verifying `10.4.0.12` reachable from device `pc5b`,True,OK
+Verifying `10.5.0.11` reachable from device `pc5b`,True,OK
+Checking the routing table of r1,True,OK
+Checking the routing table of r2,True,OK
+Checking the routing table of r3,True,OK
+Checking the routing table of r4,True,OK
+Checking the routing table of r5,True,OK
 Checking the routing table of pc1a,True,OK
 Checking the routing table of pc1b,True,OK
 Checking the routing table of pc2a,True,OK

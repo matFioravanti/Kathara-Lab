@@ -1,48 +1,50 @@
 {
-  "canonical_correction_sha256": null,
-  "checker": null,
-  "checker_attempted": false,
+  "canonical_correction_sha256": "143007608af0ddfb847e373a9c5004e8629a41a78c272472b91e3a3a0a9ccb70",
+  "checker": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
+      "-m",
+      "kathara_lab_checker",
+      "--config",
+      "/Users/matthew/Desktop/A-Tesi/results/Authoritative_DNS_for_Multiple_Domains_IPv4/without_skill/correction/correction.yaml",
+      "--labs",
+      "/Users/matthew/Desktop/A-Tesi/results/Authoritative_DNS_for_Multiple_Domains_IPv4/without_skill/checker-run/labs",
+      "--no-cache",
+      "--report-type",
+      "csv"
+    ],
+    "duration_seconds": 0.3980285420002474,
+    "return_code": 1,
+    "timed_out": false
+  },
+  "checker_attempted": true,
   "checker_completed": false,
   "checker_schema_sha256": "841251ca20af61595e8e8521b3de8900dbeadba81cc59e7480765496cad436b0",
   "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
   "correction_calls": 0,
-  "correction_generated": false,
-  "correction_hash": null,
-  "correction_mode": null,
+  "correction_generated": true,
+  "correction_hash": "143007608af0ddfb847e373a9c5004e8629a41a78c272472b91e3a3a0a9ccb70",
+  "correction_mode": "paired_generation",
   "correction_retries": 0,
   "creation_skill_enabled": false,
   "creation_skill_sha256": null,
   "errors": [
-    "Generated lab still invalid after 2 attempt(s): Placeholder token found in: web-university/var/www/html/index.html; Placeholder token found in: web-company/var/www/html/index.html"
+    "kathara-lab-checker exited with technical return code 1"
   ],
   "experiment_id": "Authoritative_DNS_for_Multiple_Domains_IPv4",
   "generation": {
     "attempts": [
       {
         "attempt": 1,
-        "duration_seconds": 104.90236962500012,
+        "duration_seconds": 116.03254945800018,
         "return_code": 0,
-        "success": false,
+        "success": true,
         "timed_out": false,
-        "validation_errors": [
-          "Placeholder token found in: web-university/var/www/html/index.html",
-          "Placeholder token found in: web-company/var/www/html/index.html"
-        ]
-      },
-      {
-        "attempt": 2,
-        "duration_seconds": 49.489145333000124,
-        "return_code": 0,
-        "success": false,
-        "timed_out": false,
-        "validation_errors": [
-          "Placeholder token found in: web-university/var/www/html/index.html",
-          "Placeholder token found in: web-company/var/www/html/index.html"
-        ]
+        "validation_errors": []
       }
     ],
-    "calls": 2,
-    "duration_seconds": 154.39151495800024,
+    "calls": 1,
+    "duration_seconds": 116.03254945800018,
     "last_command": [
       "codex",
       "exec",
@@ -60,37 +62,43 @@
       "--output-last-message",
       "/Users/matthew/Desktop/A-Tesi/results/Authoritative_DNS_for_Multiple_Domains_IPv4/.workspaces/without_skill/.agent-last-message.txt",
       "--ephemeral",
-      "The previously generated output/lab/ failed static validation with the following errors:\n  - Placeholder token found in: web-university/var/www/html/index.html\n  - Placeholder token found in: web-company/var/www/html/index.html\n\nRead the existing output/lab directory and modify it in-place.\nFix all validation errors listed above.\nPreserve every valid part of the current lab.\nDo not rebuild unrelated files.\nDo not recreate the entire lab unless the current structure makes the requested correction impossible.\nDo not generate correction.yaml and do not run Kathara or kathara_lab_checker.\nThe laboratory must be complete, persistent, contain no placeholders, and be internally consistent.\nRead only input/prompt.md. No creation Skill or external implementation guide is available."
+      "Read only input/prompt.md. Generate exactly one complete Kathara laboratory inside output/lab/. Do not read files outside this workspace. No creation Skill or external implementation guide is available. Do not modify input/prompt.md. Do not generate correction.yaml and do not run Kathara or kathara_lab_checker. The laboratory must be complete, persistent, contain no placeholders, and be internally consistent."
     ],
-    "retries": 1
+    "retries": 0
   },
   "generation_command": "codex",
   "generation_model": "gpt-5.6-terra",
   "generation_provider": "codex",
   "generation_reasoning_effort": "low",
-  "lab_calls": 2,
+  "lab_calls": 1,
   "lab_generated": true,
-  "lab_retries": 1,
+  "lab_retries": 0,
   "metrics": null,
   "phases": [
     {
-      "at": "2026-08-12T09:49:57.977617Z",
+      "at": "2026-08-12T10:46:24.596048Z",
       "name": "discovered"
     },
     {
-      "at": "2026-08-12T09:49:57.977896Z",
+      "at": "2026-08-12T10:46:24.596857Z",
       "name": "lab_generation_started"
     },
     {
-      "at": "2026-08-12T09:52:32.415329Z",
+      "at": "2026-08-12T10:48:20.637013Z",
+      "name": "lab_generated"
+    },
+    {
+      "at": "2026-08-12T10:50:50.896297Z",
+      "name": "checker_started"
+    },
+    {
+      "at": "2026-08-12T10:50:51.294983Z",
       "name": "error"
     }
   ],
   "pipeline_version": "0.5.0",
   "prompt_file": "Authoritative DNS for Multiple Domains, IPv4.md",
   "prompt_sha256": "8cedae64ebc9a02c62ab90bee81f4e6dca2321c8782277c9d0837d64a5bd479a",
-  "source_failed_preserved": true,
-  "static_validation_passed": false,
   "status": "error",
   "variant": "without_skill"
 }

@@ -1,5 +1,5 @@
 {
-  "canonical_correction_sha256": "4e42904e89ec2e9ce6017f30cff0b2332b8340af24f9b8abbafe7712caf0eeea",
+  "canonical_correction_sha256": "1f1b9d2eb8f804b73bae63c7671baf83d74f365d36732c3982e7bf7a147fd6a0",
   "checker": {
     "command": [
       "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
@@ -13,7 +13,7 @@
       "--report-type",
       "csv"
     ],
-    "duration_seconds": 0.3199804999999287,
+    "duration_seconds": 0.3855138330000045,
     "return_code": 1,
     "timed_out": false
   },
@@ -23,7 +23,7 @@
   "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
   "correction_calls": 0,
   "correction_generated": true,
-  "correction_hash": "4e42904e89ec2e9ce6017f30cff0b2332b8340af24f9b8abbafe7712caf0eeea",
+  "correction_hash": "1f1b9d2eb8f804b73bae63c7671baf83d74f365d36732c3982e7bf7a147fd6a0",
   "correction_mode": "paired_generation",
   "correction_retries": 0,
   "creation_skill_enabled": false,
@@ -36,7 +36,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "duration_seconds": 88.6307697090001,
+        "duration_seconds": 102.67671733299994,
         "return_code": 0,
         "success": true,
         "timed_out": false,
@@ -44,7 +44,7 @@
       }
     ],
     "calls": 1,
-    "duration_seconds": 88.6307697090001,
+    "duration_seconds": 102.67671733299994,
     "last_command": [
       "codex",
       "exec",
@@ -76,34 +76,29 @@
   "metrics": null,
   "phases": [
     {
-      "at": "2026-08-12T09:40:12.437111Z",
+      "at": "2026-08-12T10:40:14.709812Z",
       "name": "discovered"
     },
     {
-      "at": "2026-08-12T09:40:12.437377Z",
+      "at": "2026-08-12T10:40:14.710040Z",
       "name": "lab_generation_started"
     },
     {
-      "at": "2026-08-12T09:41:41.077405Z",
+      "at": "2026-08-12T10:41:57.399015Z",
       "name": "lab_generated"
     },
     {
-      "at": "2026-08-12T09:41:41.077451Z",
-      "name": "static_validation_passed"
-    },
-    {
-      "at": "2026-08-12T09:49:57.646189Z",
+      "at": "2026-08-12T10:46:24.179108Z",
       "name": "checker_started"
     },
     {
-      "at": "2026-08-12T09:49:57.967045Z",
+      "at": "2026-08-12T10:46:24.565199Z",
       "name": "error"
     }
   ],
   "pipeline_version": "0.5.0",
   "prompt_file": "All Routes Explicit, No Default Routes, IPv4.md",
   "prompt_sha256": "d55a80ef2afda10dacb80145c84498288635e3ca760287d6f4bf0740c0f7b891",
-  "static_validation_passed": true,
   "status": "error",
   "variant": "without_skill"
 }

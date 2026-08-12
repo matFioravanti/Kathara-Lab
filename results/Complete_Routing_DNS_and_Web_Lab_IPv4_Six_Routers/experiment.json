@@ -1,0 +1,32 @@
+{
+  "comparison": "WITH_SKILL_BETTER",
+  "comparison_reason": "With-skill candidate failed fewer checks.",
+  "complete": true,
+  "experiment_id": "Complete_Routing_DNS_and_Web_Lab_IPv4_Six_Routers",
+  "finished_at": "2026-08-12T11:12:49.872250Z",
+  "identity": {
+    "checker_report_type": "csv",
+    "checker_runtime": "kathara-lab-checker==0.1.14",
+    "checker_schema_sha256": "841251ca20af61595e8e8521b3de8900dbeadba81cc59e7480765496cad436b0",
+    "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
+    "command": "codex",
+    "creation_skill_sha256": "bf4daac809c4088ad9106268c093cca9c41f79e95dba4113f108c0298d85b996",
+    "model": "gpt-5.6-terra",
+    "pipeline_version": "0.5.0",
+    "prompt_sha256": "cbf45587ffd7081e91da5bd7a0af593a986722026af7fe1a175eab2a0012362d",
+    "provider": "codex",
+    "reasoning_effort": "low",
+    "sandbox": "workspace-write"
+  },
+  "paired_correction": {
+    "calls": 1,
+    "duration_seconds": 200.5268280829996,
+    "mode": "paired_generation",
+    "return_code": 0,
+    "timed_out": false
+  },
+  "pipeline_version": "0.5.0",
+  "prompt_file": "Complete Routing, DNS, and Web Lab, IPv4, Six Routers.md",
+  "prompt_sha256": "cbf45587ffd7081e91da5bd7a0af593a986722026af7fe1a175eab2a0012362d",
+  "started_at": "2026-08-12T11:04:14.671009Z"
+}

@@ -1,0 +1,17 @@
+#!/bin/sh
+# Web-server LAN: 192.168.20.0/24
+ip link set eth0 up
+ip addr add 192.168.20.20/24 dev eth0
+ip route add 192.168.10.0/24 via 192.168.20.1
+ip route add 10.0.0.0/30 via 192.168.20.1
+ip route add default via 192.168.20.1
+
+cat > /usr/share/nginx/html/index.html <<'EOF'
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>service.local</title></head>
+<body><h1>service.local is reachable</h1><p>HTTP is served by 192.168.20.20.</p></body>
+</html>
+EOF
+
+nginx

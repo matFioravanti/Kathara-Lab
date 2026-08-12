@@ -1,5 +1,5 @@
 {
-  "canonical_correction_sha256": "083b6fe4eeaed3a7f0c29ce59b9f0b1660bf980ad2a74ffcd8a22bc567fa8c47",
+  "canonical_correction_sha256": "d62ee6040003d573fa4fa3a99a2b643069f7dc3b03a8b05c2b2ec82c5b1fd398",
   "checker": {
     "command": [
       "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
@@ -13,7 +13,7 @@
       "--report-type",
       "csv"
     ],
-    "duration_seconds": 268.9697542089998,
+    "duration_seconds": 22.27879154099992,
     "return_code": 0,
     "timed_out": false
   },
@@ -23,7 +23,7 @@
   "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
   "correction_calls": 0,
   "correction_generated": true,
-  "correction_hash": "083b6fe4eeaed3a7f0c29ce59b9f0b1660bf980ad2a74ffcd8a22bc567fa8c47",
+  "correction_hash": "d62ee6040003d573fa4fa3a99a2b643069f7dc3b03a8b05c2b2ec82c5b1fd398",
   "correction_mode": "paired_generation",
   "correction_retries": 0,
   "creation_skill_enabled": true,
@@ -34,7 +34,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "duration_seconds": 137.3625726250002,
+        "duration_seconds": 160.4689793339994,
         "return_code": 0,
         "success": true,
         "timed_out": false,
@@ -42,7 +42,7 @@
       }
     ],
     "calls": 1,
-    "duration_seconds": 137.3625726250002,
+    "duration_seconds": 160.4689793339994,
     "last_command": [
       "codex",
       "exec",
@@ -72,54 +72,47 @@
   "lab_generated": true,
   "lab_retries": 0,
   "metrics": {
-    "failed_tests": 135,
-    "failure_categories": {
-      "uncategorized": 135
-    },
-    "pass_percentage": 38.636364,
-    "passed_tests": 85,
+    "failed_tests": 0,
+    "failure_categories": {},
+    "pass_percentage": 100.0,
+    "passed_tests": 185,
     "reports_found": [
       "results.csv",
       "candidate_result_all.csv",
       "candidate_result_failed.csv",
       "candidate_result_summary.csv"
     ],
-    "total_tests": 220
+    "total_tests": 185
   },
   "phases": [
     {
-      "at": "2026-08-12T09:40:12.436981Z",
+      "at": "2026-08-12T10:40:14.709709Z",
       "name": "discovered"
     },
     {
-      "at": "2026-08-12T09:40:12.437324Z",
+      "at": "2026-08-12T10:40:14.710009Z",
       "name": "lab_generation_started"
     },
     {
-      "at": "2026-08-12T09:42:29.809656Z",
+      "at": "2026-08-12T10:42:55.198372Z",
       "name": "lab_generated"
     },
     {
-      "at": "2026-08-12T09:42:29.809686Z",
-      "name": "static_validation_passed"
-    },
-    {
-      "at": "2026-08-12T09:45:28.670022Z",
+      "at": "2026-08-12T10:46:01.884570Z",
       "name": "checker_started"
     },
     {
-      "at": "2026-08-12T09:49:57.639268Z",
+      "at": "2026-08-12T10:46:24.168085Z",
       "name": "checker_completed"
     },
     {
-      "at": "2026-08-12T09:49:57.639287Z",
-      "name": "failed"
+      "at": "2026-08-12T10:46:24.168103Z",
+      "name": "passed"
     }
   ],
   "pipeline_version": "0.5.0",
   "prompt_file": "All Routes Explicit, No Default Routes, IPv4.md",
   "prompt_sha256": "d55a80ef2afda10dacb80145c84498288635e3ca760287d6f4bf0740c0f7b891",
-  "static_validation_passed": true,
-  "status": "failed",
+  "status": "passed",
   "variant": "with_skill"
 }

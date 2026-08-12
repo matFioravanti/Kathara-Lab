@@ -1,0 +1,6 @@
+$TTL 86400
+@ IN SOA root.lab. hostmaster.root.lab. ( 2026081201 3600 900 604800 86400 )
+  IN NS root.lab.
+root.lab. IN A 192.168.2.53
+org. IN NS ns.org.
+ns.org. IN A 192.168.3.53

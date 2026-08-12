@@ -1,0 +1,39 @@
+Test Description,Passed,Reason
+Check existence of `client`,True,OK
+Check existence of `dns`,True,OK
+Check existence of `r1`,True,OK
+Check existence of `r2`,True,OK
+Check existence of `web`,True,OK
+Checking the collision domain attached to interface `eth0` of `client`,True,OK
+Checking the collision domain attached to interface `eth0` of `dns`,True,OK
+Checking the collision domain attached to interface `eth0` of `r1`,True,OK
+Checking the collision domain attached to interface `eth1` of `r1`,True,OK
+Checking the collision domain attached to interface `eth0` of `r2`,True,OK
+Checking the collision domain attached to interface `eth1` of `r2`,True,OK
+Checking the collision domain attached to interface `eth0` of `web`,True,OK
+Check existence of `client.startup` file,True,OK
+Check existence of `dns.startup` file,True,OK
+Check existence of `r1.startup` file,True,OK
+Check existence of `r2.startup` file,True,OK
+Check existence of `web.startup` file,True,OK
+Verifying the IP address (192.168.10.10/24) assigned to eth0 of client,True,OK
+Verifying the IP address (192.168.10.53/24) assigned to eth0 of dns,True,OK
+Verifying the IP address (192.168.10.1/24) assigned to eth0 of r1,True,OK
+Verifying the IP address (10.0.0.1/30) assigned to eth1 of r1,True,OK
+Verifying the IP address (10.0.0.2/30) assigned to eth0 of r2,True,OK
+Verifying the IP address (192.168.20.1/24) assigned to eth1 of r2,True,OK
+Verifying the IP address (192.168.20.10/24) assigned to eth0 of web,True,OK
+Verifying `192.168.10.53` reachable from device `client`,True,OK
+Verifying `192.168.20.10` reachable from device `client`,True,OK
+Verifying `service.local` reachable from device `client`,True,OK
+Checking that named is running on device `dns`,True,OK
+Checking that apache2 is running on device `web`,True,OK
+Checking the routing table of client,True,OK
+Checking the routing table of dns,True,OK
+Checking the routing table of r1,True,OK
+Checking the routing table of r2,True,OK
+Checking the routing table of web,True,OK
+Checking on `dns` that `192.168.10.53` is the authority for domain `service.local`,True,OK
+Checking that `192.168.10.53` is the local name server for device `client`,True,OK
+Checking correctness of DNS records,True,OK
+HTTP check 'http://service.local/' on client status,True,HTTP 200 == 200
