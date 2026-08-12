@@ -1,2 +1,136 @@
 Student Name,Tests Passed,Tests Failed,Tests Total Number,Problems
-candidate,190,0,190,None
+candidate,85,135,220,"1: Verifying the IP address (10.1.1.1/24) assigned to eth0 of r1: The interface `eth0` of `r1` has the following IP addresses: []`.
+2: Verifying the IP address (10.0.12.1/30) assigned to eth1 of r1: The interface `eth1` of `r1` has the following IP addresses: []`.
+3: Verifying the IP address (10.0.13.1/30) assigned to eth2 of r1: The interface `eth2` of `r1` has the following IP addresses: []`.
+4: Verifying the IP address (10.2.2.1/24) assigned to eth0 of r2: The interface `eth0` of `r2` has the following IP addresses: []`.
+5: Verifying the IP address (10.0.12.2/30) assigned to eth1 of r2: The interface `eth1` of `r2` has the following IP addresses: []`.
+6: Verifying the IP address (10.0.24.1/30) assigned to eth2 of r2: The interface `eth2` of `r2` has the following IP addresses: []`.
+7: Verifying the IP address (10.3.3.1/24) assigned to eth0 of r3: The interface `eth0` of `r3` has the following IP addresses: []`.
+8: Verifying the IP address (10.0.13.2/30) assigned to eth1 of r3: The interface `eth1` of `r3` has the following IP addresses: []`.
+9: Verifying the IP address (10.0.34.1/30) assigned to eth2 of r3: The interface `eth2` of `r3` has the following IP addresses: []`.
+10: Verifying the IP address (10.4.4.1/24) assigned to eth0 of r4: The interface `eth0` of `r4` has the following IP addresses: []`.
+11: Verifying the IP address (10.0.24.2/30) assigned to eth1 of r4: The interface `eth1` of `r4` has the following IP addresses: []`.
+12: Verifying the IP address (10.0.34.2/30) assigned to eth2 of r4: The interface `eth2` of `r4` has the following IP addresses: []`.
+13: Verifying the IP address (10.0.45.1/30) assigned to eth3 of r4: The interface `eth3` of `r4` has the following IP addresses: []`.
+14: Verifying the IP address (10.5.5.1/24) assigned to eth0 of r5: The interface `eth0` of `r5` has the following IP addresses: []`.
+15: Verifying the IP address (10.0.45.2/30) assigned to eth1 of r5: The interface `eth1` of `r5` has the following IP addresses: []`.
+16: Verifying `10.2.2.10` reachable from device `pc1a`: `pc1a` does not receive any answer from `10.2.2.10`.
+17: Verifying `10.2.2.11` reachable from device `pc1a`: `pc1a` does not receive any answer from `10.2.2.11`.
+18: Verifying `10.3.3.10` reachable from device `pc1a`: `pc1a` does not receive any answer from `10.3.3.10`.
+19: Verifying `10.3.3.11` reachable from device `pc1a`: `pc1a` does not receive any answer from `10.3.3.11`.
+20: Verifying `10.4.4.10` reachable from device `pc1a`: `pc1a` does not receive any answer from `10.4.4.10`.
+21: Verifying `10.4.4.11` reachable from device `pc1a`: `pc1a` does not receive any answer from `10.4.4.11`.
+22: Verifying `10.5.5.10` reachable from device `pc1a`: `pc1a` does not receive any answer from `10.5.5.10`.
+23: Verifying `10.5.5.11` reachable from device `pc1a`: `pc1a` does not receive any answer from `10.5.5.11`.
+24: Verifying `10.2.2.10` reachable from device `pc1b`: `pc1b` does not receive any answer from `10.2.2.10`.
+25: Verifying `10.2.2.11` reachable from device `pc1b`: `pc1b` does not receive any answer from `10.2.2.11`.
+26: Verifying `10.3.3.10` reachable from device `pc1b`: `pc1b` does not receive any answer from `10.3.3.10`.
+27: Verifying `10.3.3.11` reachable from device `pc1b`: `pc1b` does not receive any answer from `10.3.3.11`.
+28: Verifying `10.4.4.10` reachable from device `pc1b`: `pc1b` does not receive any answer from `10.4.4.10`.
+29: Verifying `10.4.4.11` reachable from device `pc1b`: `pc1b` does not receive any answer from `10.4.4.11`.
+30: Verifying `10.5.5.10` reachable from device `pc1b`: `pc1b` does not receive any answer from `10.5.5.10`.
+31: Verifying `10.5.5.11` reachable from device `pc1b`: `pc1b` does not receive any answer from `10.5.5.11`.
+32: Verifying `10.1.1.10` reachable from device `pc2a`: `pc2a` does not receive any answer from `10.1.1.10`.
+33: Verifying `10.1.1.11` reachable from device `pc2a`: `pc2a` does not receive any answer from `10.1.1.11`.
+34: Verifying `10.3.3.10` reachable from device `pc2a`: `pc2a` does not receive any answer from `10.3.3.10`.
+35: Verifying `10.3.3.11` reachable from device `pc2a`: `pc2a` does not receive any answer from `10.3.3.11`.
+36: Verifying `10.4.4.10` reachable from device `pc2a`: `pc2a` does not receive any answer from `10.4.4.10`.
+37: Verifying `10.4.4.11` reachable from device `pc2a`: `pc2a` does not receive any answer from `10.4.4.11`.
+38: Verifying `10.5.5.10` reachable from device `pc2a`: `pc2a` does not receive any answer from `10.5.5.10`.
+39: Verifying `10.5.5.11` reachable from device `pc2a`: `pc2a` does not receive any answer from `10.5.5.11`.
+40: Verifying `10.1.1.10` reachable from device `pc2b`: `pc2b` does not receive any answer from `10.1.1.10`.
+41: Verifying `10.1.1.11` reachable from device `pc2b`: `pc2b` does not receive any answer from `10.1.1.11`.
+42: Verifying `10.3.3.10` reachable from device `pc2b`: `pc2b` does not receive any answer from `10.3.3.10`.
+43: Verifying `10.3.3.11` reachable from device `pc2b`: `pc2b` does not receive any answer from `10.3.3.11`.
+44: Verifying `10.4.4.10` reachable from device `pc2b`: `pc2b` does not receive any answer from `10.4.4.10`.
+45: Verifying `10.4.4.11` reachable from device `pc2b`: `pc2b` does not receive any answer from `10.4.4.11`.
+46: Verifying `10.5.5.10` reachable from device `pc2b`: `pc2b` does not receive any answer from `10.5.5.10`.
+47: Verifying `10.5.5.11` reachable from device `pc2b`: `pc2b` does not receive any answer from `10.5.5.11`.
+48: Verifying `10.1.1.10` reachable from device `pc3a`: `pc3a` does not receive any answer from `10.1.1.10`.
+49: Verifying `10.1.1.11` reachable from device `pc3a`: `pc3a` does not receive any answer from `10.1.1.11`.
+50: Verifying `10.2.2.10` reachable from device `pc3a`: `pc3a` does not receive any answer from `10.2.2.10`.
+51: Verifying `10.2.2.11` reachable from device `pc3a`: `pc3a` does not receive any answer from `10.2.2.11`.
+52: Verifying `10.4.4.10` reachable from device `pc3a`: `pc3a` does not receive any answer from `10.4.4.10`.
+53: Verifying `10.4.4.11` reachable from device `pc3a`: `pc3a` does not receive any answer from `10.4.4.11`.
+54: Verifying `10.5.5.10` reachable from device `pc3a`: `pc3a` does not receive any answer from `10.5.5.10`.
+55: Verifying `10.5.5.11` reachable from device `pc3a`: `pc3a` does not receive any answer from `10.5.5.11`.
+56: Verifying `10.1.1.10` reachable from device `pc3b`: `pc3b` does not receive any answer from `10.1.1.10`.
+57: Verifying `10.1.1.11` reachable from device `pc3b`: `pc3b` does not receive any answer from `10.1.1.11`.
+58: Verifying `10.2.2.10` reachable from device `pc3b`: `pc3b` does not receive any answer from `10.2.2.10`.
+59: Verifying `10.2.2.11` reachable from device `pc3b`: `pc3b` does not receive any answer from `10.2.2.11`.
+60: Verifying `10.4.4.10` reachable from device `pc3b`: `pc3b` does not receive any answer from `10.4.4.10`.
+61: Verifying `10.4.4.11` reachable from device `pc3b`: `pc3b` does not receive any answer from `10.4.4.11`.
+62: Verifying `10.5.5.10` reachable from device `pc3b`: `pc3b` does not receive any answer from `10.5.5.10`.
+63: Verifying `10.5.5.11` reachable from device `pc3b`: `pc3b` does not receive any answer from `10.5.5.11`.
+64: Verifying `10.1.1.10` reachable from device `pc4a`: `pc4a` does not receive any answer from `10.1.1.10`.
+65: Verifying `10.1.1.11` reachable from device `pc4a`: `pc4a` does not receive any answer from `10.1.1.11`.
+66: Verifying `10.2.2.10` reachable from device `pc4a`: `pc4a` does not receive any answer from `10.2.2.10`.
+67: Verifying `10.2.2.11` reachable from device `pc4a`: `pc4a` does not receive any answer from `10.2.2.11`.
+68: Verifying `10.3.3.10` reachable from device `pc4a`: `pc4a` does not receive any answer from `10.3.3.10`.
+69: Verifying `10.3.3.11` reachable from device `pc4a`: `pc4a` does not receive any answer from `10.3.3.11`.
+70: Verifying `10.5.5.10` reachable from device `pc4a`: `pc4a` does not receive any answer from `10.5.5.10`.
+71: Verifying `10.5.5.11` reachable from device `pc4a`: `pc4a` does not receive any answer from `10.5.5.11`.
+72: Verifying `10.1.1.10` reachable from device `pc4b`: `pc4b` does not receive any answer from `10.1.1.10`.
+73: Verifying `10.1.1.11` reachable from device `pc4b`: `pc4b` does not receive any answer from `10.1.1.11`.
+74: Verifying `10.2.2.10` reachable from device `pc4b`: `pc4b` does not receive any answer from `10.2.2.10`.
+75: Verifying `10.2.2.11` reachable from device `pc4b`: `pc4b` does not receive any answer from `10.2.2.11`.
+76: Verifying `10.3.3.10` reachable from device `pc4b`: `pc4b` does not receive any answer from `10.3.3.10`.
+77: Verifying `10.3.3.11` reachable from device `pc4b`: `pc4b` does not receive any answer from `10.3.3.11`.
+78: Verifying `10.5.5.10` reachable from device `pc4b`: `pc4b` does not receive any answer from `10.5.5.10`.
+79: Verifying `10.5.5.11` reachable from device `pc4b`: `pc4b` does not receive any answer from `10.5.5.11`.
+80: Verifying `10.1.1.10` reachable from device `pc5a`: `pc5a` does not receive any answer from `10.1.1.10`.
+81: Verifying `10.1.1.11` reachable from device `pc5a`: `pc5a` does not receive any answer from `10.1.1.11`.
+82: Verifying `10.2.2.10` reachable from device `pc5a`: `pc5a` does not receive any answer from `10.2.2.10`.
+83: Verifying `10.2.2.11` reachable from device `pc5a`: `pc5a` does not receive any answer from `10.2.2.11`.
+84: Verifying `10.3.3.10` reachable from device `pc5a`: `pc5a` does not receive any answer from `10.3.3.10`.
+85: Verifying `10.3.3.11` reachable from device `pc5a`: `pc5a` does not receive any answer from `10.3.3.11`.
+86: Verifying `10.4.4.10` reachable from device `pc5a`: `pc5a` does not receive any answer from `10.4.4.10`.
+87: Verifying `10.4.4.11` reachable from device `pc5a`: `pc5a` does not receive any answer from `10.4.4.11`.
+88: Verifying `10.1.1.10` reachable from device `pc5b`: `pc5b` does not receive any answer from `10.1.1.10`.
+89: Verifying `10.1.1.11` reachable from device `pc5b`: `pc5b` does not receive any answer from `10.1.1.11`.
+90: Verifying `10.2.2.10` reachable from device `pc5b`: `pc5b` does not receive any answer from `10.2.2.10`.
+91: Verifying `10.2.2.11` reachable from device `pc5b`: `pc5b` does not receive any answer from `10.2.2.11`.
+92: Verifying `10.3.3.10` reachable from device `pc5b`: `pc5b` does not receive any answer from `10.3.3.10`.
+93: Verifying `10.3.3.11` reachable from device `pc5b`: `pc5b` does not receive any answer from `10.3.3.11`.
+94: Verifying `10.4.4.10` reachable from device `pc5b`: `pc5b` does not receive any answer from `10.4.4.10`.
+95: Verifying `10.4.4.11` reachable from device `pc5b`: `pc5b` does not receive any answer from `10.4.4.11`.
+96: Checking the routing table of r1: The routing table of r1 have the wrong number of routes: 0, expected: 7
+97: Checking the routing table of r1: The routing table of r1 is missing route 10.2.2.0/24
+98: Checking the routing table of r1: The routing table of r1 is missing route 10.3.3.0/24
+99: Checking the routing table of r1: The routing table of r1 is missing route 10.4.4.0/24
+100: Checking the routing table of r1: The routing table of r1 is missing route 10.5.5.0/24
+101: Checking the routing table of r1: The routing table of r1 is missing route 10.0.24.0/30
+102: Checking the routing table of r1: The routing table of r1 is missing route 10.0.34.0/30
+103: Checking the routing table of r1: The routing table of r1 is missing route 10.0.45.0/30
+104: Checking the routing table of r2: The routing table of r2 have the wrong number of routes: 0, expected: 7
+105: Checking the routing table of r2: The routing table of r2 is missing route 10.1.1.0/24
+106: Checking the routing table of r2: The routing table of r2 is missing route 10.3.3.0/24
+107: Checking the routing table of r2: The routing table of r2 is missing route 10.4.4.0/24
+108: Checking the routing table of r2: The routing table of r2 is missing route 10.5.5.0/24
+109: Checking the routing table of r2: The routing table of r2 is missing route 10.0.13.0/30
+110: Checking the routing table of r2: The routing table of r2 is missing route 10.0.34.0/30
+111: Checking the routing table of r2: The routing table of r2 is missing route 10.0.45.0/30
+112: Checking the routing table of r3: The routing table of r3 have the wrong number of routes: 0, expected: 7
+113: Checking the routing table of r3: The routing table of r3 is missing route 10.1.1.0/24
+114: Checking the routing table of r3: The routing table of r3 is missing route 10.2.2.0/24
+115: Checking the routing table of r3: The routing table of r3 is missing route 10.4.4.0/24
+116: Checking the routing table of r3: The routing table of r3 is missing route 10.5.5.0/24
+117: Checking the routing table of r3: The routing table of r3 is missing route 10.0.12.0/30
+118: Checking the routing table of r3: The routing table of r3 is missing route 10.0.24.0/30
+119: Checking the routing table of r3: The routing table of r3 is missing route 10.0.45.0/30
+120: Checking the routing table of r4: The routing table of r4 have the wrong number of routes: 0, expected: 6
+121: Checking the routing table of r4: The routing table of r4 is missing route 10.1.1.0/24
+122: Checking the routing table of r4: The routing table of r4 is missing route 10.2.2.0/24
+123: Checking the routing table of r4: The routing table of r4 is missing route 10.3.3.0/24
+124: Checking the routing table of r4: The routing table of r4 is missing route 10.5.5.0/24
+125: Checking the routing table of r4: The routing table of r4 is missing route 10.0.12.0/30
+126: Checking the routing table of r4: The routing table of r4 is missing route 10.0.13.0/30
+127: Checking the routing table of r5: The routing table of r5 have the wrong number of routes: 0, expected: 8
+128: Checking the routing table of r5: The routing table of r5 is missing route 10.1.1.0/24
+129: Checking the routing table of r5: The routing table of r5 is missing route 10.2.2.0/24
+130: Checking the routing table of r5: The routing table of r5 is missing route 10.3.3.0/24
+131: Checking the routing table of r5: The routing table of r5 is missing route 10.4.4.0/24
+132: Checking the routing table of r5: The routing table of r5 is missing route 10.0.12.0/30
+133: Checking the routing table of r5: The routing table of r5 is missing route 10.0.13.0/30
+134: Checking the routing table of r5: The routing table of r5 is missing route 10.0.24.0/30
+135: Checking the routing table of r5: The routing table of r5 is missing route 10.0.34.0/30"

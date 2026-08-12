@@ -1,0 +1,5 @@
+zone "university.edu" {
+    type master;
+    file "/etc/bind/db.university.edu";
+    allow-query { any; };
+};

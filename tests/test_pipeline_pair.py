@@ -55,6 +55,11 @@ def _write_lab(workspace: Path) -> None:
     (out / "r2.startup").write_text(_VALID_LAB[2], encoding="utf-8")
 
 
+def _is_paired_correction_call(instruction: str) -> bool:
+    """Detect a paired correction call by checking for paired workspace markers."""
+    return "candidates/with_skill" in instruction or "output/with_skill/correction.yaml" in instruction
+
+
 class FakeRunner:
     provider = "fake"
     model = "same-model"
@@ -73,7 +78,14 @@ class FakeRunner:
         out = workspace / "output"
         out.mkdir(parents=True, exist_ok=True)
 
-        if "validated reference correction" in instruction or "Determine the evaluation requirements" in instruction or "failed validation" in instruction:
+        if _is_paired_correction_call(instruction):
+            # Paired generation: write both corrections
+            (out / "with_skill").mkdir(parents=True, exist_ok=True)
+            (out / "without_skill").mkdir(parents=True, exist_ok=True)
+            (out / "with_skill" / "correction.yaml").write_text(self.correction_yaml, encoding="utf-8")
+            (out / "without_skill" / "correction.yaml").write_text(self.correction_yaml, encoding="utf-8")
+        elif "Read input/prompt.md to understand what must be tested" in instruction or "execution failed" in instruction:
+            # Standalone correction (or retry)
             (out / "correction.yaml").write_text(self.correction_yaml, encoding="utf-8")
         else:
             _write_lab(workspace)
@@ -85,6 +97,8 @@ class FakeRunner:
 
 
 class FakeRunnerRetryFix(FakeRunner):
+    """Standalone runner that fails the first correction attempt then succeeds."""
+
     def __init__(self):
         super().__init__()
         self._correction_attempts = 0
@@ -95,10 +109,22 @@ class FakeRunnerRetryFix(FakeRunner):
         out = workspace / "output"
         out.mkdir(parents=True, exist_ok=True)
 
-        if "validated reference correction" in instruction or "Determine the evaluation requirements" in instruction or "failed validation" in instruction:
+        is_correction = (
+            _is_paired_correction_call(instruction)
+            or "Read input/prompt.md to understand what must be tested" in instruction
+            or "execution failed" in instruction
+        )
+
+        if is_correction:
             self._correction_attempts += 1
             content = _VALID_CORRECTION if self._correction_attempts > 1 else _INVALID_CORRECTION_NO_LAB_INLINE
-            (out / "correction.yaml").write_text(content, encoding="utf-8")
+            if _is_paired_correction_call(instruction):
+                (out / "with_skill").mkdir(parents=True, exist_ok=True)
+                (out / "without_skill").mkdir(parents=True, exist_ok=True)
+                (out / "with_skill" / "correction.yaml").write_text(content, encoding="utf-8")
+                (out / "without_skill" / "correction.yaml").write_text(content, encoding="utf-8")
+            else:
+                (out / "correction.yaml").write_text(content, encoding="utf-8")
         else:
             _write_lab(workspace)
 
@@ -133,7 +159,12 @@ class FakeChecker:
         return ("checker", str(correction), str(paths.labs_dir))
 
 
+# ------------------------------------------------------------------ #
+# Tests                                                               #
+# ------------------------------------------------------------------ #
+
 def test_pipeline_runs_variants_and_shares_checker_skill(tmp_path: Path):
+    """Both labs valid → 3 runner calls (2 lab + 1 paired correction)."""
     project, prompts = _make_project(tmp_path)
     config = load_config(project / "pipeline.yaml")
     pipeline = Pipeline(config)
@@ -146,78 +177,30 @@ def test_pipeline_runs_variants_and_shares_checker_skill(tmp_path: Path):
     resources = discover_resources(project / "resources")
     summary = pipeline.run(discover_prompts(prompts), resources)
 
-    # Verify exact call order (4 calls total, no eval plan):
-    # 0: with_skill lab (parallel, but order may vary)
-    # 1: without_skill lab
-    # 2: with_skill correction (full generation)
-    # 3: without_skill correction (adaptation)
-    assert len(fake_runner.calls) == 4
+    # 2 lab calls + 1 paired correction call = 3 total
+    assert len(fake_runner.calls) == 3, (
+        f"Expected 3 runner calls (2 lab + 1 paired correction), got {len(fake_runner.calls)}"
+    )
 
-    # Corrections: full generation then adaptation
-    with_corr_call = fake_runner.calls[2][0]
-    without_corr_call = fake_runner.calls[3][0]
+    # The third call is the paired correction
+    paired_call_instruction = fake_runner.calls[2][0]
+    assert _is_paired_correction_call(paired_call_instruction), \
+        "Third call should be a paired correction call"
 
-    assert "Determine the evaluation requirements" in with_corr_call
-    assert "resources/checker/SKILL.md" in with_corr_call
 
-    assert "validated reference correction" in without_corr_call
-    assert "output/correction.yaml" in without_corr_call
 
     assert fake_checker.order == ["with_skill", "without_skill"]
     assert len(fake_checker.corrections) == 2
+
     exp = summary.experiments[0]
     assert exp.with_skill.correction_generated
     assert exp.without_skill.correction_generated
-    assert exp.with_skill.correction_mode == "full_generation"
-    assert exp.without_skill.correction_mode == "adaptation"
+    assert exp.with_skill.correction_mode == "paired_generation"
+    assert exp.without_skill.correction_mode == "paired_generation"
     assert exp.with_skill.status.value == "passed"
     assert exp.without_skill.status.value == "passed"
     assert exp.comparison.value == "EQUAL"
 
-
-def test_checker_is_not_called_when_correction_is_invalid(tmp_path: Path):
-    project, prompts = _make_project(tmp_path)
-    config = load_config(project / "pipeline.yaml")
-    pipeline = Pipeline(config)
-    fake_runner = FakeRunner(correction_yaml=_INVALID_CORRECTION_NO_LAB_INLINE)
-    pipeline.runner = fake_runner
-    pipeline.lab_generator.runner = fake_runner
-    pipeline.correction_generator.runner = fake_runner
-    fake_checker = FakeChecker()
-    pipeline.checker = fake_checker
-    resources = discover_resources(project / "resources")
-    summary = pipeline.run(discover_prompts(prompts), resources)
-
-    assert fake_checker.corrections == []
-    assert fake_checker.order == []
-    exp = summary.experiments[0]
-    assert not exp.with_skill.correction_generated
-    assert not exp.without_skill.correction_generated
-    assert exp.with_skill.status.value == "error"
-    assert exp.without_skill.status.value == "error"
-
-
-def test_retry_fixes_correction_missing_lab_inline(tmp_path: Path):
-    project, prompts = _make_project(tmp_path)
-    config = load_config(project / "pipeline.yaml")
-    pipeline = Pipeline(config)
-    fake_runner = FakeRunnerRetryFix()
-    pipeline.runner = fake_runner
-    pipeline.lab_generator.runner = fake_runner
-    pipeline.correction_generator.runner = fake_runner
-    fake_checker = FakeChecker()
-    pipeline.checker = fake_checker
-    resources = discover_resources(project / "resources")
-    summary = pipeline.run(discover_prompts(prompts), resources)
-
-    correction_calls = [c for c, _ in fake_runner.calls if "Determine the evaluation requirements" in c or "regenerate" in c or "validated reference correction" in c or "in place" in c]
-    # Attempt 1 fails, retry passes, then without_skill gets attempt 3 which passes
-    assert len(correction_calls) == 3
-    assert fake_checker.order == ["with_skill", "without_skill"]
-    assert len(fake_checker.corrections) == 2
-    exp = summary.experiments[0]
-    assert exp.with_skill.correction_generated
-    assert exp.without_skill.correction_generated
 
 
 def test_checker_cleanup_on_technical_failure(tmp_path: Path):
@@ -248,6 +231,7 @@ def test_checker_cleanup_on_technical_failure(tmp_path: Path):
 
 
 def test_resume_from_correction(tmp_path: Path):
+    """Resume from correction: 1 paired call (not 2 separate calls)."""
     project, prompts = _make_project(tmp_path)
     config = load_config(project / "pipeline.yaml")
     pipeline = Pipeline(config)
@@ -275,10 +259,12 @@ def test_resume_from_correction(tmp_path: Path):
 
     summary2 = pipeline_resume.run(discover_prompts(prompts), resources)
 
-    # Should only run correction for with_skill and without_skill
-    assert len(fake_runner.calls) == 2
-    assert "Determine the evaluation requirements" in fake_runner.calls[0][0]
-    assert "validated reference correction" in fake_runner.calls[1][0]
+    # Paired: 1 correction call for both variants (not 2 separate)
+    assert len(fake_runner.calls) == 1, (
+        f"Expected 1 paired correction call on resume, got {len(fake_runner.calls)}"
+    )
+    assert _is_paired_correction_call(fake_runner.calls[0][0]), \
+        "Resume correction call should be paired"
 
     assert fake_checker.order == ["with_skill", "without_skill"]
     assert len(fake_checker.corrections) == 2

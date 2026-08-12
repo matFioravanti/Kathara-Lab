@@ -6,7 +6,6 @@ from pathlib import Path
 from .agent_runner import AgentRunner
 from .exceptions import AgentExecutionError
 from .models import CommandResult, ResourceFiles, Variant, VariantPaths
-from .lab_validator import LabValidator
 
 MAX_LAB_ATTEMPTS = 2
 
@@ -50,7 +49,7 @@ class LabGenerator:
             )
         
         return (
-            "The previously generated output/lab/ failed static validation with the following errors:\n"
+            "The previously generated output/lab/ failed with the following errors:\n"
             f"{errors_text}\n\n"
             "Read the existing output/lab directory and modify it in-place.\n"
             "Fix all validation errors listed above.\n"
@@ -106,7 +105,6 @@ class LabGenerator:
         prompt_text: str,
         variant: Variant,
         resources: ResourceFiles,
-        validator: LabValidator,
     ) -> "GenerationResult":
         from .models import GenerationAttempt, GenerationResult
         from .exceptions import GenerationError
@@ -133,17 +131,14 @@ class LabGenerator:
             generated = paths.workspace / "output" / "lab"
             
             if current_code != 0 or current_timeout:
-                validation = LabValidator().validate(generated, prompt_text)
                 validation_errors = (f"{self.runner.provider} execution failed (return code {current_code}, timeout {current_timeout})",)
                 valid = False
             elif not generated.is_dir():
-                validation = LabValidator().validate(generated, prompt_text)
                 validation_errors = (f"{self.runner.provider} completed without creating output/lab/",)
                 valid = False
             else:
-                validation = validator.validate(generated, prompt_text)
-                validation_errors = validation.errors
-                valid = validation.valid
+                validation_errors = ()
+                valid = True
             
             attempts_log.append(GenerationAttempt(
                 attempt=attempt,

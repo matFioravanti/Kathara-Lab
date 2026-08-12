@@ -1,0 +1,5 @@
+zone "company.test" {
+    type master;
+    file "/etc/bind/db.company.test";
+    allow-query { any; };
+};

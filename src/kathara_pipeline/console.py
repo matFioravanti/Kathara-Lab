@@ -99,21 +99,22 @@ class PipelineConsole:
         self._print(f"    Lab generation:       {format_duration(timings.get('lab_generation_wall_seconds', 0.0))}")
         self._print(f"      with_skill:          {format_duration(with_skill_summary.lab_duration_seconds or 0.0)}")
         self._print(f"      without_skill:       {format_duration(without_skill_summary.lab_duration_seconds or 0.0)}")
-        
+
         self._print(f"    Corrections:          {format_duration(timings.get('corrections_wall_seconds', 0.0))}")
-        
-        if with_skill_summary.correction_mode == "full_generation":
-            fg_dur = with_skill_summary.correction_duration_seconds or 0.0
-            ad_dur = without_skill_summary.correction_duration_seconds or 0.0
+
+        ws_mode = with_skill_summary.correction_mode
+        wo_mode = without_skill_summary.correction_mode
+
+        if ws_mode == "paired_generation" and wo_mode == "paired_generation":
+            paired_dur = timings.get("corrections_wall_seconds", 0.0)
+            self._print(f"      paired_generation:   {format_duration(paired_dur)}")
         else:
-            fg_dur = without_skill_summary.correction_duration_seconds or 0.0
-            ad_dur = with_skill_summary.correction_duration_seconds or 0.0
-            
-        self._print(f"      full_generation:     {format_duration(fg_dur)}")
-        self._print(f"      adaptation:          {format_duration(ad_dur)}")
-        
+            fg_dur = (with_skill_summary.correction_duration_seconds or 0.0) + (without_skill_summary.correction_duration_seconds or 0.0)
+            self._print(f"      full_generation:     {format_duration(fg_dur)}")
+
         self._print(f"    Checkers:             {format_duration(timings.get('checkers_wall_seconds', 0.0))}")
         self._print(f"    Comparison:           {format_duration(timings.get('comparison_seconds', 0.0))}")
         self._print(f"    Pipeline overhead:    {format_duration(timings.get('pipeline_overhead_seconds', 0.0))}")
         self._print(f"    Total:                {format_duration(timings.get('total_wall_seconds', 0.0))}")
+
 

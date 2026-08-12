@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+ip link set eth0 up
+ip addr add 192.168.10.53/24 dev eth0
+ip route add default via 192.168.10.1
+
+# The configuration and zone are versioned with the lab and mounted at /shared.
+export DEBIAN_FRONTEND=noninteractive
+apt-get update
+apt-get install -y bind9 bind9utils
+install -d -o bind -g bind /etc/bind/zones
+install -m 0644 -o root -g bind /shared/named.conf /etc/bind/named.conf
+install -m 0644 -o root -g bind /shared/db.service.local /etc/bind/zones/db.service.local
+named-checkconf
+named-checkzone service.local /etc/bind/zones/db.service.local
+service named restart

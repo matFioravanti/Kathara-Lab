@@ -1,0 +1,4 @@
+#!/bin/bash
+ip addr add 10.10.1.10/24 dev eth0
+ip route replace default via 10.10.1.1
+printf 'nameserver 10.10.1.53\nsearch service.local\n' > /etc/resolv.conf

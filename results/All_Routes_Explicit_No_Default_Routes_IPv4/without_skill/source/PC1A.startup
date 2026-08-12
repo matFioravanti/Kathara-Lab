@@ -1,5 +1,4 @@
 #!/bin/sh
-sysctl -w net.ipv6.conf.all.disable_ipv6=1
 ip link set eth0 up
-ip addr add 192.168.1.11/24 dev eth0
-ip route add default via 192.168.1.1
+ip addr add 192.168.1.10/24 dev eth0
+ip route replace default via 192.168.1.1

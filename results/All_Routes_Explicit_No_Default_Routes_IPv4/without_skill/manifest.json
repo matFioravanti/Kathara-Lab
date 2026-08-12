@@ -1,5 +1,5 @@
 {
-  "canonical_correction_sha256": "087a9121f2b1a64b7f28a9302ea89665432bfa00805e7821d11a43452fcd0bba",
+  "canonical_correction_sha256": "4e42904e89ec2e9ce6017f30cff0b2332b8340af24f9b8abbafe7712caf0eeea",
   "checker": {
     "command": [
       "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
@@ -13,52 +13,18 @@
       "--report-type",
       "csv"
     ],
-    "duration_seconds": 0.4724514999979874,
+    "duration_seconds": 0.3199804999999287,
     "return_code": 1,
     "timed_out": false
   },
   "checker_attempted": true,
   "checker_completed": false,
-  "checker_schema_sha256": "b608b9749a0225c688433d5fa5190d4ff1eb43d72eaa9ab259395f8dbf245894",
-  "checker_skill_sha256": "11683ac87978ebcec2369b190be9f03e37b49fd99291b1ee499325c14d758df4",
-  "correction_calls": 1,
+  "checker_schema_sha256": "841251ca20af61595e8e8521b3de8900dbeadba81cc59e7480765496cad436b0",
+  "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
+  "correction_calls": 0,
   "correction_generated": true,
-  "correction_generation": {
-    "attempts": [
-      {
-        "attempt": 1,
-        "duration_seconds": 274.4607973750026,
-        "return_code": 0,
-        "success": true,
-        "timed_out": false,
-        "validation_errors": []
-      }
-    ],
-    "calls": 1,
-    "duration_seconds": 274.4607973750026,
-    "last_command": [
-      "codex",
-      "exec",
-      "--model",
-      "gpt-5.6-terra",
-      "-c",
-      "model_reasoning_effort=\"low\"",
-      "-c",
-      "approval_policy=\"never\"",
-      "--sandbox",
-      "workspace-write",
-      "--cd",
-      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/correction_without_skill",
-      "--json",
-      "--output-last-message",
-      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/correction_without_skill/.agent-last-message.txt",
-      "--ephemeral",
-      "output/correction.yaml is already a copy of the validated reference correction.\nOpen it and modify it in place.\nDo not recreate the correction from scratch.\nAdapt only candidate-dependent concrete values.\n\nRead the current candidate/ lab and adapt values required for the checks to apply to this laboratory. For example: device names, IP addresses, interface identifiers, gateways, next hops, route destinations, collision domains, lab_inline, router IDs, default_image (if needed), etc.\n\nDo not redesign the evaluation strategy. Preserve the same semantic checks. Do not add or remove checks. The validated reference correction is authoritative for which checks must exist. Do not copy candidate-specific values from the reference correction when they do not match the current candidate.\n\nWrite only YAML with no surrounding prose. Do not create any other output file."
-    ],
-    "retries": 0
-  },
-  "correction_hash": "087a9121f2b1a64b7f28a9302ea89665432bfa00805e7821d11a43452fcd0bba",
-  "correction_mode": "adaptation",
+  "correction_hash": "4e42904e89ec2e9ce6017f30cff0b2332b8340af24f9b8abbafe7712caf0eeea",
+  "correction_mode": "paired_generation",
   "correction_retries": 0,
   "creation_skill_enabled": false,
   "creation_skill_sha256": null,
@@ -70,7 +36,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "duration_seconds": 111.090757416001,
+        "duration_seconds": 88.6307697090001,
         "return_code": 0,
         "success": true,
         "timed_out": false,
@@ -78,7 +44,7 @@
       }
     ],
     "calls": 1,
-    "duration_seconds": 111.090757416001,
+    "duration_seconds": 88.6307697090001,
     "last_command": [
       "codex",
       "exec",
@@ -110,27 +76,27 @@
   "metrics": null,
   "phases": [
     {
-      "at": "2026-08-11T14:18:11.380980Z",
+      "at": "2026-08-12T09:40:12.437111Z",
       "name": "discovered"
     },
     {
-      "at": "2026-08-11T14:18:11.381266Z",
+      "at": "2026-08-12T09:40:12.437377Z",
       "name": "lab_generation_started"
     },
     {
-      "at": "2026-08-11T14:20:02.484196Z",
+      "at": "2026-08-12T09:41:41.077405Z",
       "name": "lab_generated"
     },
     {
-      "at": "2026-08-11T14:20:02.484245Z",
+      "at": "2026-08-12T09:41:41.077451Z",
       "name": "static_validation_passed"
     },
     {
-      "at": "2026-08-11T14:27:34.937590Z",
+      "at": "2026-08-12T09:49:57.646189Z",
       "name": "checker_started"
     },
     {
-      "at": "2026-08-11T14:27:35.410730Z",
+      "at": "2026-08-12T09:49:57.967045Z",
       "name": "error"
     }
   ],

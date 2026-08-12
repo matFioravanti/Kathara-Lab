@@ -6,9 +6,7 @@ from pathlib import Path
 
 from .config import load_config
 from .console import PipelineConsole
-from .correction_validator import CorrectionValidator
 from .exceptions import KatharaFrameworkError
-from .lab_validator import LabValidator
 from .models import ComparisonOutcome, ExperimentSummary, JobStatus, Variant, VariantSummary
 from .pipeline import PIPELINE_VERSION, Pipeline
 from .report_aggregator import write_aggregate
@@ -49,8 +47,6 @@ def _parser() -> argparse.ArgumentParser:
     compare = sub.add_parser("compare", help="Rebuild aggregate reports from persisted pair results")
     compare.add_argument("--output-dir", type=Path)
 
-    validate = sub.add_parser("validate", help="Statically validate persisted artifacts without running agents/checker")
-    validate.add_argument("--output-dir", type=Path)
 
     return parser
 
@@ -114,7 +110,6 @@ def _variant_from_manifest(data: dict, variant: Variant) -> VariantSummary:
         correction_generated=bool(data.get("correction_generated")),
         correction_hash=data.get("correction_hash"),
         lab_generated=bool(data.get("lab_generated")),
-        static_validation_passed=bool(data.get("static_validation_passed")),
         checker_attempted=bool(data.get("checker_attempted")),
         checker_completed=bool(data.get("checker_completed")),
         total_tests=metrics.get("total_tests"),
@@ -222,33 +217,7 @@ def main(argv: list[str] | None = None) -> int:
             print(f"Report aggregati rigenerati per {len(experiments)} coppie in {output / 'summary'}")
             return EXIT_SUCCESS
 
-        if args.command == "validate":
-            lab_validator = LabValidator()
-            correction_validator = CorrectionValidator()
-            invalid = 0
-            checked = 0
-            for root in sorted(output.iterdir()) if output.is_dir() else []:
-                if not root.is_dir() or root.name.startswith(".") or root.name == "summary":
-                    continue
-                prompt = root / "prompt.md"
-                text = prompt.read_text(encoding="utf-8") if prompt.is_file() else ""
-                for name in ("with_skill", "without_skill"):
-                    correction = root / name / "correction" / "correction.yaml"
-                    if correction.is_file():
-                        checked += 1
-                        result = correction_validator.validate(correction)
-                        if not result.valid:
-                            invalid += 1
-                            print(f"{root.name}/{name}/correction: ERROR: {'; '.join(result.errors)}")
-                    source = root / name / "source"
-                    if source.is_dir():
-                        checked += 1
-                        result = lab_validator.validate(source, text)
-                        if not result.valid:
-                            invalid += 1
-                            print(f"{root.name}/{name}: ERROR: {'; '.join(result.errors)}")
-            print(f"Artefatti controllati: {checked}; invalidi: {invalid}")
-            return EXIT_ERROR if invalid else EXIT_SUCCESS
+
 
         raise KatharaFrameworkError("Comando non gestito")
     except KatharaFrameworkError as exc:

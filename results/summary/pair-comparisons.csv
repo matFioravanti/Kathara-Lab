@@ -1,2 +1,2 @@
 experiment_id,prompt_file,outcome,reason,with_skill_pass_percentage,without_skill_pass_percentage,delta_pass_percentage_points
-All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,100.0,,
+All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",EQUAL,Both candidates produced the same checker result.,97.222222,97.222222,0.0

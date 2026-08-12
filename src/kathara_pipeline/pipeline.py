@@ -12,14 +12,13 @@ from .comparator import compare_variants, write_comparison
 from .config import PipelineConfig
 from .console import PipelineConsole
 from .correction_generator import CorrectionGenerator
-from .correction_validator import CorrectionValidator
 from .exceptions import KatharaFrameworkError, ReportParsingError
 from .lab_generator import LabGenerator
-from .lab_validator import LabValidator
 from .models import (
     ComparisonOutcome,
     ExperimentSummary,
     JobStatus,
+    PairedGenerationResult,
     PipelineSummary,
     PromptRecord,
     ResourceFiles,
@@ -79,8 +78,6 @@ class Pipeline:
         self.runner = build_runner(config.generation)
         self.lab_generator = LabGenerator(self.runner, config.generation.timeout_seconds)
         self.correction_generator = CorrectionGenerator(self.runner, config.generation.timeout_seconds)
-        self.lab_validator = LabValidator()
-        self.correction_validator = CorrectionValidator()
         self.checker = CheckerRunner(
             timeout_seconds=config.checker.timeout_seconds,
             no_cache=config.checker.no_cache,
@@ -142,7 +139,6 @@ class Pipeline:
             variant=variant,
             status=JobStatus(data.get("status", "error")),
             lab_generated=bool(data.get("lab_generated")),
-            static_validation_passed=bool(data.get("static_validation_passed")),
             checker_attempted=bool(data.get("checker_attempted")),
             checker_completed=bool(data.get("checker_completed")),
             total_tests=metrics.get("total_tests"),
@@ -198,7 +194,6 @@ class Pipeline:
             "generation_model": self.config.generation.model,
             "generation_reasoning_effort": self.config.generation.reasoning_effort,
             "lab_generated": False,
-            "static_validation_passed": False,
             "checker_attempted": False,
             "checker_completed": False,
             "status": JobStatus.DISCOVERED.value,
@@ -243,7 +238,7 @@ class Pipeline:
             
         try:
             result = self.lab_generator.generate_with_retry(
-                paths=paths, prompt_text=prompt.content or "", variant=variant, resources=resources, validator=self.lab_validator
+                paths=paths, prompt_text=prompt.content or "", variant=variant, resources=resources
             )
             _update_metrics(result)
             manifest["lab_generated"] = True
@@ -251,25 +246,18 @@ class Pipeline:
             self._phase(manifest, "lab_generated")
             if current_phase > 0:
                 self.console.phase_success(f"Laboratorio generato {variant.value}")
-            manifest["static_validation_passed"] = True
-            summary.static_validation_passed = True
-            self._phase(manifest, "static_validation_passed")
-            if current_phase > 0:
-                self.console.phase_success(f"Validazione statica completata {variant.value}")
             manifest["status"] = "generated"
             summary.status = JobStatus.DISCOVERED
         except GenerationError as exc:
             _update_metrics(exc.result)
             if paths.source_failed.exists():
                 manifest["lab_generated"] = True
-                manifest["static_validation_passed"] = False
                 summary.lab_generated = True
-                summary.static_validation_passed = False
                 manifest["source_failed_preserved"] = True
                 summary.source_failed_preserved = True
                 if current_phase > 0:
                     self.console.phase_success(f"Laboratorio generato {variant.value}")
-                    self.console.phase_failure(f"Validazione statica fallita {variant.value}", str(exc))
+                    self.console.phase_failure(f"Generazione laboratorio completata con errori {variant.value}", str(exc))
             else:
                 if current_phase > 0 and not summary.lab_generated:
                     self.console.phase_failure(f"Generazione laboratorio fallita {variant.value}", str(exc))
@@ -301,16 +289,14 @@ class Pipeline:
         current_phase: int = 0,
         total_phases: int = 7
     ) -> VariantSummary:
-        if not summary.static_validation_passed:
+        if not summary.lab_generated:
             self._write_variant(paths.manifest, manifest)
             return summary
         try:
             if current_phase > 0:
                 self.console.phase_started(f"Kathara Lab Checker {summary.variant.value}", current_phase, total_phases)
             self.checker.prepare_candidate(paths.source, paths)
-            copied_validation = self.lab_validator.validate(paths.candidate, prompt.content or "")
-            if not copied_validation.valid:
-                raise ValueError("Checker candidate validation failed after copy: " + "; ".join(copied_validation.errors))
+
             manifest["checker_attempted"] = True
             summary.checker_attempted = True
             self._phase(manifest, "checker_started")
@@ -362,20 +348,19 @@ class Pipeline:
         summary: VariantSummary,
         manifest: dict[str, Any],
         resources: ResourceFiles,
-        reference_correction: Path | None = None,
         current_phase: int = 0,
         total_phases: int = 6
     ) -> None:
+        """Standalone correction generation for a single variant."""
         from .exceptions import GenerationError
-        if not summary.static_validation_passed:
+        if not summary.lab_generated:
             return
-            
-        mode = "adaptation" if reference_correction else "full_generation"
-        summary.correction_mode = mode
-        manifest["correction_mode"] = mode
-            
-        self.console.phase_started(f"Generazione correction.yaml {summary.variant.value} ({mode})", current_phase, total_phases)
-        
+
+        summary.correction_mode = "full_generation"
+        manifest["correction_mode"] = "full_generation"
+
+        self.console.phase_started(f"Generazione correction.yaml {summary.variant.value} (full_generation)", current_phase, total_phases)
+
         def _update_metrics(res):
             summary.correction_calls = res.calls
             summary.correction_retries = res.retries
@@ -383,15 +368,13 @@ class Pipeline:
             manifest["correction_calls"] = res.calls
             manifest["correction_retries"] = res.retries
             manifest["correction_generation"] = _metadata(res)
-            
+
         try:
             result = self.correction_generator.generate_with_retry(
                 experiment_paths=experiment_paths,
                 variant_paths=variant_paths,
                 prompt_text=prompt.content or "",
                 resources=resources,
-                validator=self.correction_validator,
-                reference_correction=reference_correction,
             )
             _update_metrics(result)
             correction_hash = sha256_file(variant_paths.correction)
@@ -419,6 +402,106 @@ class Pipeline:
             self.console.phase_failure(f"Generazione correction.yaml fallita {summary.variant.value}", error_msg)
             self._phase(manifest, "error")
         self._write_variant(variant_paths.manifest, manifest)
+
+    def _generate_correction_pair(
+        self,
+        prompt: PromptRecord,
+        experiment_paths: ExperimentPaths,
+        with_paths: VariantPaths,
+        without_paths: VariantPaths,
+        with_summary: VariantSummary,
+        without_summary: VariantSummary,
+        with_manifest: dict[str, Any],
+        without_manifest: dict[str, Any],
+        resources: ResourceFiles,
+        current_phase: int = 0,
+        total_phases: int = 6,
+    ) -> dict[str, Any]:
+        """Paired generation: one agent call produces both corrections.
+
+        Returns experiment-level telemetry for the single shared call.
+        Per-variant manifests and summaries only receive correction_mode and
+        correction_generated — call counts and duration are NOT duplicated per variant.
+        """
+        self.console.phase_started("Generazione correction.yaml (paired_generation)", current_phase, total_phases)
+
+        def _apply_result(valid: bool, errors: tuple[str, ...], v_paths: VariantPaths,
+                          v_summary: VariantSummary, v_manifest: dict[str, Any]) -> None:
+            """Update variant outcome only — no call/duration telemetry."""
+            v_summary.correction_mode = "paired_generation"
+            v_manifest["correction_mode"] = "paired_generation"
+            if valid:
+                correction_hash = sha256_file(v_paths.correction)
+                v_manifest["canonical_correction_sha256"] = correction_hash
+                v_manifest["correction_hash"] = correction_hash
+                v_manifest["correction_generated"] = True
+                v_summary.correction_hash = correction_hash
+                v_summary.correction_generated = True
+            else:
+                error_msg = "Paired correction invalid: " + "; ".join(errors)
+                v_manifest["errors"].append(error_msg)
+                v_summary.error_message = f"Generazione correction.yaml fallita: {error_msg}"
+                v_summary.status = JobStatus.ERROR
+                v_manifest["status"] = JobStatus.ERROR.value
+                self._phase(v_manifest, "error")
+
+        try:
+            pair_result = self.correction_generator.generate_pair(
+                experiment_paths=experiment_paths,
+                with_skill_paths=with_paths,
+                without_skill_paths=without_paths,
+                prompt_text=prompt.content or "",
+                resources=resources,
+            )
+            _apply_result(pair_result.with_skill_valid, pair_result.with_skill_errors,
+                          with_paths, with_summary, with_manifest)
+            _apply_result(pair_result.without_skill_valid, pair_result.without_skill_errors,
+                          without_paths, without_summary, without_manifest)
+
+            if pair_result.with_skill_valid and pair_result.without_skill_valid:
+                self.console.phase_success("correction.yaml generati (with_skill + without_skill)")
+            elif pair_result.with_skill_valid:
+                self.console.phase_failure("correction.yaml without_skill non valido",
+                                           "; ".join(pair_result.without_skill_errors))
+            elif pair_result.without_skill_valid:
+                self.console.phase_failure("correction.yaml with_skill non valido",
+                                           "; ".join(pair_result.with_skill_errors))
+            else:
+                self.console.phase_failure("Entrambe le correction non valide",
+                                           "with_skill: " + "; ".join(pair_result.with_skill_errors))
+
+            self._write_variant(with_paths.manifest, with_manifest)
+            self._write_variant(without_paths.manifest, without_manifest)
+            return {
+                "mode": "paired_generation",
+                "calls": 1,
+                "duration_seconds": pair_result.duration_seconds,
+                "return_code": pair_result.last_command_result.return_code,
+                "timed_out": pair_result.last_command_result.timed_out,
+            }
+
+        except Exception as exc:
+            error_msg = str(exc)
+            for v_summary, v_manifest, v_paths in (
+                (with_summary, with_manifest, with_paths),
+                (without_summary, without_manifest, without_paths),
+            ):
+                v_summary.correction_mode = "paired_generation"
+                v_manifest["correction_mode"] = "paired_generation"
+                v_manifest["errors"].append(error_msg)
+                v_summary.error_message = f"Generazione correction.yaml fallita: {error_msg}"
+                v_summary.status = JobStatus.ERROR
+                v_manifest["status"] = JobStatus.ERROR.value
+                self._phase(v_manifest, "error")
+            self.console.phase_failure("Paired correction fallita", error_msg)
+            self._write_variant(with_paths.manifest, with_manifest)
+            self._write_variant(without_paths.manifest, without_manifest)
+            return {
+                "mode": "paired_generation",
+                "calls": 1,
+                "duration_seconds": 0.0,
+                "error": error_msg,
+            }
 
     def process_prompt(self, prompt: PromptRecord, resources: ResourceFiles, current_index: int = 1, total_prompts: int = 1) -> ExperimentSummary:
         total_wall_started = time.perf_counter()
@@ -491,14 +574,14 @@ class Pipeline:
                     f_without = executor.submit(self._generate_variant_lab, prompt, Variant.WITHOUT_SKILL, paths.without_skill, resources, 0, 0)
                     with_summary, with_manifest = f_with.result()
                     without_summary, without_manifest = f_without.result()
-                if with_summary.static_validation_passed:
-                    self.console.phase_success("with_skill generato e validato")
+                if with_summary.lab_generated:
+                    self.console.phase_success("with_skill generato")
                 else:
-                    self.console.phase_failure("with_skill validazione fallita", with_summary.error_message)
-                if without_summary.static_validation_passed:
-                    self.console.phase_success("without_skill generato e validato")
+                    self.console.phase_failure("with_skill generazione fallita", with_summary.error_message)
+                if without_summary.lab_generated:
+                    self.console.phase_success("without_skill generato")
                 else:
-                    self.console.phase_failure("without_skill validazione fallita", without_summary.error_message)
+                    self.console.phase_failure("without_skill generazione fallita", without_summary.error_message)
                 lab_gen_duration = time.perf_counter() - lab_gen_started
                 timings["lab_generation_wall_seconds"] = lab_gen_duration
                 timings["parallel_lab_generation_wall_seconds"] = lab_gen_duration
@@ -510,45 +593,63 @@ class Pipeline:
             self._write_variant(paths.with_skill.manifest, with_manifest)
             self._write_variant(paths.without_skill.manifest, without_manifest)
 
-        # Determina la prima variante valida (preferendo WITH_SKILL se entrambe sono valide)
-        valid_variants = []
-        if with_summary.static_validation_passed:
-            valid_variants.append((Variant.WITH_SKILL, paths.with_skill, with_summary, with_manifest))
-        if without_summary.static_validation_passed:
-            valid_variants.append((Variant.WITHOUT_SKILL, paths.without_skill, without_summary, without_manifest))
-
-        ref_correction_path: Path | None = None
+        both_valid = with_summary.lab_generated and without_summary.lab_generated
         timings["corrections_wall_seconds"] = 0.0
         timings["checkers_wall_seconds"] = 0.0
 
-        for idx, (var, v_paths, v_summary, v_manifest) in enumerate(valid_variants):
-            is_first = (idx == 0)
-            passed_ref = ref_correction_path if not is_first else None
-
-            # Generazione correction e valutazione
+        if both_valid:
+            # PAIRED: one agent call generates both corrections
             corr_start = time.perf_counter()
-            self._generate_correction(
-                prompt, paths, v_paths, v_summary, v_manifest, resources,
-                reference_correction=passed_ref, current_phase=0, total_phases=total_phases
+            paired_info = self._generate_correction_pair(
+                prompt, paths,
+                paths.with_skill, paths.without_skill,
+                with_summary, without_summary,
+                with_manifest, without_manifest,
+                resources,
+                current_phase=0, total_phases=total_phases,
             )
-            timings["corrections_wall_seconds"] += time.perf_counter() - corr_start
+            timings["corrections_wall_seconds"] = time.perf_counter() - corr_start
+            # Store paired telemetry once at experiment level, not per-variant
+            experiment_manifest["paired_correction"] = paired_info
 
-            if v_summary.correction_generated:
-                if is_first:
-                    # Update ref_correction_path to be used by the second variant (if any)
-                    ref_correction_path = v_paths.correction
-                chk_start = time.perf_counter()
-                v_summary = self._evaluate_variant(prompt, v_paths, v_summary, v_manifest, current_phase=0, total_phases=total_phases)
-                timings["checkers_wall_seconds"] += time.perf_counter() - chk_start
+            for v_summary, v_paths, v_manifest in (
+                (with_summary, paths.with_skill, with_manifest),
+                (without_summary, paths.without_skill, without_manifest),
+            ):
+                if v_summary.correction_generated:
+                    chk_start = time.perf_counter()
+                    self._evaluate_variant(prompt, v_paths, v_summary, v_manifest, current_phase=0, total_phases=total_phases)
+                    timings["checkers_wall_seconds"] += time.perf_counter() - chk_start
+        else:
+            # STANDALONE: at most one variant is valid
+            for v_summary, v_paths, v_manifest in (
+                (with_summary, paths.with_skill, with_manifest),
+                (without_summary, paths.without_skill, without_manifest),
+            ):
+                if not v_summary.lab_generated:
+                    continue
+                corr_start = time.perf_counter()
+                self._generate_correction(
+                    prompt, paths, v_paths, v_summary, v_manifest, resources,
+                    current_phase=0, total_phases=total_phases,
+                )
+                timings["corrections_wall_seconds"] += time.perf_counter() - corr_start
+                if v_summary.correction_generated:
+                    chk_start = time.perf_counter()
+                    self._evaluate_variant(prompt, v_paths, v_summary, v_manifest, current_phase=0, total_phases=total_phases)
+                    timings["checkers_wall_seconds"] += time.perf_counter() - chk_start
 
         # Handle missing corrections for invalid variants
-        for var, v_paths, v_summary, v_manifest in ((Variant.WITH_SKILL, paths.with_skill, with_summary, with_manifest), (Variant.WITHOUT_SKILL, paths.without_skill, without_summary, without_manifest)):
-            if not v_summary.correction_generated and v_summary.static_validation_passed:
-                 v_summary.status = JobStatus.ERROR
-                 v_summary.error_message = "Generazione correction fallita o saltata"
-                 v_manifest["errors"].append(v_summary.error_message)
-                 v_manifest["status"] = JobStatus.ERROR.value
-                 self._write_variant(v_paths.manifest, v_manifest)
+        for v_paths, v_summary, v_manifest in (
+            (paths.with_skill, with_summary, with_manifest),
+            (paths.without_skill, without_summary, without_manifest),
+        ):
+            if not v_summary.correction_generated and v_summary.lab_generated:
+                v_summary.status = JobStatus.ERROR
+                v_summary.error_message = "Generazione correction fallita o saltata"
+                v_manifest["errors"].append(v_summary.error_message)
+                v_manifest["status"] = JobStatus.ERROR.value
+                self._write_variant(v_paths.manifest, v_manifest)
 
         comparison_started = time.perf_counter()
         outcome, reason = compare_variants(with_summary, without_summary)

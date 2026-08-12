@@ -1,33 +1,33 @@
 {
-  "comparable_pairs": 0,
-  "incomparable_pairs": 1,
+  "comparable_pairs": 1,
+  "incomparable_pairs": 0,
   "quality": {
     "paired": {
-      "mean_delta_pass_percentage_points": null,
-      "median_delta_pass_percentage_points": null,
+      "mean_delta_pass_percentage_points": 0.0,
+      "median_delta_pass_percentage_points": 0.0,
       "outcomes": {
-        "EQUAL": 0,
-        "INCOMPARABLE": 1,
+        "EQUAL": 1,
+        "INCOMPARABLE": 0,
         "WITHOUT_SKILL_BETTER": 0,
         "WITH_SKILL_BETTER": 0
       }
     },
     "with_skill": {
-      "mean_pass_percentage": 100.0,
-      "median_pass_percentage": 100.0,
+      "mean_pass_percentage": 97.222222,
+      "median_pass_percentage": 97.222222,
       "status_counts": {
         "error": 0,
-        "failed": 0,
-        "passed": 1,
+        "failed": 1,
+        "passed": 0,
         "skipped": 0
       }
     },
     "without_skill": {
-      "mean_pass_percentage": null,
-      "median_pass_percentage": null,
+      "mean_pass_percentage": 97.222222,
+      "median_pass_percentage": 97.222222,
       "status_counts": {
-        "error": 1,
-        "failed": 0,
+        "error": 0,
+        "failed": 1,
         "passed": 0,
         "skipped": 0
       }
@@ -36,14 +36,14 @@
   "technical_reliability": {
     "with_skill_checker_completion_rate": 100.0,
     "with_skill_errors": 0,
-    "without_skill_checker_completion_rate": 0.0,
-    "without_skill_errors": 1
+    "without_skill_checker_completion_rate": 100.0,
+    "without_skill_errors": 0
   },
   "time": {
-    "with_skill_mean_checker_seconds": 21.508869,
-    "with_skill_mean_generation_seconds": 115.71341,
-    "without_skill_mean_checker_seconds": 0.472451,
-    "without_skill_mean_generation_seconds": 111.090757
+    "with_skill_mean_checker_seconds": 21.780689,
+    "with_skill_mean_generation_seconds": 149.982165,
+    "without_skill_mean_checker_seconds": 21.352668,
+    "without_skill_mean_generation_seconds": 102.31349
   },
   "total_prompts": 1
 }

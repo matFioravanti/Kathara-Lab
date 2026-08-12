@@ -3,12 +3,12 @@
   "comparison_reason": "Both checker runs must complete successfully for a paired quality comparison.",
   "complete": true,
   "experiment_id": "All_Routes_Explicit_No_Default_Routes_IPv4",
-  "finished_at": "2026-08-11T14:27:35.413375Z",
+  "finished_at": "2026-08-12T09:49:57.969776Z",
   "identity": {
     "checker_report_type": "csv",
     "checker_runtime": "kathara-lab-checker==0.1.14",
-    "checker_schema_sha256": "b608b9749a0225c688433d5fa5190d4ff1eb43d72eaa9ab259395f8dbf245894",
-    "checker_skill_sha256": "11683ac87978ebcec2369b190be9f03e37b49fd99291b1ee499325c14d758df4",
+    "checker_schema_sha256": "841251ca20af61595e8e8521b3de8900dbeadba81cc59e7480765496cad436b0",
+    "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
     "command": "codex",
     "creation_skill_sha256": "bf4daac809c4088ad9106268c093cca9c41f79e95dba4113f108c0298d85b996",
     "model": "gpt-5.6-terra",
@@ -18,8 +18,15 @@
     "reasoning_effort": "low",
     "sandbox": "workspace-write"
   },
+  "paired_correction": {
+    "calls": 1,
+    "duration_seconds": 178.8091290000002,
+    "mode": "paired_generation",
+    "return_code": 0,
+    "timed_out": false
+  },
   "pipeline_version": "0.5.0",
   "prompt_file": "All Routes Explicit, No Default Routes, IPv4.md",
   "prompt_sha256": "d55a80ef2afda10dacb80145c84498288635e3ca760287d6f4bf0740c0f7b891",
-  "started_at": "2026-08-11T14:18:11.376233Z"
+  "started_at": "2026-08-12T09:40:12.397970Z"
 }

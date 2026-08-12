@@ -74,17 +74,26 @@ class TimingFakeRunner:
         out = workspace / "output"
         out.mkdir(parents=True, exist_ok=True)
 
-        if "validated reference correction" in instruction or "Determine the evaluation requirements" in instruction or "failed validation" in instruction:
-            self.clock.advance(40.0) # correction duration
-            (out / "correction.yaml").write_text(_VALID_CORRECTION, encoding="utf-8")
+        is_paired = "candidates/with_skill" in instruction or "output/with_skill/correction.yaml" in instruction
+        is_correction = is_paired or "Read input/prompt.md to understand what must be tested" in instruction or "execution failed" in instruction
+
+        if is_correction:
+            self.clock.advance(40.0)  # correction duration (single call)
+            if is_paired:
+                (out / "with_skill").mkdir(parents=True, exist_ok=True)
+                (out / "without_skill").mkdir(parents=True, exist_ok=True)
+                (out / "with_skill" / "correction.yaml").write_text(_VALID_CORRECTION, encoding="utf-8")
+                (out / "without_skill" / "correction.yaml").write_text(_VALID_CORRECTION, encoding="utf-8")
+            else:
+                (out / "correction.yaml").write_text(_VALID_CORRECTION, encoding="utf-8")
             duration = 40.0
         else:
             # lab generation
             if "WITHOUT" in str(workspace) or "without_skill" in str(workspace):
-                self.clock.advance(130.0) # without_skill duration
+                self.clock.advance(130.0)  # without_skill duration
                 duration = 130.0
             else:
-                self.clock.advance(100.0) # with_skill duration
+                self.clock.advance(100.0)  # with_skill duration
                 duration = 100.0
             _write_lab(workspace)
 
@@ -136,12 +145,15 @@ def test_pipeline_timing_sequential(tmp_path: Path, monkeypatch):
     # Check durations matched in variants
     assert exp.with_skill.lab_duration_seconds == 100.0
     assert exp.without_skill.lab_duration_seconds == 130.0
-    assert exp.with_skill.correction_duration_seconds == 40.0
-    assert exp.without_skill.correction_duration_seconds == 40.0
+    # Paired correction: duration is stored at experiment level, not per-variant
+    assert exp.with_skill.correction_duration_seconds is None
+    assert exp.without_skill.correction_duration_seconds is None
     assert exp.with_skill.checker_duration_seconds == 25.0
     assert exp.without_skill.checker_duration_seconds == 25.0
 
-    assert exp.timings["corrections_wall_seconds"] >= 80.0
+    # Paired: corrections_wall_seconds >= 40.0 (one call, not two)
+    assert exp.timings["corrections_wall_seconds"] >= 40.0
+    assert exp.timings["corrections_wall_seconds"] < 90.0, "corrections_wall_seconds should reflect one paired call, not two"
     assert exp.timings["checkers_wall_seconds"] >= 50.0
     assert exp.timings["pipeline_overhead_seconds"] >= 0.0
 
@@ -157,7 +169,14 @@ def test_pipeline_timing_sequential(tmp_path: Path, monkeypatch):
     exp_dir = config.paths.output / prompts[0].experiment_id
     with_manifest = json.loads((exp_dir / "with_skill" / "manifest.json").read_text())
     assert with_manifest["generation"]["duration_seconds"] == 100.0
-    assert with_manifest["correction_generation"]["duration_seconds"] == 40.0
+    # Paired: variant manifest has mode but NOT correction_calls (stays 0, never incremented)
+    assert with_manifest["correction_mode"] == "paired_generation"
+    assert with_manifest["correction_calls"] == 0
+    # Paired telemetry lives in the experiment manifest
+    exp_manifest = json.loads((exp_dir / "experiment.json").read_text())
+    assert exp_manifest["paired_correction"]["calls"] == 1
+    assert exp_manifest["paired_correction"]["mode"] == "paired_generation"
+    assert exp_manifest["paired_correction"]["duration_seconds"] == 40.0
 
 
 def test_pipeline_timing_parallel(tmp_path: Path, monkeypatch):
@@ -175,11 +194,20 @@ def test_pipeline_timing_parallel(tmp_path: Path, monkeypatch):
             def build_command(self, *, instruction, workspace, output_last_message):
                 return ("fake", instruction)
             def run(self, *, instruction, workspace, output_last_message, stdout_log, stderr_log, timeout_seconds):
-                if "validated reference correction" in instruction or "Determine the evaluation requirements" in instruction or "failed validation" in instruction:
+                is_paired = "candidates/with_skill" in instruction or "output/with_skill/correction.yaml" in instruction
+                is_correction = is_paired or "Read input/prompt.md to understand what must be tested" in instruction or "execution failed" in instruction
+
+                if is_correction:
                     time.sleep(0.04)
                     out = workspace / "output"
                     out.mkdir(parents=True, exist_ok=True)
-                    (out / "correction.yaml").write_text(_VALID_CORRECTION, encoding="utf-8")
+                    if is_paired:
+                        (out / "with_skill").mkdir(parents=True, exist_ok=True)
+                        (out / "without_skill").mkdir(parents=True, exist_ok=True)
+                        (out / "with_skill" / "correction.yaml").write_text(_VALID_CORRECTION, encoding="utf-8")
+                        (out / "without_skill" / "correction.yaml").write_text(_VALID_CORRECTION, encoding="utf-8")
+                    else:
+                        (out / "correction.yaml").write_text(_VALID_CORRECTION, encoding="utf-8")
                     duration = 0.04
                 else:
                     if "WITHOUT" in str(workspace) or "without_skill" in str(workspace):

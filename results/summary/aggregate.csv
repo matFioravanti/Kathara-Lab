@@ -1,2 +1,2 @@
 total_prompts,comparable_pairs,incomparable_pairs,with_skill_better,without_skill_better,equal,mean_delta_pass_percentage_points
-1,0,1,0,0,0,
+1,1,0,0,0,1,0.0

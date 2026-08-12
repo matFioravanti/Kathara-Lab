@@ -1,0 +1,3 @@
+Created the complete Kathara lab in [output/lab](/Users/matthew/Desktop/A-Tesi/results/Client_Reaches_Web_Server_by_Name_IPv4_Simple_DNS/.workspaces/with_skill/output/lab).
+
+It includes static routing, authoritative BIND DNS for `service.local`, Apache HTTP service, persistent configuration files, and a README with validation commands. Static file and shell-syntax checks passed.

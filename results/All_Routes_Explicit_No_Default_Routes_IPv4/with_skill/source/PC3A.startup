@@ -1,4 +1,4 @@
 #!/bin/sh
-sysctl -w net.ipv6.conf.all.disable_ipv6=1
-ip addr add 10.10.3.11/24 dev eth0
-ip route replace default via 10.10.3.1
+set -e
+ip addr add 10.3.3.10/24 dev eth0
+ip route add default via 10.3.3.1

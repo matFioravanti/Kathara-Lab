@@ -5,11 +5,11 @@ import pytest
 
 from kathara_pipeline.exceptions import AgentExecutionError
 from kathara_pipeline.lab_generator import LabGenerator
-from kathara_pipeline.lab_validator import LabValidator
+
 from kathara_pipeline.models import CommandResult, ResourceFiles, Variant, VariantPaths
 
 
-def test_retry_after_lab_validator_failure(tmp_path: Path):
+def test_retry_after_generation_failure(tmp_path: Path):
     runner = Mock()
     def side_effect(*args, **kwargs):
         workspace = kwargs["workspace"]
@@ -20,19 +20,17 @@ def test_retry_after_lab_validator_failure(tmp_path: Path):
         generated = workspace / "output" / "lab"
         generated.mkdir(parents=True, exist_ok=True)
         if attempt == 1:
-            # A placeholder token will cause the new sanity validator to reject this lab
-            (generated / "lab.conf").write_text('r1[0]="A"\nTODO: fix routing\n')
             (generated / "KEEP_ME.txt").write_text("sentinel")
+            return_code = 1
         else:
-            # Physically verify the sentinel exists BEFORE doing anything
             assert (generated / "KEEP_ME.txt").exists(), "output/lab/ was wiped before attempt 2!"
             assert (generated / "KEEP_ME.txt").read_text() == "sentinel"
-
             (generated / "lab.conf").write_text('r1[0]="A"\n')
+            return_code = 0
 
         return CommandResult(
             command=("agent",),
-            return_code=0,
+            return_code=return_code,
             duration_seconds=1.0,
             timed_out=False,
             stdout="",
@@ -42,7 +40,6 @@ def test_retry_after_lab_validator_failure(tmp_path: Path):
     runner.run.side_effect = side_effect
 
     generator = LabGenerator(runner, timeout_seconds=10)
-    validator = LabValidator()
     
     paths = VariantPaths(
         root=tmp_path / "root",
@@ -79,7 +76,6 @@ def test_retry_after_lab_validator_failure(tmp_path: Path):
         prompt_text="test",
         variant=Variant.WITH_SKILL,
         resources=resources,
-        validator=validator,
     )
     
     assert result.success
@@ -88,13 +84,13 @@ def test_retry_after_lab_validator_failure(tmp_path: Path):
     
     # Assert second run used the retry instruction
     second_call_instruction = runner.run.call_args_list[1].kwargs["instruction"]
-    assert "failed static validation with the following errors" in second_call_instruction
+    assert "failed with the following errors" in second_call_instruction
     assert "modify it in-place" in second_call_instruction
     assert "Preserve every valid part" in second_call_instruction
     assert "Do not rebuild unrelated files" in second_call_instruction
 
 
-def test_final_invalid_lab_is_preserved_in_source_failed(tmp_path: Path):
+def test_final_failed_lab_is_preserved_in_source_failed(tmp_path: Path):
     runner = Mock()
     # Mock runner.run to simulate agent generating an invalid lab on ALL attempts
     def side_effect(*args, **kwargs):
@@ -106,7 +102,7 @@ def test_final_invalid_lab_is_preserved_in_source_failed(tmp_path: Path):
 
         return CommandResult(
             command=("agent",),
-            return_code=0,
+            return_code=1,
             duration_seconds=1.0,
             timed_out=False,
             stdout="",
@@ -116,7 +112,6 @@ def test_final_invalid_lab_is_preserved_in_source_failed(tmp_path: Path):
     runner.run.side_effect = side_effect
 
     generator = LabGenerator(runner, timeout_seconds=10)
-    validator = LabValidator()
     
     paths = VariantPaths(
         root=tmp_path / "root",
@@ -155,7 +150,6 @@ def test_final_invalid_lab_is_preserved_in_source_failed(tmp_path: Path):
             prompt_text="test",
             variant=Variant.WITH_SKILL,
             resources=resources,
-            validator=validator,
         )
         
     assert runner.run.call_count == 2

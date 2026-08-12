@@ -1,0 +1,4 @@
+#!/bin/sh
+# Left LAN client 1
+ip addr add 192.168.10.10/24 dev eth0
+ip route add default via 192.168.10.1

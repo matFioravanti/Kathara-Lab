@@ -1,13 +1,15 @@
 {
-  "failed_tests": 0,
-  "failure_categories": {},
-  "pass_percentage": 100.0,
-  "passed_tests": 190,
+  "failed_tests": 135,
+  "failure_categories": {
+    "uncategorized": 135
+  },
+  "pass_percentage": 38.636364,
+  "passed_tests": 85,
   "reports_found": [
     "results.csv",
     "candidate_result_all.csv",
     "candidate_result_failed.csv",
     "candidate_result_summary.csv"
   ],
-  "total_tests": 190
+  "total_tests": 220
 }

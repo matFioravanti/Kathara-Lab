@@ -1,0 +1,94 @@
+{
+  "canonical_correction_sha256": null,
+  "checker": null,
+  "checker_attempted": false,
+  "checker_completed": false,
+  "checker_schema_sha256": "841251ca20af61595e8e8521b3de8900dbeadba81cc59e7480765496cad436b0",
+  "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
+  "correction_calls": 0,
+  "correction_generated": false,
+  "correction_hash": null,
+  "correction_mode": null,
+  "correction_retries": 0,
+  "creation_skill_enabled": true,
+  "creation_skill_sha256": "bf4daac809c4088ad9106268c093cca9c41f79e95dba4113f108c0298d85b996",
+  "errors": [
+    "Generated lab still invalid after 2 attempt(s): codex execution failed (return code 1, timeout False)"
+  ],
+  "experiment_id": "Client_Reaches_Web_Server_by_Name_IPv4_Simple_DNS",
+  "generation": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "duration_seconds": 62.624914292000085,
+        "return_code": 0,
+        "success": false,
+        "timed_out": false,
+        "validation_errors": [
+          "Placeholder token found in: web/var/www/html/index.html"
+        ]
+      },
+      {
+        "attempt": 2,
+        "duration_seconds": 78.78161924999995,
+        "return_code": 1,
+        "success": false,
+        "timed_out": false,
+        "validation_errors": [
+          "codex execution failed (return code 1, timeout False)"
+        ]
+      }
+    ],
+    "calls": 2,
+    "duration_seconds": 141.40653354200003,
+    "last_command": [
+      "codex",
+      "exec",
+      "--model",
+      "gpt-5.6-terra",
+      "-c",
+      "model_reasoning_effort=\"low\"",
+      "-c",
+      "approval_policy=\"never\"",
+      "--sandbox",
+      "workspace-write",
+      "--cd",
+      "/Users/matthew/Desktop/A-Tesi/results/Client_Reaches_Web_Server_by_Name_IPv4_Simple_DNS/.workspaces/with_skill",
+      "--json",
+      "--output-last-message",
+      "/Users/matthew/Desktop/A-Tesi/results/Client_Reaches_Web_Server_by_Name_IPv4_Simple_DNS/.workspaces/with_skill/.agent-last-message.txt",
+      "--ephemeral",
+      "The previously generated output/lab/ failed static validation with the following errors:\n  - Placeholder token found in: web/var/www/html/index.html\n\nRead the existing output/lab directory and modify it in-place.\nFix all validation errors listed above.\nPreserve every valid part of the current lab.\nDo not rebuild unrelated files.\nDo not recreate the entire lab unless the current structure makes the requested correction impossible.\nDo not generate correction.yaml and do not run Kathara or kathara_lab_checker.\nThe laboratory must be complete, persistent, contain no placeholders, and be internally consistent.\nRead input/prompt.md and resources/creation/SKILL.md. Use resources/creation/SKILL.md as the authoritative general implementation guide for Kathara, while the requested scenario itself is defined only by input/prompt.md."
+    ],
+    "retries": 1
+  },
+  "generation_command": "codex",
+  "generation_model": "gpt-5.6-terra",
+  "generation_provider": "codex",
+  "generation_reasoning_effort": "low",
+  "lab_calls": 2,
+  "lab_generated": true,
+  "lab_retries": 1,
+  "metrics": null,
+  "phases": [
+    {
+      "at": "2026-08-12T09:56:52.941127Z",
+      "name": "discovered"
+    },
+    {
+      "at": "2026-08-12T09:56:52.941531Z",
+      "name": "lab_generation_started"
+    },
+    {
+      "at": "2026-08-12T09:59:14.360294Z",
+      "name": "error"
+    }
+  ],
+  "pipeline_version": "0.5.0",
+  "prompt_file": "Client Reaches Web Server by Name, IPv4, Simple DNS.md",
+  "prompt_sha256": "a67358ab906de898c1f639be5f6036e5e1abd97d07c54acc4b54b806dd0629dd",
+  "source_failed_preserved": true,
+  "static_validation_passed": false,
+  "status": "error",
+  "variant": "with_skill"
+}

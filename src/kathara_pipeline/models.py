@@ -86,10 +86,17 @@ class GenerationResult:
 
 
 @dataclass(frozen=True, slots=True)
-class ValidationResult:
-    valid: bool
-    errors: tuple[str, ...] = ()
-    data: dict[str, Any] | None = None
+class PairedGenerationResult:
+    """Result of a single paired agent call that generates both corrections at once.
+
+    duration_seconds represents the entire shared call — it is not multiplied per variant.
+    """
+    last_command_result: CommandResult
+    duration_seconds: float
+    with_skill_valid: bool
+    without_skill_valid: bool
+    with_skill_errors: tuple[str, ...]
+    without_skill_errors: tuple[str, ...]
 
 
 @dataclass(frozen=True, slots=True)
@@ -143,7 +150,6 @@ class VariantSummary:
     correction_generated: bool = False
     correction_hash: str | None = None
     lab_generated: bool = False
-    static_validation_passed: bool = False
     source_failed_preserved: bool = False
     checker_attempted: bool = False
     checker_completed: bool = False

@@ -1,5 +1,5 @@
 {
-  "canonical_correction_sha256": "8065ed501aad95ad503ff535aa454fdd1f02fdae7638e6fa94d45912cb6056de",
+  "canonical_correction_sha256": "083b6fe4eeaed3a7f0c29ce59b9f0b1660bf980ad2a74ffcd8a22bc567fa8c47",
   "checker": {
     "command": [
       "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
@@ -13,52 +13,18 @@
       "--report-type",
       "csv"
     ],
-    "duration_seconds": 21.50886908299799,
+    "duration_seconds": 268.9697542089998,
     "return_code": 0,
     "timed_out": false
   },
   "checker_attempted": true,
   "checker_completed": true,
-  "checker_schema_sha256": "b608b9749a0225c688433d5fa5190d4ff1eb43d72eaa9ab259395f8dbf245894",
-  "checker_skill_sha256": "11683ac87978ebcec2369b190be9f03e37b49fd99291b1ee499325c14d758df4",
-  "correction_calls": 1,
+  "checker_schema_sha256": "841251ca20af61595e8e8521b3de8900dbeadba81cc59e7480765496cad436b0",
+  "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
+  "correction_calls": 0,
   "correction_generated": true,
-  "correction_generation": {
-    "attempts": [
-      {
-        "attempt": 1,
-        "duration_seconds": 151.75260312499813,
-        "return_code": 0,
-        "success": true,
-        "timed_out": false,
-        "validation_errors": []
-      }
-    ],
-    "calls": 1,
-    "duration_seconds": 151.75260312499813,
-    "last_command": [
-      "codex",
-      "exec",
-      "--model",
-      "gpt-5.6-terra",
-      "-c",
-      "model_reasoning_effort=\"low\"",
-      "-c",
-      "approval_policy=\"never\"",
-      "--sandbox",
-      "workspace-write",
-      "--cd",
-      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/correction_with_skill",
-      "--json",
-      "--output-last-message",
-      "/Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/.workspaces/correction_with_skill/.agent-last-message.txt",
-      "--ephemeral",
-      "Determine the evaluation requirements from the original prompt.\nRead input/prompt.md to understand what the network must achieve.\nRead candidate/ (the generated lab implementation) to resolve the concrete values needed to instantiate those requirements: device names, IP addresses, interfaces, routes, gateways, router IDs, topology references.\n\nUse resources/checker/SKILL.md and resources/checker/config-schema.md to produce a valid output/correction.yaml for kathara-lab-checker.\n\nIMPORTANT: lab_inline is mandatory and must contain the complete expected topology derived from the candidate lab. default_image is a mandatory checker field. Use lab_inline rather than structure and omit labs_path. Follow the runtime 0.1.14 compatibility rules in the Skill.\nWrite only YAML to output/correction.yaml, with no surrounding prose. Do not create any other output file."
-    ],
-    "retries": 0
-  },
-  "correction_hash": "8065ed501aad95ad503ff535aa454fdd1f02fdae7638e6fa94d45912cb6056de",
-  "correction_mode": "full_generation",
+  "correction_hash": "083b6fe4eeaed3a7f0c29ce59b9f0b1660bf980ad2a74ffcd8a22bc567fa8c47",
+  "correction_mode": "paired_generation",
   "correction_retries": 0,
   "creation_skill_enabled": true,
   "creation_skill_sha256": "bf4daac809c4088ad9106268c093cca9c41f79e95dba4113f108c0298d85b996",
@@ -68,7 +34,7 @@
     "attempts": [
       {
         "attempt": 1,
-        "duration_seconds": 115.71340987499934,
+        "duration_seconds": 137.3625726250002,
         "return_code": 0,
         "success": true,
         "timed_out": false,
@@ -76,7 +42,7 @@
       }
     ],
     "calls": 1,
-    "duration_seconds": 115.71340987499934,
+    "duration_seconds": 137.3625726250002,
     "last_command": [
       "codex",
       "exec",
@@ -106,52 +72,54 @@
   "lab_generated": true,
   "lab_retries": 0,
   "metrics": {
-    "failed_tests": 0,
-    "failure_categories": {},
-    "pass_percentage": 100.0,
-    "passed_tests": 190,
+    "failed_tests": 135,
+    "failure_categories": {
+      "uncategorized": 135
+    },
+    "pass_percentage": 38.636364,
+    "passed_tests": 85,
     "reports_found": [
       "results.csv",
       "candidate_result_all.csv",
       "candidate_result_failed.csv",
       "candidate_result_summary.csv"
     ],
-    "total_tests": 190
+    "total_tests": 220
   },
   "phases": [
     {
-      "at": "2026-08-11T14:18:11.380854Z",
+      "at": "2026-08-12T09:40:12.436981Z",
       "name": "discovered"
     },
     {
-      "at": "2026-08-11T14:18:11.381179Z",
+      "at": "2026-08-12T09:40:12.437324Z",
       "name": "lab_generation_started"
     },
     {
-      "at": "2026-08-11T14:20:07.109358Z",
+      "at": "2026-08-12T09:42:29.809656Z",
       "name": "lab_generated"
     },
     {
-      "at": "2026-08-11T14:20:07.109391Z",
+      "at": "2026-08-12T09:42:29.809686Z",
       "name": "static_validation_passed"
     },
     {
-      "at": "2026-08-11T14:22:38.902136Z",
+      "at": "2026-08-12T09:45:28.670022Z",
       "name": "checker_started"
     },
     {
-      "at": "2026-08-11T14:23:00.415957Z",
+      "at": "2026-08-12T09:49:57.639268Z",
       "name": "checker_completed"
     },
     {
-      "at": "2026-08-11T14:23:00.415973Z",
-      "name": "passed"
+      "at": "2026-08-12T09:49:57.639287Z",
+      "name": "failed"
     }
   ],
   "pipeline_version": "0.5.0",
   "prompt_file": "All Routes Explicit, No Default Routes, IPv4.md",
   "prompt_sha256": "d55a80ef2afda10dacb80145c84498288635e3ca760287d6f4bf0740c0f7b891",
   "static_validation_passed": true,
-  "status": "passed",
+  "status": "failed",
   "variant": "with_skill"
 }

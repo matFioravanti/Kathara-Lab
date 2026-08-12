@@ -81,7 +81,6 @@ See `references/config-schema.md` for the complete schema. Quick reference:
 - `protocols.<proto>.injections` — protocols redistributed into (or excluded from) another
 - `applications.dns` — DNS authority, local-NS, and record checks
 - `reachability` — per-device list of IPs or DNS names that must be ping-reachable
-- `custom_commands` — arbitrary commands with `regex_match`, `output`, or `exit_code` assertions
 
 ## Workflow
 
@@ -249,8 +248,7 @@ A checker configuration is complete when:
 4. Routing protocol daemons are in `daemons` for every router that runs them (if selected).
 5. `kernel_routes` lists all routes expected after convergence (if selected).
 6. The topology is declared via `lab_inline` with topology-only content (no image declarations).
-7. Custom checks have been fully specified with device, command, and assertion (if any).
-8. The config file is syntactically valid YAML.
+7. The config file is syntactically valid YAML.
 
 ## Reference files
 

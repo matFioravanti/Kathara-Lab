@@ -6,18 +6,18 @@ Framework Python 3.11+ per generare e valutare automaticamente laboratori Kathar
 - **without_skill**: lo stesso prompt viene risolto senza accesso alla Creation Skill.
 
 Le due generazioni usano lo stesso provider, modello, reasoning, timeout e policy operative. Possono essere eseguite **in parallelo o sequenzialmente**.
-L'orchestratore genera per primo un `evaluation-spec.md` e un `check-plan.md` (un'unica chiamata LLM, due artefatti).
-Poi genera i due laboratori in modo indipendente. Per le corrections, viene prodotta prima una **reference correction** basata sul primo laboratorio valido. Se l'altro laboratorio è valido, la reference correction viene usata per generare una correction specifica ("adaptation") in modo da preservare esattamente la stessa strategia di test semantica, ma adattando valori concreti come indirizzi IP, nomi device, e topologia interna. Entrambe le correction vengono poi eseguite con `kathara-lab-checker==0.1.14`.
+Dopo la generazione dei laboratori, l'orchestratore genera le relative `correction.yaml` (tramite una singola chiamata in modalità `paired_generation` se entrambi i laboratori sono stati prodotti, oppure in modalità standalone `full_generation`).
+I laboratori e le relative correction vengono infine eseguiti con `kathara-lab-checker==0.1.14`, che costituisce l'unica fonte di verità per la validità e correttezza funzionale.
 
 ## Obiettivo sperimentale
 
-La variabile indipendente è soltanto la disponibilità della Creation Skill. `without_skill` continua a non vedere la Skill. Le generazioni dei laboratori sono indipendenti. La reference correction viene utilizzata soltanto durante la fase di adaptation. Il confronto finale usa esclusivamente dati deterministici prodotti dal checker e dai manifest.
+La variabile indipendente è soltanto la disponibilità della Creation Skill. `without_skill` continua a non vedere la Skill. Le generazioni dei laboratori sono indipendenti. Il confronto finale usa esclusivamente dati deterministici prodotti dal checker e dai manifest.
 
 ## Input dei prompt
 
-Il framework non possiede né consuma i prompt. Non esistono più cartelle operative come `prompt_still_to_be_generated/` o `prompts_used/`.
+Il framework non possiede né consuma i prompt. Non esistono cartelle operative rigide.
 
-La directory viene passata dall'esterno:
+La directory dei prompt viene passata dall'esterno:
 
 ```bash
 python3 main.py run --prompts-dir /path/to/prompts
@@ -25,7 +25,7 @@ python3 main.py run --prompts-dir /path/to/prompts
 
 Sono letti i file `.md` e `.txt` direttamente presenti nella directory, in ordine naturale. I prompt originali non vengono spostati, rinominati o modificati.
 
-Per un solo prompt:
+Per eseguire un solo prompt:
 
 ```bash
 python3 main.py run \
@@ -44,7 +44,7 @@ python -m pip install -e '.[test]'
 Prerequisiti runtime:
 
 - Python 3.11+;
-- Kathara funzionante con il relativo backend container;
+- Kathara funzionante con il relativo backend container (es. Docker);
 - `kathara-lab-checker==0.1.14`;
 - una CLI LLM autenticata fra Codex, Gemini CLI o Claude Code CLI.
 
@@ -92,77 +92,50 @@ resources/
     └── config-schema.md
 ```
 
-La Creation Skill viene materializzata **solo** nel workspace `with_skill`. Il workspace `without_skill` non contiene la Skill. La Checker Skill è stata adattata alla modalità automatica: include automaticamente i check standard espliciti/unambigui del prompt e usa `custom_commands` soltanto come fallback deterministico quando nessun check standard rappresenta il requisito.
+La Creation Skill viene materializzata **solo** nel workspace `with_skill`. Il workspace `without_skill` non contiene la Skill. La Checker Skill include automaticamente i check standard espliciti/unambigui del prompt e usa `custom_commands` soltanto come fallback deterministico quando nessun check standard rappresenta il requisito.
 
 ## Flusso per ogni prompt
 
 ```text
 prompt
   │
-  ├─ 1. Evaluation Planning (una singola chiamata)
-  │      prompt + Creation Skill -> evaluation-spec.md + check-plan.md + evaluation-plan.yaml
+  ├─ 1. Generazione Laboratori (indipendente, sequenziale o parallela)
+  │      WITH_SKILL: prompt + Creation Skill -> Lab with_skill
+  │      WITHOUT_SKILL: prompt only -> Lab without_skill
   │
-  ├─ 2. Generazione Laboratori (indipendente, possibilmente in parallelo)
-  │      WITH_SKILL: prompt + Creation Skill -> Lab A
-  │      WITHOUT_SKILL: prompt only -> Lab B
+  ├─ 2. Generazione Correction (paired_generation o full_generation)
+  │      prompt + Checker Skill + schema + candidate(s) -> correction.yaml
   │
-  ├─ 3. Reference Correction (full generation sul primo Lab valido)
-  │      prompt + Checker Skill + schema + plan + Lab A -> reference correction
+  ├─ 3. Esecuzione Kathara Lab Checker (fonte di verità)
+  │      kathara-lab-checker su with_skill e without_skill
   │
-  ├─ 4. Adaptation (se esiste l'altro Lab)
-  │      reference correction + plan + Lab B -> candidate-specific correction
-  │
-  ├─ 5. LabValidator + checker su Lab A
-  │
-  ├─ 6. LabValidator + checker su Lab B
-  │
-  └─ 7. confronto paired + report aggregato
+  └─ 4. Confronto paired + report aggregato
 ```
 
-La valutazione dei test (check-plan.md) è condivisa e fissa per entrambi i laboratori. Il significato semantico dei test rimane equivalente. La reference correction è usata solo nella fase di adaptation (mai mostrata durante la generazione del secondo laboratorio). I valori concreti (device names, IP, interfaces, route, router IDs, `lab_inline`) vengono adattati al candidato.
+La fase 1 può avvenire in parallelo attivando `parallel_variants: true`.
 
-La fase 2 può avvenire in parallelo attivando `parallel_variants: true`.
+## Generazione delle Correction & Checker
 
-## Canonical correction e Adaptation
+La validazione e il testing non usano validatori statici o euristiche custom: il `kathara-lab-checker` è la fonte di verità unica per stabilire la validità e l'eseguibilità di laboratorio e correction.
 
-La strategia di valutazione viene decisa durante l'Evaluation Planning. Successivamente:
-- Il primo candidato (preferendo WITH_SKILL) genera una correction in modalità **full_generation**.
-- Se il secondo candidato è anch'esso valido, usa la correction del primo in modalità **adaptation**. Questo significa che la strategia semantica è fissa, ma i valori concreti (indirizzi IP, nomi dispositivi, etc.) sono adattati per quel candidato.
+1. **Modalità di generazione:**
+   - **paired_generation**: se entrambi i laboratori sono stati generati, una singola chiamata LLM riceve entrambi i candidati ed emette in modo indipendente `output/with_skill/correction.yaml` e `output/without_skill/correction.yaml`, adattando i dettagli concreti (nomi device, interfacce, IP, `lab_inline`) a ciascuna implementazione.
+   - **full_generation**: se solo una delle due varianti ha prodotto un laboratorio, la correction viene generata tramite chiamata standalone per quella specifica variante.
 
-I log, i report del checker e i manifest non sono visibili alle LLM.
-Il framework gestisce i fallimenti di validazione sintattica con un sistema di **retry in-place**:
-- **Lab retry**: Al primo attempt si genera normalmente il lab. Se fallisce la validazione statica (Attempt > 1), la LLM interviene con modifiche *in-place* sul file lab precedente senza cancellare i file non coinvolti nell'errore.
-- **Correction retry**: Stessa logica per `correction.yaml`, una volta che la prima è errata, la LLM la ri-modifica in-place per fixare l'errore, preservando tutti i test già validi.
+2. **Retry su errore tecnico:**
+   - Se l'esecuzione dell'agente LLM fallisce a livello tecnico (timeout, return code non zero o mancata scrittura del file di output), il generatore tenta un retry in-place (fino a 2 tentativi) fornendo il log dell'errore tecnico riscontrato.
 
-Regole principali della Checker Skill automatica:
+3. **Regole principali della Checker Skill:**
+   - topology -> `lab_inline` (obbligatorio, formato `lab.conf`);
+   - startup richiesti -> `requiring_startup`;
+   - IP espliciti -> `ip_mapping`;
+   - daemon/protocolli espliciti -> `daemons` / `protocols`;
+   - route attese -> `kernel_routes`;
+   - DNS/HTTP -> `applications`;
+   - connettività -> `reachability`;
+   - `custom_commands` solo se il requisito è esplicito, deterministico, non rappresentabile con un check standard e non impone un dettaglio implementativo lasciato libero.
 
-- topology -> `lab_inline`;
-- startup richiesti -> `requiring_startup`;
-- IP espliciti -> `ip_mapping`;
-- daemon/protocolli espliciti -> `daemons` / `protocols`;
-- route attese -> `kernel_routes`;
-- DNS/HTTP -> `applications`;
-- connettività -> `reachability`;
-- `custom_commands` solo se il requisito è esplicito, deterministico, non rappresentabile con un check standard e non impone un dettaglio implementativo lasciato libero.
-
-Sono incluse le compatibilità verificate per `kathara-lab-checker==0.1.14`, fra cui HTTP `status_code`, forme OSPF compatibili, EVPN sotto `protocols.bgpd` e vincoli sulle one-path kernel route.
-
-## LabValidator
-
-`LabValidator` è un sanity check statico intermedio, non il giudice della correttezza di rete. Controlla, fra l'altro:
-
-- esistenza/leggibilità di `lab.conf`;
-- parsing e coerenza delle dichiarazioni;
-- device e startup;
-- directory device;
-- symlink non sicuri;
-- file irregolari/illeggibili;
-- `lab.conf` annidati;
-- placeholder come `TODO`, `CHANGE_ME`, `INSERT_HERE`.
-
-Il controllo conservativo dei file esplicitamente richiesti dal prompt resta, ma risorse del framework come `Skill.md`, `config-schema.md` e `correction.yaml` sono escluse. Token di rete/versione come `.1`, `.10`, IPv4, IPv6 e CIDR non vengono trattati come filename.
-
-Uno scenario strutturalmente valido ma semanticamente sbagliato deve arrivare al checker e risultare `failed`; un problema tecnico che impedisce la valutazione risulta `error`.
+Compatibilità verificate per `kathara-lab-checker==0.1.14`, fra cui HTTP `status_code`, forme OSPF compatibili, EVPN sotto `protocols.bgpd` e vincoli sulle one-path kernel route.
 
 ## Layout output
 
@@ -171,11 +144,10 @@ Per `lab_001.md`:
 ```text
 results/lab_001/
 ├── prompt.md
-├── correction/
-│   ├── correction.yaml
-│   └── logs/
 ├── with_skill/
 │   ├── source/
+│   ├── correction/
+│   │   └── correction.yaml
 │   ├── checker-run/
 │   │   └── labs/candidate/
 │   ├── reports/
@@ -184,6 +156,8 @@ results/lab_001/
 │   └── manifest.json
 ├── without_skill/
 │   ├── source/
+│   ├── correction/
+│   │   └── correction.yaml
 │   ├── checker-run/
 │   │   └── labs/candidate/
 │   ├── reports/
@@ -270,12 +244,6 @@ Ricalcolo report aggregati senza LLM/checker:
 python3 main.py compare
 ```
 
-Validazione statica degli artefatti persistiti:
-
-```bash
-python3 main.py validate
-```
-
 Output alternativo:
 
 ```bash
@@ -303,11 +271,11 @@ Una coppia completata e invariata può essere riutilizzata quando `skip_complete
 ## Test
 
 ```bash
-PYTHONPATH=src python3 -m pytest
+pytest tests/ -v
 ```
 
-I test unitari non avviano realmente LLM, Kathara, Docker o il checker. Il test di orchestrazione usa runner/checker fittizi e verifica anche che le due varianti ricevano la stessa identica correction.
+I test unitari non avviano realmente LLM, Kathara, Docker o il checker. Il test di orchestrazione usa runner/checker mock e verifica il ciclo di esecuzione completo.
 
 ## Nota sperimentale
 
-Per un confronto causale più pulito, non cambiare provider/modello/reasoning fra `with_skill` e `without_skill`. Se si vuole confrontare più modelli, eseguire dataset separati e conservare i rispettivi output/manifest.
+Per un confronto causale pulito, non cambiare provider/modello/reasoning fra `with_skill` e `without_skill`. Se si vuole confrontare più modelli, eseguire dataset separati e conservare i rispettivi output/manifest.
