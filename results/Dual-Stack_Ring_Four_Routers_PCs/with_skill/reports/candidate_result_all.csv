@@ -1,0 +1,225 @@
+Test Description,Passed,Reason
+Check existence of `r1`,True,OK
+Check existence of `r2`,True,OK
+Check existence of `r3`,True,OK
+Check existence of `r4`,True,OK
+Check existence of `pc1a`,True,OK
+Check existence of `pc1b`,True,OK
+Check existence of `pc2a`,True,OK
+Check existence of `pc2b`,True,OK
+Check existence of `pc3a`,True,OK
+Check existence of `pc3b`,True,OK
+Check existence of `pc4a`,True,OK
+Check existence of `pc4b`,True,OK
+Checking the collision domain attached to interface `eth0` of `r1`,True,OK
+Checking the collision domain attached to interface `eth1` of `r1`,True,OK
+Checking the collision domain attached to interface `eth2` of `r1`,True,OK
+Checking the collision domain attached to interface `eth0` of `r2`,True,OK
+Checking the collision domain attached to interface `eth1` of `r2`,True,OK
+Checking the collision domain attached to interface `eth2` of `r2`,True,OK
+Checking the collision domain attached to interface `eth0` of `r3`,True,OK
+Checking the collision domain attached to interface `eth1` of `r3`,True,OK
+Checking the collision domain attached to interface `eth2` of `r3`,True,OK
+Checking the collision domain attached to interface `eth0` of `r4`,True,OK
+Checking the collision domain attached to interface `eth1` of `r4`,True,OK
+Checking the collision domain attached to interface `eth2` of `r4`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc1a`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc1b`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc2a`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc2b`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc3a`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc3b`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc4a`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc4b`,True,OK
+Check existence of `r1.startup` file,True,OK
+Check existence of `r2.startup` file,True,OK
+Check existence of `r3.startup` file,True,OK
+Check existence of `r4.startup` file,True,OK
+Check existence of `pc1a.startup` file,True,OK
+Check existence of `pc1b.startup` file,True,OK
+Check existence of `pc2a.startup` file,True,OK
+Check existence of `pc2b.startup` file,True,OK
+Check existence of `pc3a.startup` file,True,OK
+Check existence of `pc3b.startup` file,True,OK
+Check existence of `pc4a.startup` file,True,OK
+Check existence of `pc4b.startup` file,True,OK
+Verifying the IP address (10.1.1.1/24) assigned to eth0 of r1,True,OK
+Verifying the IP address (10.1.12.1/30) assigned to eth1 of r1,True,OK
+Verifying the IP address (10.1.41.2/30) assigned to eth2 of r1,True,OK
+Verifying the IP address (10.1.2.1/24) assigned to eth0 of r2,True,OK
+Verifying the IP address (10.1.23.1/30) assigned to eth1 of r2,True,OK
+Verifying the IP address (10.1.12.2/30) assigned to eth2 of r2,True,OK
+Verifying the IP address (10.1.3.1/24) assigned to eth0 of r3,True,OK
+Verifying the IP address (10.1.34.1/30) assigned to eth1 of r3,True,OK
+Verifying the IP address (10.1.23.2/30) assigned to eth2 of r3,True,OK
+Verifying the IP address (10.1.4.1/24) assigned to eth0 of r4,True,OK
+Verifying the IP address (10.1.41.1/30) assigned to eth1 of r4,True,OK
+Verifying the IP address (10.1.34.2/30) assigned to eth2 of r4,True,OK
+Verifying the IP address (10.1.1.11/24) assigned to eth0 of pc1a,True,OK
+Verifying the IP address (10.1.1.12/24) assigned to eth0 of pc1b,True,OK
+Verifying the IP address (10.1.2.11/24) assigned to eth0 of pc2a,True,OK
+Verifying the IP address (10.1.2.12/24) assigned to eth0 of pc2b,True,OK
+Verifying the IP address (10.1.3.11/24) assigned to eth0 of pc3a,True,OK
+Verifying the IP address (10.1.3.12/24) assigned to eth0 of pc3b,True,OK
+Verifying the IP address (10.1.4.11/24) assigned to eth0 of pc4a,True,OK
+Verifying the IP address (10.1.4.12/24) assigned to eth0 of pc4b,True,OK
+Verifying `10.1.1.12` reachable from device `pc1a`,True,OK
+Verifying `fd00:1:1::12` reachable from device `pc1a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.2.11` reachable from device `pc1a`,True,OK
+Verifying `fd00:1:2::11` reachable from device `pc1a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.2.12` reachable from device `pc1a`,True,OK
+Verifying `fd00:1:2::12` reachable from device `pc1a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.3.11` reachable from device `pc1a`,True,OK
+Verifying `fd00:1:3::11` reachable from device `pc1a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.3.12` reachable from device `pc1a`,True,OK
+Verifying `fd00:1:3::12` reachable from device `pc1a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.4.11` reachable from device `pc1a`,True,OK
+Verifying `fd00:1:4::11` reachable from device `pc1a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.4.12` reachable from device `pc1a`,True,OK
+Verifying `fd00:1:4::12` reachable from device `pc1a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.1.11` reachable from device `pc1b`,True,OK
+Verifying `fd00:1:1::11` reachable from device `pc1b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.2.11` reachable from device `pc1b`,True,OK
+Verifying `fd00:1:2::11` reachable from device `pc1b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.2.12` reachable from device `pc1b`,True,OK
+Verifying `fd00:1:2::12` reachable from device `pc1b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.3.11` reachable from device `pc1b`,True,OK
+Verifying `fd00:1:3::11` reachable from device `pc1b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.3.12` reachable from device `pc1b`,True,OK
+Verifying `fd00:1:3::12` reachable from device `pc1b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.4.11` reachable from device `pc1b`,True,OK
+Verifying `fd00:1:4::11` reachable from device `pc1b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.4.12` reachable from device `pc1b`,True,OK
+Verifying `fd00:1:4::12` reachable from device `pc1b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.1.11` reachable from device `pc2a`,True,OK
+Verifying `fd00:1:1::11` reachable from device `pc2a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.1.12` reachable from device `pc2a`,True,OK
+Verifying `fd00:1:1::12` reachable from device `pc2a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.2.12` reachable from device `pc2a`,True,OK
+Verifying `fd00:1:2::12` reachable from device `pc2a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.3.11` reachable from device `pc2a`,True,OK
+Verifying `fd00:1:3::11` reachable from device `pc2a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.3.12` reachable from device `pc2a`,True,OK
+Verifying `fd00:1:3::12` reachable from device `pc2a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.4.11` reachable from device `pc2a`,True,OK
+Verifying `fd00:1:4::11` reachable from device `pc2a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.4.12` reachable from device `pc2a`,True,OK
+Verifying `fd00:1:4::12` reachable from device `pc2a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.1.11` reachable from device `pc2b`,True,OK
+Verifying `fd00:1:1::11` reachable from device `pc2b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.1.12` reachable from device `pc2b`,True,OK
+Verifying `fd00:1:1::12` reachable from device `pc2b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.2.11` reachable from device `pc2b`,True,OK
+Verifying `fd00:1:2::11` reachable from device `pc2b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.3.11` reachable from device `pc2b`,True,OK
+Verifying `fd00:1:3::11` reachable from device `pc2b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.3.12` reachable from device `pc2b`,True,OK
+Verifying `fd00:1:3::12` reachable from device `pc2b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.4.11` reachable from device `pc2b`,True,OK
+Verifying `fd00:1:4::11` reachable from device `pc2b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.4.12` reachable from device `pc2b`,True,OK
+Verifying `fd00:1:4::12` reachable from device `pc2b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.1.11` reachable from device `pc3a`,True,OK
+Verifying `fd00:1:1::11` reachable from device `pc3a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.1.12` reachable from device `pc3a`,True,OK
+Verifying `fd00:1:1::12` reachable from device `pc3a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.2.11` reachable from device `pc3a`,True,OK
+Verifying `fd00:1:2::11` reachable from device `pc3a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.2.12` reachable from device `pc3a`,True,OK
+Verifying `fd00:1:2::12` reachable from device `pc3a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.3.12` reachable from device `pc3a`,True,OK
+Verifying `fd00:1:3::12` reachable from device `pc3a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.4.11` reachable from device `pc3a`,True,OK
+Verifying `fd00:1:4::11` reachable from device `pc3a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.4.12` reachable from device `pc3a`,True,OK
+Verifying `fd00:1:4::12` reachable from device `pc3a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.1.11` reachable from device `pc3b`,True,OK
+Verifying `fd00:1:1::11` reachable from device `pc3b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.1.12` reachable from device `pc3b`,True,OK
+Verifying `fd00:1:1::12` reachable from device `pc3b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.2.11` reachable from device `pc3b`,True,OK
+Verifying `fd00:1:2::11` reachable from device `pc3b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.2.12` reachable from device `pc3b`,True,OK
+Verifying `fd00:1:2::12` reachable from device `pc3b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.3.11` reachable from device `pc3b`,True,OK
+Verifying `fd00:1:3::11` reachable from device `pc3b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.4.11` reachable from device `pc3b`,True,OK
+Verifying `fd00:1:4::11` reachable from device `pc3b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.4.12` reachable from device `pc3b`,True,OK
+Verifying `fd00:1:4::12` reachable from device `pc3b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.1.11` reachable from device `pc4a`,True,OK
+Verifying `fd00:1:1::11` reachable from device `pc4a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.1.12` reachable from device `pc4a`,True,OK
+Verifying `fd00:1:1::12` reachable from device `pc4a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.2.11` reachable from device `pc4a`,True,OK
+Verifying `fd00:1:2::11` reachable from device `pc4a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.2.12` reachable from device `pc4a`,True,OK
+Verifying `fd00:1:2::12` reachable from device `pc4a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.3.11` reachable from device `pc4a`,True,OK
+Verifying `fd00:1:3::11` reachable from device `pc4a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.3.12` reachable from device `pc4a`,True,OK
+Verifying `fd00:1:3::12` reachable from device `pc4a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.4.12` reachable from device `pc4a`,True,OK
+Verifying `fd00:1:4::12` reachable from device `pc4a`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.1.11` reachable from device `pc4b`,True,OK
+Verifying `fd00:1:1::11` reachable from device `pc4b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.1.12` reachable from device `pc4b`,True,OK
+Verifying `fd00:1:1::12` reachable from device `pc4b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.2.11` reachable from device `pc4b`,True,OK
+Verifying `fd00:1:2::11` reachable from device `pc4b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.2.12` reachable from device `pc4b`,True,OK
+Verifying `fd00:1:2::12` reachable from device `pc4b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.3.11` reachable from device `pc4b`,True,OK
+Verifying `fd00:1:3::11` reachable from device `pc4b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.3.12` reachable from device `pc4b`,True,OK
+Verifying `fd00:1:3::12` reachable from device `pc4b`,False,ping: connect: Cannot assign requested address
+Verifying `10.1.4.11` reachable from device `pc4b`,True,OK
+Verifying `fd00:1:4::11` reachable from device `pc4b`,False,ping: connect: Cannot assign requested address
+Checking the routing table of r1,False,"The routing table of r1 have the wrong number of routes: 3, expected: 6"
+Checking the routing table of r1,False,The routing table of r1 is missing route fd00:1:2::/64
+Checking the routing table of r1,False,The routing table of r1 is missing route fd00:1:3::/64
+Checking the routing table of r1,False,The routing table of r1 is missing route fd00:1:4::/64
+Checking the routing table of r2,False,"The routing table of r2 have the wrong number of routes: 3, expected: 6"
+Checking the routing table of r2,False,The routing table of r2 is missing route fd00:1:1::/64
+Checking the routing table of r2,False,The routing table of r2 is missing route fd00:1:3::/64
+Checking the routing table of r2,False,The routing table of r2 is missing route fd00:1:4::/64
+Checking the routing table of r3,False,"The routing table of r3 have the wrong number of routes: 3, expected: 6"
+Checking the routing table of r3,False,The routing table of r3 is missing route fd00:1:1::/64
+Checking the routing table of r3,False,The routing table of r3 is missing route fd00:1:2::/64
+Checking the routing table of r3,False,The routing table of r3 is missing route fd00:1:4::/64
+Checking the routing table of r4,False,"The routing table of r4 have the wrong number of routes: 3, expected: 6"
+Checking the routing table of r4,False,The routing table of r4 is missing route fd00:1:1::/64
+Checking the routing table of r4,False,The routing table of r4 is missing route fd00:1:2::/64
+Checking the routing table of r4,False,The routing table of r4 is missing route fd00:1:3::/64
+Checking the routing table of pc1a,False,"The routing table of pc1a have the wrong number of routes: 3, expected: 6"
+Checking the routing table of pc1a,False,The routing table of pc1a is missing route fd00:1:2::/64
+Checking the routing table of pc1a,False,The routing table of pc1a is missing route fd00:1:3::/64
+Checking the routing table of pc1a,False,The routing table of pc1a is missing route fd00:1:4::/64
+Checking the routing table of pc1b,False,"The routing table of pc1b have the wrong number of routes: 3, expected: 6"
+Checking the routing table of pc1b,False,The routing table of pc1b is missing route fd00:1:2::/64
+Checking the routing table of pc1b,False,The routing table of pc1b is missing route fd00:1:3::/64
+Checking the routing table of pc1b,False,The routing table of pc1b is missing route fd00:1:4::/64
+Checking the routing table of pc2a,False,"The routing table of pc2a have the wrong number of routes: 3, expected: 6"
+Checking the routing table of pc2a,False,The routing table of pc2a is missing route fd00:1:1::/64
+Checking the routing table of pc2a,False,The routing table of pc2a is missing route fd00:1:3::/64
+Checking the routing table of pc2a,False,The routing table of pc2a is missing route fd00:1:4::/64
+Checking the routing table of pc2b,False,"The routing table of pc2b have the wrong number of routes: 3, expected: 6"
+Checking the routing table of pc2b,False,The routing table of pc2b is missing route fd00:1:1::/64
+Checking the routing table of pc2b,False,The routing table of pc2b is missing route fd00:1:3::/64
+Checking the routing table of pc2b,False,The routing table of pc2b is missing route fd00:1:4::/64
+Checking the routing table of pc3a,False,"The routing table of pc3a have the wrong number of routes: 3, expected: 6"
+Checking the routing table of pc3a,False,The routing table of pc3a is missing route fd00:1:1::/64
+Checking the routing table of pc3a,False,The routing table of pc3a is missing route fd00:1:2::/64
+Checking the routing table of pc3a,False,The routing table of pc3a is missing route fd00:1:4::/64
+Checking the routing table of pc3b,False,"The routing table of pc3b have the wrong number of routes: 3, expected: 6"
+Checking the routing table of pc3b,False,The routing table of pc3b is missing route fd00:1:1::/64
+Checking the routing table of pc3b,False,The routing table of pc3b is missing route fd00:1:2::/64
+Checking the routing table of pc3b,False,The routing table of pc3b is missing route fd00:1:4::/64
+Checking the routing table of pc4a,False,"The routing table of pc4a have the wrong number of routes: 3, expected: 6"
+Checking the routing table of pc4a,False,The routing table of pc4a is missing route fd00:1:1::/64
+Checking the routing table of pc4a,False,The routing table of pc4a is missing route fd00:1:2::/64
+Checking the routing table of pc4a,False,The routing table of pc4a is missing route fd00:1:3::/64
+Checking the routing table of pc4b,False,"The routing table of pc4b have the wrong number of routes: 3, expected: 6"
+Checking the routing table of pc4b,False,The routing table of pc4b is missing route fd00:1:1::/64
+Checking the routing table of pc4b,False,The routing table of pc4b is missing route fd00:1:2::/64
+Checking the routing table of pc4b,False,The routing table of pc4b is missing route fd00:1:3::/64

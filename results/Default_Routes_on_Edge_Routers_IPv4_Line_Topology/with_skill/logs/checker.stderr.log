@@ -1,0 +1,186 @@
+Parsing test configuration...
+Parsing inline network scenarios template
+Parsing network scenarios in: /Users/matthew/Desktop/A-Tesi/results/Default_Routes_on_Edge_Routers_IPv4_Line_Topology/with_skill/checker-run/labs
+
+  0%|          | 0/1 [00:00<?, ?it/s]##################### candidate #####################
+Parsing network scenario in: /Users/matthew/Desktop/A-Tesi/results/Default_Routes_on_Edge_Routers_IPv4_Line_Topology/with_skill/checker-run/labs/candidate
+Network scenario name: candidate
+Undeploying network scenario in case it was running...
+Deploying network scenario...
+Waiting convergence...
+Starting tests
+Verifying lab structure using inline lab.conf template
+Checking devices existence...
+Check existence of `r1`: [92m OK[00m
+Check existence of `r2`: [92m OK[00m
+Check existence of `r3`: [92m OK[00m
+Check existence of `r4`: [92m OK[00m
+Check existence of `pc11`: [92m OK[00m
+Check existence of `pc12`: [92m OK[00m
+Check existence of `pc21`: [92m OK[00m
+Check existence of `pc22`: [92m OK[00m
+Check existence of `pc31`: [92m OK[00m
+Check existence of `pc32`: [92m OK[00m
+Check existence of `pc41`: [92m OK[00m
+Check existence of `pc42`: [92m OK[00m
+Checking collision domains...
+Checking the collision domain attached to interface `eth0` of `r1`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r1`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `r2`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r2`: [92m OK[00m
+Checking the collision domain attached to interface `eth2` of `r2`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `r3`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r3`: [92m OK[00m
+Checking the collision domain attached to interface `eth2` of `r3`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `r4`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r4`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc11`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc12`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc21`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc22`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc31`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc32`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc41`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc42`: [92m OK[00m
+Checking that all required startup files exist...
+Check existence of `r1.startup` file: [92m OK[00m
+Check existence of `r2.startup` file: [92m OK[00m
+Check existence of `r3.startup` file: [92m OK[00m
+Check existence of `r4.startup` file: [92m OK[00m
+Check existence of `pc11.startup` file: [92m OK[00m
+Check existence of `pc12.startup` file: [92m OK[00m
+Check existence of `pc21.startup` file: [92m OK[00m
+Check existence of `pc22.startup` file: [92m OK[00m
+Check existence of `pc31.startup` file: [92m OK[00m
+Check existence of `pc32.startup` file: [92m OK[00m
+Check existence of `pc41.startup` file: [92m OK[00m
+Check existence of `pc42.startup` file: [92m OK[00m
+Verifying the IP addresses assigned to devices...
+Checking IPs for `r1`...
+Verifying the IP address (192.168.10.1/24) assigned to eth0 of r1: [91m The interface `eth0` of `r1` has the following IP addresses: []`.[00m
+Verifying the IP address (10.0.12.1/30) assigned to eth1 of r1: [91m The interface `eth1` of `r1` has the following IP addresses: []`.[00m
+Checking IPs for `r2`...
+Verifying the IP address (192.168.20.1/24) assigned to eth0 of r2: [91m The interface `eth0` of `r2` has the following IP addresses: []`.[00m
+Verifying the IP address (10.0.12.2/30) assigned to eth1 of r2: [91m The interface `eth1` of `r2` has the following IP addresses: []`.[00m
+Verifying the IP address (10.0.23.1/30) assigned to eth2 of r2: [91m The interface `eth2` of `r2` has the following IP addresses: []`.[00m
+Checking IPs for `r3`...
+Verifying the IP address (192.168.30.1/24) assigned to eth0 of r3: [91m The interface `eth0` of `r3` has the following IP addresses: []`.[00m
+Verifying the IP address (10.0.23.2/30) assigned to eth1 of r3: [91m The interface `eth1` of `r3` has the following IP addresses: []`.[00m
+Verifying the IP address (10.0.34.1/30) assigned to eth2 of r3: [91m The interface `eth2` of `r3` has the following IP addresses: []`.[00m
+Checking IPs for `r4`...
+Verifying the IP address (192.168.40.1/24) assigned to eth0 of r4: [91m The interface `eth0` of `r4` has the following IP addresses: []`.[00m
+Verifying the IP address (10.0.34.2/30) assigned to eth1 of r4: [91m The interface `eth1` of `r4` has the following IP addresses: []`.[00m
+Checking IPs for `pc11`...
+Verifying the IP address (192.168.10.11/24) assigned to eth0 of pc11: [92m OK[00m
+Checking IPs for `pc12`...
+Verifying the IP address (192.168.10.12/24) assigned to eth0 of pc12: [92m OK[00m
+Checking IPs for `pc21`...
+Verifying the IP address (192.168.20.11/24) assigned to eth0 of pc21: [92m OK[00m
+Checking IPs for `pc22`...
+Verifying the IP address (192.168.20.12/24) assigned to eth0 of pc22: [92m OK[00m
+Checking IPs for `pc31`...
+Verifying the IP address (192.168.30.11/24) assigned to eth0 of pc31: [92m OK[00m
+Checking IPs for `pc32`...
+Verifying the IP address (192.168.30.12/24) assigned to eth0 of pc32: [92m OK[00m
+Checking IPs for `pc41`...
+Verifying the IP address (192.168.40.11/24) assigned to eth0 of pc41: [92m OK[00m
+Checking IPs for `pc42`...
+Verifying the IP address (192.168.40.12/24) assigned to eth0 of pc42: [92m OK[00m
+Starting reachability test...
+Verifying `192.168.10.12` reachable from device `pc11`: [92m OK[00m
+Verifying `192.168.20.11` reachable from device `pc11`: [91m `pc11` does not receive any answer from `192.168.20.11`.[00m
+Verifying `192.168.20.12` reachable from device `pc11`: [91m `pc11` does not receive any answer from `192.168.20.12`.[00m
+Verifying `192.168.30.11` reachable from device `pc11`: [91m `pc11` does not receive any answer from `192.168.30.11`.[00m
+Verifying `192.168.30.12` reachable from device `pc11`: [91m `pc11` does not receive any answer from `192.168.30.12`.[00m
+Verifying `192.168.40.11` reachable from device `pc11`: [91m `pc11` does not receive any answer from `192.168.40.11`.[00m
+Verifying `192.168.40.12` reachable from device `pc11`: [91m `pc11` does not receive any answer from `192.168.40.12`.[00m
+Verifying `192.168.10.11` reachable from device `pc12`: [92m OK[00m
+Verifying `192.168.20.11` reachable from device `pc12`: [91m `pc12` does not receive any answer from `192.168.20.11`.[00m
+Verifying `192.168.20.12` reachable from device `pc12`: [91m `pc12` does not receive any answer from `192.168.20.12`.[00m
+Verifying `192.168.30.11` reachable from device `pc12`: [91m `pc12` does not receive any answer from `192.168.30.11`.[00m
+Verifying `192.168.30.12` reachable from device `pc12`: [91m `pc12` does not receive any answer from `192.168.30.12`.[00m
+Verifying `192.168.40.11` reachable from device `pc12`: [91m `pc12` does not receive any answer from `192.168.40.11`.[00m
+Verifying `192.168.40.12` reachable from device `pc12`: [91m `pc12` does not receive any answer from `192.168.40.12`.[00m
+Verifying `192.168.10.11` reachable from device `pc21`: [91m `pc21` does not receive any answer from `192.168.10.11`.[00m
+Verifying `192.168.10.12` reachable from device `pc21`: [91m `pc21` does not receive any answer from `192.168.10.12`.[00m
+Verifying `192.168.20.12` reachable from device `pc21`: [92m OK[00m
+Verifying `192.168.30.11` reachable from device `pc21`: [91m `pc21` does not receive any answer from `192.168.30.11`.[00m
+Verifying `192.168.30.12` reachable from device `pc21`: [91m `pc21` does not receive any answer from `192.168.30.12`.[00m
+Verifying `192.168.40.11` reachable from device `pc21`: [91m `pc21` does not receive any answer from `192.168.40.11`.[00m
+Verifying `192.168.40.12` reachable from device `pc21`: [91m `pc21` does not receive any answer from `192.168.40.12`.[00m
+Verifying `192.168.10.11` reachable from device `pc22`: [91m `pc22` does not receive any answer from `192.168.10.11`.[00m
+Verifying `192.168.10.12` reachable from device `pc22`: [91m `pc22` does not receive any answer from `192.168.10.12`.[00m
+Verifying `192.168.20.11` reachable from device `pc22`: [92m OK[00m
+Verifying `192.168.30.11` reachable from device `pc22`: [91m `pc22` does not receive any answer from `192.168.30.11`.[00m
+Verifying `192.168.30.12` reachable from device `pc22`: [91m `pc22` does not receive any answer from `192.168.30.12`.[00m
+Verifying `192.168.40.11` reachable from device `pc22`: [91m `pc22` does not receive any answer from `192.168.40.11`.[00m
+Verifying `192.168.40.12` reachable from device `pc22`: [91m `pc22` does not receive any answer from `192.168.40.12`.[00m
+Verifying `192.168.10.11` reachable from device `pc31`: [91m `pc31` does not receive any answer from `192.168.10.11`.[00m
+Verifying `192.168.10.12` reachable from device `pc31`: [91m `pc31` does not receive any answer from `192.168.10.12`.[00m
+Verifying `192.168.20.11` reachable from device `pc31`: [91m `pc31` does not receive any answer from `192.168.20.11`.[00m
+Verifying `192.168.20.12` reachable from device `pc31`: [91m `pc31` does not receive any answer from `192.168.20.12`.[00m
+Verifying `192.168.30.12` reachable from device `pc31`: [92m OK[00m
+Verifying `192.168.40.11` reachable from device `pc31`: [91m `pc31` does not receive any answer from `192.168.40.11`.[00m
+Verifying `192.168.40.12` reachable from device `pc31`: [91m `pc31` does not receive any answer from `192.168.40.12`.[00m
+Verifying `192.168.10.11` reachable from device `pc32`: [91m `pc32` does not receive any answer from `192.168.10.11`.[00m
+Verifying `192.168.10.12` reachable from device `pc32`: [91m `pc32` does not receive any answer from `192.168.10.12`.[00m
+Verifying `192.168.20.11` reachable from device `pc32`: [91m `pc32` does not receive any answer from `192.168.20.11`.[00m
+Verifying `192.168.20.12` reachable from device `pc32`: [91m `pc32` does not receive any answer from `192.168.20.12`.[00m
+Verifying `192.168.30.11` reachable from device `pc32`: [92m OK[00m
+Verifying `192.168.40.11` reachable from device `pc32`: [91m `pc32` does not receive any answer from `192.168.40.11`.[00m
+Verifying `192.168.40.12` reachable from device `pc32`: [91m `pc32` does not receive any answer from `192.168.40.12`.[00m
+Verifying `192.168.10.11` reachable from device `pc41`: [91m `pc41` does not receive any answer from `192.168.10.11`.[00m
+Verifying `192.168.10.12` reachable from device `pc41`: [91m `pc41` does not receive any answer from `192.168.10.12`.[00m
+Verifying `192.168.20.11` reachable from device `pc41`: [91m `pc41` does not receive any answer from `192.168.20.11`.[00m
+Verifying `192.168.20.12` reachable from device `pc41`: [91m `pc41` does not receive any answer from `192.168.20.12`.[00m
+Verifying `192.168.30.11` reachable from device `pc41`: [91m `pc41` does not receive any answer from `192.168.30.11`.[00m
+Verifying `192.168.30.12` reachable from device `pc41`: [91m `pc41` does not receive any answer from `192.168.30.12`.[00m
+Verifying `192.168.40.12` reachable from device `pc41`: [92m OK[00m
+Verifying `192.168.10.11` reachable from device `pc42`: [91m `pc42` does not receive any answer from `192.168.10.11`.[00m
+Verifying `192.168.10.12` reachable from device `pc42`: [91m `pc42` does not receive any answer from `192.168.10.12`.[00m
+Verifying `192.168.20.11` reachable from device `pc42`: [91m `pc42` does not receive any answer from `192.168.20.11`.[00m
+Verifying `192.168.20.12` reachable from device `pc42`: [91m `pc42` does not receive any answer from `192.168.20.12`.[00m
+Verifying `192.168.30.11` reachable from device `pc42`: [91m `pc42` does not receive any answer from `192.168.30.11`.[00m
+Verifying `192.168.30.12` reachable from device `pc42`: [91m `pc42` does not receive any answer from `192.168.30.12`.[00m
+Verifying `192.168.40.11` reachable from device `pc42`: [92m OK[00m
+Checking Routing Tables...
+Checking kernel routes for `r1`...
+Checking the routing table of r1: [91m The routing table of r1 have the wrong number of routes: 0, expected: 1[00m
+Checking the routing table of r1: [91m The routing table of r1 is missing route 0.0.0.0/0[00m
+Checking kernel routes for `r2`...
+Checking the routing table of r2: [91m The routing table of r2 have the wrong number of routes: 0, expected: 3[00m
+Checking the routing table of r2: [91m The routing table of r2 is missing route 192.168.10.0/24[00m
+Checking the routing table of r2: [91m The routing table of r2 is missing route 192.168.30.0/24[00m
+Checking the routing table of r2: [91m The routing table of r2 is missing route 192.168.40.0/24[00m
+Checking kernel routes for `r3`...
+Checking the routing table of r3: [91m The routing table of r3 have the wrong number of routes: 0, expected: 3[00m
+Checking the routing table of r3: [91m The routing table of r3 is missing route 192.168.10.0/24[00m
+Checking the routing table of r3: [91m The routing table of r3 is missing route 192.168.20.0/24[00m
+Checking the routing table of r3: [91m The routing table of r3 is missing route 192.168.40.0/24[00m
+Checking kernel routes for `r4`...
+Checking the routing table of r4: [91m The routing table of r4 have the wrong number of routes: 0, expected: 1[00m
+Checking the routing table of r4: [91m The routing table of r4 is missing route 0.0.0.0/0[00m
+Checking kernel routes for `pc11`...
+Checking the routing table of pc11: [92m OK[00m
+Checking kernel routes for `pc12`...
+Checking the routing table of pc12: [92m OK[00m
+Checking kernel routes for `pc21`...
+Checking the routing table of pc21: [92m OK[00m
+Checking kernel routes for `pc22`...
+Checking the routing table of pc22: [92m OK[00m
+Checking kernel routes for `pc31`...
+Checking the routing table of pc31: [92m OK[00m
+Checking kernel routes for `pc32`...
+Checking the routing table of pc32: [92m OK[00m
+Checking kernel routes for `pc41`...
+Checking the routing table of pc41: [92m OK[00m
+Checking kernel routes for `pc42`...
+Checking the routing table of pc42: [92m OK[00m
+Undeploying Network Scenario
+Total Tests: 136
+Passed Tests: 66/136
+Writing test report for candidate in: /Users/matthew/Desktop/A-Tesi/results/Default_Routes_on_Edge_Routers_IPv4_Line_Topology/with_skill/checker-run/labs/candidate as CSV report...
+
+100%|██████████| 1/1 [02:47<00:00, 167.59s/it]
+100%|██████████| 1/1 [02:47<00:00, 167.59s/it]
+Writing All Test Results into: /Users/matthew/Desktop/A-Tesi/results/Default_Routes_on_Edge_Routers_IPv4_Line_Topology/with_skill/checker-run/labs as CSV report...

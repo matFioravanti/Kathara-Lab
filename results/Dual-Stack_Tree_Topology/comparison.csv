@@ -1,0 +1,2 @@
+experiment_id,prompt_file,outcome,reason,with_skill_status,without_skill_status,with_skill_pass_percentage,without_skill_pass_percentage,delta_pass_percentage_points,with_skill_failed_tests,without_skill_failed_tests
+Dual-Stack_Tree_Topology,Dual-Stack Tree Topology.md,INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,failed,error,65.671642,,,23,

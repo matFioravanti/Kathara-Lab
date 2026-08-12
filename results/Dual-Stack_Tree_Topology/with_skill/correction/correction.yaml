@@ -1,0 +1,115 @@
+lab_inline: |
+  r0[0]="r0_r1"
+  r0[1]="r0_r2"
+  r0[2]="lan_root"
+  r1[0]="r0_r1"
+  r1[1]="lan_r1"
+  r2[0]="r0_r2"
+  r2[1]="lan_r2"
+  pc0[0]="lan_root"
+  pc1[0]="lan_r1"
+  pc2[0]="lan_r2"
+
+convergence_time: 10
+default_image: kathara/core
+
+test:
+  requiring_startup:
+    - r0
+    - r1
+    - r2
+    - pc0
+    - pc1
+    - pc2
+
+  ip_mapping:
+    r0:
+      "0": 10.0.1.1/30
+      "1": 10.0.2.1/30
+      "2": 192.168.10.1/24
+    r1:
+      "0": 10.0.1.2/30
+      "1": 192.168.20.1/24
+    r2:
+      "0": 10.0.2.2/30
+      "1": 192.168.30.1/24
+    pc0:
+      "0": 192.168.10.10/24
+    pc1:
+      "0": 192.168.20.10/24
+    pc2:
+      "0": 192.168.30.10/24
+
+  kernel_routes:
+    r0:
+      - ["192.168.20.0/24", ["10.0.1.2"]]
+      - ["192.168.30.0/24", ["10.0.2.2"]]
+    r1:
+      - ["0.0.0.0/0", ["10.0.1.1"]]
+    r2:
+      - ["0.0.0.0/0", ["10.0.2.1"]]
+    pc0:
+      - ["0.0.0.0/0", ["192.168.10.1"]]
+    pc1:
+      - ["0.0.0.0/0", ["192.168.20.1"]]
+    pc2:
+      - ["0.0.0.0/0", ["192.168.30.1"]]
+
+  custom_commands:
+    r0:
+      - command: "ip -6 addr show dev eth0 | grep -Fq 'inet6 2001:db8:1::1/64 scope global'"
+        exit_code: 0
+      - command: "ip -6 addr show dev eth1 | grep -Fq 'inet6 2001:db8:2::1/64 scope global'"
+        exit_code: 0
+      - command: "ip -6 addr show dev eth2 | grep -Fq 'inet6 2001:db8:10::1/64 scope global'"
+        exit_code: 0
+      - command: "ip -6 route show 2001:db8:20::/64 | grep -Eq '^2001:db8:20::/64 via 2001:db8:1::2 dev eth0'"
+        exit_code: 0
+      - command: "ip -6 route show 2001:db8:30::/64 | grep -Eq '^2001:db8:30::/64 via 2001:db8:2::2 dev eth1'"
+        exit_code: 0
+    r1:
+      - command: "ip -6 addr show dev eth0 | grep -Fq 'inet6 2001:db8:1::2/64 scope global'"
+        exit_code: 0
+      - command: "ip -6 addr show dev eth1 | grep -Fq 'inet6 2001:db8:20::1/64 scope global'"
+        exit_code: 0
+      - command: "ip -6 route show default | grep -Eq '^default via 2001:db8:1::1 dev eth0'"
+        exit_code: 0
+    r2:
+      - command: "ip -6 addr show dev eth0 | grep -Fq 'inet6 2001:db8:2::2/64 scope global'"
+        exit_code: 0
+      - command: "ip -6 addr show dev eth1 | grep -Fq 'inet6 2001:db8:30::1/64 scope global'"
+        exit_code: 0
+      - command: "ip -6 route show default | grep -Eq '^default via 2001:db8:2::1 dev eth0'"
+        exit_code: 0
+    pc0:
+      - command: "ip -6 addr show dev eth0 | grep -Fq 'inet6 2001:db8:10::10/64 scope global'"
+        exit_code: 0
+      - command: "ip -6 route show default | grep -Eq '^default via 2001:db8:10::1 dev eth0'"
+        exit_code: 0
+    pc1:
+      - command: "ip -6 addr show dev eth0 | grep -Fq 'inet6 2001:db8:20::10/64 scope global'"
+        exit_code: 0
+      - command: "ip -6 route show default | grep -Eq '^default via 2001:db8:20::1 dev eth0'"
+        exit_code: 0
+    pc2:
+      - command: "ip -6 addr show dev eth0 | grep -Fq 'inet6 2001:db8:30::10/64 scope global'"
+        exit_code: 0
+      - command: "ip -6 route show default | grep -Eq '^default via 2001:db8:30::1 dev eth0'"
+        exit_code: 0
+
+  reachability:
+    pc0:
+      - 192.168.20.10
+      - 192.168.30.10
+      - 2001:db8:20::10
+      - 2001:db8:30::10
+    pc1:
+      - 192.168.10.10
+      - 192.168.30.10
+      - 2001:db8:10::10
+      - 2001:db8:30::10
+    pc2:
+      - 192.168.10.10
+      - 192.168.20.10
+      - 2001:db8:10::10
+      - 2001:db8:20::10

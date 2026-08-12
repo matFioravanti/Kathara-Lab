@@ -1,0 +1,104 @@
+lab_inline: |
+  r0[0]="p2p_r1"
+  r0[1]="p2p_r2"
+  r0[2]="p2p_r3"
+  r0[3]="central_lan"
+  r1[0]="p2p_r1"
+  r1[1]="lan_r1"
+  r2[0]="p2p_r2"
+  r2[1]="lan_r2"
+  r3[0]="p2p_r3"
+  r3[1]="lan_r3"
+  main_server[0]="central_lan"
+  r1_client1[0]="lan_r1"
+  r1_client2[0]="lan_r1"
+  r2_client1[0]="lan_r2"
+  r2_client2[0]="lan_r2"
+  r3_client1[0]="lan_r3"
+  r3_client2[0]="lan_r3"
+convergence_time: 10
+default_image: kathara/base
+test:
+  requiring_startup: [r0, r1, r2, r3, main_server, r1_client1, r1_client2, r2_client1, r2_client2, r3_client1, r3_client2]
+  ip_mapping:
+    r0: {"0": 10.0.1.1/30, "1": 10.0.2.1/30, "2": 10.0.3.1/30, "3": 10.0.10.1/24}
+    r1: {"0": 10.0.1.2/30, "1": 10.1.1.1/24}
+    r2: {"0": 10.0.2.2/30, "1": 10.2.1.1/24}
+    r3: {"0": 10.0.3.2/30, "1": 10.3.1.1/24}
+    main_server: {"0": 10.0.10.10/24}
+    r1_client1: {"0": 10.1.1.11/24}
+    r1_client2: {"0": 10.1.1.12/24}
+    r2_client1: {"0": 10.2.1.11/24}
+    r2_client2: {"0": 10.2.1.12/24}
+    r3_client1: {"0": 10.3.1.11/24}
+    r3_client2: {"0": 10.3.1.12/24}
+  kernel_routes:
+    r0:
+      - [10.1.1.0/24, [10.0.1.2]]
+      - [10.2.1.0/24, [10.0.2.2]]
+      - [10.3.1.0/24, [10.0.3.2]]
+    r1: [[0.0.0.0/0, [10.0.1.1]]]
+    r2: [[0.0.0.0/0, [10.0.2.1]]]
+    r3: [[0.0.0.0/0, [10.0.3.1]]]
+    main_server: [[0.0.0.0/0, [10.0.10.1]]]
+    r1_client1: [[0.0.0.0/0, [10.1.1.1]]]
+    r1_client2: [[0.0.0.0/0, [10.1.1.1]]]
+    r2_client1: [[0.0.0.0/0, [10.2.1.1]]]
+    r2_client2: [[0.0.0.0/0, [10.2.1.1]]]
+    r3_client1: [[0.0.0.0/0, [10.3.1.1]]]
+    r3_client2: [[0.0.0.0/0, [10.3.1.1]]]
+  reachability:
+    r1_client1: [10.0.10.10]
+    r1_client2: [10.0.10.10]
+    r2_client1: [10.0.10.10]
+    r2_client2: [10.0.10.10]
+    r3_client1: [10.0.10.10]
+    r3_client2: [10.0.10.10]
+  custom_commands:
+    r0:
+      - {command: "ip -6 addr show dev eth0 | grep -Fq '2001:db8:1::1/64'", exit_code: 0}
+      - {command: "ip -6 addr show dev eth1 | grep -Fq '2001:db8:2::1/64'", exit_code: 0}
+      - {command: "ip -6 addr show dev eth2 | grep -Fq '2001:db8:3::1/64'", exit_code: 0}
+      - {command: "ip -6 addr show dev eth3 | grep -Fq '2001:db8:10::1/64'", exit_code: 0}
+      - {command: "ip -6 route show 2001:db8:101::/64 | grep -Fq 'via 2001:db8:1::2'", exit_code: 0}
+      - {command: "ip -6 route show 2001:db8:102::/64 | grep -Fq 'via 2001:db8:2::2'", exit_code: 0}
+      - {command: "ip -6 route show 2001:db8:103::/64 | grep -Fq 'via 2001:db8:3::2'", exit_code: 0}
+    r1:
+      - {command: "ip -6 addr show dev eth0 | grep -Fq '2001:db8:1::2/64'", exit_code: 0}
+      - {command: "ip -6 addr show dev eth1 | grep -Fq '2001:db8:101::1/64'", exit_code: 0}
+      - {command: "ip -6 route show default | grep -Fq 'via 2001:db8:1::1'", exit_code: 0}
+    r2:
+      - {command: "ip -6 addr show dev eth0 | grep -Fq '2001:db8:2::2/64'", exit_code: 0}
+      - {command: "ip -6 addr show dev eth1 | grep -Fq '2001:db8:102::1/64'", exit_code: 0}
+      - {command: "ip -6 route show default | grep -Fq 'via 2001:db8:2::1'", exit_code: 0}
+    r3:
+      - {command: "ip -6 addr show dev eth0 | grep -Fq '2001:db8:3::2/64'", exit_code: 0}
+      - {command: "ip -6 addr show dev eth1 | grep -Fq '2001:db8:103::1/64'", exit_code: 0}
+      - {command: "ip -6 route show default | grep -Fq 'via 2001:db8:3::1'", exit_code: 0}
+    main_server:
+      - {command: "ip -6 addr show dev eth0 | grep -Fq '2001:db8:10::10/64'", exit_code: 0}
+      - {command: "ip -6 route show default | grep -Fq 'via 2001:db8:10::1'", exit_code: 0}
+    r1_client1:
+      - {command: "ip -6 addr show dev eth0 | grep -Fq '2001:db8:101::11/64'", exit_code: 0}
+      - {command: "ip -6 route show default | grep -Fq 'via 2001:db8:101::1'", exit_code: 0}
+      - {command: "ping -6 -q -n -c 1 2001:db8:10::10", exit_code: 0}
+    r1_client2:
+      - {command: "ip -6 addr show dev eth0 | grep -Fq '2001:db8:101::12/64'", exit_code: 0}
+      - {command: "ip -6 route show default | grep -Fq 'via 2001:db8:101::1'", exit_code: 0}
+      - {command: "ping -6 -q -n -c 1 2001:db8:10::10", exit_code: 0}
+    r2_client1:
+      - {command: "ip -6 addr show dev eth0 | grep -Fq '2001:db8:102::11/64'", exit_code: 0}
+      - {command: "ip -6 route show default | grep -Fq 'via 2001:db8:102::1'", exit_code: 0}
+      - {command: "ping -6 -q -n -c 1 2001:db8:10::10", exit_code: 0}
+    r2_client2:
+      - {command: "ip -6 addr show dev eth0 | grep -Fq '2001:db8:102::12/64'", exit_code: 0}
+      - {command: "ip -6 route show default | grep -Fq 'via 2001:db8:102::1'", exit_code: 0}
+      - {command: "ping -6 -q -n -c 1 2001:db8:10::10", exit_code: 0}
+    r3_client1:
+      - {command: "ip -6 addr show dev eth0 | grep -Fq '2001:db8:103::11/64'", exit_code: 0}
+      - {command: "ip -6 route show default | grep -Fq 'via 2001:db8:103::1'", exit_code: 0}
+      - {command: "ping -6 -q -n -c 1 2001:db8:10::10", exit_code: 0}
+    r3_client2:
+      - {command: "ip -6 addr show dev eth0 | grep -Fq '2001:db8:103::12/64'", exit_code: 0}
+      - {command: "ip -6 route show default | grep -Fq 'via 2001:db8:103::1'", exit_code: 0}
+      - {command: "ping -6 -q -n -c 1 2001:db8:10::10", exit_code: 0}

@@ -1,0 +1,104 @@
+{
+  "canonical_correction_sha256": "fb2e8541d78c330d786ef7474e74452606651d9647f5f9993d5db2287c301ae9",
+  "checker": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
+      "-m",
+      "kathara_lab_checker",
+      "--config",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Partial_Mesh_DNS_and_Web_Six_Routers/without_skill/correction/correction.yaml",
+      "--labs",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Partial_Mesh_DNS_and_Web_Six_Routers/without_skill/checker-run/labs",
+      "--no-cache",
+      "--report-type",
+      "csv"
+    ],
+    "duration_seconds": 0.41666650000115624,
+    "return_code": 1,
+    "timed_out": false
+  },
+  "checker_attempted": true,
+  "checker_completed": false,
+  "checker_schema_sha256": "841251ca20af61595e8e8521b3de8900dbeadba81cc59e7480765496cad436b0",
+  "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
+  "correction_calls": 0,
+  "correction_generated": true,
+  "correction_hash": "fb2e8541d78c330d786ef7474e74452606651d9647f5f9993d5db2287c301ae9",
+  "correction_mode": "paired_generation",
+  "correction_retries": 0,
+  "creation_skill_enabled": false,
+  "creation_skill_sha256": null,
+  "errors": [
+    "kathara-lab-checker exited with technical return code 1"
+  ],
+  "experiment_id": "Dual-Stack_Partial_Mesh_DNS_and_Web_Six_Routers",
+  "generation": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "duration_seconds": 171.67994129100043,
+        "return_code": 0,
+        "success": true,
+        "timed_out": false,
+        "validation_errors": []
+      }
+    ],
+    "calls": 1,
+    "duration_seconds": 171.67994129100043,
+    "last_command": [
+      "codex",
+      "exec",
+      "--model",
+      "gpt-5.6-terra",
+      "-c",
+      "model_reasoning_effort=\"low\"",
+      "-c",
+      "approval_policy=\"never\"",
+      "--sandbox",
+      "workspace-write",
+      "--cd",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Partial_Mesh_DNS_and_Web_Six_Routers/.workspaces/without_skill",
+      "--json",
+      "--output-last-message",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Partial_Mesh_DNS_and_Web_Six_Routers/.workspaces/without_skill/.agent-last-message.txt",
+      "--ephemeral",
+      "Read only input/prompt.md. Generate exactly one complete Kathara laboratory inside output/lab/. Do not read files outside this workspace. No creation Skill or external implementation guide is available. Do not modify input/prompt.md. Do not generate correction.yaml and do not run Kathara or kathara_lab_checker. The laboratory must be complete, persistent, contain no placeholders, and be internally consistent."
+    ],
+    "retries": 0
+  },
+  "generation_command": "codex",
+  "generation_model": "gpt-5.6-terra",
+  "generation_provider": "codex",
+  "generation_reasoning_effort": "low",
+  "lab_calls": 1,
+  "lab_generated": true,
+  "lab_retries": 0,
+  "metrics": null,
+  "phases": [
+    {
+      "at": "2026-08-12T17:37:53.422228Z",
+      "name": "discovered"
+    },
+    {
+      "at": "2026-08-12T17:37:53.422626Z",
+      "name": "lab_generation_started"
+    },
+    {
+      "at": "2026-08-12T17:40:45.120985Z",
+      "name": "lab_generated"
+    },
+    {
+      "at": "2026-08-12T17:46:19.952328Z",
+      "name": "checker_started"
+    },
+    {
+      "at": "2026-08-12T17:46:20.369625Z",
+      "name": "error"
+    }
+  ],
+  "pipeline_version": "0.5.0",
+  "prompt_file": "Dual-Stack Partial Mesh, DNS and Web, Six Routers.md",
+  "prompt_sha256": "6bf7632ac3a5634137928fd51949b857531f538ab4ce57e75c4a7cd680a0fcc5",
+  "status": "error",
+  "variant": "without_skill"
+}

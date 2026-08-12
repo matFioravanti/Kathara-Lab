@@ -1,0 +1,32 @@
+{
+  "comparison": "INCOMPARABLE",
+  "comparison_reason": "Both checker runs must complete successfully for a paired quality comparison.",
+  "complete": true,
+  "experiment_id": "Dual-Stack_Line_Topology_Three_Routers",
+  "finished_at": "2026-08-12T17:37:53.412350Z",
+  "identity": {
+    "checker_report_type": "csv",
+    "checker_runtime": "kathara-lab-checker==0.1.14",
+    "checker_schema_sha256": "841251ca20af61595e8e8521b3de8900dbeadba81cc59e7480765496cad436b0",
+    "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
+    "command": "codex",
+    "creation_skill_sha256": "bf4daac809c4088ad9106268c093cca9c41f79e95dba4113f108c0298d85b996",
+    "model": "gpt-5.6-terra",
+    "pipeline_version": "0.5.0",
+    "prompt_sha256": "305544e8e96fe3ff011086e6cc325e15ee7d84495b1153cd65b22211436f4925",
+    "provider": "codex",
+    "reasoning_effort": "low",
+    "sandbox": "workspace-write"
+  },
+  "paired_correction": {
+    "calls": 1,
+    "duration_seconds": 206.8133072089986,
+    "mode": "paired_generation",
+    "return_code": 0,
+    "timed_out": false
+  },
+  "pipeline_version": "0.5.0",
+  "prompt_file": "Dual-Stack Line Topology, Three Routers.md",
+  "prompt_sha256": "305544e8e96fe3ff011086e6cc325e15ee7d84495b1153cd65b22211436f4925",
+  "started_at": "2026-08-12T17:32:16.395099Z"
+}

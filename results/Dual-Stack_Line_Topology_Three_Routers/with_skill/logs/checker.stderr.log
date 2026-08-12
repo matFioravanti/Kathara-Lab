@@ -1,0 +1,264 @@
+Parsing test configuration...
+Parsing inline network scenarios template
+Parsing network scenarios in: /Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Line_Topology_Three_Routers/with_skill/checker-run/labs
+
+  0%|          | 0/1 [00:00<?, ?it/s]##################### candidate #####################
+Parsing network scenario in: /Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Line_Topology_Three_Routers/with_skill/checker-run/labs/candidate
+Network scenario name: candidate
+Undeploying network scenario in case it was running...
+Deploying network scenario...
+Waiting convergence...
+Starting tests
+Verifying lab structure using inline lab.conf template
+Checking devices existence...
+Check existence of `r1`: [92m OK[00m
+Check existence of `r2`: [92m OK[00m
+Check existence of `r3`: [92m OK[00m
+Check existence of `pc1`: [92m OK[00m
+Check existence of `pc2`: [92m OK[00m
+Check existence of `pc3`: [92m OK[00m
+Check existence of `pc4`: [92m OK[00m
+Check existence of `pc5`: [92m OK[00m
+Check existence of `pc6`: [92m OK[00m
+Check existence of `pc7`: [92m OK[00m
+Check existence of `pc8`: [92m OK[00m
+Check existence of `pc9`: [92m OK[00m
+Checking collision domains...
+Checking the collision domain attached to interface `eth0` of `r1`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r1`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `r2`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r2`: [92m OK[00m
+Checking the collision domain attached to interface `eth2` of `r2`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `r3`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r3`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc1`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc2`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc3`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc4`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc5`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc6`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc7`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc8`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc9`: [92m OK[00m
+Checking that all required startup files exist...
+Check existence of `r1.startup` file: [92m OK[00m
+Check existence of `r2.startup` file: [92m OK[00m
+Check existence of `r3.startup` file: [92m OK[00m
+Check existence of `pc1.startup` file: [92m OK[00m
+Check existence of `pc2.startup` file: [92m OK[00m
+Check existence of `pc3.startup` file: [92m OK[00m
+Check existence of `pc4.startup` file: [92m OK[00m
+Check existence of `pc5.startup` file: [92m OK[00m
+Check existence of `pc6.startup` file: [92m OK[00m
+Check existence of `pc7.startup` file: [92m OK[00m
+Check existence of `pc8.startup` file: [92m OK[00m
+Check existence of `pc9.startup` file: [92m OK[00m
+Verifying the IP addresses assigned to devices...
+Checking IPs for `r1`...
+Verifying the IP address (10.10.1.1/24) assigned to eth0 of r1: [91m The interface `eth0` of `r1` has the following IP addresses: []`.[00m
+Verifying the IP address (10.255.12.1/30) assigned to eth1 of r1: [91m The interface `eth1` of `r1` has the following IP addresses: []`.[00m
+Checking IPs for `r2`...
+Verifying the IP address (10.255.12.2/30) assigned to eth0 of r2: [91m The interface `eth0` of `r2` has the following IP addresses: []`.[00m
+Verifying the IP address (10.255.23.1/30) assigned to eth1 of r2: [91m The interface `eth1` of `r2` has the following IP addresses: []`.[00m
+Verifying the IP address (10.10.2.1/24) assigned to eth2 of r2: [91m The interface `eth2` of `r2` has the following IP addresses: []`.[00m
+Checking IPs for `r3`...
+Verifying the IP address (10.255.23.2/30) assigned to eth0 of r3: [91m The interface `eth0` of `r3` has the following IP addresses: []`.[00m
+Verifying the IP address (10.10.3.1/24) assigned to eth1 of r3: [91m The interface `eth1` of `r3` has the following IP addresses: []`.[00m
+Checking IPs for `pc1`...
+Verifying the IP address (10.10.1.11/24) assigned to eth0 of pc1: [92m OK[00m
+Checking IPs for `pc2`...
+Verifying the IP address (10.10.1.12/24) assigned to eth0 of pc2: [92m OK[00m
+Checking IPs for `pc3`...
+Verifying the IP address (10.10.1.13/24) assigned to eth0 of pc3: [92m OK[00m
+Checking IPs for `pc4`...
+Verifying the IP address (10.10.2.11/24) assigned to eth0 of pc4: [92m OK[00m
+Checking IPs for `pc5`...
+Verifying the IP address (10.10.2.12/24) assigned to eth0 of pc5: [92m OK[00m
+Checking IPs for `pc6`...
+Verifying the IP address (10.10.2.13/24) assigned to eth0 of pc6: [92m OK[00m
+Checking IPs for `pc7`...
+Verifying the IP address (10.10.3.11/24) assigned to eth0 of pc7: [92m OK[00m
+Checking IPs for `pc8`...
+Verifying the IP address (10.10.3.12/24) assigned to eth0 of pc8: [92m OK[00m
+Checking IPs for `pc9`...
+Verifying the IP address (10.10.3.13/24) assigned to eth0 of pc9: [92m OK[00m
+Starting reachability test...
+Verifying `10.10.1.12` reachable from device `pc1`: [92m OK[00m
+Verifying `10.10.1.13` reachable from device `pc1`: [92m OK[00m
+Verifying `10.10.2.11` reachable from device `pc1`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.2.12` reachable from device `pc1`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.2.13` reachable from device `pc1`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.3.11` reachable from device `pc1`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.3.12` reachable from device `pc1`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.3.13` reachable from device `pc1`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.1.11` reachable from device `pc2`: [92m OK[00m
+Verifying `10.10.1.13` reachable from device `pc2`: [92m OK[00m
+Verifying `10.10.2.11` reachable from device `pc2`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.2.12` reachable from device `pc2`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.2.13` reachable from device `pc2`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.3.11` reachable from device `pc2`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.3.12` reachable from device `pc2`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.3.13` reachable from device `pc2`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.1.11` reachable from device `pc3`: [92m OK[00m
+Verifying `10.10.1.12` reachable from device `pc3`: [92m OK[00m
+Verifying `10.10.2.11` reachable from device `pc3`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.2.12` reachable from device `pc3`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.2.13` reachable from device `pc3`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.3.11` reachable from device `pc3`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.3.12` reachable from device `pc3`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.3.13` reachable from device `pc3`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.1.11` reachable from device `pc4`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.1.12` reachable from device `pc4`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.1.13` reachable from device `pc4`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.2.12` reachable from device `pc4`: [92m OK[00m
+Verifying `10.10.2.13` reachable from device `pc4`: [92m OK[00m
+Verifying `10.10.3.11` reachable from device `pc4`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.3.12` reachable from device `pc4`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.3.13` reachable from device `pc4`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.1.11` reachable from device `pc5`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.1.12` reachable from device `pc5`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.1.13` reachable from device `pc5`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.2.11` reachable from device `pc5`: [92m OK[00m
+Verifying `10.10.2.13` reachable from device `pc5`: [92m OK[00m
+Verifying `10.10.3.11` reachable from device `pc5`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.3.12` reachable from device `pc5`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.3.13` reachable from device `pc5`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.1.11` reachable from device `pc6`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.1.12` reachable from device `pc6`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.1.13` reachable from device `pc6`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.2.11` reachable from device `pc6`: [92m OK[00m
+Verifying `10.10.2.12` reachable from device `pc6`: [92m OK[00m
+Verifying `10.10.3.11` reachable from device `pc6`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.3.12` reachable from device `pc6`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.3.13` reachable from device `pc6`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.1.11` reachable from device `pc7`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.1.12` reachable from device `pc7`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.1.13` reachable from device `pc7`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.2.11` reachable from device `pc7`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.2.12` reachable from device `pc7`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.2.13` reachable from device `pc7`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.3.12` reachable from device `pc7`: [92m OK[00m
+Verifying `10.10.3.13` reachable from device `pc7`: [92m OK[00m
+Verifying `10.10.1.11` reachable from device `pc8`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.1.12` reachable from device `pc8`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.1.13` reachable from device `pc8`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.2.11` reachable from device `pc8`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.2.12` reachable from device `pc8`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.2.13` reachable from device `pc8`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.3.11` reachable from device `pc8`: [92m OK[00m
+Verifying `10.10.3.13` reachable from device `pc8`: [92m OK[00m
+Verifying `10.10.1.11` reachable from device `pc9`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.1.12` reachable from device `pc9`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.1.13` reachable from device `pc9`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.2.11` reachable from device `pc9`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.2.12` reachable from device `pc9`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.2.13` reachable from device `pc9`: [91m ping: connect: Network is unreachable[00m
+Verifying `10.10.3.11` reachable from device `pc9`: [92m OK[00m
+Verifying `10.10.3.12` reachable from device `pc9`: [92m OK[00m
+Checking Routing Tables...
+Checking kernel routes for `r1`...
+Checking the routing table of r1: [91m The routing table of r1 have the wrong number of routes: 0, expected: 1[00m
+Checking the routing table of r1: [91m The routing table of r1 is missing route 0.0.0.0/0[00m
+Checking kernel routes for `r2`...
+Checking the routing table of r2: [91m The routing table of r2 have the wrong number of routes: 0, expected: 2[00m
+Checking the routing table of r2: [91m The routing table of r2 is missing route 10.10.1.0/24[00m
+Checking the routing table of r2: [91m The routing table of r2 is missing route 10.10.3.0/24[00m
+Checking kernel routes for `r3`...
+Checking the routing table of r3: [91m The routing table of r3 have the wrong number of routes: 0, expected: 1[00m
+Checking the routing table of r3: [91m The routing table of r3 is missing route 0.0.0.0/0[00m
+Checking kernel routes for `pc1`...
+Checking the routing table of pc1: [91m The routing table of pc1 have the wrong number of routes: 0, expected: 1[00m
+Checking the routing table of pc1: [91m The routing table of pc1 is missing route 0.0.0.0/0[00m
+Checking kernel routes for `pc2`...
+Checking the routing table of pc2: [91m The routing table of pc2 have the wrong number of routes: 0, expected: 1[00m
+Checking the routing table of pc2: [91m The routing table of pc2 is missing route 0.0.0.0/0[00m
+Checking kernel routes for `pc3`...
+Checking the routing table of pc3: [91m The routing table of pc3 have the wrong number of routes: 0, expected: 1[00m
+Checking the routing table of pc3: [91m The routing table of pc3 is missing route 0.0.0.0/0[00m
+Checking kernel routes for `pc4`...
+Checking the routing table of pc4: [91m The routing table of pc4 have the wrong number of routes: 0, expected: 1[00m
+Checking the routing table of pc4: [91m The routing table of pc4 is missing route 0.0.0.0/0[00m
+Checking kernel routes for `pc5`...
+Checking the routing table of pc5: [91m The routing table of pc5 have the wrong number of routes: 0, expected: 1[00m
+Checking the routing table of pc5: [91m The routing table of pc5 is missing route 0.0.0.0/0[00m
+Checking kernel routes for `pc6`...
+Checking the routing table of pc6: [91m The routing table of pc6 have the wrong number of routes: 0, expected: 1[00m
+Checking the routing table of pc6: [91m The routing table of pc6 is missing route 0.0.0.0/0[00m
+Checking kernel routes for `pc7`...
+Checking the routing table of pc7: [91m The routing table of pc7 have the wrong number of routes: 0, expected: 1[00m
+Checking the routing table of pc7: [91m The routing table of pc7 is missing route 0.0.0.0/0[00m
+Checking kernel routes for `pc8`...
+Checking the routing table of pc8: [91m The routing table of pc8 have the wrong number of routes: 0, expected: 1[00m
+Checking the routing table of pc8: [91m The routing table of pc8 is missing route 0.0.0.0/0[00m
+Checking kernel routes for `pc9`...
+Checking the routing table of pc9: [91m The routing table of pc9 have the wrong number of routes: 0, expected: 1[00m
+Checking the routing table of pc9: [91m The routing table of pc9 is missing route 0.0.0.0/0[00m
+Checking custom commands output...
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:1::1/64'' on 'r1': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq '2001:db8:10:12::1/64'' on 'r1': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Fqx 'default via 2001:db8:10:12::2 dev eth1'' on 'r1': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:12::2/64'' on 'r2': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq '2001:db8:10:23::1/64'' on 'r2': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth2 | grep -Fq '2001:db8:10:2::1/64'' on 'r2': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show 2001:db8:10:1::/64 | grep -Fq 'via 2001:db8:10:12::1'' on 'r2': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show 2001:db8:10:3::/64 | grep -Fq 'via 2001:db8:10:23::2'' on 'r2': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:23::2/64'' on 'r3': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq '2001:db8:10:3::1/64'' on 'r3': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Fqx 'default via 2001:db8:10:23::1 dev eth0'' on 'r3': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:1::11/64' && ip -6 route show default | grep -Fq 'via 2001:db8:10:1::1'' on 'pc1': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:1::12/64' && ip -6 route show default | grep -Fq 'via 2001:db8:10:1::1'' on 'pc2': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:1::13/64' && ip -6 route show default | grep -Fq 'via 2001:db8:10:1::1'' on 'pc3': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:2::11/64' && ip -6 route show default | grep -Fq 'via 2001:db8:10:2::1'' on 'pc4': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:2::12/64' && ip -6 route show default | grep -Fq 'via 2001:db8:10:2::1'' on 'pc5': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:2::13/64' && ip -6 route show default | grep -Fq 'via 2001:db8:10:2::1'' on 'pc6': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:3::11/64' && ip -6 route show default | grep -Fq 'via 2001:db8:10:3::1'' on 'pc7': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:3::12/64' && ip -6 route show default | grep -Fq 'via 2001:db8:10:3::1'' on 'pc8': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:3::13/64' && ip -6 route show default | grep -Fq 'via 2001:db8:10:3::1'' on 'pc9': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Undeploying Network Scenario
+Total Tests: 173
+Passed Tests: 67/173
+Writing test report for candidate in: /Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Line_Topology_Three_Routers/with_skill/checker-run/labs/candidate as CSV report...
+
+100%|██████████| 1/1 [00:20<00:00, 20.59s/it]
+100%|██████████| 1/1 [00:20<00:00, 20.59s/it]
+Writing All Test Results into: /Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Line_Topology_Three_Routers/with_skill/checker-run/labs as CSV report...

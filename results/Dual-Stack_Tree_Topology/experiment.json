@@ -1,0 +1,32 @@
+{
+  "comparison": "INCOMPARABLE",
+  "comparison_reason": "Both checker runs must complete successfully for a paired quality comparison.",
+  "complete": true,
+  "experiment_id": "Dual-Stack_Tree_Topology",
+  "finished_at": "2026-08-12T18:01:42.850048Z",
+  "identity": {
+    "checker_report_type": "csv",
+    "checker_runtime": "kathara-lab-checker==0.1.14",
+    "checker_schema_sha256": "841251ca20af61595e8e8521b3de8900dbeadba81cc59e7480765496cad436b0",
+    "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
+    "command": "codex",
+    "creation_skill_sha256": "bf4daac809c4088ad9106268c093cca9c41f79e95dba4113f108c0298d85b996",
+    "model": "gpt-5.6-terra",
+    "pipeline_version": "0.5.0",
+    "prompt_sha256": "f281c9dc3e0fce612f207695eb617614a3fab8ce7c4f86c94800fc689ab12ea5",
+    "provider": "codex",
+    "reasoning_effort": "low",
+    "sandbox": "workspace-write"
+  },
+  "paired_correction": {
+    "calls": 1,
+    "duration_seconds": 141.74046691600233,
+    "mode": "paired_generation",
+    "return_code": 0,
+    "timed_out": false
+  },
+  "pipeline_version": "0.5.0",
+  "prompt_file": "Dual-Stack Tree Topology.md",
+  "prompt_sha256": "f281c9dc3e0fce612f207695eb617614a3fab8ce7c4f86c94800fc689ab12ea5",
+  "started_at": "2026-08-12T17:57:45.575963Z"
+}

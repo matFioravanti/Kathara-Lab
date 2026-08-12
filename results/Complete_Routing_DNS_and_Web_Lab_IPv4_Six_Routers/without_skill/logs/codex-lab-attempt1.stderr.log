@@ -1,0 +1,1 @@
+2026-08-12T11:04:14.757314Z ERROR codex_core_skills::service: failed to install system skills: io error while remove existing system skills dir: Directory not empty (os error 66)

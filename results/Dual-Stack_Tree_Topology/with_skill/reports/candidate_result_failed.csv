@@ -1,0 +1,58 @@
+Test Description,Passed,Reason
+Verifying `2001:db8:20::10` reachable from device `pc0`,False,ping: connect: Cannot assign requested address
+Verifying `2001:db8:30::10` reachable from device `pc0`,False,ping: connect: Cannot assign requested address
+Verifying `2001:db8:10::10` reachable from device `pc1`,False,ping: connect: Cannot assign requested address
+Verifying `2001:db8:30::10` reachable from device `pc1`,False,ping: connect: Cannot assign requested address
+Verifying `2001:db8:10::10` reachable from device `pc2`,False,ping: connect: Cannot assign requested address
+Verifying `2001:db8:20::10` reachable from device `pc2`,False,ping: connect: Cannot assign requested address
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'inet6 2001:db8:1::1/64 scope global'' on 'r0',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq 'inet6 2001:db8:2::1/64 scope global'' on 'r0',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth2 | grep -Fq 'inet6 2001:db8:10::1/64 scope global'' on 'r0',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show 2001:db8:20::/64 | grep -Eq '^2001:db8:20::/64 via 2001:db8:1::2 dev eth0'' on 'r0',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show 2001:db8:30::/64 | grep -Eq '^2001:db8:30::/64 via 2001:db8:2::2 dev eth1'' on 'r0',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'inet6 2001:db8:1::2/64 scope global'' on 'r1',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq 'inet6 2001:db8:20::1/64 scope global'' on 'r1',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show default | grep -Eq '^default via 2001:db8:1::1 dev eth0'' on 'r1',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'inet6 2001:db8:2::2/64 scope global'' on 'r2',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq 'inet6 2001:db8:30::1/64 scope global'' on 'r2',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show default | grep -Eq '^default via 2001:db8:2::1 dev eth0'' on 'r2',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'inet6 2001:db8:10::10/64 scope global'' on 'pc0',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show default | grep -Eq '^default via 2001:db8:10::1 dev eth0'' on 'pc0',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'inet6 2001:db8:20::10/64 scope global'' on 'pc1',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show default | grep -Eq '^default via 2001:db8:20::1 dev eth0'' on 'pc1',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'inet6 2001:db8:30::10/64 scope global'' on 'pc2',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show default | grep -Eq '^default via 2001:db8:30::1 dev eth0'' on 'pc2',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"

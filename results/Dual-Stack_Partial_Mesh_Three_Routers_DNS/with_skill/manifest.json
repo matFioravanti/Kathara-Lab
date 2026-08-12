@@ -1,0 +1,120 @@
+{
+  "canonical_correction_sha256": "95cb9165a60edea7f08250126e641d84b883d5ffecf90ba5201ebf157c7e3df3",
+  "checker": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
+      "-m",
+      "kathara_lab_checker",
+      "--config",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Partial_Mesh_Three_Routers_DNS/with_skill/correction/correction.yaml",
+      "--labs",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Partial_Mesh_Three_Routers_DNS/with_skill/checker-run/labs",
+      "--no-cache",
+      "--report-type",
+      "csv"
+    ],
+    "duration_seconds": 23.03773658299906,
+    "return_code": 0,
+    "timed_out": false
+  },
+  "checker_attempted": true,
+  "checker_completed": true,
+  "checker_schema_sha256": "841251ca20af61595e8e8521b3de8900dbeadba81cc59e7480765496cad436b0",
+  "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
+  "correction_calls": 0,
+  "correction_generated": true,
+  "correction_hash": "95cb9165a60edea7f08250126e641d84b883d5ffecf90ba5201ebf157c7e3df3",
+  "correction_mode": "paired_generation",
+  "correction_retries": 0,
+  "creation_skill_enabled": true,
+  "creation_skill_sha256": "bf4daac809c4088ad9106268c093cca9c41f79e95dba4113f108c0298d85b996",
+  "errors": [],
+  "experiment_id": "Dual-Stack_Partial_Mesh_Three_Routers_DNS",
+  "generation": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "duration_seconds": 98.84867091699925,
+        "return_code": 0,
+        "success": true,
+        "timed_out": false,
+        "validation_errors": []
+      }
+    ],
+    "calls": 1,
+    "duration_seconds": 98.84867091699925,
+    "last_command": [
+      "codex",
+      "exec",
+      "--model",
+      "gpt-5.6-terra",
+      "-c",
+      "model_reasoning_effort=\"low\"",
+      "-c",
+      "approval_policy=\"never\"",
+      "--sandbox",
+      "workspace-write",
+      "--cd",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Partial_Mesh_Three_Routers_DNS/.workspaces/with_skill",
+      "--json",
+      "--output-last-message",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Partial_Mesh_Three_Routers_DNS/.workspaces/with_skill/.agent-last-message.txt",
+      "--ephemeral",
+      "Read input/prompt.md and resources/creation/SKILL.md. Use resources/creation/SKILL.md as the authoritative general implementation guide for Kathara, while the requested scenario itself is defined only by input/prompt.md. Generate exactly one complete Kathara laboratory inside output/lab/. Do not read files outside this workspace. Do not modify input/ or resources/. Do not generate correction.yaml and do not run Kathara or kathara_lab_checker. The laboratory must be complete, persistent, contain no placeholders, and be internally consistent."
+    ],
+    "retries": 0
+  },
+  "generation_command": "codex",
+  "generation_model": "gpt-5.6-terra",
+  "generation_provider": "codex",
+  "generation_reasoning_effort": "low",
+  "lab_calls": 1,
+  "lab_generated": true,
+  "lab_retries": 0,
+  "metrics": {
+    "failed_tests": 26,
+    "failure_categories": {
+      "uncategorized": 26
+    },
+    "pass_percentage": 70.786517,
+    "passed_tests": 63,
+    "reports_found": [
+      "results.csv",
+      "candidate_result_all.csv",
+      "candidate_result_failed.csv",
+      "candidate_result_summary.csv"
+    ],
+    "total_tests": 89
+  },
+  "phases": [
+    {
+      "at": "2026-08-12T17:46:20.394539Z",
+      "name": "discovered"
+    },
+    {
+      "at": "2026-08-12T17:46:20.394777Z",
+      "name": "lab_generation_started"
+    },
+    {
+      "at": "2026-08-12T17:47:59.258652Z",
+      "name": "lab_generated"
+    },
+    {
+      "at": "2026-08-12T17:52:03.785326Z",
+      "name": "checker_started"
+    },
+    {
+      "at": "2026-08-12T17:52:26.831383Z",
+      "name": "checker_completed"
+    },
+    {
+      "at": "2026-08-12T17:52:26.831402Z",
+      "name": "failed"
+    }
+  ],
+  "pipeline_version": "0.5.0",
+  "prompt_file": "Dual-Stack Partial Mesh, Three Routers, DNS.md",
+  "prompt_sha256": "be46c1535eca0187b947bb880ec16f4c0c1afc3fb8957c222021606581addba2",
+  "status": "failed",
+  "variant": "with_skill"
+}

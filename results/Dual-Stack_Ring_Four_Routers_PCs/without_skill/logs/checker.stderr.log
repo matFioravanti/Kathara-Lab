@@ -1,0 +1,17 @@
+Parsing test configuration...
+Parsing inline network scenarios template
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/kathara_lab_checker/__main__.py", line 311, in <module>
+    main()
+    ~~~~^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/kathara_lab_checker/__main__.py", line 294, in main
+    template_lab = LabParser().parse(
+        os.path.dirname(structure),
+        conf_name=os.path.basename(structure),
+    )
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/Kathara/parser/netkit/LabParser.py", line 71, in parse
+    raise SyntaxError(f"In {conf_name} - Line {line_number}: "
+                      f"Collision domain `{value}` contains non-alphanumeric characters.")
+SyntaxError: In tmp9rb0xy4s.conf - Line 1: Collision domain `r1-r2` contains non-alphanumeric characters.

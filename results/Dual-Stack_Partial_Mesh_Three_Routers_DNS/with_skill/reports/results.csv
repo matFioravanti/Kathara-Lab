@@ -1,0 +1,79 @@
+Student Name,Tests Passed,Tests Failed,Tests Total Number,Problems
+candidate,63,26,89,"1: Checking the output of the command 'ip -6 addr show dev eth0' on 'r1': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:12::1/64\s+scope global
+2: Checking the output of the command 'ip -6 addr show dev eth1' on 'r1': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:13::1/64\s+scope global
+3: Checking the output of the command 'ip -6 addr show dev eth2' on 'r1': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:10::1/64\s+scope global
+4: Checking the output of the command 'ip -6 route show 2001:db8:20::/64' on 'r1': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^2001:db8:20::/64 via 2001:db8:12::2 dev eth0\b
+5: Checking the output of the command 'ip -6 route show 2001:db8:30::/64' on 'r1': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^2001:db8:30::/64 via 2001:db8:13::2 dev eth1\b
+6: Checking the output of the command 'ip -6 addr show dev eth0' on 'r2': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:12::2/64\s+scope global
+7: Checking the output of the command 'ip -6 addr show dev eth1' on 'r2': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:23::1/64\s+scope global
+8: Checking the output of the command 'ip -6 addr show dev eth2' on 'r2': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:20::1/64\s+scope global
+9: Checking the output of the command 'ip -6 route show 2001:db8:10::/64' on 'r2': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^2001:db8:10::/64 via 2001:db8:12::1 dev eth0\b
+10: Checking the output of the command 'ip -6 route show 2001:db8:30::/64' on 'r2': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^2001:db8:30::/64 via 2001:db8:23::2 dev eth1\b
+11: Checking the output of the command 'ip -6 addr show dev eth0' on 'r3': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:13::2/64\s+scope global
+12: Checking the output of the command 'ip -6 addr show dev eth1' on 'r3': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:23::2/64\s+scope global
+13: Checking the output of the command 'ip -6 addr show dev eth2' on 'r3': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:30::1/64\s+scope global
+14: Checking the output of the command 'ip -6 route show 2001:db8:10::/64' on 'r3': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^2001:db8:10::/64 via 2001:db8:13::1 dev eth0\b
+15: Checking the output of the command 'ip -6 route show 2001:db8:20::/64' on 'r3': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^2001:db8:20::/64 via 2001:db8:23::1 dev eth1\b
+16: Checking the output of the command 'ip -6 addr show dev eth0' on 'client': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:10::10/64\s+scope global
+17: Checking the output of the command 'ip -6 route show default' on 'client': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^default via 2001:db8:10::1 dev eth0\b
+18: Checking the exit code of the command 'curl -6 -fsS http://company.test/' on 'client': The exit code of the command differs from the expected one.
+ Actual: 7
+ Expected: 0
+19: Checking the output of the command 'ip -6 addr show dev eth0' on 'dns': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:10::53/64\s+scope global
+20: Checking the output of the command 'ip -6 route show default' on 'dns': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^default via 2001:db8:10::1 dev eth0\b
+21: Checking the output of the command 'ip -6 addr show dev eth0' on 'web': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:20::80/64\s+scope global
+22: Checking the output of the command 'ip -6 route show default' on 'web': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^default via 2001:db8:20::1 dev eth0\b
+23: Checking the output of the command 'ip -6 addr show dev eth0' on 'pc1': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:30::10/64\s+scope global
+24: Checking the output of the command 'ip -6 route show default' on 'pc1': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^default via 2001:db8:30::1 dev eth0\b
+25: Checking the output of the command 'ip -6 addr show dev eth0' on 'pc2': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:30::11/64\s+scope global
+26: Checking the output of the command 'ip -6 route show default' on 'pc2': The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^default via 2001:db8:30::1 dev eth0\b"

@@ -1,0 +1,173 @@
+Test Description,Passed,Reason
+Check existence of `r1`,True,OK
+Check existence of `r2`,True,OK
+Check existence of `r3`,True,OK
+Check existence of `r4`,True,OK
+Check existence of `r5`,True,OK
+Check existence of `r6`,True,OK
+Check existence of `client`,True,OK
+Check existence of `localdns`,True,OK
+Check existence of `rootdns`,True,OK
+Check existence of `authdns`,True,OK
+Check existence of `web`,True,OK
+Check existence of `r2pc1`,True,OK
+Check existence of `r2pc2`,True,OK
+Check existence of `r5pc1`,True,OK
+Check existence of `r5pc2`,True,OK
+Check existence of `r6pc1`,True,OK
+Check existence of `r6pc2`,True,OK
+Checking the collision domain attached to interface `eth0` of `r1`,True,OK
+Checking the collision domain attached to interface `eth1` of `r1`,True,OK
+Checking the collision domain attached to interface `eth2` of `r1`,True,OK
+Checking the collision domain attached to interface `eth0` of `r2`,True,OK
+Checking the collision domain attached to interface `eth1` of `r2`,True,OK
+Checking the collision domain attached to interface `eth2` of `r2`,True,OK
+Checking the collision domain attached to interface `eth0` of `r3`,True,OK
+Checking the collision domain attached to interface `eth1` of `r3`,True,OK
+Checking the collision domain attached to interface `eth2` of `r3`,True,OK
+Checking the collision domain attached to interface `eth3` of `r3`,True,OK
+Checking the collision domain attached to interface `eth0` of `r4`,True,OK
+Checking the collision domain attached to interface `eth1` of `r4`,True,OK
+Checking the collision domain attached to interface `eth2` of `r4`,True,OK
+Checking the collision domain attached to interface `eth3` of `r4`,True,OK
+Checking the collision domain attached to interface `eth0` of `r5`,True,OK
+Checking the collision domain attached to interface `eth1` of `r5`,True,OK
+Checking the collision domain attached to interface `eth2` of `r5`,True,OK
+Checking the collision domain attached to interface `eth0` of `r6`,True,OK
+Checking the collision domain attached to interface `eth1` of `r6`,True,OK
+Checking the collision domain attached to interface `eth2` of `r6`,True,OK
+Checking the collision domain attached to interface `eth0` of `client`,True,OK
+Checking the collision domain attached to interface `eth0` of `localdns`,True,OK
+Checking the collision domain attached to interface `eth0` of `rootdns`,True,OK
+Checking the collision domain attached to interface `eth0` of `authdns`,True,OK
+Checking the collision domain attached to interface `eth0` of `web`,True,OK
+Checking the collision domain attached to interface `eth0` of `r2pc1`,True,OK
+Checking the collision domain attached to interface `eth0` of `r2pc2`,True,OK
+Checking the collision domain attached to interface `eth0` of `r5pc1`,True,OK
+Checking the collision domain attached to interface `eth0` of `r5pc2`,True,OK
+Checking the collision domain attached to interface `eth0` of `r6pc1`,True,OK
+Checking the collision domain attached to interface `eth0` of `r6pc2`,True,OK
+Check existence of `r1.startup` file,True,OK
+Check existence of `r2.startup` file,True,OK
+Check existence of `r3.startup` file,True,OK
+Check existence of `r4.startup` file,True,OK
+Check existence of `r5.startup` file,True,OK
+Check existence of `r6.startup` file,True,OK
+Check existence of `client.startup` file,True,OK
+Check existence of `localdns.startup` file,True,OK
+Check existence of `rootdns.startup` file,True,OK
+Check existence of `authdns.startup` file,True,OK
+Check existence of `web.startup` file,True,OK
+Check existence of `r2pc1.startup` file,True,OK
+Check existence of `r2pc2.startup` file,True,OK
+Check existence of `r5pc1.startup` file,True,OK
+Check existence of `r5pc2.startup` file,True,OK
+Check existence of `r6pc1.startup` file,True,OK
+Check existence of `r6pc2.startup` file,True,OK
+Verifying the IP address (10.0.12.1/30) assigned to eth0 of r1,True,OK
+Verifying the IP address (10.0.13.1/30) assigned to eth1 of r1,True,OK
+Verifying the IP address (192.168.1.1/24) assigned to eth2 of r1,True,OK
+Verifying the IP address (10.0.12.2/30) assigned to eth0 of r2,True,OK
+Verifying the IP address (10.0.24.1/30) assigned to eth1 of r2,True,OK
+Verifying the IP address (192.168.2.1/24) assigned to eth2 of r2,True,OK
+Verifying the IP address (10.0.13.2/30) assigned to eth0 of r3,True,OK
+Verifying the IP address (10.0.34.1/30) assigned to eth1 of r3,True,OK
+Verifying the IP address (10.0.35.1/30) assigned to eth2 of r3,True,OK
+Verifying the IP address (192.168.3.1/24) assigned to eth3 of r3,True,OK
+Verifying the IP address (10.0.24.2/30) assigned to eth0 of r4,True,OK
+Verifying the IP address (10.0.34.2/30) assigned to eth1 of r4,True,OK
+Verifying the IP address (10.0.46.1/30) assigned to eth2 of r4,True,OK
+Verifying the IP address (192.168.4.1/24) assigned to eth3 of r4,True,OK
+Verifying the IP address (10.0.35.2/30) assigned to eth0 of r5,True,OK
+Verifying the IP address (10.0.56.1/30) assigned to eth1 of r5,True,OK
+Verifying the IP address (192.168.5.1/24) assigned to eth2 of r5,True,OK
+Verifying the IP address (10.0.46.2/30) assigned to eth0 of r6,True,OK
+Verifying the IP address (10.0.56.2/30) assigned to eth1 of r6,True,OK
+Verifying the IP address (192.168.6.1/24) assigned to eth2 of r6,True,OK
+Verifying the IP address (192.168.1.10/24) assigned to eth0 of client,True,OK
+Verifying the IP address (192.168.1.53/24) assigned to eth0 of localdns,True,OK
+Verifying the IP address (192.168.3.53/24) assigned to eth0 of rootdns,True,OK
+Verifying the IP address (192.168.4.53/24) assigned to eth0 of authdns,True,OK
+Verifying the IP address (192.168.4.80/24) assigned to eth0 of web,True,OK
+Verifying the IP address (192.168.2.10/24) assigned to eth0 of r2pc1,True,OK
+Verifying the IP address (192.168.2.11/24) assigned to eth0 of r2pc2,True,OK
+Verifying the IP address (192.168.5.10/24) assigned to eth0 of r5pc1,True,OK
+Verifying the IP address (192.168.5.11/24) assigned to eth0 of r5pc2,True,OK
+Verifying the IP address (192.168.6.10/24) assigned to eth0 of r6pc1,True,OK
+Verifying the IP address (192.168.6.11/24) assigned to eth0 of r6pc2,True,OK
+Checking the routing table of r1,True,OK
+Checking the routing table of r2,True,OK
+Checking the routing table of r3,True,OK
+Checking the routing table of r4,True,OK
+Checking the routing table of r5,True,OK
+Checking the routing table of r6,True,OK
+Checking the routing table of client,True,OK
+Checking the routing table of localdns,True,OK
+Checking the routing table of rootdns,True,OK
+Checking the routing table of authdns,True,OK
+Checking the routing table of web,True,OK
+Checking the routing table of r2pc1,True,OK
+Checking the routing table of r2pc2,True,OK
+Checking the routing table of r5pc1,True,OK
+Checking the routing table of r5pc2,True,OK
+Checking the routing table of r6pc1,True,OK
+Checking the routing table of r6pc2,True,OK
+Checking on `rootdns` that `192.168.3.53` is the authority for domain `.`,True,OK
+Checking on `rootdns` that `192.168.3.53` is the authority for domain `.`,True,OK
+Checking on `localdns` that `192.168.3.53` is the authority for domain `.`,True,OK
+Checking on `authdns` that `192.168.4.53` is the authority for domain `example.net`,True,OK
+Checking that `192.168.1.53` is the local name server for device `client`,True,OK
+Checking correctness of DNS records,False,client resolve A example.net with IP  instead of ['192.168.4.80']
+Checking correctness of DNS records,False,client resolve AAAA example.net with IP  instead of ['fd00:4::80']
+HTTP check 'http://example.net/' on client status,False,"Expected HTTP 200, got 0"
+"Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:12::1/64 && ip -6 addr show dev eth1 | grep -Fq fd00:13::1/64 && ip -6 addr show dev eth2 | grep -Fq fd00:1::1/64 && ip -6 route show fd00:2::/64 | grep -Fq ""via fd00:12::2"" && ip -6 route show fd00:3::/64 | grep -Fq ""via fd00:13::2"" && ip -6 route show fd00:4::/64 | grep -Fq ""via fd00:12::2"" && ip -6 route show fd00:5::/64 | grep -Fq ""via fd00:13::2"" && ip -6 route show fd00:6::/64 | grep -Fq ""via fd00:12::2""'' on 'r1'",False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+"Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:12::2/64 && ip -6 addr show dev eth1 | grep -Fq fd00:24::1/64 && ip -6 addr show dev eth2 | grep -Fq fd00:2::1/64 && ip -6 route show fd00:1::/64 | grep -Fq ""via fd00:12::1"" && ip -6 route show fd00:3::/64 | grep -Fq ""via fd00:12::1"" && ip -6 route show fd00:4::/64 | grep -Fq ""via fd00:24::2"" && ip -6 route show fd00:5::/64 | grep -Fq ""via fd00:12::1"" && ip -6 route show fd00:6::/64 | grep -Fq ""via fd00:24::2""'' on 'r2'",False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+"Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:13::2/64 && ip -6 addr show dev eth1 | grep -Fq fd00:34::1/64 && ip -6 addr show dev eth2 | grep -Fq fd00:35::1/64 && ip -6 addr show dev eth3 | grep -Fq fd00:3::1/64 && ip -6 route show fd00:1::/64 | grep -Fq ""via fd00:13::1"" && ip -6 route show fd00:2::/64 | grep -Fq ""via fd00:13::1"" && ip -6 route show fd00:4::/64 | grep -Fq ""via fd00:34::2"" && ip -6 route show fd00:5::/64 | grep -Fq ""via fd00:35::2"" && ip -6 route show fd00:6::/64 | grep -Fq ""via fd00:34::2""'' on 'r3'",False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+"Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:24::2/64 && ip -6 addr show dev eth1 | grep -Fq fd00:34::2/64 && ip -6 addr show dev eth2 | grep -Fq fd00:46::1/64 && ip -6 addr show dev eth3 | grep -Fq fd00:4::1/64 && ip -6 route show fd00:1::/64 | grep -Fq ""via fd00:24::1"" && ip -6 route show fd00:2::/64 | grep -Fq ""via fd00:24::1"" && ip -6 route show fd00:3::/64 | grep -Fq ""via fd00:34::1"" && ip -6 route show fd00:5::/64 | grep -Fq ""via fd00:34::1"" && ip -6 route show fd00:6::/64 | grep -Fq ""via fd00:46::2""'' on 'r4'",False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+"Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:35::2/64 && ip -6 addr show dev eth1 | grep -Fq fd00:56::1/64 && ip -6 addr show dev eth2 | grep -Fq fd00:5::1/64 && ip -6 route show fd00:1::/64 | grep -Fq ""via fd00:35::1"" && ip -6 route show fd00:2::/64 | grep -Fq ""via fd00:35::1"" && ip -6 route show fd00:3::/64 | grep -Fq ""via fd00:35::1"" && ip -6 route show fd00:4::/64 | grep -Fq ""via fd00:35::1"" && ip -6 route show fd00:6::/64 | grep -Fq ""via fd00:56::2""'' on 'r5'",False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+"Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:46::2/64 && ip -6 addr show dev eth1 | grep -Fq fd00:56::2/64 && ip -6 addr show dev eth2 | grep -Fq fd00:6::1/64 && ip -6 route show fd00:1::/64 | grep -Fq ""via fd00:46::1"" && ip -6 route show fd00:2::/64 | grep -Fq ""via fd00:46::1"" && ip -6 route show fd00:3::/64 | grep -Fq ""via fd00:46::1"" && ip -6 route show fd00:4::/64 | grep -Fq ""via fd00:46::1"" && ip -6 route show fd00:5::/64 | grep -Fq ""via fd00:56::1""'' on 'r6'",False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+"Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:1::10/64 && ip -6 route show default | grep -Fq ""via fd00:1::1"" && dig +short AAAA example.net | grep -Fxq fd00:4::80 && curl -4 -fsS http://example.net/ >/dev/null && curl -6 -fsS http://example.net/ >/dev/null'' on 'client'",False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+"Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:1::53/64 && ip -6 route show default | grep -Fq ""via fd00:1::1"" && dig +short AAAA example.net @fd00:1::53 | grep -Fxq fd00:4::80'' on 'localdns'",False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+"Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:3::53/64 && ip -6 route show default | grep -Fq ""via fd00:3::1""'' on 'rootdns'",False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+"Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:4::53/64 && ip -6 route show default | grep -Fq ""via fd00:4::1""'' on 'authdns'",False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+"Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:4::80/64 && ip -6 route show default | grep -Fq ""via fd00:4::1""'' on 'web'",False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+"Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:2::10/64 && ip -6 route show default | grep -Fq ""via fd00:2::1""'' on 'r2pc1'",False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+"Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:2::11/64 && ip -6 route show default | grep -Fq ""via fd00:2::1""'' on 'r2pc2'",False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+"Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:5::10/64 && ip -6 route show default | grep -Fq ""via fd00:5::1""'' on 'r5pc1'",False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+"Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:5::11/64 && ip -6 route show default | grep -Fq ""via fd00:5::1""'' on 'r5pc2'",False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+"Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:6::10/64 && ip -6 route show default | grep -Fq ""via fd00:6::1""'' on 'r6pc1'",False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+"Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:6::11/64 && ip -6 route show default | grep -Fq ""via fd00:6::1""'' on 'r6pc2'",False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"

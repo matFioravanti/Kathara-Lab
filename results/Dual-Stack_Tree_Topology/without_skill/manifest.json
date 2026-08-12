@@ -1,0 +1,104 @@
+{
+  "canonical_correction_sha256": "d32f362e9f0b8e8d9cf037ee1f9f8c7d8eb39fa830d58768b4856dedd232286c",
+  "checker": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
+      "-m",
+      "kathara_lab_checker",
+      "--config",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Tree_Topology/without_skill/correction/correction.yaml",
+      "--labs",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Tree_Topology/without_skill/checker-run/labs",
+      "--no-cache",
+      "--report-type",
+      "csv"
+    ],
+    "duration_seconds": 0.3175884580014099,
+    "return_code": 1,
+    "timed_out": false
+  },
+  "checker_attempted": true,
+  "checker_completed": false,
+  "checker_schema_sha256": "841251ca20af61595e8e8521b3de8900dbeadba81cc59e7480765496cad436b0",
+  "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
+  "correction_calls": 0,
+  "correction_generated": true,
+  "correction_hash": "d32f362e9f0b8e8d9cf037ee1f9f8c7d8eb39fa830d58768b4856dedd232286c",
+  "correction_mode": "paired_generation",
+  "correction_retries": 0,
+  "creation_skill_enabled": false,
+  "creation_skill_sha256": null,
+  "errors": [
+    "kathara-lab-checker exited with technical return code 1"
+  ],
+  "experiment_id": "Dual-Stack_Tree_Topology",
+  "generation": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "duration_seconds": 62.871470999998564,
+        "return_code": 0,
+        "success": true,
+        "timed_out": false,
+        "validation_errors": []
+      }
+    ],
+    "calls": 1,
+    "duration_seconds": 62.871470999998564,
+    "last_command": [
+      "codex",
+      "exec",
+      "--model",
+      "gpt-5.6-terra",
+      "-c",
+      "model_reasoning_effort=\"low\"",
+      "-c",
+      "approval_policy=\"never\"",
+      "--sandbox",
+      "workspace-write",
+      "--cd",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Tree_Topology/.workspaces/without_skill",
+      "--json",
+      "--output-last-message",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Tree_Topology/.workspaces/without_skill/.agent-last-message.txt",
+      "--ephemeral",
+      "Read only input/prompt.md. Generate exactly one complete Kathara laboratory inside output/lab/. Do not read files outside this workspace. No creation Skill or external implementation guide is available. Do not modify input/prompt.md. Do not generate correction.yaml and do not run Kathara or kathara_lab_checker. The laboratory must be complete, persistent, contain no placeholders, and be internally consistent."
+    ],
+    "retries": 0
+  },
+  "generation_command": "codex",
+  "generation_model": "gpt-5.6-terra",
+  "generation_provider": "codex",
+  "generation_reasoning_effort": "low",
+  "lab_calls": 1,
+  "lab_generated": true,
+  "lab_retries": 0,
+  "metrics": null,
+  "phases": [
+    {
+      "at": "2026-08-12T17:57:45.576514Z",
+      "name": "discovered"
+    },
+    {
+      "at": "2026-08-12T17:57:45.576807Z",
+      "name": "lab_generation_started"
+    },
+    {
+      "at": "2026-08-12T17:58:48.456694Z",
+      "name": "lab_generated"
+    },
+    {
+      "at": "2026-08-12T18:01:42.529719Z",
+      "name": "checker_started"
+    },
+    {
+      "at": "2026-08-12T18:01:42.847993Z",
+      "name": "error"
+    }
+  ],
+  "pipeline_version": "0.5.0",
+  "prompt_file": "Dual-Stack Tree Topology.md",
+  "prompt_sha256": "f281c9dc3e0fce612f207695eb617614a3fab8ce7c4f86c94800fc689ab12ea5",
+  "status": "error",
+  "variant": "without_skill"
+}

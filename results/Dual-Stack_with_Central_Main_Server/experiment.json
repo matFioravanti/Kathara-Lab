@@ -1,0 +1,32 @@
+{
+  "comparison": "INCOMPARABLE",
+  "comparison_reason": "Both checker runs must complete successfully for a paired quality comparison.",
+  "complete": true,
+  "experiment_id": "Dual-Stack_with_Central_Main_Server",
+  "finished_at": "2026-08-12T18:06:33.908929Z",
+  "identity": {
+    "checker_report_type": "csv",
+    "checker_runtime": "kathara-lab-checker==0.1.14",
+    "checker_schema_sha256": "841251ca20af61595e8e8521b3de8900dbeadba81cc59e7480765496cad436b0",
+    "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
+    "command": "codex",
+    "creation_skill_sha256": "bf4daac809c4088ad9106268c093cca9c41f79e95dba4113f108c0298d85b996",
+    "model": "gpt-5.6-terra",
+    "pipeline_version": "0.5.0",
+    "prompt_sha256": "198b46ec65cdcc5d88d740f7c0c7ed16bdc59029c01a79bfcf1d73ffbe2d19a7",
+    "provider": "codex",
+    "reasoning_effort": "low",
+    "sandbox": "workspace-write"
+  },
+  "paired_correction": {
+    "calls": 1,
+    "duration_seconds": 188.38120962500034,
+    "mode": "paired_generation",
+    "return_code": 0,
+    "timed_out": false
+  },
+  "pipeline_version": "0.5.0",
+  "prompt_file": "Dual-Stack with Central Main Server.md",
+  "prompt_sha256": "198b46ec65cdcc5d88d740f7c0c7ed16bdc59029c01a79bfcf1d73ffbe2d19a7",
+  "started_at": "2026-08-12T18:01:42.855249Z"
+}

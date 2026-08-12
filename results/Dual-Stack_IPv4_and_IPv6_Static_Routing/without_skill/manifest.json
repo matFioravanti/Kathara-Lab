@@ -1,0 +1,104 @@
+{
+  "canonical_correction_sha256": "a58c69d08799a37cfd24c9271fc4e68aa221a67aa045e74633067b5ece3b463e",
+  "checker": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
+      "-m",
+      "kathara_lab_checker",
+      "--config",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_IPv4_and_IPv6_Static_Routing/without_skill/correction/correction.yaml",
+      "--labs",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_IPv4_and_IPv6_Static_Routing/without_skill/checker-run/labs",
+      "--no-cache",
+      "--report-type",
+      "csv"
+    ],
+    "duration_seconds": 0.38500541699977475,
+    "return_code": 1,
+    "timed_out": false
+  },
+  "checker_attempted": true,
+  "checker_completed": false,
+  "checker_schema_sha256": "841251ca20af61595e8e8521b3de8900dbeadba81cc59e7480765496cad436b0",
+  "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
+  "correction_calls": 0,
+  "correction_generated": true,
+  "correction_hash": "a58c69d08799a37cfd24c9271fc4e68aa221a67aa045e74633067b5ece3b463e",
+  "correction_mode": "paired_generation",
+  "correction_retries": 0,
+  "creation_skill_enabled": false,
+  "creation_skill_sha256": null,
+  "errors": [
+    "kathara-lab-checker exited with technical return code 1"
+  ],
+  "experiment_id": "Dual-Stack_IPv4_and_IPv6_Static_Routing",
+  "generation": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "duration_seconds": 55.06104066700209,
+        "return_code": 0,
+        "success": true,
+        "timed_out": false,
+        "validation_errors": []
+      }
+    ],
+    "calls": 1,
+    "duration_seconds": 55.06104066700209,
+    "last_command": [
+      "codex",
+      "exec",
+      "--model",
+      "gpt-5.6-terra",
+      "-c",
+      "model_reasoning_effort=\"low\"",
+      "-c",
+      "approval_policy=\"never\"",
+      "--sandbox",
+      "workspace-write",
+      "--cd",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_IPv4_and_IPv6_Static_Routing/.workspaces/without_skill",
+      "--json",
+      "--output-last-message",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_IPv4_and_IPv6_Static_Routing/.workspaces/without_skill/.agent-last-message.txt",
+      "--ephemeral",
+      "Read only input/prompt.md. Generate exactly one complete Kathara laboratory inside output/lab/. Do not read files outside this workspace. No creation Skill or external implementation guide is available. Do not modify input/prompt.md. Do not generate correction.yaml and do not run Kathara or kathara_lab_checker. The laboratory must be complete, persistent, contain no placeholders, and be internally consistent."
+    ],
+    "retries": 0
+  },
+  "generation_command": "codex",
+  "generation_model": "gpt-5.6-terra",
+  "generation_provider": "codex",
+  "generation_reasoning_effort": "low",
+  "lab_calls": 1,
+  "lab_generated": true,
+  "lab_retries": 0,
+  "metrics": null,
+  "phases": [
+    {
+      "at": "2026-08-12T17:27:53.447064Z",
+      "name": "discovered"
+    },
+    {
+      "at": "2026-08-12T17:27:53.447397Z",
+      "name": "lab_generation_started"
+    },
+    {
+      "at": "2026-08-12T17:28:48.540222Z",
+      "name": "lab_generated"
+    },
+    {
+      "at": "2026-08-12T17:32:16.000827Z",
+      "name": "checker_started"
+    },
+    {
+      "at": "2026-08-12T17:32:16.386420Z",
+      "name": "error"
+    }
+  ],
+  "pipeline_version": "0.5.0",
+  "prompt_file": "Dual-Stack IPv4 and IPv6 Static Routing.md",
+  "prompt_sha256": "478482e096f5e4ed341428103260e7f0bdc98f1e77cb878c4d3d4f2d37827f1f",
+  "status": "error",
+  "variant": "without_skill"
+}

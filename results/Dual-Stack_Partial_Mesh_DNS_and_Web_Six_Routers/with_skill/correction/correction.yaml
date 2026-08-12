@@ -1,0 +1,172 @@
+lab_inline: |
+  r1[0]="r1_r2"
+  r1[1]="r1_r3"
+  r1[2]="lan_r1"
+  r2[0]="r1_r2"
+  r2[1]="r2_r4"
+  r2[2]="lan_r2"
+  r3[0]="r1_r3"
+  r3[1]="r3_r4"
+  r3[2]="r3_r5"
+  r3[3]="lan_r3"
+  r4[0]="r2_r4"
+  r4[1]="r3_r4"
+  r4[2]="r4_r6"
+  r4[3]="lan_r4"
+  r5[0]="r3_r5"
+  r5[1]="r5_r6"
+  r5[2]="lan_r5"
+  r6[0]="r4_r6"
+  r6[1]="r5_r6"
+  r6[2]="lan_r6"
+  client[0]="lan_r1"
+  localdns[0]="lan_r1"
+  rootdns[0]="lan_r3"
+  authdns[0]="lan_r4"
+  web[0]="lan_r4"
+  r2pc1[0]="lan_r2"
+  r2pc2[0]="lan_r2"
+  r5pc1[0]="lan_r5"
+  r5pc2[0]="lan_r5"
+  r6pc1[0]="lan_r6"
+  r6pc2[0]="lan_r6"
+
+convergence_time: 10
+default_image: kathara/core
+
+test:
+  requiring_startup: [r1, r2, r3, r4, r5, r6, client, localdns, rootdns, authdns, web, r2pc1, r2pc2, r5pc1, r5pc2, r6pc1, r6pc2]
+  ip_mapping:
+    r1: {"0": 10.0.12.1/30, "1": 10.0.13.1/30, "2": 192.168.1.1/24}
+    r2: {"0": 10.0.12.2/30, "1": 10.0.24.1/30, "2": 192.168.2.1/24}
+    r3: {"0": 10.0.13.2/30, "1": 10.0.34.1/30, "2": 10.0.35.1/30, "3": 192.168.3.1/24}
+    r4: {"0": 10.0.24.2/30, "1": 10.0.34.2/30, "2": 10.0.46.1/30, "3": 192.168.4.1/24}
+    r5: {"0": 10.0.35.2/30, "1": 10.0.56.1/30, "2": 192.168.5.1/24}
+    r6: {"0": 10.0.46.2/30, "1": 10.0.56.2/30, "2": 192.168.6.1/24}
+    client: {"0": 192.168.1.10/24}
+    localdns: {"0": 192.168.1.53/24}
+    rootdns: {"0": 192.168.3.53/24}
+    authdns: {"0": 192.168.4.53/24}
+    web: {"0": 192.168.4.80/24}
+    r2pc1: {"0": 192.168.2.10/24}
+    r2pc2: {"0": 192.168.2.11/24}
+    r5pc1: {"0": 192.168.5.10/24}
+    r5pc2: {"0": 192.168.5.11/24}
+    r6pc1: {"0": 192.168.6.10/24}
+    r6pc2: {"0": 192.168.6.11/24}
+  kernel_routes:
+    r1:
+      - [192.168.2.0/24, [10.0.12.2]]
+      - [192.168.3.0/24, [10.0.13.2]]
+      - [192.168.4.0/24, [10.0.12.2]]
+      - [192.168.5.0/24, [10.0.13.2]]
+      - [192.168.6.0/24, [10.0.12.2]]
+    r2:
+      - [192.168.1.0/24, [10.0.12.1]]
+      - [192.168.3.0/24, [10.0.12.1]]
+      - [192.168.4.0/24, [10.0.24.2]]
+      - [192.168.5.0/24, [10.0.12.1]]
+      - [192.168.6.0/24, [10.0.24.2]]
+    r3:
+      - [192.168.1.0/24, [10.0.13.1]]
+      - [192.168.2.0/24, [10.0.13.1]]
+      - [192.168.4.0/24, [10.0.34.2]]
+      - [192.168.5.0/24, [10.0.35.2]]
+      - [192.168.6.0/24, [10.0.34.2]]
+    r4:
+      - [192.168.1.0/24, [10.0.24.1]]
+      - [192.168.2.0/24, [10.0.24.1]]
+      - [192.168.3.0/24, [10.0.34.1]]
+      - [192.168.5.0/24, [10.0.34.1]]
+      - [192.168.6.0/24, [10.0.46.2]]
+    r5:
+      - [192.168.1.0/24, [10.0.35.1]]
+      - [192.168.2.0/24, [10.0.35.1]]
+      - [192.168.3.0/24, [10.0.35.1]]
+      - [192.168.4.0/24, [10.0.35.1]]
+      - [192.168.6.0/24, [10.0.56.2]]
+    r6:
+      - [192.168.1.0/24, [10.0.46.1]]
+      - [192.168.2.0/24, [10.0.46.1]]
+      - [192.168.3.0/24, [10.0.46.1]]
+      - [192.168.4.0/24, [10.0.46.1]]
+      - [192.168.5.0/24, [10.0.56.1]]
+    client: [[0.0.0.0/0, [192.168.1.1]]]
+    localdns: [[0.0.0.0/0, [192.168.1.1]]]
+    rootdns: [[0.0.0.0/0, [192.168.3.1]]]
+    authdns: [[0.0.0.0/0, [192.168.4.1]]]
+    web: [[0.0.0.0/0, [192.168.4.1]]]
+    r2pc1: [[0.0.0.0/0, [192.168.2.1]]]
+    r2pc2: [[0.0.0.0/0, [192.168.2.1]]]
+    r5pc1: [[0.0.0.0/0, [192.168.5.1]]]
+    r5pc2: [[0.0.0.0/0, [192.168.5.1]]]
+    r6pc1: [[0.0.0.0/0, [192.168.6.1]]]
+    r6pc2: [[0.0.0.0/0, [192.168.6.1]]]
+  applications:
+    dns:
+      authoritative:
+        ".": [192.168.3.53]
+        example.net: [192.168.4.53]
+      local_ns:
+        192.168.1.53: [client]
+      records:
+        A:
+          example.net: [192.168.4.80]
+        AAAA:
+          example.net: [fd00:4::80]
+    http:
+      client:
+        - url: http://example.net/
+          status_code: 200
+  custom_commands:
+    r1:
+      - command: "sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:12::1/64 && ip -6 addr show dev eth1 | grep -Fq fd00:13::1/64 && ip -6 addr show dev eth2 | grep -Fq fd00:1::1/64 && ip -6 route show fd00:2::/64 | grep -Fq \"via fd00:12::2\" && ip -6 route show fd00:3::/64 | grep -Fq \"via fd00:13::2\" && ip -6 route show fd00:4::/64 | grep -Fq \"via fd00:12::2\" && ip -6 route show fd00:5::/64 | grep -Fq \"via fd00:13::2\" && ip -6 route show fd00:6::/64 | grep -Fq \"via fd00:12::2\"'"
+        exit_code: 0
+    r2:
+      - command: "sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:12::2/64 && ip -6 addr show dev eth1 | grep -Fq fd00:24::1/64 && ip -6 addr show dev eth2 | grep -Fq fd00:2::1/64 && ip -6 route show fd00:1::/64 | grep -Fq \"via fd00:12::1\" && ip -6 route show fd00:3::/64 | grep -Fq \"via fd00:12::1\" && ip -6 route show fd00:4::/64 | grep -Fq \"via fd00:24::2\" && ip -6 route show fd00:5::/64 | grep -Fq \"via fd00:12::1\" && ip -6 route show fd00:6::/64 | grep -Fq \"via fd00:24::2\"'"
+        exit_code: 0
+    r3:
+      - command: "sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:13::2/64 && ip -6 addr show dev eth1 | grep -Fq fd00:34::1/64 && ip -6 addr show dev eth2 | grep -Fq fd00:35::1/64 && ip -6 addr show dev eth3 | grep -Fq fd00:3::1/64 && ip -6 route show fd00:1::/64 | grep -Fq \"via fd00:13::1\" && ip -6 route show fd00:2::/64 | grep -Fq \"via fd00:13::1\" && ip -6 route show fd00:4::/64 | grep -Fq \"via fd00:34::2\" && ip -6 route show fd00:5::/64 | grep -Fq \"via fd00:35::2\" && ip -6 route show fd00:6::/64 | grep -Fq \"via fd00:34::2\"'"
+        exit_code: 0
+    r4:
+      - command: "sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:24::2/64 && ip -6 addr show dev eth1 | grep -Fq fd00:34::2/64 && ip -6 addr show dev eth2 | grep -Fq fd00:46::1/64 && ip -6 addr show dev eth3 | grep -Fq fd00:4::1/64 && ip -6 route show fd00:1::/64 | grep -Fq \"via fd00:24::1\" && ip -6 route show fd00:2::/64 | grep -Fq \"via fd00:24::1\" && ip -6 route show fd00:3::/64 | grep -Fq \"via fd00:34::1\" && ip -6 route show fd00:5::/64 | grep -Fq \"via fd00:34::1\" && ip -6 route show fd00:6::/64 | grep -Fq \"via fd00:46::2\"'"
+        exit_code: 0
+    r5:
+      - command: "sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:35::2/64 && ip -6 addr show dev eth1 | grep -Fq fd00:56::1/64 && ip -6 addr show dev eth2 | grep -Fq fd00:5::1/64 && ip -6 route show fd00:1::/64 | grep -Fq \"via fd00:35::1\" && ip -6 route show fd00:2::/64 | grep -Fq \"via fd00:35::1\" && ip -6 route show fd00:3::/64 | grep -Fq \"via fd00:35::1\" && ip -6 route show fd00:4::/64 | grep -Fq \"via fd00:35::1\" && ip -6 route show fd00:6::/64 | grep -Fq \"via fd00:56::2\"'"
+        exit_code: 0
+    r6:
+      - command: "sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:46::2/64 && ip -6 addr show dev eth1 | grep -Fq fd00:56::2/64 && ip -6 addr show dev eth2 | grep -Fq fd00:6::1/64 && ip -6 route show fd00:1::/64 | grep -Fq \"via fd00:46::1\" && ip -6 route show fd00:2::/64 | grep -Fq \"via fd00:46::1\" && ip -6 route show fd00:3::/64 | grep -Fq \"via fd00:46::1\" && ip -6 route show fd00:4::/64 | grep -Fq \"via fd00:46::1\" && ip -6 route show fd00:5::/64 | grep -Fq \"via fd00:56::1\"'"
+        exit_code: 0
+    client:
+      - command: "sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:1::10/64 && ip -6 route show default | grep -Fq \"via fd00:1::1\" && dig +short AAAA example.net | grep -Fxq fd00:4::80 && curl -4 -fsS http://example.net/ >/dev/null && curl -6 -fsS http://example.net/ >/dev/null'"
+        exit_code: 0
+    localdns:
+      - command: "sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:1::53/64 && ip -6 route show default | grep -Fq \"via fd00:1::1\" && dig +short AAAA example.net @fd00:1::53 | grep -Fxq fd00:4::80'"
+        exit_code: 0
+    rootdns:
+      - command: "sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:3::53/64 && ip -6 route show default | grep -Fq \"via fd00:3::1\"'"
+        exit_code: 0
+    authdns:
+      - command: "sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:4::53/64 && ip -6 route show default | grep -Fq \"via fd00:4::1\"'"
+        exit_code: 0
+    web:
+      - command: "sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:4::80/64 && ip -6 route show default | grep -Fq \"via fd00:4::1\"'"
+        exit_code: 0
+    r2pc1:
+      - command: "sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:2::10/64 && ip -6 route show default | grep -Fq \"via fd00:2::1\"'"
+        exit_code: 0
+    r2pc2:
+      - command: "sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:2::11/64 && ip -6 route show default | grep -Fq \"via fd00:2::1\"'"
+        exit_code: 0
+    r5pc1:
+      - command: "sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:5::10/64 && ip -6 route show default | grep -Fq \"via fd00:5::1\"'"
+        exit_code: 0
+    r5pc2:
+      - command: "sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:5::11/64 && ip -6 route show default | grep -Fq \"via fd00:5::1\"'"
+        exit_code: 0
+    r6pc1:
+      - command: "sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:6::10/64 && ip -6 route show default | grep -Fq \"via fd00:6::1\"'"
+        exit_code: 0
+    r6pc2:
+      - command: "sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:6::11/64 && ip -6 route show default | grep -Fq \"via fd00:6::1\"'"
+        exit_code: 0

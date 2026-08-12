@@ -1,0 +1,5 @@
+#!/bin/sh
+ip addr add 10.0.101.11/24 dev eth0
+ip -6 addr add fd00:0:101::11/64 dev eth0
+ip route add default via 10.0.101.1
+ip -6 route add default via fd00:0:101::1

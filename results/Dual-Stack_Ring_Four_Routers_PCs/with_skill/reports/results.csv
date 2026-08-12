@@ -1,0 +1,105 @@
+Student Name,Tests Passed,Tests Failed,Tests Total Number,Problems
+candidate,120,104,224,"1: Verifying `fd00:1:1::12` reachable from device `pc1a`: ping: connect: Cannot assign requested address
+2: Verifying `fd00:1:2::11` reachable from device `pc1a`: ping: connect: Cannot assign requested address
+3: Verifying `fd00:1:2::12` reachable from device `pc1a`: ping: connect: Cannot assign requested address
+4: Verifying `fd00:1:3::11` reachable from device `pc1a`: ping: connect: Cannot assign requested address
+5: Verifying `fd00:1:3::12` reachable from device `pc1a`: ping: connect: Cannot assign requested address
+6: Verifying `fd00:1:4::11` reachable from device `pc1a`: ping: connect: Cannot assign requested address
+7: Verifying `fd00:1:4::12` reachable from device `pc1a`: ping: connect: Cannot assign requested address
+8: Verifying `fd00:1:1::11` reachable from device `pc1b`: ping: connect: Cannot assign requested address
+9: Verifying `fd00:1:2::11` reachable from device `pc1b`: ping: connect: Cannot assign requested address
+10: Verifying `fd00:1:2::12` reachable from device `pc1b`: ping: connect: Cannot assign requested address
+11: Verifying `fd00:1:3::11` reachable from device `pc1b`: ping: connect: Cannot assign requested address
+12: Verifying `fd00:1:3::12` reachable from device `pc1b`: ping: connect: Cannot assign requested address
+13: Verifying `fd00:1:4::11` reachable from device `pc1b`: ping: connect: Cannot assign requested address
+14: Verifying `fd00:1:4::12` reachable from device `pc1b`: ping: connect: Cannot assign requested address
+15: Verifying `fd00:1:1::11` reachable from device `pc2a`: ping: connect: Cannot assign requested address
+16: Verifying `fd00:1:1::12` reachable from device `pc2a`: ping: connect: Cannot assign requested address
+17: Verifying `fd00:1:2::12` reachable from device `pc2a`: ping: connect: Cannot assign requested address
+18: Verifying `fd00:1:3::11` reachable from device `pc2a`: ping: connect: Cannot assign requested address
+19: Verifying `fd00:1:3::12` reachable from device `pc2a`: ping: connect: Cannot assign requested address
+20: Verifying `fd00:1:4::11` reachable from device `pc2a`: ping: connect: Cannot assign requested address
+21: Verifying `fd00:1:4::12` reachable from device `pc2a`: ping: connect: Cannot assign requested address
+22: Verifying `fd00:1:1::11` reachable from device `pc2b`: ping: connect: Cannot assign requested address
+23: Verifying `fd00:1:1::12` reachable from device `pc2b`: ping: connect: Cannot assign requested address
+24: Verifying `fd00:1:2::11` reachable from device `pc2b`: ping: connect: Cannot assign requested address
+25: Verifying `fd00:1:3::11` reachable from device `pc2b`: ping: connect: Cannot assign requested address
+26: Verifying `fd00:1:3::12` reachable from device `pc2b`: ping: connect: Cannot assign requested address
+27: Verifying `fd00:1:4::11` reachable from device `pc2b`: ping: connect: Cannot assign requested address
+28: Verifying `fd00:1:4::12` reachable from device `pc2b`: ping: connect: Cannot assign requested address
+29: Verifying `fd00:1:1::11` reachable from device `pc3a`: ping: connect: Cannot assign requested address
+30: Verifying `fd00:1:1::12` reachable from device `pc3a`: ping: connect: Cannot assign requested address
+31: Verifying `fd00:1:2::11` reachable from device `pc3a`: ping: connect: Cannot assign requested address
+32: Verifying `fd00:1:2::12` reachable from device `pc3a`: ping: connect: Cannot assign requested address
+33: Verifying `fd00:1:3::12` reachable from device `pc3a`: ping: connect: Cannot assign requested address
+34: Verifying `fd00:1:4::11` reachable from device `pc3a`: ping: connect: Cannot assign requested address
+35: Verifying `fd00:1:4::12` reachable from device `pc3a`: ping: connect: Cannot assign requested address
+36: Verifying `fd00:1:1::11` reachable from device `pc3b`: ping: connect: Cannot assign requested address
+37: Verifying `fd00:1:1::12` reachable from device `pc3b`: ping: connect: Cannot assign requested address
+38: Verifying `fd00:1:2::11` reachable from device `pc3b`: ping: connect: Cannot assign requested address
+39: Verifying `fd00:1:2::12` reachable from device `pc3b`: ping: connect: Cannot assign requested address
+40: Verifying `fd00:1:3::11` reachable from device `pc3b`: ping: connect: Cannot assign requested address
+41: Verifying `fd00:1:4::11` reachable from device `pc3b`: ping: connect: Cannot assign requested address
+42: Verifying `fd00:1:4::12` reachable from device `pc3b`: ping: connect: Cannot assign requested address
+43: Verifying `fd00:1:1::11` reachable from device `pc4a`: ping: connect: Cannot assign requested address
+44: Verifying `fd00:1:1::12` reachable from device `pc4a`: ping: connect: Cannot assign requested address
+45: Verifying `fd00:1:2::11` reachable from device `pc4a`: ping: connect: Cannot assign requested address
+46: Verifying `fd00:1:2::12` reachable from device `pc4a`: ping: connect: Cannot assign requested address
+47: Verifying `fd00:1:3::11` reachable from device `pc4a`: ping: connect: Cannot assign requested address
+48: Verifying `fd00:1:3::12` reachable from device `pc4a`: ping: connect: Cannot assign requested address
+49: Verifying `fd00:1:4::12` reachable from device `pc4a`: ping: connect: Cannot assign requested address
+50: Verifying `fd00:1:1::11` reachable from device `pc4b`: ping: connect: Cannot assign requested address
+51: Verifying `fd00:1:1::12` reachable from device `pc4b`: ping: connect: Cannot assign requested address
+52: Verifying `fd00:1:2::11` reachable from device `pc4b`: ping: connect: Cannot assign requested address
+53: Verifying `fd00:1:2::12` reachable from device `pc4b`: ping: connect: Cannot assign requested address
+54: Verifying `fd00:1:3::11` reachable from device `pc4b`: ping: connect: Cannot assign requested address
+55: Verifying `fd00:1:3::12` reachable from device `pc4b`: ping: connect: Cannot assign requested address
+56: Verifying `fd00:1:4::11` reachable from device `pc4b`: ping: connect: Cannot assign requested address
+57: Checking the routing table of r1: The routing table of r1 have the wrong number of routes: 3, expected: 6
+58: Checking the routing table of r1: The routing table of r1 is missing route fd00:1:2::/64
+59: Checking the routing table of r1: The routing table of r1 is missing route fd00:1:3::/64
+60: Checking the routing table of r1: The routing table of r1 is missing route fd00:1:4::/64
+61: Checking the routing table of r2: The routing table of r2 have the wrong number of routes: 3, expected: 6
+62: Checking the routing table of r2: The routing table of r2 is missing route fd00:1:1::/64
+63: Checking the routing table of r2: The routing table of r2 is missing route fd00:1:3::/64
+64: Checking the routing table of r2: The routing table of r2 is missing route fd00:1:4::/64
+65: Checking the routing table of r3: The routing table of r3 have the wrong number of routes: 3, expected: 6
+66: Checking the routing table of r3: The routing table of r3 is missing route fd00:1:1::/64
+67: Checking the routing table of r3: The routing table of r3 is missing route fd00:1:2::/64
+68: Checking the routing table of r3: The routing table of r3 is missing route fd00:1:4::/64
+69: Checking the routing table of r4: The routing table of r4 have the wrong number of routes: 3, expected: 6
+70: Checking the routing table of r4: The routing table of r4 is missing route fd00:1:1::/64
+71: Checking the routing table of r4: The routing table of r4 is missing route fd00:1:2::/64
+72: Checking the routing table of r4: The routing table of r4 is missing route fd00:1:3::/64
+73: Checking the routing table of pc1a: The routing table of pc1a have the wrong number of routes: 3, expected: 6
+74: Checking the routing table of pc1a: The routing table of pc1a is missing route fd00:1:2::/64
+75: Checking the routing table of pc1a: The routing table of pc1a is missing route fd00:1:3::/64
+76: Checking the routing table of pc1a: The routing table of pc1a is missing route fd00:1:4::/64
+77: Checking the routing table of pc1b: The routing table of pc1b have the wrong number of routes: 3, expected: 6
+78: Checking the routing table of pc1b: The routing table of pc1b is missing route fd00:1:2::/64
+79: Checking the routing table of pc1b: The routing table of pc1b is missing route fd00:1:3::/64
+80: Checking the routing table of pc1b: The routing table of pc1b is missing route fd00:1:4::/64
+81: Checking the routing table of pc2a: The routing table of pc2a have the wrong number of routes: 3, expected: 6
+82: Checking the routing table of pc2a: The routing table of pc2a is missing route fd00:1:1::/64
+83: Checking the routing table of pc2a: The routing table of pc2a is missing route fd00:1:3::/64
+84: Checking the routing table of pc2a: The routing table of pc2a is missing route fd00:1:4::/64
+85: Checking the routing table of pc2b: The routing table of pc2b have the wrong number of routes: 3, expected: 6
+86: Checking the routing table of pc2b: The routing table of pc2b is missing route fd00:1:1::/64
+87: Checking the routing table of pc2b: The routing table of pc2b is missing route fd00:1:3::/64
+88: Checking the routing table of pc2b: The routing table of pc2b is missing route fd00:1:4::/64
+89: Checking the routing table of pc3a: The routing table of pc3a have the wrong number of routes: 3, expected: 6
+90: Checking the routing table of pc3a: The routing table of pc3a is missing route fd00:1:1::/64
+91: Checking the routing table of pc3a: The routing table of pc3a is missing route fd00:1:2::/64
+92: Checking the routing table of pc3a: The routing table of pc3a is missing route fd00:1:4::/64
+93: Checking the routing table of pc3b: The routing table of pc3b have the wrong number of routes: 3, expected: 6
+94: Checking the routing table of pc3b: The routing table of pc3b is missing route fd00:1:1::/64
+95: Checking the routing table of pc3b: The routing table of pc3b is missing route fd00:1:2::/64
+96: Checking the routing table of pc3b: The routing table of pc3b is missing route fd00:1:4::/64
+97: Checking the routing table of pc4a: The routing table of pc4a have the wrong number of routes: 3, expected: 6
+98: Checking the routing table of pc4a: The routing table of pc4a is missing route fd00:1:1::/64
+99: Checking the routing table of pc4a: The routing table of pc4a is missing route fd00:1:2::/64
+100: Checking the routing table of pc4a: The routing table of pc4a is missing route fd00:1:3::/64
+101: Checking the routing table of pc4b: The routing table of pc4b have the wrong number of routes: 3, expected: 6
+102: Checking the routing table of pc4b: The routing table of pc4b is missing route fd00:1:1::/64
+103: Checking the routing table of pc4b: The routing table of pc4b is missing route fd00:1:2::/64
+104: Checking the routing table of pc4b: The routing table of pc4b is missing route fd00:1:3::/64"

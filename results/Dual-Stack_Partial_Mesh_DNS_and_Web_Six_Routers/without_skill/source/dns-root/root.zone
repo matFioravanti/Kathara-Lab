@@ -1,0 +1,8 @@
+$TTL 300
+@ IN SOA root. hostmaster.root. (2026081201 3600 900 604800 300)
+  IN NS root.
+root. IN A 192.168.3.53
+root. IN AAAA 2001:db8:3::53
+example.net. IN NS ns.example.net.
+ns.example.net. IN A 192.168.4.53
+ns.example.net. IN AAAA 2001:db8:4::53

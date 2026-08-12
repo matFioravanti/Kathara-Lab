@@ -1,0 +1,230 @@
+Parsing test configuration...
+Parsing inline network scenarios template
+Parsing network scenarios in: /Users/matthew/Desktop/A-Tesi/results/Dual-Stack_with_Central_Main_Server/with_skill/checker-run/labs
+
+  0%|          | 0/1 [00:00<?, ?it/s]##################### candidate #####################
+Parsing network scenario in: /Users/matthew/Desktop/A-Tesi/results/Dual-Stack_with_Central_Main_Server/with_skill/checker-run/labs/candidate
+Network scenario name: candidate
+Undeploying network scenario in case it was running...
+Deploying network scenario...
+Waiting convergence...
+Starting tests
+Verifying lab structure using inline lab.conf template
+Checking devices existence...
+Check existence of `central`: [92m OK[00m
+Check existence of `edge1`: [92m OK[00m
+Check existence of `edge2`: [92m OK[00m
+Check existence of `edge3`: [92m OK[00m
+Check existence of `server`: [92m OK[00m
+Check existence of `e1c1`: [92m OK[00m
+Check existence of `e1c2`: [92m OK[00m
+Check existence of `e2c1`: [92m OK[00m
+Check existence of `e2c2`: [92m OK[00m
+Check existence of `e3c1`: [92m OK[00m
+Check existence of `e3c2`: [92m OK[00m
+Checking collision domains...
+Checking the collision domain attached to interface `eth0` of `central`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `central`: [92m OK[00m
+Checking the collision domain attached to interface `eth2` of `central`: [92m OK[00m
+Checking the collision domain attached to interface `eth3` of `central`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `edge1`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `edge1`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `edge2`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `edge2`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `edge3`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `edge3`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `server`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `e1c1`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `e1c2`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `e2c1`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `e2c2`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `e3c1`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `e3c2`: [92m OK[00m
+Checking that all required startup files exist...
+Check existence of `central.startup` file: [92m OK[00m
+Check existence of `edge1.startup` file: [92m OK[00m
+Check existence of `edge2.startup` file: [92m OK[00m
+Check existence of `edge3.startup` file: [92m OK[00m
+Check existence of `server.startup` file: [92m OK[00m
+Check existence of `e1c1.startup` file: [92m OK[00m
+Check existence of `e1c2.startup` file: [92m OK[00m
+Check existence of `e2c1.startup` file: [92m OK[00m
+Check existence of `e2c2.startup` file: [92m OK[00m
+Check existence of `e3c1.startup` file: [92m OK[00m
+Check existence of `e3c2.startup` file: [92m OK[00m
+Verifying the IP addresses assigned to devices...
+Checking IPs for `central`...
+Verifying the IP address (10.0.1.1/30) assigned to eth0 of central: [92m OK[00m
+Verifying the IP address (10.0.2.1/30) assigned to eth1 of central: [92m OK[00m
+Verifying the IP address (10.0.3.1/30) assigned to eth2 of central: [92m OK[00m
+Verifying the IP address (10.0.10.1/24) assigned to eth3 of central: [92m OK[00m
+Checking IPs for `edge1`...
+Verifying the IP address (10.0.1.2/30) assigned to eth0 of edge1: [92m OK[00m
+Verifying the IP address (10.0.101.1/24) assigned to eth1 of edge1: [92m OK[00m
+Checking IPs for `edge2`...
+Verifying the IP address (10.0.2.2/30) assigned to eth0 of edge2: [92m OK[00m
+Verifying the IP address (10.0.102.1/24) assigned to eth1 of edge2: [92m OK[00m
+Checking IPs for `edge3`...
+Verifying the IP address (10.0.3.2/30) assigned to eth0 of edge3: [92m OK[00m
+Verifying the IP address (10.0.103.1/24) assigned to eth1 of edge3: [92m OK[00m
+Checking IPs for `server`...
+Verifying the IP address (10.0.10.10/24) assigned to eth0 of server: [92m OK[00m
+Checking IPs for `e1c1`...
+Verifying the IP address (10.0.101.11/24) assigned to eth0 of e1c1: [92m OK[00m
+Checking IPs for `e1c2`...
+Verifying the IP address (10.0.101.12/24) assigned to eth0 of e1c2: [92m OK[00m
+Checking IPs for `e2c1`...
+Verifying the IP address (10.0.102.11/24) assigned to eth0 of e2c1: [92m OK[00m
+Checking IPs for `e2c2`...
+Verifying the IP address (10.0.102.12/24) assigned to eth0 of e2c2: [92m OK[00m
+Checking IPs for `e3c1`...
+Verifying the IP address (10.0.103.11/24) assigned to eth0 of e3c1: [92m OK[00m
+Checking IPs for `e3c2`...
+Verifying the IP address (10.0.103.12/24) assigned to eth0 of e3c2: [92m OK[00m
+Starting reachability test...
+Verifying `10.0.10.10` reachable from device `e1c1`: [92m OK[00m
+Verifying `10.0.10.10` reachable from device `e1c2`: [92m OK[00m
+Verifying `10.0.10.10` reachable from device `e2c1`: [92m OK[00m
+Verifying `10.0.10.10` reachable from device `e2c2`: [92m OK[00m
+Verifying `10.0.10.10` reachable from device `e3c1`: [92m OK[00m
+Verifying `10.0.10.10` reachable from device `e3c2`: [92m OK[00m
+Checking Routing Tables...
+Checking kernel routes for `central`...
+Checking the routing table of central: [92m OK[00m
+Checking kernel routes for `edge1`...
+Checking the routing table of edge1: [92m OK[00m
+Checking kernel routes for `edge2`...
+Checking the routing table of edge2: [92m OK[00m
+Checking kernel routes for `edge3`...
+Checking the routing table of edge3: [92m OK[00m
+Checking kernel routes for `server`...
+Checking the routing table of server: [92m OK[00m
+Checking kernel routes for `e1c1`...
+Checking the routing table of e1c1: [92m OK[00m
+Checking kernel routes for `e1c2`...
+Checking the routing table of e1c2: [92m OK[00m
+Checking kernel routes for `e2c1`...
+Checking the routing table of e2c1: [92m OK[00m
+Checking kernel routes for `e2c2`...
+Checking the routing table of e2c2: [92m OK[00m
+Checking kernel routes for `e3c1`...
+Checking the routing table of e3c1: [92m OK[00m
+Checking kernel routes for `e3c2`...
+Checking the routing table of e3c2: [92m OK[00m
+Checking custom commands output...
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:1::1/64'' on 'central': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq 'fd00:0:2::1/64'' on 'central': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth2 | grep -Fq 'fd00:0:3::1/64'' on 'central': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth3 | grep -Fq 'fd00:0:10::1/64'' on 'central': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show fd00:0:101::/64 | grep -Fq 'via fd00:0:1::2'' on 'central': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show fd00:0:102::/64 | grep -Fq 'via fd00:0:2::2'' on 'central': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show fd00:0:103::/64 | grep -Fq 'via fd00:0:3::2'' on 'central': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:1::2/64'' on 'edge1': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq 'fd00:0:101::1/64'' on 'edge1': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:1::1'' on 'edge1': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:2::2/64'' on 'edge2': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq 'fd00:0:102::1/64'' on 'edge2': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:2::1'' on 'edge2': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:3::2/64'' on 'edge3': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq 'fd00:0:103::1/64'' on 'edge3': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:3::1'' on 'edge3': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:10::10/64'' on 'server': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:10::1'' on 'server': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:101::11/64'' on 'e1c1': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:101::1'' on 'e1c1': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ping -6 -q -n -c 1 fd00:0:10::10' on 'e1c1': [91m The exit code of the command differs from the expected one.
+ Actual: 2
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:101::12/64'' on 'e1c2': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:101::1'' on 'e1c2': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ping -6 -q -n -c 1 fd00:0:10::10' on 'e1c2': [91m The exit code of the command differs from the expected one.
+ Actual: 2
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:102::11/64'' on 'e2c1': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:102::1'' on 'e2c1': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ping -6 -q -n -c 1 fd00:0:10::10' on 'e2c1': [91m The exit code of the command differs from the expected one.
+ Actual: 2
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:102::12/64'' on 'e2c2': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:102::1'' on 'e2c2': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ping -6 -q -n -c 1 fd00:0:10::10' on 'e2c2': [91m The exit code of the command differs from the expected one.
+ Actual: 2
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:103::11/64'' on 'e3c1': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:103::1'' on 'e3c1': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ping -6 -q -n -c 1 fd00:0:10::10' on 'e3c1': [91m The exit code of the command differs from the expected one.
+ Actual: 2
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:103::12/64'' on 'e3c2': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:103::1'' on 'e3c2': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ping -6 -q -n -c 1 fd00:0:10::10' on 'e3c2': [91m The exit code of the command differs from the expected one.
+ Actual: 2
+ Expected: 0[00m
+Undeploying Network Scenario
+Total Tests: 109
+Passed Tests: 73/109
+Writing test report for candidate in: /Users/matthew/Desktop/A-Tesi/results/Dual-Stack_with_Central_Main_Server/with_skill/checker-run/labs/candidate as CSV report...
+
+100%|██████████| 1/1 [00:17<00:00, 17.83s/it]
+100%|██████████| 1/1 [00:17<00:00, 17.83s/it]
+Writing All Test Results into: /Users/matthew/Desktop/A-Tesi/results/Dual-Stack_with_Central_Main_Server/with_skill/checker-run/labs as CSV report...

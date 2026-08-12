@@ -1,0 +1,120 @@
+{
+  "canonical_correction_sha256": "3b677014821da0b8606e17cb44d7b17e6d35df77ce0da2e555dc823faac5ea35",
+  "checker": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
+      "-m",
+      "kathara_lab_checker",
+      "--config",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_IPv4_and_IPv6_Static_Routing/with_skill/correction/correction.yaml",
+      "--labs",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_IPv4_and_IPv6_Static_Routing/with_skill/checker-run/labs",
+      "--no-cache",
+      "--report-type",
+      "csv"
+    ],
+    "duration_seconds": 42.356749791000766,
+    "return_code": 0,
+    "timed_out": false
+  },
+  "checker_attempted": true,
+  "checker_completed": true,
+  "checker_schema_sha256": "841251ca20af61595e8e8521b3de8900dbeadba81cc59e7480765496cad436b0",
+  "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
+  "correction_calls": 0,
+  "correction_generated": true,
+  "correction_hash": "3b677014821da0b8606e17cb44d7b17e6d35df77ce0da2e555dc823faac5ea35",
+  "correction_mode": "paired_generation",
+  "correction_retries": 0,
+  "creation_skill_enabled": true,
+  "creation_skill_sha256": "bf4daac809c4088ad9106268c093cca9c41f79e95dba4113f108c0298d85b996",
+  "errors": [],
+  "experiment_id": "Dual-Stack_IPv4_and_IPv6_Static_Routing",
+  "generation": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "duration_seconds": 73.928530666999,
+        "return_code": 0,
+        "success": true,
+        "timed_out": false,
+        "validation_errors": []
+      }
+    ],
+    "calls": 1,
+    "duration_seconds": 73.928530666999,
+    "last_command": [
+      "codex",
+      "exec",
+      "--model",
+      "gpt-5.6-terra",
+      "-c",
+      "model_reasoning_effort=\"low\"",
+      "-c",
+      "approval_policy=\"never\"",
+      "--sandbox",
+      "workspace-write",
+      "--cd",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_IPv4_and_IPv6_Static_Routing/.workspaces/with_skill",
+      "--json",
+      "--output-last-message",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_IPv4_and_IPv6_Static_Routing/.workspaces/with_skill/.agent-last-message.txt",
+      "--ephemeral",
+      "Read input/prompt.md and resources/creation/SKILL.md. Use resources/creation/SKILL.md as the authoritative general implementation guide for Kathara, while the requested scenario itself is defined only by input/prompt.md. Generate exactly one complete Kathara laboratory inside output/lab/. Do not read files outside this workspace. Do not modify input/ or resources/. Do not generate correction.yaml and do not run Kathara or kathara_lab_checker. The laboratory must be complete, persistent, contain no placeholders, and be internally consistent."
+    ],
+    "retries": 0
+  },
+  "generation_command": "codex",
+  "generation_model": "gpt-5.6-terra",
+  "generation_provider": "codex",
+  "generation_reasoning_effort": "low",
+  "lab_calls": 1,
+  "lab_generated": true,
+  "lab_retries": 0,
+  "metrics": {
+    "failed_tests": 22,
+    "failure_categories": {
+      "uncategorized": 22
+    },
+    "pass_percentage": 76.086957,
+    "passed_tests": 70,
+    "reports_found": [
+      "results.csv",
+      "candidate_result_all.csv",
+      "candidate_result_failed.csv",
+      "candidate_result_summary.csv"
+    ],
+    "total_tests": 92
+  },
+  "phases": [
+    {
+      "at": "2026-08-12T17:27:53.446959Z",
+      "name": "discovered"
+    },
+    {
+      "at": "2026-08-12T17:27:53.447352Z",
+      "name": "lab_generation_started"
+    },
+    {
+      "at": "2026-08-12T17:29:07.384450Z",
+      "name": "lab_generated"
+    },
+    {
+      "at": "2026-08-12T17:31:33.629724Z",
+      "name": "checker_started"
+    },
+    {
+      "at": "2026-08-12T17:32:15.994657Z",
+      "name": "checker_completed"
+    },
+    {
+      "at": "2026-08-12T17:32:15.994677Z",
+      "name": "failed"
+    }
+  ],
+  "pipeline_version": "0.5.0",
+  "prompt_file": "Dual-Stack IPv4 and IPv6 Static Routing.md",
+  "prompt_sha256": "478482e096f5e4ed341428103260e7f0bdc98f1e77cb878c4d3d4f2d37827f1f",
+  "status": "failed",
+  "variant": "with_skill"
+}

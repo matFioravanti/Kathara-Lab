@@ -1,0 +1,55 @@
+Student Name,Tests Passed,Tests Failed,Tests Total Number,Problems
+candidate,118,20,138,"1: Checking correctness of DNS records: client resolve A example.net with IP  instead of ['192.168.4.80']
+2: Checking correctness of DNS records: client resolve AAAA example.net with IP  instead of ['fd00:4::80']
+3: HTTP check 'http://example.net/' on client status: Expected HTTP 200, got 0
+4: Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:12::1/64 && ip -6 addr show dev eth1 | grep -Fq fd00:13::1/64 && ip -6 addr show dev eth2 | grep -Fq fd00:1::1/64 && ip -6 route show fd00:2::/64 | grep -Fq ""via fd00:12::2"" && ip -6 route show fd00:3::/64 | grep -Fq ""via fd00:13::2"" && ip -6 route show fd00:4::/64 | grep -Fq ""via fd00:12::2"" && ip -6 route show fd00:5::/64 | grep -Fq ""via fd00:13::2"" && ip -6 route show fd00:6::/64 | grep -Fq ""via fd00:12::2""'' on 'r1': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+5: Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:12::2/64 && ip -6 addr show dev eth1 | grep -Fq fd00:24::1/64 && ip -6 addr show dev eth2 | grep -Fq fd00:2::1/64 && ip -6 route show fd00:1::/64 | grep -Fq ""via fd00:12::1"" && ip -6 route show fd00:3::/64 | grep -Fq ""via fd00:12::1"" && ip -6 route show fd00:4::/64 | grep -Fq ""via fd00:24::2"" && ip -6 route show fd00:5::/64 | grep -Fq ""via fd00:12::1"" && ip -6 route show fd00:6::/64 | grep -Fq ""via fd00:24::2""'' on 'r2': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+6: Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:13::2/64 && ip -6 addr show dev eth1 | grep -Fq fd00:34::1/64 && ip -6 addr show dev eth2 | grep -Fq fd00:35::1/64 && ip -6 addr show dev eth3 | grep -Fq fd00:3::1/64 && ip -6 route show fd00:1::/64 | grep -Fq ""via fd00:13::1"" && ip -6 route show fd00:2::/64 | grep -Fq ""via fd00:13::1"" && ip -6 route show fd00:4::/64 | grep -Fq ""via fd00:34::2"" && ip -6 route show fd00:5::/64 | grep -Fq ""via fd00:35::2"" && ip -6 route show fd00:6::/64 | grep -Fq ""via fd00:34::2""'' on 'r3': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+7: Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:24::2/64 && ip -6 addr show dev eth1 | grep -Fq fd00:34::2/64 && ip -6 addr show dev eth2 | grep -Fq fd00:46::1/64 && ip -6 addr show dev eth3 | grep -Fq fd00:4::1/64 && ip -6 route show fd00:1::/64 | grep -Fq ""via fd00:24::1"" && ip -6 route show fd00:2::/64 | grep -Fq ""via fd00:24::1"" && ip -6 route show fd00:3::/64 | grep -Fq ""via fd00:34::1"" && ip -6 route show fd00:5::/64 | grep -Fq ""via fd00:34::1"" && ip -6 route show fd00:6::/64 | grep -Fq ""via fd00:46::2""'' on 'r4': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+8: Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:35::2/64 && ip -6 addr show dev eth1 | grep -Fq fd00:56::1/64 && ip -6 addr show dev eth2 | grep -Fq fd00:5::1/64 && ip -6 route show fd00:1::/64 | grep -Fq ""via fd00:35::1"" && ip -6 route show fd00:2::/64 | grep -Fq ""via fd00:35::1"" && ip -6 route show fd00:3::/64 | grep -Fq ""via fd00:35::1"" && ip -6 route show fd00:4::/64 | grep -Fq ""via fd00:35::1"" && ip -6 route show fd00:6::/64 | grep -Fq ""via fd00:56::2""'' on 'r5': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+9: Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:46::2/64 && ip -6 addr show dev eth1 | grep -Fq fd00:56::2/64 && ip -6 addr show dev eth2 | grep -Fq fd00:6::1/64 && ip -6 route show fd00:1::/64 | grep -Fq ""via fd00:46::1"" && ip -6 route show fd00:2::/64 | grep -Fq ""via fd00:46::1"" && ip -6 route show fd00:3::/64 | grep -Fq ""via fd00:46::1"" && ip -6 route show fd00:4::/64 | grep -Fq ""via fd00:46::1"" && ip -6 route show fd00:5::/64 | grep -Fq ""via fd00:56::1""'' on 'r6': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+10: Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:1::10/64 && ip -6 route show default | grep -Fq ""via fd00:1::1"" && dig +short AAAA example.net | grep -Fxq fd00:4::80 && curl -4 -fsS http://example.net/ >/dev/null && curl -6 -fsS http://example.net/ >/dev/null'' on 'client': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+11: Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:1::53/64 && ip -6 route show default | grep -Fq ""via fd00:1::1"" && dig +short AAAA example.net @fd00:1::53 | grep -Fxq fd00:4::80'' on 'localdns': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+12: Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:3::53/64 && ip -6 route show default | grep -Fq ""via fd00:3::1""'' on 'rootdns': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+13: Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:4::53/64 && ip -6 route show default | grep -Fq ""via fd00:4::1""'' on 'authdns': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+14: Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:4::80/64 && ip -6 route show default | grep -Fq ""via fd00:4::1""'' on 'web': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+15: Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:2::10/64 && ip -6 route show default | grep -Fq ""via fd00:2::1""'' on 'r2pc1': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+16: Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:2::11/64 && ip -6 route show default | grep -Fq ""via fd00:2::1""'' on 'r2pc2': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+17: Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:5::10/64 && ip -6 route show default | grep -Fq ""via fd00:5::1""'' on 'r5pc1': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+18: Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:5::11/64 && ip -6 route show default | grep -Fq ""via fd00:5::1""'' on 'r5pc2': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+19: Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:6::10/64 && ip -6 route show default | grep -Fq ""via fd00:6::1""'' on 'r6pc1': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+20: Checking the exit code of the command 'sh -c 'ip -6 addr show dev eth0 | grep -Fq fd00:6::11/64 && ip -6 route show default | grep -Fq ""via fd00:6::1""'' on 'r6pc2': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"

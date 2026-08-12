@@ -1,0 +1,15 @@
+#!/bin/sh
+sysctl -w net.ipv4.ip_forward=1
+sysctl -w net.ipv6.conf.all.forwarding=1
+ip addr add 10.1.4.1/24 dev eth0
+ip -6 addr add fd00:1:4::1/64 dev eth0
+ip addr add 10.1.41.1/30 dev eth1
+ip -6 addr add fd00:41::1/64 dev eth1
+ip addr add 10.1.34.2/30 dev eth2
+ip -6 addr add fd00:34::2/64 dev eth2
+ip route add 10.1.1.0/24 via 10.1.41.2
+ip route add 10.1.2.0/24 via 10.1.41.2
+ip route add 10.1.3.0/24 via 10.1.34.1
+ip -6 route add fd00:1:1::/64 via fd00:41::2
+ip -6 route add fd00:1:2::/64 via fd00:41::2
+ip -6 route add fd00:1:3::/64 via fd00:34::1

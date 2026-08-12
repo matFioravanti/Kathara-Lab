@@ -1,0 +1,140 @@
+Parsing test configuration...
+Parsing inline network scenarios template
+Parsing network scenarios in: /Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Tree_Topology/with_skill/checker-run/labs
+
+  0%|          | 0/1 [00:00<?, ?it/s]##################### candidate #####################
+Parsing network scenario in: /Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Tree_Topology/with_skill/checker-run/labs/candidate
+Network scenario name: candidate
+Undeploying network scenario in case it was running...
+Deploying network scenario...
+Waiting convergence...
+Starting tests
+Verifying lab structure using inline lab.conf template
+Checking devices existence...
+Check existence of `r0`: [92m OK[00m
+Check existence of `r1`: [92m OK[00m
+Check existence of `r2`: [92m OK[00m
+Check existence of `pc0`: [92m OK[00m
+Check existence of `pc1`: [92m OK[00m
+Check existence of `pc2`: [92m OK[00m
+Checking collision domains...
+Checking the collision domain attached to interface `eth0` of `r0`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r0`: [92m OK[00m
+Checking the collision domain attached to interface `eth2` of `r0`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `r1`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r1`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `r2`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r2`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc0`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc1`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc2`: [92m OK[00m
+Checking that all required startup files exist...
+Check existence of `r0.startup` file: [92m OK[00m
+Check existence of `r1.startup` file: [92m OK[00m
+Check existence of `r2.startup` file: [92m OK[00m
+Check existence of `pc0.startup` file: [92m OK[00m
+Check existence of `pc1.startup` file: [92m OK[00m
+Check existence of `pc2.startup` file: [92m OK[00m
+Verifying the IP addresses assigned to devices...
+Checking IPs for `r0`...
+Verifying the IP address (10.0.1.1/30) assigned to eth0 of r0: [92m OK[00m
+Verifying the IP address (10.0.2.1/30) assigned to eth1 of r0: [92m OK[00m
+Verifying the IP address (192.168.10.1/24) assigned to eth2 of r0: [92m OK[00m
+Checking IPs for `r1`...
+Verifying the IP address (10.0.1.2/30) assigned to eth0 of r1: [92m OK[00m
+Verifying the IP address (192.168.20.1/24) assigned to eth1 of r1: [92m OK[00m
+Checking IPs for `r2`...
+Verifying the IP address (10.0.2.2/30) assigned to eth0 of r2: [92m OK[00m
+Verifying the IP address (192.168.30.1/24) assigned to eth1 of r2: [92m OK[00m
+Checking IPs for `pc0`...
+Verifying the IP address (192.168.10.10/24) assigned to eth0 of pc0: [92m OK[00m
+Checking IPs for `pc1`...
+Verifying the IP address (192.168.20.10/24) assigned to eth0 of pc1: [92m OK[00m
+Checking IPs for `pc2`...
+Verifying the IP address (192.168.30.10/24) assigned to eth0 of pc2: [92m OK[00m
+Starting reachability test...
+Verifying `192.168.20.10` reachable from device `pc0`: [92m OK[00m
+Verifying `192.168.30.10` reachable from device `pc0`: [92m OK[00m
+Verifying `2001:db8:20::10` reachable from device `pc0`: [91m ping: connect: Cannot assign requested address[00m
+Verifying `2001:db8:30::10` reachable from device `pc0`: [91m ping: connect: Cannot assign requested address[00m
+Verifying `192.168.10.10` reachable from device `pc1`: [92m OK[00m
+Verifying `192.168.30.10` reachable from device `pc1`: [92m OK[00m
+Verifying `2001:db8:10::10` reachable from device `pc1`: [91m ping: connect: Cannot assign requested address[00m
+Verifying `2001:db8:30::10` reachable from device `pc1`: [91m ping: connect: Cannot assign requested address[00m
+Verifying `192.168.10.10` reachable from device `pc2`: [92m OK[00m
+Verifying `192.168.20.10` reachable from device `pc2`: [92m OK[00m
+Verifying `2001:db8:10::10` reachable from device `pc2`: [91m ping: connect: Cannot assign requested address[00m
+Verifying `2001:db8:20::10` reachable from device `pc2`: [91m ping: connect: Cannot assign requested address[00m
+Checking Routing Tables...
+Checking kernel routes for `r0`...
+Checking the routing table of r0: [92m OK[00m
+Checking kernel routes for `r1`...
+Checking the routing table of r1: [92m OK[00m
+Checking kernel routes for `r2`...
+Checking the routing table of r2: [92m OK[00m
+Checking kernel routes for `pc0`...
+Checking the routing table of pc0: [92m OK[00m
+Checking kernel routes for `pc1`...
+Checking the routing table of pc1: [92m OK[00m
+Checking kernel routes for `pc2`...
+Checking the routing table of pc2: [92m OK[00m
+Checking custom commands output...
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'inet6 2001:db8:1::1/64 scope global'' on 'r0': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq 'inet6 2001:db8:2::1/64 scope global'' on 'r0': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth2 | grep -Fq 'inet6 2001:db8:10::1/64 scope global'' on 'r0': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show 2001:db8:20::/64 | grep -Eq '^2001:db8:20::/64 via 2001:db8:1::2 dev eth0'' on 'r0': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show 2001:db8:30::/64 | grep -Eq '^2001:db8:30::/64 via 2001:db8:2::2 dev eth1'' on 'r0': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'inet6 2001:db8:1::2/64 scope global'' on 'r1': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq 'inet6 2001:db8:20::1/64 scope global'' on 'r1': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Eq '^default via 2001:db8:1::1 dev eth0'' on 'r1': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'inet6 2001:db8:2::2/64 scope global'' on 'r2': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq 'inet6 2001:db8:30::1/64 scope global'' on 'r2': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Eq '^default via 2001:db8:2::1 dev eth0'' on 'r2': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'inet6 2001:db8:10::10/64 scope global'' on 'pc0': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Eq '^default via 2001:db8:10::1 dev eth0'' on 'pc0': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'inet6 2001:db8:20::10/64 scope global'' on 'pc1': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Eq '^default via 2001:db8:20::1 dev eth0'' on 'pc1': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'inet6 2001:db8:30::10/64 scope global'' on 'pc2': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Eq '^default via 2001:db8:30::1 dev eth0'' on 'pc2': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Undeploying Network Scenario
+Total Tests: 67
+Passed Tests: 44/67
+Writing test report for candidate in: /Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Tree_Topology/with_skill/checker-run/labs/candidate as CSV report...
+
+100%|██████████| 1/1 [00:14<00:00, 14.97s/it]
+100%|██████████| 1/1 [00:14<00:00, 14.97s/it]
+Writing All Test Results into: /Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Tree_Topology/with_skill/checker-run/labs as CSV report...

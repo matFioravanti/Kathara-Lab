@@ -1,33 +1,33 @@
 {
-  "comparable_pairs": 1,
-  "incomparable_pairs": 5,
+  "comparable_pairs": 0,
+  "incomparable_pairs": 7,
   "quality": {
     "paired": {
-      "mean_delta_pass_percentage_points": 7.826087,
-      "median_delta_pass_percentage_points": 7.826087,
+      "mean_delta_pass_percentage_points": null,
+      "median_delta_pass_percentage_points": null,
       "outcomes": {
         "EQUAL": 0,
-        "INCOMPARABLE": 5,
+        "INCOMPARABLE": 7,
         "WITHOUT_SKILL_BETTER": 0,
-        "WITH_SKILL_BETTER": 1
+        "WITH_SKILL_BETTER": 0
       }
     },
     "with_skill": {
-      "mean_pass_percentage": 91.421569,
-      "median_pass_percentage": 100.0,
+      "mean_pass_percentage": 65.332085,
+      "median_pass_percentage": 66.972477,
       "status_counts": {
         "error": 0,
-        "failed": 1,
-        "passed": 5,
+        "failed": 7,
+        "passed": 0,
         "skipped": 0
       }
     },
     "without_skill": {
-      "mean_pass_percentage": 92.173913,
-      "median_pass_percentage": 92.173913,
+      "mean_pass_percentage": null,
+      "median_pass_percentage": null,
       "status_counts": {
-        "error": 5,
-        "failed": 1,
+        "error": 7,
+        "failed": 0,
         "passed": 0,
         "skipped": 0
       }
@@ -36,14 +36,14 @@
   "technical_reliability": {
     "with_skill_checker_completion_rate": 100.0,
     "with_skill_errors": 0,
-    "without_skill_checker_completion_rate": 16.666667,
-    "without_skill_errors": 5
+    "without_skill_checker_completion_rate": 0.0,
+    "without_skill_errors": 7
   },
   "time": {
-    "with_skill_mean_checker_seconds": 46.230579,
-    "with_skill_mean_generation_seconds": 122.734307,
-    "without_skill_mean_checker_seconds": 17.099575,
-    "without_skill_mean_generation_seconds": 107.808395
+    "with_skill_mean_checker_seconds": 24.15542,
+    "with_skill_mean_generation_seconds": 104.982887,
+    "without_skill_mean_checker_seconds": 0.36476,
+    "without_skill_mean_generation_seconds": 95.849839
   },
-  "total_prompts": 6
+  "total_prompts": 7
 }

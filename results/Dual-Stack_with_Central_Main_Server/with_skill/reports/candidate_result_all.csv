@@ -1,0 +1,182 @@
+Test Description,Passed,Reason
+Check existence of `central`,True,OK
+Check existence of `edge1`,True,OK
+Check existence of `edge2`,True,OK
+Check existence of `edge3`,True,OK
+Check existence of `server`,True,OK
+Check existence of `e1c1`,True,OK
+Check existence of `e1c2`,True,OK
+Check existence of `e2c1`,True,OK
+Check existence of `e2c2`,True,OK
+Check existence of `e3c1`,True,OK
+Check existence of `e3c2`,True,OK
+Checking the collision domain attached to interface `eth0` of `central`,True,OK
+Checking the collision domain attached to interface `eth1` of `central`,True,OK
+Checking the collision domain attached to interface `eth2` of `central`,True,OK
+Checking the collision domain attached to interface `eth3` of `central`,True,OK
+Checking the collision domain attached to interface `eth0` of `edge1`,True,OK
+Checking the collision domain attached to interface `eth1` of `edge1`,True,OK
+Checking the collision domain attached to interface `eth0` of `edge2`,True,OK
+Checking the collision domain attached to interface `eth1` of `edge2`,True,OK
+Checking the collision domain attached to interface `eth0` of `edge3`,True,OK
+Checking the collision domain attached to interface `eth1` of `edge3`,True,OK
+Checking the collision domain attached to interface `eth0` of `server`,True,OK
+Checking the collision domain attached to interface `eth0` of `e1c1`,True,OK
+Checking the collision domain attached to interface `eth0` of `e1c2`,True,OK
+Checking the collision domain attached to interface `eth0` of `e2c1`,True,OK
+Checking the collision domain attached to interface `eth0` of `e2c2`,True,OK
+Checking the collision domain attached to interface `eth0` of `e3c1`,True,OK
+Checking the collision domain attached to interface `eth0` of `e3c2`,True,OK
+Check existence of `central.startup` file,True,OK
+Check existence of `edge1.startup` file,True,OK
+Check existence of `edge2.startup` file,True,OK
+Check existence of `edge3.startup` file,True,OK
+Check existence of `server.startup` file,True,OK
+Check existence of `e1c1.startup` file,True,OK
+Check existence of `e1c2.startup` file,True,OK
+Check existence of `e2c1.startup` file,True,OK
+Check existence of `e2c2.startup` file,True,OK
+Check existence of `e3c1.startup` file,True,OK
+Check existence of `e3c2.startup` file,True,OK
+Verifying the IP address (10.0.1.1/30) assigned to eth0 of central,True,OK
+Verifying the IP address (10.0.2.1/30) assigned to eth1 of central,True,OK
+Verifying the IP address (10.0.3.1/30) assigned to eth2 of central,True,OK
+Verifying the IP address (10.0.10.1/24) assigned to eth3 of central,True,OK
+Verifying the IP address (10.0.1.2/30) assigned to eth0 of edge1,True,OK
+Verifying the IP address (10.0.101.1/24) assigned to eth1 of edge1,True,OK
+Verifying the IP address (10.0.2.2/30) assigned to eth0 of edge2,True,OK
+Verifying the IP address (10.0.102.1/24) assigned to eth1 of edge2,True,OK
+Verifying the IP address (10.0.3.2/30) assigned to eth0 of edge3,True,OK
+Verifying the IP address (10.0.103.1/24) assigned to eth1 of edge3,True,OK
+Verifying the IP address (10.0.10.10/24) assigned to eth0 of server,True,OK
+Verifying the IP address (10.0.101.11/24) assigned to eth0 of e1c1,True,OK
+Verifying the IP address (10.0.101.12/24) assigned to eth0 of e1c2,True,OK
+Verifying the IP address (10.0.102.11/24) assigned to eth0 of e2c1,True,OK
+Verifying the IP address (10.0.102.12/24) assigned to eth0 of e2c2,True,OK
+Verifying the IP address (10.0.103.11/24) assigned to eth0 of e3c1,True,OK
+Verifying the IP address (10.0.103.12/24) assigned to eth0 of e3c2,True,OK
+Verifying `10.0.10.10` reachable from device `e1c1`,True,OK
+Verifying `10.0.10.10` reachable from device `e1c2`,True,OK
+Verifying `10.0.10.10` reachable from device `e2c1`,True,OK
+Verifying `10.0.10.10` reachable from device `e2c2`,True,OK
+Verifying `10.0.10.10` reachable from device `e3c1`,True,OK
+Verifying `10.0.10.10` reachable from device `e3c2`,True,OK
+Checking the routing table of central,True,OK
+Checking the routing table of edge1,True,OK
+Checking the routing table of edge2,True,OK
+Checking the routing table of edge3,True,OK
+Checking the routing table of server,True,OK
+Checking the routing table of e1c1,True,OK
+Checking the routing table of e1c2,True,OK
+Checking the routing table of e2c1,True,OK
+Checking the routing table of e2c2,True,OK
+Checking the routing table of e3c1,True,OK
+Checking the routing table of e3c2,True,OK
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:1::1/64'' on 'central',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq 'fd00:0:2::1/64'' on 'central',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth2 | grep -Fq 'fd00:0:3::1/64'' on 'central',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth3 | grep -Fq 'fd00:0:10::1/64'' on 'central',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show fd00:0:101::/64 | grep -Fq 'via fd00:0:1::2'' on 'central',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show fd00:0:102::/64 | grep -Fq 'via fd00:0:2::2'' on 'central',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show fd00:0:103::/64 | grep -Fq 'via fd00:0:3::2'' on 'central',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:1::2/64'' on 'edge1',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq 'fd00:0:101::1/64'' on 'edge1',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:1::1'' on 'edge1',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:2::2/64'' on 'edge2',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq 'fd00:0:102::1/64'' on 'edge2',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:2::1'' on 'edge2',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:3::2/64'' on 'edge3',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq 'fd00:0:103::1/64'' on 'edge3',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:3::1'' on 'edge3',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:10::10/64'' on 'server',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:10::1'' on 'server',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:101::11/64'' on 'e1c1',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:101::1'' on 'e1c1',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ping -6 -q -n -c 1 fd00:0:10::10' on 'e1c1',False,"The exit code of the command differs from the expected one.
+ Actual: 2
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:101::12/64'' on 'e1c2',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:101::1'' on 'e1c2',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ping -6 -q -n -c 1 fd00:0:10::10' on 'e1c2',False,"The exit code of the command differs from the expected one.
+ Actual: 2
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:102::11/64'' on 'e2c1',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:102::1'' on 'e2c1',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ping -6 -q -n -c 1 fd00:0:10::10' on 'e2c1',False,"The exit code of the command differs from the expected one.
+ Actual: 2
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:102::12/64'' on 'e2c2',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:102::1'' on 'e2c2',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ping -6 -q -n -c 1 fd00:0:10::10' on 'e2c2',False,"The exit code of the command differs from the expected one.
+ Actual: 2
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:103::11/64'' on 'e3c1',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:103::1'' on 'e3c1',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ping -6 -q -n -c 1 fd00:0:10::10' on 'e3c1',False,"The exit code of the command differs from the expected one.
+ Actual: 2
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:103::12/64'' on 'e3c2',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:103::1'' on 'e3c2',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ping -6 -q -n -c 1 fd00:0:10::10' on 'e3c2',False,"The exit code of the command differs from the expected one.
+ Actual: 2
+ Expected: 0"

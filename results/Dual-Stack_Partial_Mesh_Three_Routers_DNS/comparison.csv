@@ -1,0 +1,2 @@
+experiment_id,prompt_file,outcome,reason,with_skill_status,without_skill_status,with_skill_pass_percentage,without_skill_pass_percentage,delta_pass_percentage_points,with_skill_failed_tests,without_skill_failed_tests
+Dual-Stack_Partial_Mesh_Three_Routers_DNS,"Dual-Stack Partial Mesh, Three Routers, DNS.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,failed,error,70.786517,,,26,

@@ -1,0 +1,241 @@
+Parsing test configuration...
+Parsing inline network scenarios template
+Parsing network scenarios in: /Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/with_skill/checker-run/labs
+
+  0%|          | 0/1 [00:00<?, ?it/s]##################### candidate #####################
+Parsing network scenario in: /Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/with_skill/checker-run/labs/candidate
+Network scenario name: candidate
+Undeploying network scenario in case it was running...
+Deploying network scenario...
+Waiting convergence...
+Starting tests
+Verifying lab structure using inline lab.conf template
+Checking devices existence...
+Check existence of `r1`: [92m OK[00m
+Check existence of `r2`: [92m OK[00m
+Check existence of `r3`: [92m OK[00m
+Check existence of `r4`: [92m OK[00m
+Check existence of `r5`: [92m OK[00m
+Check existence of `pc1a`: [92m OK[00m
+Check existence of `pc1b`: [92m OK[00m
+Check existence of `pc2a`: [92m OK[00m
+Check existence of `pc2b`: [92m OK[00m
+Check existence of `pc3a`: [92m OK[00m
+Check existence of `pc3b`: [92m OK[00m
+Check existence of `pc4a`: [92m OK[00m
+Check existence of `pc4b`: [92m OK[00m
+Check existence of `pc5a`: [92m OK[00m
+Check existence of `pc5b`: [92m OK[00m
+Checking collision domains...
+Checking the collision domain attached to interface `eth0` of `r1`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r1`: [92m OK[00m
+Checking the collision domain attached to interface `eth2` of `r1`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `r2`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r2`: [92m OK[00m
+Checking the collision domain attached to interface `eth2` of `r2`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `r3`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r3`: [92m OK[00m
+Checking the collision domain attached to interface `eth2` of `r3`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `r4`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r4`: [92m OK[00m
+Checking the collision domain attached to interface `eth2` of `r4`: [92m OK[00m
+Checking the collision domain attached to interface `eth3` of `r4`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `r5`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r5`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc1a`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc1b`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc2a`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc2b`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc3a`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc3b`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc4a`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc4b`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc5a`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc5b`: [92m OK[00m
+Checking that all required startup files exist...
+Check existence of `r1.startup` file: [92m OK[00m
+Check existence of `r2.startup` file: [92m OK[00m
+Check existence of `r3.startup` file: [92m OK[00m
+Check existence of `r4.startup` file: [92m OK[00m
+Check existence of `r5.startup` file: [92m OK[00m
+Check existence of `pc1a.startup` file: [92m OK[00m
+Check existence of `pc1b.startup` file: [92m OK[00m
+Check existence of `pc2a.startup` file: [92m OK[00m
+Check existence of `pc2b.startup` file: [92m OK[00m
+Check existence of `pc3a.startup` file: [92m OK[00m
+Check existence of `pc3b.startup` file: [92m OK[00m
+Check existence of `pc4a.startup` file: [92m OK[00m
+Check existence of `pc4b.startup` file: [92m OK[00m
+Check existence of `pc5a.startup` file: [92m OK[00m
+Check existence of `pc5b.startup` file: [92m OK[00m
+Verifying the IP addresses assigned to devices...
+Checking IPs for `r1`...
+Verifying the IP address (10.1.0.1/24) assigned to eth0 of r1: [92m OK[00m
+Verifying the IP address (10.255.12.1/30) assigned to eth1 of r1: [92m OK[00m
+Verifying the IP address (10.255.13.1/30) assigned to eth2 of r1: [92m OK[00m
+Checking IPs for `r2`...
+Verifying the IP address (10.2.0.1/24) assigned to eth0 of r2: [92m OK[00m
+Verifying the IP address (10.255.12.2/30) assigned to eth1 of r2: [92m OK[00m
+Verifying the IP address (10.255.24.1/30) assigned to eth2 of r2: [92m OK[00m
+Checking IPs for `r3`...
+Verifying the IP address (10.3.0.1/24) assigned to eth0 of r3: [92m OK[00m
+Verifying the IP address (10.255.13.2/30) assigned to eth1 of r3: [92m OK[00m
+Verifying the IP address (10.255.34.1/30) assigned to eth2 of r3: [92m OK[00m
+Checking IPs for `r4`...
+Verifying the IP address (10.4.0.1/24) assigned to eth0 of r4: [92m OK[00m
+Verifying the IP address (10.255.24.2/30) assigned to eth1 of r4: [92m OK[00m
+Verifying the IP address (10.255.34.2/30) assigned to eth2 of r4: [92m OK[00m
+Verifying the IP address (10.255.45.1/30) assigned to eth3 of r4: [92m OK[00m
+Checking IPs for `r5`...
+Verifying the IP address (10.5.0.1/24) assigned to eth0 of r5: [92m OK[00m
+Verifying the IP address (10.255.45.2/30) assigned to eth1 of r5: [92m OK[00m
+Checking IPs for `pc1a`...
+Verifying the IP address (10.1.0.11/24) assigned to eth0 of pc1a: [92m OK[00m
+Checking IPs for `pc1b`...
+Verifying the IP address (10.1.0.12/24) assigned to eth0 of pc1b: [92m OK[00m
+Checking IPs for `pc2a`...
+Verifying the IP address (10.2.0.11/24) assigned to eth0 of pc2a: [92m OK[00m
+Checking IPs for `pc2b`...
+Verifying the IP address (10.2.0.12/24) assigned to eth0 of pc2b: [92m OK[00m
+Checking IPs for `pc3a`...
+Verifying the IP address (10.3.0.11/24) assigned to eth0 of pc3a: [92m OK[00m
+Checking IPs for `pc3b`...
+Verifying the IP address (10.3.0.12/24) assigned to eth0 of pc3b: [92m OK[00m
+Checking IPs for `pc4a`...
+Verifying the IP address (10.4.0.11/24) assigned to eth0 of pc4a: [92m OK[00m
+Checking IPs for `pc4b`...
+Verifying the IP address (10.4.0.12/24) assigned to eth0 of pc4b: [92m OK[00m
+Checking IPs for `pc5a`...
+Verifying the IP address (10.5.0.11/24) assigned to eth0 of pc5a: [92m OK[00m
+Checking IPs for `pc5b`...
+Verifying the IP address (10.5.0.12/24) assigned to eth0 of pc5b: [92m OK[00m
+Starting reachability test...
+Verifying `10.1.0.12` reachable from device `pc1a`: [92m OK[00m
+Verifying `10.2.0.11` reachable from device `pc1a`: [92m OK[00m
+Verifying `10.2.0.12` reachable from device `pc1a`: [92m OK[00m
+Verifying `10.3.0.11` reachable from device `pc1a`: [92m OK[00m
+Verifying `10.3.0.12` reachable from device `pc1a`: [92m OK[00m
+Verifying `10.4.0.11` reachable from device `pc1a`: [92m OK[00m
+Verifying `10.4.0.12` reachable from device `pc1a`: [92m OK[00m
+Verifying `10.5.0.11` reachable from device `pc1a`: [92m OK[00m
+Verifying `10.5.0.12` reachable from device `pc1a`: [92m OK[00m
+Verifying `10.1.0.11` reachable from device `pc1b`: [92m OK[00m
+Verifying `10.2.0.11` reachable from device `pc1b`: [92m OK[00m
+Verifying `10.2.0.12` reachable from device `pc1b`: [92m OK[00m
+Verifying `10.3.0.11` reachable from device `pc1b`: [92m OK[00m
+Verifying `10.3.0.12` reachable from device `pc1b`: [92m OK[00m
+Verifying `10.4.0.11` reachable from device `pc1b`: [92m OK[00m
+Verifying `10.4.0.12` reachable from device `pc1b`: [92m OK[00m
+Verifying `10.5.0.11` reachable from device `pc1b`: [92m OK[00m
+Verifying `10.5.0.12` reachable from device `pc1b`: [92m OK[00m
+Verifying `10.1.0.11` reachable from device `pc2a`: [92m OK[00m
+Verifying `10.1.0.12` reachable from device `pc2a`: [92m OK[00m
+Verifying `10.2.0.12` reachable from device `pc2a`: [92m OK[00m
+Verifying `10.3.0.11` reachable from device `pc2a`: [92m OK[00m
+Verifying `10.3.0.12` reachable from device `pc2a`: [92m OK[00m
+Verifying `10.4.0.11` reachable from device `pc2a`: [92m OK[00m
+Verifying `10.4.0.12` reachable from device `pc2a`: [92m OK[00m
+Verifying `10.5.0.11` reachable from device `pc2a`: [92m OK[00m
+Verifying `10.5.0.12` reachable from device `pc2a`: [92m OK[00m
+Verifying `10.1.0.11` reachable from device `pc2b`: [92m OK[00m
+Verifying `10.1.0.12` reachable from device `pc2b`: [92m OK[00m
+Verifying `10.2.0.11` reachable from device `pc2b`: [92m OK[00m
+Verifying `10.3.0.11` reachable from device `pc2b`: [92m OK[00m
+Verifying `10.3.0.12` reachable from device `pc2b`: [92m OK[00m
+Verifying `10.4.0.11` reachable from device `pc2b`: [92m OK[00m
+Verifying `10.4.0.12` reachable from device `pc2b`: [92m OK[00m
+Verifying `10.5.0.11` reachable from device `pc2b`: [92m OK[00m
+Verifying `10.5.0.12` reachable from device `pc2b`: [92m OK[00m
+Verifying `10.1.0.11` reachable from device `pc3a`: [92m OK[00m
+Verifying `10.1.0.12` reachable from device `pc3a`: [92m OK[00m
+Verifying `10.2.0.11` reachable from device `pc3a`: [92m OK[00m
+Verifying `10.2.0.12` reachable from device `pc3a`: [92m OK[00m
+Verifying `10.3.0.12` reachable from device `pc3a`: [92m OK[00m
+Verifying `10.4.0.11` reachable from device `pc3a`: [92m OK[00m
+Verifying `10.4.0.12` reachable from device `pc3a`: [92m OK[00m
+Verifying `10.5.0.11` reachable from device `pc3a`: [92m OK[00m
+Verifying `10.5.0.12` reachable from device `pc3a`: [92m OK[00m
+Verifying `10.1.0.11` reachable from device `pc3b`: [92m OK[00m
+Verifying `10.1.0.12` reachable from device `pc3b`: [92m OK[00m
+Verifying `10.2.0.11` reachable from device `pc3b`: [92m OK[00m
+Verifying `10.2.0.12` reachable from device `pc3b`: [92m OK[00m
+Verifying `10.3.0.11` reachable from device `pc3b`: [92m OK[00m
+Verifying `10.4.0.11` reachable from device `pc3b`: [92m OK[00m
+Verifying `10.4.0.12` reachable from device `pc3b`: [92m OK[00m
+Verifying `10.5.0.11` reachable from device `pc3b`: [92m OK[00m
+Verifying `10.5.0.12` reachable from device `pc3b`: [92m OK[00m
+Verifying `10.1.0.11` reachable from device `pc4a`: [92m OK[00m
+Verifying `10.1.0.12` reachable from device `pc4a`: [92m OK[00m
+Verifying `10.2.0.11` reachable from device `pc4a`: [92m OK[00m
+Verifying `10.2.0.12` reachable from device `pc4a`: [92m OK[00m
+Verifying `10.3.0.11` reachable from device `pc4a`: [92m OK[00m
+Verifying `10.3.0.12` reachable from device `pc4a`: [92m OK[00m
+Verifying `10.4.0.12` reachable from device `pc4a`: [92m OK[00m
+Verifying `10.5.0.11` reachable from device `pc4a`: [92m OK[00m
+Verifying `10.5.0.12` reachable from device `pc4a`: [92m OK[00m
+Verifying `10.1.0.11` reachable from device `pc4b`: [92m OK[00m
+Verifying `10.1.0.12` reachable from device `pc4b`: [92m OK[00m
+Verifying `10.2.0.11` reachable from device `pc4b`: [92m OK[00m
+Verifying `10.2.0.12` reachable from device `pc4b`: [92m OK[00m
+Verifying `10.3.0.11` reachable from device `pc4b`: [92m OK[00m
+Verifying `10.3.0.12` reachable from device `pc4b`: [92m OK[00m
+Verifying `10.4.0.11` reachable from device `pc4b`: [92m OK[00m
+Verifying `10.5.0.11` reachable from device `pc4b`: [92m OK[00m
+Verifying `10.5.0.12` reachable from device `pc4b`: [92m OK[00m
+Verifying `10.1.0.11` reachable from device `pc5a`: [92m OK[00m
+Verifying `10.1.0.12` reachable from device `pc5a`: [92m OK[00m
+Verifying `10.2.0.11` reachable from device `pc5a`: [92m OK[00m
+Verifying `10.2.0.12` reachable from device `pc5a`: [92m OK[00m
+Verifying `10.3.0.11` reachable from device `pc5a`: [92m OK[00m
+Verifying `10.3.0.12` reachable from device `pc5a`: [92m OK[00m
+Verifying `10.4.0.11` reachable from device `pc5a`: [92m OK[00m
+Verifying `10.4.0.12` reachable from device `pc5a`: [92m OK[00m
+Verifying `10.5.0.12` reachable from device `pc5a`: [92m OK[00m
+Verifying `10.1.0.11` reachable from device `pc5b`: [92m OK[00m
+Verifying `10.1.0.12` reachable from device `pc5b`: [92m OK[00m
+Verifying `10.2.0.11` reachable from device `pc5b`: [92m OK[00m
+Verifying `10.2.0.12` reachable from device `pc5b`: [92m OK[00m
+Verifying `10.3.0.11` reachable from device `pc5b`: [92m OK[00m
+Verifying `10.3.0.12` reachable from device `pc5b`: [92m OK[00m
+Verifying `10.4.0.11` reachable from device `pc5b`: [92m OK[00m
+Verifying `10.4.0.12` reachable from device `pc5b`: [92m OK[00m
+Verifying `10.5.0.11` reachable from device `pc5b`: [92m OK[00m
+Checking Routing Tables...
+Checking kernel routes for `r1`...
+Checking the routing table of r1: [92m OK[00m
+Checking kernel routes for `r2`...
+Checking the routing table of r2: [92m OK[00m
+Checking kernel routes for `r3`...
+Checking the routing table of r3: [92m OK[00m
+Checking kernel routes for `r4`...
+Checking the routing table of r4: [92m OK[00m
+Checking kernel routes for `r5`...
+Checking the routing table of r5: [92m OK[00m
+Checking kernel routes for `pc1a`...
+Checking the routing table of pc1a: [92m OK[00m
+Checking kernel routes for `pc1b`...
+Checking the routing table of pc1b: [92m OK[00m
+Checking kernel routes for `pc2a`...
+Checking the routing table of pc2a: [92m OK[00m
+Checking kernel routes for `pc2b`...
+Checking the routing table of pc2b: [92m OK[00m
+Checking kernel routes for `pc3a`...
+Checking the routing table of pc3a: [92m OK[00m
+Checking kernel routes for `pc3b`...
+Checking the routing table of pc3b: [92m OK[00m
+Checking kernel routes for `pc4a`...
+Checking the routing table of pc4a: [92m OK[00m
+Checking kernel routes for `pc4b`...
+Checking the routing table of pc4b: [92m OK[00m
+Checking kernel routes for `pc5a`...
+Checking the routing table of pc5a: [92m OK[00m
+Checking kernel routes for `pc5b`...
+Checking the routing table of pc5b: [92m OK[00m
+Undeploying Network Scenario
+Total Tests: 185
+Passed Tests: 185/185
+Writing test report for candidate in: /Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/with_skill/checker-run/labs/candidate as CSV report...
+
+100%|██████████| 1/1 [00:21<00:00, 21.80s/it]
+100%|██████████| 1/1 [00:21<00:00, 21.80s/it]
+Writing All Test Results into: /Users/matthew/Desktop/A-Tesi/results/All_Routes_Explicit_No_Default_Routes_IPv4/with_skill/checker-run/labs as CSV report...

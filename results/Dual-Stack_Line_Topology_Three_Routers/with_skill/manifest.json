@@ -1,0 +1,120 @@
+{
+  "canonical_correction_sha256": "70f54a12ed72e8eccc416dc8b28dd88e2f4590c664cda7a49de1fdff06e357cc",
+  "checker": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
+      "-m",
+      "kathara_lab_checker",
+      "--config",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Line_Topology_Three_Routers/with_skill/correction/correction.yaml",
+      "--labs",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Line_Topology_Three_Routers/with_skill/checker-run/labs",
+      "--no-cache",
+      "--report-type",
+      "csv"
+    ],
+    "duration_seconds": 21.08655920899764,
+    "return_code": 0,
+    "timed_out": false
+  },
+  "checker_attempted": true,
+  "checker_completed": true,
+  "checker_schema_sha256": "841251ca20af61595e8e8521b3de8900dbeadba81cc59e7480765496cad436b0",
+  "checker_skill_sha256": "c4257214557d6323a9f961b83d132d030f5df072401abe762a73f7763adda343",
+  "correction_calls": 0,
+  "correction_generated": true,
+  "correction_hash": "70f54a12ed72e8eccc416dc8b28dd88e2f4590c664cda7a49de1fdff06e357cc",
+  "correction_mode": "paired_generation",
+  "correction_retries": 0,
+  "creation_skill_enabled": true,
+  "creation_skill_sha256": "bf4daac809c4088ad9106268c093cca9c41f79e95dba4113f108c0298d85b996",
+  "errors": [],
+  "experiment_id": "Dual-Stack_Line_Topology_Three_Routers",
+  "generation": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "duration_seconds": 108.63065050000296,
+        "return_code": 0,
+        "success": true,
+        "timed_out": false,
+        "validation_errors": []
+      }
+    ],
+    "calls": 1,
+    "duration_seconds": 108.63065050000296,
+    "last_command": [
+      "codex",
+      "exec",
+      "--model",
+      "gpt-5.6-terra",
+      "-c",
+      "model_reasoning_effort=\"low\"",
+      "-c",
+      "approval_policy=\"never\"",
+      "--sandbox",
+      "workspace-write",
+      "--cd",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Line_Topology_Three_Routers/.workspaces/with_skill",
+      "--json",
+      "--output-last-message",
+      "/Users/matthew/Desktop/A-Tesi/results/Dual-Stack_Line_Topology_Three_Routers/.workspaces/with_skill/.agent-last-message.txt",
+      "--ephemeral",
+      "Read input/prompt.md and resources/creation/SKILL.md. Use resources/creation/SKILL.md as the authoritative general implementation guide for Kathara, while the requested scenario itself is defined only by input/prompt.md. Generate exactly one complete Kathara laboratory inside output/lab/. Do not read files outside this workspace. Do not modify input/ or resources/. Do not generate correction.yaml and do not run Kathara or kathara_lab_checker. The laboratory must be complete, persistent, contain no placeholders, and be internally consistent."
+    ],
+    "retries": 0
+  },
+  "generation_command": "codex",
+  "generation_model": "gpt-5.6-terra",
+  "generation_provider": "codex",
+  "generation_reasoning_effort": "low",
+  "lab_calls": 1,
+  "lab_generated": true,
+  "lab_retries": 0,
+  "metrics": {
+    "failed_tests": 106,
+    "failure_categories": {
+      "uncategorized": 106
+    },
+    "pass_percentage": 38.728324,
+    "passed_tests": 67,
+    "reports_found": [
+      "results.csv",
+      "candidate_result_all.csv",
+      "candidate_result_failed.csv",
+      "candidate_result_summary.csv"
+    ],
+    "total_tests": 173
+  },
+  "phases": [
+    {
+      "at": "2026-08-12T17:32:16.395607Z",
+      "name": "discovered"
+    },
+    {
+      "at": "2026-08-12T17:32:16.395879Z",
+      "name": "lab_generation_started"
+    },
+    {
+      "at": "2026-08-12T17:34:05.038866Z",
+      "name": "lab_generated"
+    },
+    {
+      "at": "2026-08-12T17:37:31.882773Z",
+      "name": "checker_started"
+    },
+    {
+      "at": "2026-08-12T17:37:52.976752Z",
+      "name": "checker_completed"
+    },
+    {
+      "at": "2026-08-12T17:37:52.976772Z",
+      "name": "failed"
+    }
+  ],
+  "pipeline_version": "0.5.0",
+  "prompt_file": "Dual-Stack Line Topology, Three Routers.md",
+  "prompt_sha256": "305544e8e96fe3ff011086e6cc325e15ee7d84495b1153cd65b22211436f4925",
+  "status": "failed",
+  "variant": "with_skill"
+}

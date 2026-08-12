@@ -1,0 +1,9 @@
+$TTL 300
+@ IN SOA ns.example.net. hostmaster.example.net. (2026081201 3600 900 604800 300)
+  IN NS ns.example.net.
+ns IN A 192.168.4.53
+ns IN AAAA 2001:db8:4::53
+@ IN A 192.168.4.80
+@ IN AAAA 2001:db8:4::80
+www IN A 192.168.4.80
+www IN AAAA 2001:db8:4::80

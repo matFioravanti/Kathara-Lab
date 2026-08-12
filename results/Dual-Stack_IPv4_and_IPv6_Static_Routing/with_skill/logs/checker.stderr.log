@@ -1,0 +1,182 @@
+Parsing test configuration...
+Parsing inline network scenarios template
+Parsing network scenarios in: /Users/matthew/Desktop/A-Tesi/results/Dual-Stack_IPv4_and_IPv6_Static_Routing/with_skill/checker-run/labs
+
+  0%|          | 0/1 [00:00<?, ?it/s]##################### candidate #####################
+Parsing network scenario in: /Users/matthew/Desktop/A-Tesi/results/Dual-Stack_IPv4_and_IPv6_Static_Routing/with_skill/checker-run/labs/candidate
+Network scenario name: candidate
+Undeploying network scenario in case it was running...
+Deploying network scenario...
+Waiting convergence...
+Starting tests
+Verifying lab structure using inline lab.conf template
+Checking devices existence...
+Check existence of `r1`: [92m OK[00m
+Check existence of `r2`: [92m OK[00m
+Check existence of `pc1`: [92m OK[00m
+Check existence of `pc2`: [92m OK[00m
+Check existence of `pc3`: [92m OK[00m
+Check existence of `pc4`: [92m OK[00m
+Checking collision domains...
+Checking the collision domain attached to interface `eth0` of `r1`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r1`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `r2`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r2`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc1`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc2`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc3`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc4`: [92m OK[00m
+Checking that all required startup files exist...
+Check existence of `r1.startup` file: [92m OK[00m
+Check existence of `r2.startup` file: [92m OK[00m
+Check existence of `pc1.startup` file: [92m OK[00m
+Check existence of `pc2.startup` file: [92m OK[00m
+Check existence of `pc3.startup` file: [92m OK[00m
+Check existence of `pc4.startup` file: [92m OK[00m
+Verifying the IP addresses assigned to devices...
+Checking IPs for `r1`...
+Verifying the IP address (192.0.2.1/24) assigned to eth0 of r1: [92m OK[00m
+Verifying the IP address (198.51.100.1/30) assigned to eth1 of r1: [92m OK[00m
+Checking IPs for `r2`...
+Verifying the IP address (198.51.100.2/30) assigned to eth0 of r2: [92m OK[00m
+Verifying the IP address (203.0.113.1/24) assigned to eth1 of r2: [92m OK[00m
+Checking IPs for `pc1`...
+Verifying the IP address (192.0.2.11/24) assigned to eth0 of pc1: [92m OK[00m
+Checking IPs for `pc2`...
+Verifying the IP address (192.0.2.12/24) assigned to eth0 of pc2: [92m OK[00m
+Checking IPs for `pc3`...
+Verifying the IP address (203.0.113.11/24) assigned to eth0 of pc3: [92m OK[00m
+Checking IPs for `pc4`...
+Verifying the IP address (203.0.113.12/24) assigned to eth0 of pc4: [92m OK[00m
+Starting reachability test...
+Verifying `192.0.2.12` reachable from device `pc1`: [92m OK[00m
+Verifying `203.0.113.11` reachable from device `pc1`: [92m OK[00m
+Verifying `203.0.113.12` reachable from device `pc1`: [92m OK[00m
+Verifying `192.0.2.11` reachable from device `pc2`: [92m OK[00m
+Verifying `203.0.113.11` reachable from device `pc2`: [92m OK[00m
+Verifying `203.0.113.12` reachable from device `pc2`: [92m OK[00m
+Verifying `192.0.2.11` reachable from device `pc3`: [92m OK[00m
+Verifying `192.0.2.12` reachable from device `pc3`: [92m OK[00m
+Verifying `203.0.113.12` reachable from device `pc3`: [92m OK[00m
+Verifying `192.0.2.11` reachable from device `pc4`: [92m OK[00m
+Verifying `192.0.2.12` reachable from device `pc4`: [92m OK[00m
+Verifying `203.0.113.11` reachable from device `pc4`: [92m OK[00m
+Checking running daemons...
+Checking running daemons on `r1`...
+Checking that bgpd is not running on device `r1`: [92m OK[00m
+Checking that ripd is not running on device `r1`: [92m OK[00m
+Checking that ospfd is not running on device `r1`: [92m OK[00m
+Checking that ospf6d is not running on device `r1`: [92m OK[00m
+Checking running daemons on `r2`...
+Checking that bgpd is not running on device `r2`: [92m OK[00m
+Checking that ripd is not running on device `r2`: [92m OK[00m
+Checking that ospfd is not running on device `r2`: [92m OK[00m
+Checking that ospf6d is not running on device `r2`: [92m OK[00m
+Checking running daemons on `pc1`...
+Checking that bgpd is not running on device `pc1`: [92m OK[00m
+Checking that ripd is not running on device `pc1`: [92m OK[00m
+Checking that ospfd is not running on device `pc1`: [92m OK[00m
+Checking that ospf6d is not running on device `pc1`: [92m OK[00m
+Checking running daemons on `pc2`...
+Checking that bgpd is not running on device `pc2`: [92m OK[00m
+Checking that ripd is not running on device `pc2`: [92m OK[00m
+Checking that ospfd is not running on device `pc2`: [92m OK[00m
+Checking that ospf6d is not running on device `pc2`: [92m OK[00m
+Checking running daemons on `pc3`...
+Checking that bgpd is not running on device `pc3`: [92m OK[00m
+Checking that ripd is not running on device `pc3`: [92m OK[00m
+Checking that ospfd is not running on device `pc3`: [92m OK[00m
+Checking that ospf6d is not running on device `pc3`: [92m OK[00m
+Checking running daemons on `pc4`...
+Checking that bgpd is not running on device `pc4`: [92m OK[00m
+Checking that ripd is not running on device `pc4`: [92m OK[00m
+Checking that ospfd is not running on device `pc4`: [92m OK[00m
+Checking that ospf6d is not running on device `pc4`: [92m OK[00m
+Checking Routing Tables...
+Checking kernel routes for `r1`...
+Checking the routing table of r1: [92m OK[00m
+Checking kernel routes for `r2`...
+Checking the routing table of r2: [92m OK[00m
+Checking kernel routes for `pc1`...
+Checking the routing table of pc1: [92m OK[00m
+Checking kernel routes for `pc2`...
+Checking the routing table of pc2: [92m OK[00m
+Checking kernel routes for `pc3`...
+Checking the routing table of pc3: [92m OK[00m
+Checking kernel routes for `pc4`...
+Checking the routing table of pc4: [92m OK[00m
+Checking custom commands output...
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:1::1/64'' on 'r1': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq '2001:db8:ff::1/64'' on 'r1': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show 2001:db8:2::/64 | grep -Fq 'via 2001:db8:ff::2 dev eth1'' on 'r1': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:ff::2/64'' on 'r2': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq '2001:db8:2::1/64'' on 'r2': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show 2001:db8:1::/64 | grep -Fq 'via 2001:db8:ff::1 dev eth0'' on 'r2': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:1::11/64'' on 'pc1': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via 2001:db8:1::1 dev eth0'' on 'pc1': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ping -6 -q -n -c 1 2001:db8:2::11' on 'pc1': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ping -6 -q -n -c 1 2001:db8:2::12' on 'pc1': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:1::12/64'' on 'pc2': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via 2001:db8:1::1 dev eth0'' on 'pc2': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ping -6 -q -n -c 1 2001:db8:2::11' on 'pc2': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ping -6 -q -n -c 1 2001:db8:2::12' on 'pc2': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:2::11/64'' on 'pc3': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via 2001:db8:2::1 dev eth0'' on 'pc3': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ping -6 -q -n -c 1 2001:db8:1::11' on 'pc3': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ping -6 -q -n -c 1 2001:db8:1::12' on 'pc3': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:2::12/64'' on 'pc4': [91m The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0[00m
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via 2001:db8:2::1 dev eth0'' on 'pc4': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ping -6 -q -n -c 1 2001:db8:1::11' on 'pc4': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Checking the exit code of the command 'ping -6 -q -n -c 1 2001:db8:1::12' on 'pc4': [91m The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0[00m
+Undeploying Network Scenario
+Total Tests: 92
+Passed Tests: 70/92
+Writing test report for candidate in: /Users/matthew/Desktop/A-Tesi/results/Dual-Stack_IPv4_and_IPv6_Static_Routing/with_skill/checker-run/labs/candidate as CSV report...
+
+100%|██████████| 1/1 [00:41<00:00, 41.71s/it]
+100%|██████████| 1/1 [00:41<00:00, 41.71s/it]
+Writing All Test Results into: /Users/matthew/Desktop/A-Tesi/results/Dual-Stack_IPv4_and_IPv6_Static_Routing/with_skill/checker-run/labs as CSV report...

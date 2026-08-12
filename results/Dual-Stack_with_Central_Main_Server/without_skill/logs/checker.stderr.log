@@ -1,0 +1,32 @@
+Parsing test configuration...
+Parsing inline network scenarios template
+Parsing network scenarios in: /Users/matthew/Desktop/A-Tesi/results/Dual-Stack_with_Central_Main_Server/without_skill/checker-run/labs
+
+  0%|          | 0/1 [00:00<?, ?it/s]##################### candidate #####################
+Parsing network scenario in: /Users/matthew/Desktop/A-Tesi/results/Dual-Stack_with_Central_Main_Server/without_skill/checker-run/labs/candidate
+Network scenario name: candidate
+
+  0%|          | 0/1 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/kathara_lab_checker/__main__.py", line 311, in <module>
+    main()
+    ~~~~^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/kathara_lab_checker/__main__.py", line 305, in main
+    run_on_multiple_network_scenarios(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        args.labs, conf, args.no_cache, args.live, args.keep_open, args.report_type
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/kathara_lab_checker/__main__.py", line 161, in run_on_multiple_network_scenarios
+    test_results = run_on_single_network_scenario(
+        os.path.join(labs_path, lab_name), configuration, no_cache, live, keep_open, report_type
+    )
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/kathara_lab_checker/__main__.py", line 76, in run_on_single_network_scenario
+    lab = LabParser().parse(lab_path)
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/Kathara/parser/netkit/LabParser.py", line 83, in parse
+    raise SyntaxError(f"In {conf_name} - Line {line_number}: `{line}`.")
+SyntaxError: In lab.conf - Line 38: `r0[etc/kathara/startup]="r0.startup"
+`.

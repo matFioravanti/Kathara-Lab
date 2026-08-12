@@ -1,0 +1,67 @@
+Test Description,Passed,Reason
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:1::1/64'' on 'r1',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq '2001:db8:ff::1/64'' on 'r1',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show 2001:db8:2::/64 | grep -Fq 'via 2001:db8:ff::2 dev eth1'' on 'r1',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:ff::2/64'' on 'r2',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq '2001:db8:2::1/64'' on 'r2',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show 2001:db8:1::/64 | grep -Fq 'via 2001:db8:ff::1 dev eth0'' on 'r2',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:1::11/64'' on 'pc1',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via 2001:db8:1::1 dev eth0'' on 'pc1',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ping -6 -q -n -c 1 2001:db8:2::11' on 'pc1',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ping -6 -q -n -c 1 2001:db8:2::12' on 'pc1',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:1::12/64'' on 'pc2',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via 2001:db8:1::1 dev eth0'' on 'pc2',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ping -6 -q -n -c 1 2001:db8:2::11' on 'pc2',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ping -6 -q -n -c 1 2001:db8:2::12' on 'pc2',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:2::11/64'' on 'pc3',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via 2001:db8:2::1 dev eth0'' on 'pc3',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ping -6 -q -n -c 1 2001:db8:1::11' on 'pc3',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ping -6 -q -n -c 1 2001:db8:1::12' on 'pc3',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:2::12/64'' on 'pc4',False,"The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"
+Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via 2001:db8:2::1 dev eth0'' on 'pc4',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ping -6 -q -n -c 1 2001:db8:1::11' on 'pc4',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"
+Checking the exit code of the command 'ping -6 -q -n -c 1 2001:db8:1::12' on 'pc4',False,"The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0"

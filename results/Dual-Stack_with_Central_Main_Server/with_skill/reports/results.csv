@@ -1,0 +1,109 @@
+Student Name,Tests Passed,Tests Failed,Tests Total Number,Problems
+candidate,73,36,109,"1: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:1::1/64'' on 'central': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+2: Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq 'fd00:0:2::1/64'' on 'central': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+3: Checking the exit code of the command 'ip -6 addr show dev eth2 | grep -Fq 'fd00:0:3::1/64'' on 'central': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+4: Checking the exit code of the command 'ip -6 addr show dev eth3 | grep -Fq 'fd00:0:10::1/64'' on 'central': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+5: Checking the exit code of the command 'ip -6 route show fd00:0:101::/64 | grep -Fq 'via fd00:0:1::2'' on 'central': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+6: Checking the exit code of the command 'ip -6 route show fd00:0:102::/64 | grep -Fq 'via fd00:0:2::2'' on 'central': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+7: Checking the exit code of the command 'ip -6 route show fd00:0:103::/64 | grep -Fq 'via fd00:0:3::2'' on 'central': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+8: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:1::2/64'' on 'edge1': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+9: Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq 'fd00:0:101::1/64'' on 'edge1': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+10: Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:1::1'' on 'edge1': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+11: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:2::2/64'' on 'edge2': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+12: Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq 'fd00:0:102::1/64'' on 'edge2': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+13: Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:2::1'' on 'edge2': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+14: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:3::2/64'' on 'edge3': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+15: Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq 'fd00:0:103::1/64'' on 'edge3': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+16: Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:3::1'' on 'edge3': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+17: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:10::10/64'' on 'server': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+18: Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:10::1'' on 'server': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+19: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:101::11/64'' on 'e1c1': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+20: Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:101::1'' on 'e1c1': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+21: Checking the exit code of the command 'ping -6 -q -n -c 1 fd00:0:10::10' on 'e1c1': The exit code of the command differs from the expected one.
+ Actual: 2
+ Expected: 0
+22: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:101::12/64'' on 'e1c2': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+23: Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:101::1'' on 'e1c2': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+24: Checking the exit code of the command 'ping -6 -q -n -c 1 fd00:0:10::10' on 'e1c2': The exit code of the command differs from the expected one.
+ Actual: 2
+ Expected: 0
+25: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:102::11/64'' on 'e2c1': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+26: Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:102::1'' on 'e2c1': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+27: Checking the exit code of the command 'ping -6 -q -n -c 1 fd00:0:10::10' on 'e2c1': The exit code of the command differs from the expected one.
+ Actual: 2
+ Expected: 0
+28: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:102::12/64'' on 'e2c2': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+29: Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:102::1'' on 'e2c2': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+30: Checking the exit code of the command 'ping -6 -q -n -c 1 fd00:0:10::10' on 'e2c2': The exit code of the command differs from the expected one.
+ Actual: 2
+ Expected: 0
+31: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:103::11/64'' on 'e3c1': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+32: Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:103::1'' on 'e3c1': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+33: Checking the exit code of the command 'ping -6 -q -n -c 1 fd00:0:10::10' on 'e3c1': The exit code of the command differs from the expected one.
+ Actual: 2
+ Expected: 0
+34: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq 'fd00:0:103::12/64'' on 'e3c2': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+35: Checking the exit code of the command 'ip -6 route show default | grep -Fq 'via fd00:0:103::1'' on 'e3c2': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+36: Checking the exit code of the command 'ping -6 -q -n -c 1 fd00:0:10::10' on 'e3c2': The exit code of the command differs from the expected one.
+ Actual: 2
+ Expected: 0"

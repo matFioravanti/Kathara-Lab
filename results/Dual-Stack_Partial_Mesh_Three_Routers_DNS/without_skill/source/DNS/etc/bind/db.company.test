@@ -1,0 +1,9 @@
+$TTL 3600
+@   IN SOA dns.company.test. admin.company.test. (
+        2026081201 3600 900 604800 3600 )
+    IN NS  dns.company.test.
+dns IN A    192.168.1.53
+dns IN AAAA 2001:db8:1::53
+@   IN A    192.168.2.80
+@   IN AAAA 2001:db8:2::80
+www IN CNAME company.test.

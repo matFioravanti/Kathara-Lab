@@ -1,0 +1,147 @@
+Student Name,Tests Passed,Tests Failed,Tests Total Number,Problems
+candidate,67,106,173,"1: Verifying the IP address (10.10.1.1/24) assigned to eth0 of r1: The interface `eth0` of `r1` has the following IP addresses: []`.
+2: Verifying the IP address (10.255.12.1/30) assigned to eth1 of r1: The interface `eth1` of `r1` has the following IP addresses: []`.
+3: Verifying the IP address (10.255.12.2/30) assigned to eth0 of r2: The interface `eth0` of `r2` has the following IP addresses: []`.
+4: Verifying the IP address (10.255.23.1/30) assigned to eth1 of r2: The interface `eth1` of `r2` has the following IP addresses: []`.
+5: Verifying the IP address (10.10.2.1/24) assigned to eth2 of r2: The interface `eth2` of `r2` has the following IP addresses: []`.
+6: Verifying the IP address (10.255.23.2/30) assigned to eth0 of r3: The interface `eth0` of `r3` has the following IP addresses: []`.
+7: Verifying the IP address (10.10.3.1/24) assigned to eth1 of r3: The interface `eth1` of `r3` has the following IP addresses: []`.
+8: Verifying `10.10.2.11` reachable from device `pc1`: ping: connect: Network is unreachable
+9: Verifying `10.10.2.12` reachable from device `pc1`: ping: connect: Network is unreachable
+10: Verifying `10.10.2.13` reachable from device `pc1`: ping: connect: Network is unreachable
+11: Verifying `10.10.3.11` reachable from device `pc1`: ping: connect: Network is unreachable
+12: Verifying `10.10.3.12` reachable from device `pc1`: ping: connect: Network is unreachable
+13: Verifying `10.10.3.13` reachable from device `pc1`: ping: connect: Network is unreachable
+14: Verifying `10.10.2.11` reachable from device `pc2`: ping: connect: Network is unreachable
+15: Verifying `10.10.2.12` reachable from device `pc2`: ping: connect: Network is unreachable
+16: Verifying `10.10.2.13` reachable from device `pc2`: ping: connect: Network is unreachable
+17: Verifying `10.10.3.11` reachable from device `pc2`: ping: connect: Network is unreachable
+18: Verifying `10.10.3.12` reachable from device `pc2`: ping: connect: Network is unreachable
+19: Verifying `10.10.3.13` reachable from device `pc2`: ping: connect: Network is unreachable
+20: Verifying `10.10.2.11` reachable from device `pc3`: ping: connect: Network is unreachable
+21: Verifying `10.10.2.12` reachable from device `pc3`: ping: connect: Network is unreachable
+22: Verifying `10.10.2.13` reachable from device `pc3`: ping: connect: Network is unreachable
+23: Verifying `10.10.3.11` reachable from device `pc3`: ping: connect: Network is unreachable
+24: Verifying `10.10.3.12` reachable from device `pc3`: ping: connect: Network is unreachable
+25: Verifying `10.10.3.13` reachable from device `pc3`: ping: connect: Network is unreachable
+26: Verifying `10.10.1.11` reachable from device `pc4`: ping: connect: Network is unreachable
+27: Verifying `10.10.1.12` reachable from device `pc4`: ping: connect: Network is unreachable
+28: Verifying `10.10.1.13` reachable from device `pc4`: ping: connect: Network is unreachable
+29: Verifying `10.10.3.11` reachable from device `pc4`: ping: connect: Network is unreachable
+30: Verifying `10.10.3.12` reachable from device `pc4`: ping: connect: Network is unreachable
+31: Verifying `10.10.3.13` reachable from device `pc4`: ping: connect: Network is unreachable
+32: Verifying `10.10.1.11` reachable from device `pc5`: ping: connect: Network is unreachable
+33: Verifying `10.10.1.12` reachable from device `pc5`: ping: connect: Network is unreachable
+34: Verifying `10.10.1.13` reachable from device `pc5`: ping: connect: Network is unreachable
+35: Verifying `10.10.3.11` reachable from device `pc5`: ping: connect: Network is unreachable
+36: Verifying `10.10.3.12` reachable from device `pc5`: ping: connect: Network is unreachable
+37: Verifying `10.10.3.13` reachable from device `pc5`: ping: connect: Network is unreachable
+38: Verifying `10.10.1.11` reachable from device `pc6`: ping: connect: Network is unreachable
+39: Verifying `10.10.1.12` reachable from device `pc6`: ping: connect: Network is unreachable
+40: Verifying `10.10.1.13` reachable from device `pc6`: ping: connect: Network is unreachable
+41: Verifying `10.10.3.11` reachable from device `pc6`: ping: connect: Network is unreachable
+42: Verifying `10.10.3.12` reachable from device `pc6`: ping: connect: Network is unreachable
+43: Verifying `10.10.3.13` reachable from device `pc6`: ping: connect: Network is unreachable
+44: Verifying `10.10.1.11` reachable from device `pc7`: ping: connect: Network is unreachable
+45: Verifying `10.10.1.12` reachable from device `pc7`: ping: connect: Network is unreachable
+46: Verifying `10.10.1.13` reachable from device `pc7`: ping: connect: Network is unreachable
+47: Verifying `10.10.2.11` reachable from device `pc7`: ping: connect: Network is unreachable
+48: Verifying `10.10.2.12` reachable from device `pc7`: ping: connect: Network is unreachable
+49: Verifying `10.10.2.13` reachable from device `pc7`: ping: connect: Network is unreachable
+50: Verifying `10.10.1.11` reachable from device `pc8`: ping: connect: Network is unreachable
+51: Verifying `10.10.1.12` reachable from device `pc8`: ping: connect: Network is unreachable
+52: Verifying `10.10.1.13` reachable from device `pc8`: ping: connect: Network is unreachable
+53: Verifying `10.10.2.11` reachable from device `pc8`: ping: connect: Network is unreachable
+54: Verifying `10.10.2.12` reachable from device `pc8`: ping: connect: Network is unreachable
+55: Verifying `10.10.2.13` reachable from device `pc8`: ping: connect: Network is unreachable
+56: Verifying `10.10.1.11` reachable from device `pc9`: ping: connect: Network is unreachable
+57: Verifying `10.10.1.12` reachable from device `pc9`: ping: connect: Network is unreachable
+58: Verifying `10.10.1.13` reachable from device `pc9`: ping: connect: Network is unreachable
+59: Verifying `10.10.2.11` reachable from device `pc9`: ping: connect: Network is unreachable
+60: Verifying `10.10.2.12` reachable from device `pc9`: ping: connect: Network is unreachable
+61: Verifying `10.10.2.13` reachable from device `pc9`: ping: connect: Network is unreachable
+62: Checking the routing table of r1: The routing table of r1 have the wrong number of routes: 0, expected: 1
+63: Checking the routing table of r1: The routing table of r1 is missing route 0.0.0.0/0
+64: Checking the routing table of r2: The routing table of r2 have the wrong number of routes: 0, expected: 2
+65: Checking the routing table of r2: The routing table of r2 is missing route 10.10.1.0/24
+66: Checking the routing table of r2: The routing table of r2 is missing route 10.10.3.0/24
+67: Checking the routing table of r3: The routing table of r3 have the wrong number of routes: 0, expected: 1
+68: Checking the routing table of r3: The routing table of r3 is missing route 0.0.0.0/0
+69: Checking the routing table of pc1: The routing table of pc1 have the wrong number of routes: 0, expected: 1
+70: Checking the routing table of pc1: The routing table of pc1 is missing route 0.0.0.0/0
+71: Checking the routing table of pc2: The routing table of pc2 have the wrong number of routes: 0, expected: 1
+72: Checking the routing table of pc2: The routing table of pc2 is missing route 0.0.0.0/0
+73: Checking the routing table of pc3: The routing table of pc3 have the wrong number of routes: 0, expected: 1
+74: Checking the routing table of pc3: The routing table of pc3 is missing route 0.0.0.0/0
+75: Checking the routing table of pc4: The routing table of pc4 have the wrong number of routes: 0, expected: 1
+76: Checking the routing table of pc4: The routing table of pc4 is missing route 0.0.0.0/0
+77: Checking the routing table of pc5: The routing table of pc5 have the wrong number of routes: 0, expected: 1
+78: Checking the routing table of pc5: The routing table of pc5 is missing route 0.0.0.0/0
+79: Checking the routing table of pc6: The routing table of pc6 have the wrong number of routes: 0, expected: 1
+80: Checking the routing table of pc6: The routing table of pc6 is missing route 0.0.0.0/0
+81: Checking the routing table of pc7: The routing table of pc7 have the wrong number of routes: 0, expected: 1
+82: Checking the routing table of pc7: The routing table of pc7 is missing route 0.0.0.0/0
+83: Checking the routing table of pc8: The routing table of pc8 have the wrong number of routes: 0, expected: 1
+84: Checking the routing table of pc8: The routing table of pc8 is missing route 0.0.0.0/0
+85: Checking the routing table of pc9: The routing table of pc9 have the wrong number of routes: 0, expected: 1
+86: Checking the routing table of pc9: The routing table of pc9 is missing route 0.0.0.0/0
+87: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:1::1/64'' on 'r1': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+88: Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq '2001:db8:10:12::1/64'' on 'r1': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+89: Checking the exit code of the command 'ip -6 route show default | grep -Fqx 'default via 2001:db8:10:12::2 dev eth1'' on 'r1': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+90: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:12::2/64'' on 'r2': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+91: Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq '2001:db8:10:23::1/64'' on 'r2': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+92: Checking the exit code of the command 'ip -6 addr show dev eth2 | grep -Fq '2001:db8:10:2::1/64'' on 'r2': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+93: Checking the exit code of the command 'ip -6 route show 2001:db8:10:1::/64 | grep -Fq 'via 2001:db8:10:12::1'' on 'r2': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+94: Checking the exit code of the command 'ip -6 route show 2001:db8:10:3::/64 | grep -Fq 'via 2001:db8:10:23::2'' on 'r2': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+95: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:23::2/64'' on 'r3': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+96: Checking the exit code of the command 'ip -6 addr show dev eth1 | grep -Fq '2001:db8:10:3::1/64'' on 'r3': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+97: Checking the exit code of the command 'ip -6 route show default | grep -Fqx 'default via 2001:db8:10:23::1 dev eth0'' on 'r3': The exit code of the command differs from the expected one.
+ Actual: 1
+ Expected: 0
+98: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:1::11/64' && ip -6 route show default | grep -Fq 'via 2001:db8:10:1::1'' on 'pc1': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+99: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:1::12/64' && ip -6 route show default | grep -Fq 'via 2001:db8:10:1::1'' on 'pc2': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+100: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:1::13/64' && ip -6 route show default | grep -Fq 'via 2001:db8:10:1::1'' on 'pc3': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+101: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:2::11/64' && ip -6 route show default | grep -Fq 'via 2001:db8:10:2::1'' on 'pc4': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+102: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:2::12/64' && ip -6 route show default | grep -Fq 'via 2001:db8:10:2::1'' on 'pc5': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+103: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:2::13/64' && ip -6 route show default | grep -Fq 'via 2001:db8:10:2::1'' on 'pc6': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+104: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:3::11/64' && ip -6 route show default | grep -Fq 'via 2001:db8:10:3::1'' on 'pc7': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+105: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:3::12/64' && ip -6 route show default | grep -Fq 'via 2001:db8:10:3::1'' on 'pc8': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0
+106: Checking the exit code of the command 'ip -6 addr show dev eth0 | grep -Fq '2001:db8:10:3::13/64' && ip -6 route show default | grep -Fq 'via 2001:db8:10:3::1'' on 'pc9': The exit code of the command differs from the expected one.
+ Actual: 255
+ Expected: 0"

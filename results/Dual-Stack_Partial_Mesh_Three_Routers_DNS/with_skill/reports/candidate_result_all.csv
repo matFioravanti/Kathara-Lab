@@ -1,0 +1,142 @@
+Test Description,Passed,Reason
+Check existence of `r1`,True,OK
+Check existence of `r2`,True,OK
+Check existence of `r3`,True,OK
+Check existence of `client`,True,OK
+Check existence of `dns`,True,OK
+Check existence of `web`,True,OK
+Check existence of `pc1`,True,OK
+Check existence of `pc2`,True,OK
+Checking the collision domain attached to interface `eth0` of `r1`,True,OK
+Checking the collision domain attached to interface `eth1` of `r1`,True,OK
+Checking the collision domain attached to interface `eth2` of `r1`,True,OK
+Checking the collision domain attached to interface `eth0` of `r2`,True,OK
+Checking the collision domain attached to interface `eth1` of `r2`,True,OK
+Checking the collision domain attached to interface `eth2` of `r2`,True,OK
+Checking the collision domain attached to interface `eth0` of `r3`,True,OK
+Checking the collision domain attached to interface `eth1` of `r3`,True,OK
+Checking the collision domain attached to interface `eth2` of `r3`,True,OK
+Checking the collision domain attached to interface `eth0` of `client`,True,OK
+Checking the collision domain attached to interface `eth0` of `dns`,True,OK
+Checking the collision domain attached to interface `eth0` of `web`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc1`,True,OK
+Checking the collision domain attached to interface `eth0` of `pc2`,True,OK
+Check existence of `r1.startup` file,True,OK
+Check existence of `r2.startup` file,True,OK
+Check existence of `r3.startup` file,True,OK
+Check existence of `client.startup` file,True,OK
+Check existence of `dns.startup` file,True,OK
+Check existence of `web.startup` file,True,OK
+Check existence of `pc1.startup` file,True,OK
+Check existence of `pc2.startup` file,True,OK
+Verifying the IP address (10.0.12.1/30) assigned to eth0 of r1,True,OK
+Verifying the IP address (10.0.13.1/30) assigned to eth1 of r1,True,OK
+Verifying the IP address (192.168.10.1/24) assigned to eth2 of r1,True,OK
+Verifying the IP address (10.0.12.2/30) assigned to eth0 of r2,True,OK
+Verifying the IP address (10.0.23.1/30) assigned to eth1 of r2,True,OK
+Verifying the IP address (192.168.20.1/24) assigned to eth2 of r2,True,OK
+Verifying the IP address (10.0.13.2/30) assigned to eth0 of r3,True,OK
+Verifying the IP address (10.0.23.2/30) assigned to eth1 of r3,True,OK
+Verifying the IP address (192.168.30.1/24) assigned to eth2 of r3,True,OK
+Verifying the IP address (192.168.10.10/24) assigned to eth0 of client,True,OK
+Verifying the IP address (192.168.10.53/24) assigned to eth0 of dns,True,OK
+Verifying the IP address (192.168.20.80/24) assigned to eth0 of web,True,OK
+Verifying the IP address (192.168.30.10/24) assigned to eth0 of pc1,True,OK
+Verifying the IP address (192.168.30.11/24) assigned to eth0 of pc2,True,OK
+Verifying `company.test` reachable from device `client`,True,OK
+Verifying `192.168.20.80` reachable from device `client`,True,OK
+Checking that named is running on device `dns`,True,OK
+Checking that apache2 is running on device `web`,True,OK
+Checking the routing table of r1,True,OK
+Checking the routing table of r2,True,OK
+Checking the routing table of r3,True,OK
+Checking the routing table of client,True,OK
+Checking the routing table of dns,True,OK
+Checking the routing table of web,True,OK
+Checking the routing table of pc1,True,OK
+Checking the routing table of pc2,True,OK
+Checking on `dns` that `192.168.10.53` is the authority for domain `company.test`,True,OK
+Checking that `192.168.10.53` is the local name server for device `client`,True,OK
+Checking that `2001:db8:10::53` is the local name server for device `client`,True,OK
+Checking correctness of DNS records,True,OK
+Checking correctness of DNS records,True,OK
+HTTP check 'http://company.test/' on client status,True,HTTP 200 == 200
+Checking the output of the command 'ip -6 addr show dev eth0' on 'r1',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:12::1/64\s+scope global"
+Checking the output of the command 'ip -6 addr show dev eth1' on 'r1',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:13::1/64\s+scope global"
+Checking the output of the command 'ip -6 addr show dev eth2' on 'r1',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:10::1/64\s+scope global"
+Checking the output of the command 'ip -6 route show 2001:db8:20::/64' on 'r1',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^2001:db8:20::/64 via 2001:db8:12::2 dev eth0\b"
+Checking the output of the command 'ip -6 route show 2001:db8:30::/64' on 'r1',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^2001:db8:30::/64 via 2001:db8:13::2 dev eth1\b"
+Checking the output of the command 'ip -6 addr show dev eth0' on 'r2',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:12::2/64\s+scope global"
+Checking the output of the command 'ip -6 addr show dev eth1' on 'r2',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:23::1/64\s+scope global"
+Checking the output of the command 'ip -6 addr show dev eth2' on 'r2',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:20::1/64\s+scope global"
+Checking the output of the command 'ip -6 route show 2001:db8:10::/64' on 'r2',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^2001:db8:10::/64 via 2001:db8:12::1 dev eth0\b"
+Checking the output of the command 'ip -6 route show 2001:db8:30::/64' on 'r2',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^2001:db8:30::/64 via 2001:db8:23::2 dev eth1\b"
+Checking the output of the command 'ip -6 addr show dev eth0' on 'r3',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:13::2/64\s+scope global"
+Checking the output of the command 'ip -6 addr show dev eth1' on 'r3',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:23::2/64\s+scope global"
+Checking the output of the command 'ip -6 addr show dev eth2' on 'r3',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:30::1/64\s+scope global"
+Checking the output of the command 'ip -6 route show 2001:db8:10::/64' on 'r3',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^2001:db8:10::/64 via 2001:db8:13::1 dev eth0\b"
+Checking the output of the command 'ip -6 route show 2001:db8:20::/64' on 'r3',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^2001:db8:20::/64 via 2001:db8:23::1 dev eth1\b"
+Checking the output of the command 'ip -6 addr show dev eth0' on 'client',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:10::10/64\s+scope global"
+Checking the output of the command 'ip -6 route show default' on 'client',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^default via 2001:db8:10::1 dev eth0\b"
+Checking the exit code of the command 'curl -4 -fsS http://company.test/' on 'client',True,OK
+Checking the exit code of the command 'curl -6 -fsS http://company.test/' on 'client',False,"The exit code of the command differs from the expected one.
+ Actual: 7
+ Expected: 0"
+Checking the output of the command 'ip -6 addr show dev eth0' on 'dns',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:10::53/64\s+scope global"
+Checking the output of the command 'ip -6 route show default' on 'dns',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^default via 2001:db8:10::1 dev eth0\b"
+Checking the output of the command 'ip -6 addr show dev eth0' on 'web',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:20::80/64\s+scope global"
+Checking the output of the command 'ip -6 route show default' on 'web',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^default via 2001:db8:20::1 dev eth0\b"
+Checking the output of the command 'ip -6 addr show dev eth0' on 'pc1',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:30::10/64\s+scope global"
+Checking the output of the command 'ip -6 route show default' on 'pc1',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^default via 2001:db8:30::1 dev eth0\b"
+Checking the output of the command 'ip -6 addr show dev eth0' on 'pc2',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: (?m)^\s*inet6 2001:db8:30::11/64\s+scope global"
+Checking the output of the command 'ip -6 route show default' on 'pc2',False,"The output of the command do not match the expected regex.
+ Actual: 
+ Regex: ^default via 2001:db8:30::1 dev eth0\b"

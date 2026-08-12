@@ -1,0 +1,181 @@
+Parsing test configuration...
+Parsing inline network scenarios template
+Parsing network scenarios in: /Users/matthew/Desktop/A-Tesi/results/Complete_Routing_DNS_and_Web_Lab_IPv4_Six_Routers/with_skill/checker-run/labs
+
+  0%|          | 0/1 [00:00<?, ?it/s]##################### candidate #####################
+Parsing network scenario in: /Users/matthew/Desktop/A-Tesi/results/Complete_Routing_DNS_and_Web_Lab_IPv4_Six_Routers/with_skill/checker-run/labs/candidate
+Network scenario name: candidate
+Undeploying network scenario in case it was running...
+Deploying network scenario...
+Waiting convergence...
+Starting tests
+Verifying lab structure using inline lab.conf template
+Checking devices existence...
+Check existence of `r1`: [92m OK[00m
+Check existence of `r2`: [92m OK[00m
+Check existence of `r3`: [92m OK[00m
+Check existence of `r4`: [92m OK[00m
+Check existence of `r5`: [92m OK[00m
+Check existence of `r6`: [92m OK[00m
+Check existence of `client`: [92m OK[00m
+Check existence of `localdns`: [92m OK[00m
+Check existence of `rootdns`: [92m OK[00m
+Check existence of `orgdns`: [92m OK[00m
+Check existence of `authdns`: [92m OK[00m
+Check existence of `web`: [92m OK[00m
+Check existence of `main`: [92m OK[00m
+Check existence of `pc6a`: [92m OK[00m
+Check existence of `pc6b`: [92m OK[00m
+Checking collision domains...
+Checking the collision domain attached to interface `eth0` of `r1`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r1`: [92m OK[00m
+Checking the collision domain attached to interface `eth2` of `r1`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `r2`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r2`: [92m OK[00m
+Checking the collision domain attached to interface `eth2` of `r2`: [92m OK[00m
+Checking the collision domain attached to interface `eth3` of `r2`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `r3`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r3`: [92m OK[00m
+Checking the collision domain attached to interface `eth2` of `r3`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `r4`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r4`: [92m OK[00m
+Checking the collision domain attached to interface `eth2` of `r4`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `r5`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r5`: [92m OK[00m
+Checking the collision domain attached to interface `eth2` of `r5`: [92m OK[00m
+Checking the collision domain attached to interface `eth3` of `r5`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `r6`: [92m OK[00m
+Checking the collision domain attached to interface `eth1` of `r6`: [92m OK[00m
+Checking the collision domain attached to interface `eth2` of `r6`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `client`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `localdns`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `rootdns`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `orgdns`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `authdns`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `web`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `main`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc6a`: [92m OK[00m
+Checking the collision domain attached to interface `eth0` of `pc6b`: [92m OK[00m
+Checking that all required startup files exist...
+Check existence of `r1.startup` file: [92m OK[00m
+Check existence of `r2.startup` file: [92m OK[00m
+Check existence of `r3.startup` file: [92m OK[00m
+Check existence of `r4.startup` file: [92m OK[00m
+Check existence of `r5.startup` file: [92m OK[00m
+Check existence of `r6.startup` file: [92m OK[00m
+Check existence of `client.startup` file: [92m OK[00m
+Check existence of `localdns.startup` file: [92m OK[00m
+Check existence of `rootdns.startup` file: [92m OK[00m
+Check existence of `orgdns.startup` file: [92m OK[00m
+Check existence of `authdns.startup` file: [92m OK[00m
+Check existence of `web.startup` file: [92m OK[00m
+Check existence of `main.startup` file: [92m OK[00m
+Check existence of `pc6a.startup` file: [92m OK[00m
+Check existence of `pc6b.startup` file: [92m OK[00m
+Verifying the IP addresses assigned to devices...
+Checking IPs for `r1`...
+Verifying the IP address (10.0.12.1/30) assigned to eth0 of r1: [92m OK[00m
+Verifying the IP address (10.0.13.1/30) assigned to eth1 of r1: [92m OK[00m
+Verifying the IP address (192.168.1.1/24) assigned to eth2 of r1: [92m OK[00m
+Checking IPs for `r2`...
+Verifying the IP address (10.0.12.2/30) assigned to eth0 of r2: [92m OK[00m
+Verifying the IP address (10.0.24.1/30) assigned to eth1 of r2: [92m OK[00m
+Verifying the IP address (10.0.25.1/30) assigned to eth2 of r2: [92m OK[00m
+Verifying the IP address (192.168.2.1/24) assigned to eth3 of r2: [92m OK[00m
+Checking IPs for `r3`...
+Verifying the IP address (10.0.13.2/30) assigned to eth0 of r3: [92m OK[00m
+Verifying the IP address (10.0.35.1/30) assigned to eth1 of r3: [92m OK[00m
+Verifying the IP address (192.168.3.1/24) assigned to eth2 of r3: [92m OK[00m
+Checking IPs for `r4`...
+Verifying the IP address (10.0.24.2/30) assigned to eth0 of r4: [92m OK[00m
+Verifying the IP address (10.0.46.1/30) assigned to eth1 of r4: [92m OK[00m
+Verifying the IP address (192.168.4.1/24) assigned to eth2 of r4: [92m OK[00m
+Checking IPs for `r5`...
+Verifying the IP address (10.0.25.2/30) assigned to eth0 of r5: [92m OK[00m
+Verifying the IP address (10.0.35.2/30) assigned to eth1 of r5: [92m OK[00m
+Verifying the IP address (10.0.56.1/30) assigned to eth2 of r5: [92m OK[00m
+Verifying the IP address (192.168.5.1/24) assigned to eth3 of r5: [92m OK[00m
+Checking IPs for `r6`...
+Verifying the IP address (10.0.46.2/30) assigned to eth0 of r6: [92m OK[00m
+Verifying the IP address (10.0.56.2/30) assigned to eth1 of r6: [92m OK[00m
+Verifying the IP address (192.168.6.1/24) assigned to eth2 of r6: [92m OK[00m
+Checking IPs for `client`...
+Verifying the IP address (192.168.1.10/24) assigned to eth0 of client: [92m OK[00m
+Checking IPs for `localdns`...
+Verifying the IP address (192.168.1.53/24) assigned to eth0 of localdns: [92m OK[00m
+Checking IPs for `rootdns`...
+Verifying the IP address (192.168.2.53/24) assigned to eth0 of rootdns: [92m OK[00m
+Checking IPs for `orgdns`...
+Verifying the IP address (192.168.3.53/24) assigned to eth0 of orgdns: [92m OK[00m
+Checking IPs for `authdns`...
+Verifying the IP address (192.168.4.53/24) assigned to eth0 of authdns: [92m OK[00m
+Checking IPs for `web`...
+Verifying the IP address (192.168.4.80/24) assigned to eth0 of web: [92m OK[00m
+Checking IPs for `main`...
+Verifying the IP address (192.168.5.80/24) assigned to eth0 of main: [92m OK[00m
+Checking IPs for `pc6a`...
+Verifying the IP address (192.168.6.10/24) assigned to eth0 of pc6a: [92m OK[00m
+Checking IPs for `pc6b`...
+Verifying the IP address (192.168.6.11/24) assigned to eth0 of pc6b: [92m OK[00m
+Starting reachability test...
+Verifying `research.org` reachable from device `client`: [92m OK[00m
+Verifying `main.research.org` reachable from device `client`: [92m OK[00m
+Checking Routing Tables...
+Checking kernel routes for `r1`...
+Checking the routing table of r1: [92m OK[00m
+Checking kernel routes for `r2`...
+Checking the routing table of r2: [92m OK[00m
+Checking kernel routes for `r3`...
+Checking the routing table of r3: [92m OK[00m
+Checking kernel routes for `r4`...
+Checking the routing table of r4: [92m OK[00m
+Checking kernel routes for `r5`...
+Checking the routing table of r5: [92m OK[00m
+Checking kernel routes for `r6`...
+Checking the routing table of r6: [92m OK[00m
+Checking kernel routes for `client`...
+Checking the routing table of client: [92m OK[00m
+Checking kernel routes for `localdns`...
+Checking the routing table of localdns: [92m OK[00m
+Checking kernel routes for `rootdns`...
+Checking the routing table of rootdns: [92m OK[00m
+Checking kernel routes for `orgdns`...
+Checking the routing table of orgdns: [92m OK[00m
+Checking kernel routes for `authdns`...
+Checking the routing table of authdns: [92m OK[00m
+Checking kernel routes for `web`...
+Checking the routing table of web: [92m OK[00m
+Checking kernel routes for `main`...
+Checking the routing table of main: [92m OK[00m
+Checking kernel routes for `pc6a`...
+Checking the routing table of pc6a: [92m OK[00m
+Checking kernel routes for `pc6b`...
+Checking the routing table of pc6b: [92m OK[00m
+Checking DNS authorities...
+Checking authority ip for domain `.`
+Checking on `rootdns` that `192.168.2.53` is the authority for domain `.`: [92m OK[00m
+Checking if all the named servers can correctly resolve 192.168.2.53 as the root nameserver...
+Checking on `rootdns` that `192.168.2.53` is the authority for domain `.`: [92m OK[00m
+Checking on `localdns` that `192.168.2.53` is the authority for domain `.`: [92m OK[00m
+Checking authority ip for domain `org`
+Checking on `orgdns` that `192.168.3.53` is the authority for domain `org`: [92m OK[00m
+Checking authority ip for domain `research.org`
+Checking on `authdns` that `192.168.4.53` is the authority for domain `research.org`: [92m OK[00m
+Checking local name servers configurations...
+Checking that `192.168.1.53` is the local name server for device `client`: [92m OK[00m
+Checking DNS records...
+Checking correctness of DNS records: [92m OK[00m
+Checking correctness of DNS records: [92m OK[00m
+Checking HTTP endpoints via cURL...
+Performing HTTP checks on web...
+HTTP check 'http://192.168.4.80/' on web status: [92m HTTP 200 == 200[00m
+Performing HTTP checks on main...
+HTTP check 'http://192.168.5.80/' on main status: [92m HTTP 200 == 200[00m
+Undeploying Network Scenario
+Total Tests: 115
+Passed Tests: 115/115
+Writing test report for candidate in: /Users/matthew/Desktop/A-Tesi/results/Complete_Routing_DNS_and_Web_Lab_IPv4_Six_Routers/with_skill/checker-run/labs/candidate as CSV report...
+
+100%|██████████| 1/1 [00:25<00:00, 25.68s/it]
+100%|██████████| 1/1 [00:25<00:00, 25.68s/it]
+Writing All Test Results into: /Users/matthew/Desktop/A-Tesi/results/Complete_Routing_DNS_and_Web_Lab_IPv4_Six_Routers/with_skill/checker-run/labs as CSV report...

@@ -1,0 +1,6 @@
+#!/bin/sh
+# Host on the root router LAN.
+ip addr add 192.168.10.10/24 dev eth0
+ip -6 addr add 2001:db8:10::10/64 dev eth0
+ip route add default via 192.168.10.1
+ip -6 route add default via 2001:db8:10::1

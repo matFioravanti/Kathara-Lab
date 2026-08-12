@@ -1,0 +1,7 @@
+#!/bin/sh
+set -eu
+ip link set eth0 up
+ip addr add 10.0.10.10/24 dev eth0
+ip -6 addr add 2001:db8:10::10/64 dev eth0
+ip route add default via 10.0.10.1
+ip -6 route add default via 2001:db8:10::1

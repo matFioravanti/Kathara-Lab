@@ -1,7 +1,8 @@
 experiment_id,prompt_file,outcome,reason,with_skill_pass_percentage,without_skill_pass_percentage,delta_pass_percentage_points
-All_Routes_Explicit_No_Default_Routes_IPv4,"All Routes Explicit, No Default Routes, IPv4.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,100.0,,
-Authoritative_DNS_for_Multiple_Domains_IPv4,"Authoritative DNS for Multiple Domains, IPv4.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,100.0,,
-Central_Web_Server_IPv4_Three_Routers,"Central Web Server, IPv4, Three Routers.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,100.0,,
-Client_Reaches_Web_Server_by_Name_IPv4_Simple_DNS,"Client Reaches Web Server by Name, IPv4, Simple DNS.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,100.0,,
-Complete_Routing_DNS_and_Web_Lab_IPv4_Six_Routers,"Complete Routing, DNS, and Web Lab, IPv4, Six Routers.md",WITH_SKILL_BETTER,With-skill candidate failed fewer checks.,100.0,92.173913,7.826087
-Default_Routes_on_Edge_Routers_IPv4_Line_Topology,"Default Routes on Edge Routers, IPv4, Line Topology.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,48.529412,,
+Dual-Stack_IPv4_and_IPv6_Static_Routing,Dual-Stack IPv4 and IPv6 Static Routing.md,INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,76.086957,,
+Dual-Stack_Line_Topology_Three_Routers,"Dual-Stack Line Topology, Three Routers.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,38.728324,,
+Dual-Stack_Partial_Mesh_DNS_and_Web_Six_Routers,"Dual-Stack Partial Mesh, DNS and Web, Six Routers.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,85.507246,,
+Dual-Stack_Partial_Mesh_Three_Routers_DNS,"Dual-Stack Partial Mesh, Three Routers, DNS.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,70.786517,,
+Dual-Stack_Ring_Four_Routers_PCs,"Dual-Stack Ring, Four Routers, PCs.md",INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,53.571429,,
+Dual-Stack_Tree_Topology,Dual-Stack Tree Topology.md,INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,65.671642,,
+Dual-Stack_with_Central_Main_Server,Dual-Stack with Central Main Server.md,INCOMPARABLE,Both checker runs must complete successfully for a paired quality comparison.,66.972477,,
